@@ -1,0 +1,10 @@
+node_modules
+coverage
+dist/report.html
+
+# IDE files
+.idea/**/workspace.xml
+.idea/statistic.xml
+
+# Macos
+.DS_Store
