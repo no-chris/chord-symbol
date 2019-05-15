@@ -19,9 +19,9 @@ import degreesToIntervals from './degreesToIntervals';
 const allSymbols = Object
 	.keys(symbolsToModifiers)
 	.sort((a, b) => b.length - a.length)
+	.map(escapeRegex)
 	.join('|');
-const symbolsRegexp = new RegExp('^' + allSymbols + '$', 'g');
-
+const symbolsRegexp = new RegExp(allSymbols, 'g');
 
 const rootAndBassNoteRegexp = new RegExp(
 	'^'
@@ -60,7 +60,7 @@ export default function parseChord(string) {
 					modifierId = symbolsToModifiers[symbol];
 					descriptor = allModifiersDetails[modifierId];
 
-					includedDegrees.push(...(descriptor.includes || []));
+					includedDegrees.push(...descriptor.includes);
 					excludedDegrees.push(...(descriptor.excludes || []));
 					impliedDegrees.push(...(descriptor.implies || []));
 				});
@@ -118,4 +118,9 @@ function getImpliedDegrees(excludedDegrees, impliedDegrees) {
 		degrees.push('11');
 	}
 	return degrees;
+}
+
+// Based on https://stackoverflow.com/a/6969486
+function escapeRegex(string) {
+	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

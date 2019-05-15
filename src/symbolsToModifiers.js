@@ -7,19 +7,19 @@ export default {
 	'2':			allModifiers.add2,
 	'add2':			allModifiers.add2,
 
-	'm': 		allModifiers.min,
-	'mi': 		allModifiers.min,
-	'MI': 		allModifiers.min,
-	'min': 		allModifiers.min,
-	'minor':	allModifiers.min,
+	'm': 			allModifiers.min,
+	'mi': 			allModifiers.min,
+	'MI': 			allModifiers.min,
+	'min': 			allModifiers.min,
+	'minor':		allModifiers.min,
 
-	'Δ':		allModifiers.maj,
-	'M': 		allModifiers.maj,
-	'MA': 		allModifiers.maj,
-	'Maj': 		allModifiers.maj,
-	'maj':		allModifiers.maj,
-	'Major':	allModifiers.maj,
-	'major':	allModifiers.maj,
+	'Δ':			allModifiers.maj,
+	'M': 			allModifiers.maj,
+	'MA': 			allModifiers.maj,
+	'Maj': 			allModifiers.maj,
+	'maj':			allModifiers.maj,
+	'Major':		allModifiers.maj,
+	'major':		allModifiers.maj,
 
 	'sus':			allModifiers.sus4,
 	'sus4':			allModifiers.sus4,
@@ -31,8 +31,10 @@ export default {
 
 	'b5':	 		allModifiers.fifthFlat,
 	'♭5':			allModifiers.fifthFlat,
+
 	'Ø':			allModifiers.halfDim,
 	'ø':			allModifiers.halfDim,
+
 	'°':			allModifiers.dim,
 	'0':			allModifiers.dim,
 	'dim':		    allModifiers.dim,
@@ -43,47 +45,55 @@ export default {
 
 	'#5':			allModifiers.fifthSharp,
 	'♯5':			allModifiers.fifthSharp,
-	'\\+':		 	allModifiers.aug, //fixme: no escaping
+
+	'+':		 	allModifiers.aug,
 	'aug':		 	allModifiers.aug,
 	'augmented': 	allModifiers.aug,
 
-	'6':		allModifiers.add6,
-	'add6':		allModifiers.add6,
+	'6':			allModifiers.add6,
+	'add6':			allModifiers.add6,
 
-	'7':		allModifiers.seventhFlat,
+	'7':			allModifiers.seventhFlat,
 
-	'Δ7':		allModifiers.seventh,
-	'M7':		allModifiers.seventh,
-	'Maj7':		allModifiers.seventh,
-	'maj7':		allModifiers.seventh,
-	'Major7':	allModifiers.seventh,
-	'major7':	allModifiers.seventh,
+	'Δ7':			allModifiers.seventh,
+	'M7':			allModifiers.seventh,
+	'Maj7':			allModifiers.seventh,
+	'maj7':			allModifiers.seventh,
+	'Major7':		allModifiers.seventh,
+	'major7':		allModifiers.seventh,
 
-	'b9':		allModifiers.ninthFlat,
-	'♭9':		allModifiers.ninthFlat,
-	'addb9': 	allModifiers.addb9,
-	'add♭9': 	allModifiers.addb9,
+	'b9':			allModifiers.ninthFlat,
+	'♭9':			allModifiers.ninthFlat,
 
-	'9':		allModifiers.ninth,
-	'add9': 	allModifiers.add9,
+	'addb9': 		allModifiers.addb9,
+	'add♭9': 		allModifiers.addb9,
 
-	'#9':		allModifiers.ninthSharp,
-	'♯9':		allModifiers.ninthSharp,
-	'add#9': 	allModifiers.adds9,
-	'add♯9': 	allModifiers.adds9,
+	'9':			allModifiers.ninth,
 
-	'11':		allModifiers.eleventh,
-	'add11': 	allModifiers.add11,
+	'add9': 		allModifiers.add9,
 
-	'#11':		allModifiers.eleventhSharp,
-	'♯11':		allModifiers.eleventhSharp,
-	'add#11': 	allModifiers.adds11,
+	'#9':			allModifiers.ninthSharp,
+	'♯9':			allModifiers.ninthSharp,
 
-	'b13':		allModifiers.thirteenthFlat,
-	'♭13':		allModifiers.thirteenthFlat,
-	'addb13': 	allModifiers.addb13,
-	'add♭13': 	allModifiers.addb13,
+	'add#9': 		allModifiers.adds9,
+	'add♯9': 		allModifiers.adds9,
 
-	'13':		allModifiers.thirteenth,
-	'add13': 	allModifiers.add13,
+	'11':			allModifiers.eleventh,
+
+	'add11': 		allModifiers.add11,
+
+	'#11':			allModifiers.eleventhSharp,
+	'♯11':			allModifiers.eleventhSharp,
+
+	'add#11': 		allModifiers.adds11,
+
+	'b13':			allModifiers.thirteenthFlat,
+	'♭13':			allModifiers.thirteenthFlat,
+
+	'addb13': 		allModifiers.addb13,
+	'add♭13': 		allModifiers.addb13,
+
+	'13':			allModifiers.thirteenth,
+
+	'add13': 		allModifiers.add13,
 };
