@@ -1,5 +1,6 @@
 import _memoize from 'lodash/memoize';
 import _uniq from 'lodash/uniq';
+import _intersection from 'lodash/intersection';
 
 
 const mainRegexp = {
@@ -68,13 +69,17 @@ export default function parseChord(string) {
 		}
 
 		if (shouldAdd3(includedDegrees, excludedDegrees)) {
-			includedDegrees.push('3');
+			includedDegrees.push('3'); //fixme: I should be a constant
 		}
 		if (shouldAdd5(includedDegrees, excludedDegrees)) {
 			includedDegrees.push('5');
 		}
 		if (impliedDegrees.length) {
 			includedDegrees.push(...getImpliedDegrees(excludedDegrees, impliedDegrees));
+		}
+
+		if (_intersection(includedDegrees, excludedDegrees).length > 0) {
+			return null;
 		}
 
 		chord.intervals = _uniq(includedDegrees)
@@ -109,7 +114,7 @@ const shouldAdd5 = _memoize(
 function getImpliedDegrees(excludedDegrees, impliedDegrees) {
 	const degrees = [];
 	if (impliedDegrees.includes('7th') && !excludedDegrees.includes('b7')) {
-		degrees.push('b7');
+		degrees.push('b7'); // fixme: I should be a constant
 	}
 	if (impliedDegrees.includes('9th') && !excludedDegrees.includes('9')) {
 		degrees.push('9');

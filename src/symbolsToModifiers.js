@@ -7,6 +7,7 @@ export default {
 	'2':			allModifiers.add2,
 	'add2':			allModifiers.add2,
 
+	'-': 			allModifiers.min,
 	'm': 			allModifiers.min,
 	'mi': 			allModifiers.min,
 	'MI': 			allModifiers.min,
@@ -16,9 +17,12 @@ export default {
 	'Δ':			allModifiers.maj,
 	'M': 			allModifiers.maj,
 	'MA': 			allModifiers.maj,
+	'MAJ': 			allModifiers.maj,
+	'Ma': 			allModifiers.maj,
 	'Maj': 			allModifiers.maj,
-	'maj':			allModifiers.maj,
 	'Major':		allModifiers.maj,
+	'ma':			allModifiers.maj,
+	'maj':			allModifiers.maj,
 	'major':		allModifiers.maj,
 
 	'sus':			allModifiers.sus4,
@@ -57,9 +61,13 @@ export default {
 
 	'Δ7':			allModifiers.seventh,
 	'M7':			allModifiers.seventh,
+	'MA7': 			allModifiers.seventh,
+	'MAJ7': 		allModifiers.seventh,
+	'Ma7': 			allModifiers.seventh,
 	'Maj7':			allModifiers.seventh,
-	'maj7':			allModifiers.seventh,
 	'Major7':		allModifiers.seventh,
+	'ma7':			allModifiers.seventh,
+	'maj7':			allModifiers.seventh,
 	'major7':		allModifiers.seventh,
 
 	'b9':			allModifiers.ninthFlat,
