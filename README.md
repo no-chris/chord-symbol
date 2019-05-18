@@ -9,6 +9,7 @@ Being able to parse chord symbol can serve a number of different purposes. For e
 
 Those first goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
 The next goals, on the other hand, require a full "musical" understanding of the chord, which is much more challenging for complex shapes.
+You may want to:
 
 1. Normalize chord naming
 1. Display the chord fingering on a instrument
@@ -56,7 +57,7 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 ## Non functional requirements
 
 - `TDD`first. To meet the guiding principle of `Universality`, `chord-symbol` has a *massive* unit test suite with generated test cases to ensure correct parsing of all possible chords symbols variations.
-- Low entry barriers for community contributions: plain Javascript, little to no dependencies, in-line documentation, 100% code coverage, and contributor guide.
+- Low barriers to entry for community contributors: plain Javascript, little to no dependencies, in-line documentation, 100% code coverage, and contributor guide.
 
 # Contributor guide
 
