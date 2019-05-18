@@ -7,8 +7,8 @@ Being able to parse chord symbol can serve a number of different purposes. For e
 1. Simplify a chord
 1. Convert from one notation system to the other (`english`, `latin`, `german`, `Nashville`)
 
-Those goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
-The next goals, on the other hand, require a full understanding of the chord, which is much more challenging for complex shapes.
+Those first goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
+The next goals, on the other hand, require a full "musical" understanding of the chord, which is much more challenging for complex shapes.
 
 1. Normalize chord naming
 1. Display the chord fingering on a instrument
