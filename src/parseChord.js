@@ -1,20 +1,14 @@
-import _memoize from 'lodash/memoize';
+//import _memoize from 'lodash/memoize';
 import _uniq from 'lodash/uniq';
-import _intersection from 'lodash/intersection';
+//import _intersection from 'lodash/intersection';
+//import _cloneDeep from 'lodash/cloneDeep';
+import _difference from 'lodash/difference';
 
-
-const mainRegexp = {
-	notes: '([ABCDEFG][#b]?)',
-	accidentals: '[#b]',
-	minor: '[m|min]',
-	bassSeparator: '[\/]',
-	description: '[\(]?([^\/]*)[\)]?',
-};
 
 
 import allModifiersDetails from './allModifiersDetails';
 import symbolsToModifiers from './symbolsToModifiers';
-import degreesToIntervals from './degreesToIntervals';
+import intervalsToSemitones from './intervalsToSemitones';
 
 
 const allSymbols = Object
@@ -24,106 +18,115 @@ const allSymbols = Object
 	.join('|');
 const symbolsRegexp = new RegExp(allSymbols, 'g');
 
-const rootAndBassNoteRegexp = new RegExp(
-	'^'
-	+ mainRegexp.notes
-	+ mainRegexp.description + '?'
-	+ mainRegexp.bassSeparator + '?'
-	+ mainRegexp.notes + '?'
-	+ '$'
-);
+//console.log(allSymbols);
 
 
-export default function parseChord(string) {
+export default function parseChord(input) {
 
+	const includedIntervals = ['1'];
+	const omittedIntervals = [];
 
-	const base = string.match(rootAndBassNoteRegexp);
-	const chord = { string };
+	const chord = parseBasic(input);
 
-	if (base) {
-		chord.rootNote = base[1];
-		if (base[3]) {
-			chord.bassNote = base[3];
-		}
-		const includedDegrees = ['1'];
-		const excludedDegrees = [];
-		const impliedDegrees = [];
+	if (chord) {
 
-		let desc = base[2];
+		if (chord.descriptor) {
+			const descriptor = allLettersButMToLowercase(chord.descriptor)
+				.replace(/ /g, '');
 
-		if (desc) {
-			const results = desc.match(symbolsRegexp);
+			const results = descriptor.match(symbolsRegexp);
 			let modifierId;
-			let descriptor;
+			let modifierDetail;
 
 			if (results) {
+				// skip first result?
 				results.forEach(symbol => {
 					modifierId = symbolsToModifiers[symbol];
-					descriptor = allModifiersDetails[modifierId];
+					modifierDetail = allModifiersDetails[modifierId];
 
-					includedDegrees.push(...descriptor.includes);
-					excludedDegrees.push(...(descriptor.excludes || []));
-					impliedDegrees.push(...(descriptor.implies || []));
+					includedIntervals.push(...(modifierDetail.includes || []));
+					omittedIntervals.push(...(modifierDetail.omit || []));
 				});
 			}
 		}
 
-		if (shouldAdd3(includedDegrees, excludedDegrees)) {
-			includedDegrees.push('3'); //fixme: I should be a constant
+		if (shouldAdd3(includedIntervals)) {
+			includedIntervals.push('3'); //fixme: I should be a constant
 		}
-		if (shouldAdd5(includedDegrees, excludedDegrees)) {
-			includedDegrees.push('5');
+		if (shouldAdd5(includedIntervals)) {
+			includedIntervals.push('5');
 		}
-		if (impliedDegrees.length) {
-			includedDegrees.push(...getImpliedDegrees(excludedDegrees, impliedDegrees));
-		}
-
-		if (_intersection(includedDegrees, excludedDegrees).length > 0) {
-			return null;
+		if (shouldRemove11(includedIntervals)) {
+			omittedIntervals.push('11');
 		}
 
-		chord.intervals = _uniq(includedDegrees)
-			.map(degree => degreesToIntervals[degree])
+		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals));
+
+		chord.intervals = finalIntervals
+			.sort((a, b) => (stripAccidentals(a) - stripAccidentals(b)));
+
+		chord.semitones = finalIntervals
+			.map(degree => intervalsToSemitones[degree])
 			.sort((a, b) => (a - b));
 	}
+
 	return chord;
 }
 
 
 
-const shouldAdd3 = _memoize(
-	(includedDegrees, excludedDegrees) => {
-		return !includedDegrees.includes('b3')
-			&& !includedDegrees.includes('3')
-			&& !excludedDegrees.includes('3');
-	},
-	(includedDegrees, excludedDegrees) => includedDegrees.join('-') + excludedDegrees.join('-')
-);
+function parseBasic(input) {
+	const notesRegex = '([ABCDEFG][#b]?)';
+	const notesAndDescriptorRegex = new RegExp(
+		'^'
+		+ notesRegex
+		+ '(.*?)'
+		+ '(\/' + notesRegex + ')?'
+		+ '$'
+	);
+	const result = input.match(notesAndDescriptorRegex);
 
-const shouldAdd5 = _memoize(
-	(includedDegrees, excludedDegrees) => {
-		return !includedDegrees.includes('b5')
-			&& !includedDegrees.includes('5')
-			&& !includedDegrees.includes('#5')
-			&& !excludedDegrees.includes('5');
-	},
-	(includedDegrees, excludedDegrees) => includedDegrees.join('-') + excludedDegrees.join('-')
-);
-
-// We assume that if the default variation of a degree is excluded, it is because another variation is already present
-function getImpliedDegrees(excludedDegrees, impliedDegrees) {
-	const degrees = [];
-	if (impliedDegrees.includes('7th') && !excludedDegrees.includes('b7')) {
-		degrees.push('b7'); // fixme: I should be a constant
+	let chord = null;
+	if (result && result[1]) {
+		chord = {
+			input,
+			rootNote: result[1]
+		};
+		if (result[2]) {
+			chord.descriptor = result[2];
+		}
+		if (result[4]) {
+			chord.bassNote = result[4];
+		}
 	}
-	if (impliedDegrees.includes('9th') && !excludedDegrees.includes('9')) {
-		degrees.push('9');
-	}
-	if (impliedDegrees.includes('11th') && !excludedDegrees.includes('11')) {
-		degrees.push('11');
-	}
-	return degrees;
+	return chord;
 }
+
+function allLettersButMToLowercase(input) {
+	return input.replace(/[A-LN-Za-z]+/g, match => match.toLowerCase());
+}
+
+function stripAccidentals(input) {
+	return input.replace('b', '').replace('#', '');
+}
+
+function shouldAdd3(includedIntervals) {
+	return !includedIntervals.includes('b3')
+		&& !includedIntervals.includes('3')
+		&& !includedIntervals.includes('4');
+}
+
+function shouldAdd5(includedIntervals) {
+	return !includedIntervals.includes('b5')
+		&& !includedIntervals.includes('5')
+		&& !includedIntervals.includes('#5');
+}
+
+function shouldRemove11(includedIntervals) {
+	return includedIntervals.includes('3')
+		|| includedIntervals.includes('4');
+}
+
 
 // Based on https://stackoverflow.com/a/6969486
 function escapeRegex(string) {

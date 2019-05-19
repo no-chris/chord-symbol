@@ -9,11 +9,12 @@ Being able to parse chord symbol can serve a number of different purposes. For e
 
 Those first goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
 The next goals, on the other hand, require a full "musical" understanding of the chord, which is much more challenging for complex shapes.
-You may want to:
+Doing that would allow you to:
 
 1. Normalize chord naming
 1. Display the chord fingering on a instrument
 1. Playback the chord on a computer
+1. etc.
 
 This library aims to make all this possible by converting chord symbols into a suite of intervals, which can then be named and printed, or passed as an input of other libraries.
 
@@ -38,6 +39,7 @@ Of course, `chord-symbol` does not limit itself to this list and is able to reco
 - recognize most popular note naming schemes: `english`, `german` or `latin`;
 - recognize all kind of syntax of chords modifiers: `Major7` should work as well as `Δ7`;
 - recognize modifiers independently of the order they are written: `Cm7(#11)` should yield the same result than `C(#11)7m`, even if the latest is very unlikely to be written that way;
+- recognize modifiers in parenthesis (`C(add#9)`), and multiple comma-separated alterations (`C7(b9,#9,#11,b13)`)
 
 ### Efficiency
 
@@ -56,7 +58,7 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 
 ## Non functional requirements
 
-- `TDD`first. To meet the guiding principle of `Universality`, `chord-symbol` has a *massive* unit test suite with generated test cases to ensure correct parsing of all possible chords symbols variations.
+- `TDD` first. To meet the guiding principle of `Universality`, `chord-symbol` has a *massive* unit test suite with generated test cases to ensure correct parsing of all possible chords symbols variations.
 - Low barriers to entry for community contributors: plain Javascript, little to no dependencies, in-line documentation, 100% code coverage, and contributor guide.
 
 # Contributor guide

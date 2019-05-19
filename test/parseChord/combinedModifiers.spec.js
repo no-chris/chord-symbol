@@ -2,7 +2,7 @@ import combineModifiers from './helpers/combineModifiers';
 import getAllSymbolModifiers from './helpers/getAllSymbolModifiers';
 
 import allModifiers from '../../src/allModifiers';
-import degreesToIntervals from '../../src/degreesToIntervals';
+import degreesToIntervals from '../../src/intervalsToSemitones';
 
 import parseChord from '../../src/parseChord';
 

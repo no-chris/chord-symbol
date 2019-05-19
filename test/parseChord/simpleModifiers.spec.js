@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import parseChord from '../../src/parseChord';
-import degreesToIntervals from '../../src/degreesToIntervals';
+import degreesToIntervals from '../../src/intervalsToSemitones';
 
 describe('Simple modifiers', () => {
 	const allCases = [];
