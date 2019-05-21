@@ -110,7 +110,7 @@ function parseBasic(input) {
 
 function getParsableDescriptor(descriptor) {
 	const allFilters = [
-		toLowerCaseExceptM,
+		toLowerCaseExceptMajorM,
 		removeSpaces,
 		addDisambiguators,
 		addMissingVerbs
@@ -121,8 +121,13 @@ function getParsableDescriptor(descriptor) {
 	}, descriptor);
 }
 
-function toLowerCaseExceptM(descriptor) {
-	return descriptor.replace(/[A-LN-Za-z]+/g, match => match.toLowerCase());
+function toLowerCaseExceptMajorM(descriptor) {
+	return descriptor
+		.replace(/[A-LN-Za-z]+/g, match => match.toLowerCase())
+		.replace('oMit', 'omit')
+		.replace('diM', 'dim')
+		.replace('augMented', 'augmented')
+	;
 }
 
 function removeSpaces(descriptor) {
@@ -131,10 +136,11 @@ function removeSpaces(descriptor) {
 
 function addDisambiguators(descriptor) {
 	return descriptor
-		.replace(/(7?dim)(add)/g, (match, $1, $2) => `(${$1})${$2}`)
-		.replace('madd', '(m)add')
-		.replace('ino3', 'i(no3)')
-		.replace('ino5', 'i(no5)')
+		.replace(/(7?dim)add/g, (match, $1) => `(${$1})add`)
+		.replace(/([m|M])add/g, (match, $1) => `(${$1})add`)
+		.replace(/i(no[3|5])/g, (match, $1) => `i(${$1})`)
+		.replace(/([b|♭|#|♯]9)6/g, (match, $1) => `${$1}(6)`)
+		.replace(/(9\/?6)/g, (match, $1) => `(${$1})`)
 	;
 }
 

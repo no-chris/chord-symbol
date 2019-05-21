@@ -1,11 +1,12 @@
 import normalizeChord from '../src/normalizeChord';
 import parseChord from '../src/parseChord';
 
-describe.skip('normalizeChord', () => {
+describe('normalizeChord', () => {
 
 	describe.each([
 
-		['Cm', 'Cmi']
+		['Cm', 'Cmi'],
+		['Cm/Eb', 'Cmi/Eb'],
 
 	])('%s => %s', (input, expected) => {
 		test('correctly normalize', () => {

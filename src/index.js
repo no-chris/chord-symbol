@@ -1,3 +1,4 @@
+/*
 import parseChord from './parseChord';
 
 
@@ -19,4 +20,4 @@ class Chord  {
 export function fromSymbol(symbol) {
 	return new Chord(symbol);
 }
-
+*/

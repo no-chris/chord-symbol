@@ -1,10 +1,12 @@
+/**
+ * WARNING: when adding new strings, be careful of possible edge cases that might arise with some combinations.
+ * For example, without edge case handling, "madd9" would be parsed as "ma" instead of "m"+"add9"
+ */
 import allModifiers from './allModifiers';
 
 const major = {
 	'Δ':		allModifiers.ma,
 	'M': 		allModifiers.ma,
-	//'MA': 		allModifiers.ma,
-	//'MAJ': 		allModifiers.ma,
 	'Ma': 		allModifiers.ma,
 	'Maj': 		allModifiers.ma,
 	'Major':	allModifiers.ma,
@@ -43,8 +45,6 @@ export default {
 	// minor
 	'-': 			allModifiers.mi,
 	'm': 			allModifiers.mi,
-	//'MI': 			allModifiers.mi,
-	//'MIN': 			allModifiers.mi,
 	'Mi': 			allModifiers.mi,
 	'Min': 			allModifiers.mi,
 	'Minor':		allModifiers.mi,
@@ -109,6 +109,8 @@ export default {
 	'add6':			allModifiers.add6,
 	'6/9':			allModifiers.add69,
 	'69':			allModifiers.add69,
+	'96':			allModifiers.add69,
+	'9/6':			allModifiers.add69,
 	'add9': 		allModifiers.add9,
 	'add11': 		allModifiers.add11,
 	'add13': 		allModifiers.add13,

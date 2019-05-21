@@ -1,5 +1,7 @@
 # chord-symbol
 
+
+
 ## Why parse chords symbols?
 Being able to parse chord symbol can serve a number of different purposes. For example, you may want to:
 1. Check if a given string can be considered as a valid chord naming
@@ -9,7 +11,7 @@ Being able to parse chord symbol can serve a number of different purposes. For e
 
 Those first goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
 The next goals, on the other hand, require a full "musical" understanding of the chord, which is much more challenging for complex shapes.
-It's also much more rewarding as you will then be able to:
+It's also much more rewarding, as this will enable you to:
 
 1. Normalize chord naming
 1. Display the chord fingering on a instrument
@@ -51,7 +53,7 @@ Interpretation of chords modifiers, as well of normalized rendering of chords sy
 
 Rendering guidelines are very close - though with some differences - to the principles found in `Standardized Chord Symbol Notation: A Uniform System for the Music Profession (1976)` by Carl Brandt and Clinton Roemer.
 
-### Flexibility
+### Flexibility over musical constrains
 
 For now, `chord-symbol` does not care if the chord you are writing makes any kind of "musical" sense. Feel free to write `Csusb55#567` if you feel like it, and the parser will yield the corresponding interval list.
 Don't expect it to sound good, though, nor to be recognized by a chord fingering library ;-)
@@ -69,4 +71,6 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 # Lexicon
 
 Symbol: 
+Descriptor
 Modifier:
+
