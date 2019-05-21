@@ -18,7 +18,7 @@ const major9th = getDerivedModifiers(major, allModifiers.ma9, symbol => symbol +
 const major11th = getDerivedModifiers(major, allModifiers.ma11, symbol => symbol + '11');
 const major13th = getDerivedModifiers(major, allModifiers.ma13, symbol => symbol + '13');
 
-const addma7 = getDerivedModifiers(major, allModifiers.ma7, symbol => 'add' + symbol + '7');
+const add7 = getDerivedModifiers(major, allModifiers.ma7, symbol => 'add' + symbol + '7');
 
 const dim = {
 	'°':			allModifiers.dim,
@@ -99,7 +99,7 @@ export default {
 	'add♭13': 		allModifiers.thirteenthFlat,
 
 	// added
-	...addma7,
+	...add7,
 	'2':			allModifiers.add9,
 	'add2':			allModifiers.add9,
 	'add3':			allModifiers.add3,

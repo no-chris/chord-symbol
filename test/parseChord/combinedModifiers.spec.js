@@ -2,34 +2,33 @@ import combineModifiers from './helpers/combineModifiers';
 import getAllSymbolModifiers from '../../src/getAllSymbolModifiers';
 
 import allModifiers from '../../src/allModifiers';
-import degreesToIntervals from '../../src/intervalsToSemitones';
 
 import parseChord from '../../src/parseChord';
 
 
-describe.skip('Combined modifiers', () => {
+describe('Combined modifiers', () => {
 	const rootNote = 'G#';
 
 	describe.each([
 		...combineModifiers(
 			getAllSymbolModifiers(allModifiers.sus2),
-			getAllSymbolModifiers(allModifiers.sus4),
+			getAllSymbolModifiers(allModifiers.sus),
 		).map(modifier => [
-			rootNote + modifier, ['1', '2', '4', '5']
+			rootNote + modifier, ['1', '4', '5', '9']
 		]),
 
 		...combineModifiers(
-			getAllSymbolModifiers(allModifiers.min),
+			getAllSymbolModifiers(allModifiers.mi),
 			getAllSymbolModifiers(allModifiers.add2),
 			getAllSymbolModifiers(allModifiers.ninthFlat),
 		).map(modifier => [
-			rootNote + modifier, ['1', '2', 'b3', '5', 'b7', 'b9']
+			rootNote + modifier, ['1', 'b3', '5', 'b9']
 		]),
 
 		...combineModifiers(
 			getAllSymbolModifiers(allModifiers.maj),
 			getAllSymbolModifiers(allModifiers.add4),
-			getAllSymbolModifiers(allModifiers.ninth),
+			getAllSymbolModifiers(allModifiers.dom9),
 		).map(modifier => [
 			rootNote + modifier, ['1', '3', '4', '5', 'b7', '9']
 		]),
@@ -39,23 +38,23 @@ describe.skip('Combined modifiers', () => {
 			getAllSymbolModifiers(allModifiers.add6),
 			getAllSymbolModifiers(allModifiers.ninthSharp),
 		).map(modifier => [
-			rootNote + modifier, ['1', '2', '5', '6', 'b7', '#9']
+			rootNote + modifier, ['1', '5', '6', '#9']
 		]),
 
 		...combineModifiers(
 			getAllSymbolModifiers(allModifiers.sus4),
-			getAllSymbolModifiers(allModifiers.seventhFlat),
-			getAllSymbolModifiers(allModifiers.eleventh),
+			getAllSymbolModifiers(allModifiers.dom7),
+			getAllSymbolModifiers(allModifiers.dom11),
 		).map(modifier => [
 			rootNote + modifier, ['1', '4', '5', 'b7', '9', '11']
 		]),
 
 		...combineModifiers(
 			getAllSymbolModifiers(allModifiers.fifthFlat),
-			getAllSymbolModifiers(allModifiers.seventh),
+			getAllSymbolModifiers(allModifiers.dom7),
 			getAllSymbolModifiers(allModifiers.eleventhSharp),
 		).map(modifier => [
-			rootNote + modifier, ['1', '3', 'b5', '7', '9', '#11']
+			rootNote + modifier, ['1', '3', 'b5', 'b7', '#11']
 		]),
 
 		...combineModifiers(
@@ -69,15 +68,14 @@ describe.skip('Combined modifiers', () => {
 		...combineModifiers(
 			getAllSymbolModifiers(allModifiers.min),
 			getAllSymbolModifiers(allModifiers.fifthSharp),
-			getAllSymbolModifiers(allModifiers.thirteenth),
+			getAllSymbolModifiers(allModifiers.dom13),
 		).map(modifier => [
 			rootNote + modifier, ['1', 'b3', '#5', 'b7', '9', '11', '13']
 		]),
 
-	])('%s', (input, degrees) => {
-		test('should detect correct intervals', () => {
+	])('%s', (input, intervals) => {
+		test('should yield ' + intervals.join(' '), () => {
 			const parsed = parseChord(input);
-			const intervals = degrees.map(degree => degreesToIntervals[degree]);
 			expect(parsed.intervals).toEqual(intervals);
 		});
 	});

@@ -69,9 +69,11 @@ export default function parseChord(input) {
 		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals))
 			.sort((a, b) => (stripAccidentals(a) - stripAccidentals(b)));
 
+		chord.modifiers = givenModifiers;
 		chord.intervals = finalIntervals;
 		chord.semitones = finalIntervals
-			.map(degree => intervalsToSemitones[degree]);
+			.map(degree => intervalsToSemitones[degree])
+			.sort((a, b) => (a - b));
 	}
 
 	return chord;
@@ -110,6 +112,7 @@ function getParsableDescriptor(descriptor) {
 	const allFilters = [
 		toLowerCaseExceptM,
 		removeSpaces,
+		addDisambiguators,
 		addMissingVerbs
 	];
 
@@ -124,6 +127,15 @@ function toLowerCaseExceptM(descriptor) {
 
 function removeSpaces(descriptor) {
 	return descriptor.replace(/ /g, '');
+}
+
+function addDisambiguators(descriptor) {
+	return descriptor
+		.replace(/(7?dim)(add)/g, (match, $1, $2) => `(${$1})${$2}`)
+		.replace('madd', '(m)add')
+		.replace('ino3', 'i(no3)')
+		.replace('ino5', 'i(no5)')
+	;
 }
 
 function addMissingVerbs(descriptor) {

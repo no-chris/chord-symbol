@@ -1,6 +1,4 @@
 import parseChord from '../../src/parseChord';
-import degreesToIntervals from '../../src/intervalsToSemitones';
-
 
 describe('Basic parsing', () => {
 	describe.each([
@@ -84,6 +82,9 @@ describe('Descriptor / parsable descriptor', () => {
 
 		[ 'A' ],
 		[ 'Am', 				'm', 					'm' ],
+
+		// Parenthesis with incomplete verbs
+
 		[ 'A(add9)', 			'(add9)', 				'(add9)' ],
 		[ 'A(add9,11)', 		'(add9,11)', 			'(add9,add11)' ],
 		[ 'A(add 9,11)', 		'(add 9,11)', 			'(add9,add11)' ],
@@ -96,8 +97,11 @@ describe('Descriptor / parsable descriptor', () => {
 		[ 'A(no3,5)(add#11,b13)', 	'(no3,5)(add#11,b13)',	'(no3,no5)(add#11,addb13)' ],
 		[ 'Am(no3,5)7(add#11,b13)', 'm(no3,5)7(add#11,b13)','m(no3,no5)7(add#11,addb13)' ],
 
+		[ 'A(no3,5,(7))', 		'(no3,5,(7))',		'(no3,no5,no(7))' ],
+		[ 'A((7),5,3)', 		'((7),5,3)',		'((7),5,3)' ],
+
 	])('%s', (input, descriptor, parsableDescriptor) => {
-		test('should transfrom descriptor into ' + parsableDescriptor, () => {
+		test('should transform descriptor into ' + parsableDescriptor, () => {
 			const parsed = parseChord(input);
 			expect(parsed.descriptor).toBe(descriptor);
 			expect(parsed.parsableDescriptor).toBe(parsableDescriptor);
@@ -105,3 +109,8 @@ describe('Descriptor / parsable descriptor', () => {
 	});
 
 });
+
+
+
+// test for case of descriptors
+// test for dimadd (without 7th) and all disambiguators

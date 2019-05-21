@@ -45,7 +45,7 @@ export default {
 	add4: 'add4',
 	add6: 'add6',
 	add69: 'add69',
-	addma7: 'addma7',
+	add7: 'add7',
 	add9: 'add9',
 	add11: 'add11',
 	add13: 'add13',
