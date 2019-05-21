@@ -1,7 +1,7 @@
 import normalizeChord from '../src/normalizeChord';
 import parseChord from '../src/parseChord';
 
-describe('normalizeChord', () => {
+describe.skip('normalizeChord', () => {
 
 	describe.each([
 

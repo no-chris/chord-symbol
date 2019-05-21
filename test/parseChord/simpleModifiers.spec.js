@@ -3,7 +3,7 @@ import _ from 'lodash';
 import parseChord from '../../src/parseChord';
 import degreesToIntervals from '../../src/intervalsToSemitones';
 
-describe('Simple modifiers', () => {
+describe.skip('Simple modifiers', () => {
 	const allCases = [];
 	const rootNote = 'A';
 	const bassNote = 'C#';

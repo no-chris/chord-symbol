@@ -9,7 +9,7 @@ Being able to parse chord symbol can serve a number of different purposes. For e
 
 Those first goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
 The next goals, on the other hand, require a full "musical" understanding of the chord, which is much more challenging for complex shapes.
-Doing that would allow you to:
+It's also much more rewarding as you will then be able to:
 
 1. Normalize chord naming
 1. Display the chord fingering on a instrument
@@ -64,3 +64,9 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 # Contributor guide
 
 - 
+
+
+# Lexicon
+
+Symbol: 
+Modifier:

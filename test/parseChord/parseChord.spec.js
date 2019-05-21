@@ -78,14 +78,30 @@ describe('Root and bass notes', () => {
 	});
 });
 
-describe.skip('parenthesis and comma', () => {
+
+describe('Descriptor / parsable descriptor', () => {
 	describe.each([
-		[ 'Cm(add13)', ['0', 'b3', '5', '13'] ],
-		[ 'C7(b9,#9,#11,b13)', ['0', '3', '5', 'b7', 'b9', '#9', '#11', 'b13'] ],
-	])('%s', (input, degrees) => {
-		test('should correctly parse input string', () => {
+
+		[ 'A' ],
+		[ 'Am', 				'm', 					'm' ],
+		[ 'A(add9)', 			'(add9)', 				'(add9)' ],
+		[ 'A(add9,11)', 		'(add9,11)', 			'(add9,add11)' ],
+		[ 'A(add 9,11)', 		'(add 9,11)', 			'(add9,add11)' ],
+		[ 'A( add 9, add 11)', 	'( add 9, add 11)', 	'(add9,add11)' ],
+		[ 'A(add9,omit3)', 		'(add9,omit3)', 		'(add9,omit3)' ],
+		[ 'A(omit3,5)', 		'(omit3,5)',	 		'(omit3,omit5)' ],
+		[ 'A(no3,5)', 			'(no3,5)',	 			'(no3,no5)' ],
+		[ 'A(no3,5,add#11)', 	'(no3,5,add#11)',		'(no3,no5,add#11)' ],
+
+		[ 'A(no3,5)(add#11,b13)', 	'(no3,5)(add#11,b13)',	'(no3,no5)(add#11,addb13)' ],
+		[ 'Am(no3,5)7(add#11,b13)', 'm(no3,5)7(add#11,b13)','m(no3,no5)7(add#11,addb13)' ],
+
+	])('%s', (input, descriptor, parsableDescriptor) => {
+		test('should transfrom descriptor into ' + parsableDescriptor, () => {
 			const parsed = parseChord(input);
-			expect(parsed.intervals).toEqual(degrees.map(degree => degreesToIntervals[degree]));
+			expect(parsed.descriptor).toBe(descriptor);
+			expect(parsed.parsableDescriptor).toBe(parsableDescriptor);
 		});
 	});
+
 });

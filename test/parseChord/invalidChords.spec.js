@@ -1,12 +1,12 @@
 import combineModifiers from './helpers/combineModifiers';
-import getAllSymbolModifiers from './helpers/getAllSymbolModifiers';
+import getAllSymbolModifiers from '../../src/getAllSymbolModifiers';
 
 import allModifiers from '../../src/allModifiers';
 
 import parseChord from '../../src/parseChord';
 
 
-describe('Forbidden modifiers combinations', () => {
+describe.skip('Forbidden modifiers combinations', () => {
 	const rootNote = 'Eb';
 
 	describe.each([

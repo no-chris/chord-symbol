@@ -1,45 +1,59 @@
+// Modifiers are either directly mapped to degrees (most of the time), or to chord qualities.
+// The later is useful when a modifier impact multiple degrees (dim, dim7, ma9...)
+// They also help identifying the intent behind a given;
+// Some may look like duplicates because they yield the same result, but they are not
+
 export default {
-	bass: 'bass',
 
-	maj: 'maj', //todo: rename third?
-	min: 'min', //todo: rename thirdFlat?
+	// major
+	ma: 'ma',
+	ma7: 'ma7',
+	ma9: 'ma9',
+	ma11: 'ma11',
+	ma13: 'ma13',
 
+	// minor
+	mi: 'mi',
+
+	// suspended
+	sus: 'sus',
 	sus2: 'sus2',
-	sus: 'suss',
 
+	// dominant
+	dom7: 'dom7',
+	dom9: 'dom9',
+	dom11: 'dom11',
+	dom13: 'dom13',
+
+	// diminished / augmented
 	dim: 'dim',
-	halfDim: 'halfDim',
 	dim7: 'dim7',
-	power: 'power',
+	halfDim: 'halfDim',
 	aug: 'aug',
-	omit3: 'omit3',
-	omit5: 'omit5',
 
+	// alterations
+	fifthFlat: 'b5',
+	fifthSharp: '#5',
+	ninthFlat: 'b9',
+	ninthSharp: '#9',
+	eleventhSharp: '#11',
+	thirteenthFlat: 'b13',
+
+	// added
 	add2: 'add2',
 	add3: 'add3',
 	add4: 'add4',
 	add6: 'add6',
+	add69: 'add69',
 	addma7: 'addma7',
-	addb9: 'addb9',
 	add9: 'add9',
-	adds9: 'add#9',
 	add11: 'add11',
-	adds11: 'add#11',
-	addb13: 'addb13',
 	add13: 'add13',
 
-	fifthFlat: 'b5',
-	fifthSharp: '#5',
-	sixthNinth: '69',
-	seventhFlat: 'b7',
-	seventh: '7',
-	ninthFlat: 'b9',
-	majorNinth: 'ma9',
-	ninth: '9',
-	ninthSharp: '#9',
-	eleventh: '11',
-	eleventhSharp: '#11',
-	thirteenthFlat: 'b13',
-	thirteenth: '13',
-	majorThirteenth: 'ma13',
+	// special
+	bass: 'bass',
+	omit3: 'omit3',
+	omit5: 'omit5',
+	power: 'power',
+
 };

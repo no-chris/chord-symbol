@@ -6,6 +6,7 @@ import _difference from 'lodash/difference';
 
 
 
+import allModifiers from './allModifiers';
 import allModifiersDetails from './allModifiersDetails';
 import symbolsToModifiers from './symbolsToModifiers';
 import intervalsToSemitones from './intervalsToSemitones';
@@ -25,49 +26,52 @@ export default function parseChord(input) {
 
 	const includedIntervals = ['1'];
 	const omittedIntervals = [];
+	const givenModifiers = [];
 
 	const chord = parseBasic(input);
 
 	if (chord) {
 
 		if (chord.descriptor) {
-			const descriptor = allLettersButMToLowercase(chord.descriptor)
-				.replace(/ /g, '');
+			chord.parsableDescriptor = getParsableDescriptor(chord.descriptor);
 
-			const results = descriptor.match(symbolsRegexp);
+			const results = chord.parsableDescriptor.match(symbolsRegexp);
 			let modifierId;
 			let modifierDetail;
 
 			if (results) {
-				// skip first result?
 				results.forEach(symbol => {
 					modifierId = symbolsToModifiers[symbol];
 					modifierDetail = allModifiersDetails[modifierId];
 
 					includedIntervals.push(...(modifierDetail.includes || []));
 					omittedIntervals.push(...(modifierDetail.omit || []));
+					givenModifiers.push(modifierId);
 				});
 			}
 		}
-
-		if (shouldAdd3(includedIntervals)) {
-			includedIntervals.push('3'); //fixme: I should be a constant
+		// add implied intervals for major chord
+		if (shouldAdd3(includedIntervals, givenModifiers)) {
+			includedIntervals.push('3'); //fixme: I should be a constant?
 		}
 		if (shouldAdd5(includedIntervals)) {
 			includedIntervals.push('5');
 		}
-		if (shouldRemove11(includedIntervals)) {
+		// apply 11th specific rules
+		if (shouldAdd4(givenModifiers)) {
+			includedIntervals.push('4');
+			omittedIntervals.push('b3', '3');
+		}
+		if (shouldRemove11(givenModifiers)) {
 			omittedIntervals.push('11');
 		}
 
-		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals));
-
-		chord.intervals = finalIntervals
+		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals))
 			.sort((a, b) => (stripAccidentals(a) - stripAccidentals(b)));
 
+		chord.intervals = finalIntervals;
 		chord.semitones = finalIntervals
-			.map(degree => intervalsToSemitones[degree])
-			.sort((a, b) => (a - b));
+			.map(degree => intervalsToSemitones[degree]);
 	}
 
 	return chord;
@@ -102,18 +106,75 @@ function parseBasic(input) {
 	return chord;
 }
 
-function allLettersButMToLowercase(input) {
-	return input.replace(/[A-LN-Za-z]+/g, match => match.toLowerCase());
+function getParsableDescriptor(descriptor) {
+	const allFilters = [
+		toLowerCaseExceptM,
+		removeSpaces,
+		addMissingVerbs
+	];
+
+	return allFilters.reduce((parsableDescriptor, filter) => {
+		return filter(parsableDescriptor);
+	}, descriptor);
+}
+
+function toLowerCaseExceptM(descriptor) {
+	return descriptor.replace(/[A-LN-Za-z]+/g, match => match.toLowerCase());
+}
+
+function removeSpaces(descriptor) {
+	return descriptor.replace(/ /g, '');
+}
+
+function addMissingVerbs(descriptor) {
+	let allTokensWithVerbs;
+	let currentVerb;
+	let hasVerb;
+
+	return descriptor.replace(/\((.*?)\)/g, (match, parenthesis) => {
+		allTokensWithVerbs = [];
+		currentVerb = '';
+
+		parenthesis
+			.split(',')
+			.forEach(token => {
+				hasVerb = true;
+				if (token.startsWith('add')) {
+					currentVerb = 'add';
+				} else if (token.startsWith('omit')) {
+					currentVerb = 'omit';
+				} else if (token.startsWith('no')) {
+					currentVerb = 'no';
+				} else {
+					hasVerb = false;
+				}
+				if (hasVerb) {
+					allTokensWithVerbs.push(token);
+				} else {
+					allTokensWithVerbs.push(currentVerb + token);
+				}
+			});
+		return '(' + allTokensWithVerbs.join(',') + ')';
+	});
 }
 
 function stripAccidentals(input) {
 	return input.replace('b', '').replace('#', '');
 }
 
-function shouldAdd3(includedIntervals) {
+function shouldAdd3(includedIntervals, givenModifiers) {
 	return !includedIntervals.includes('b3')
 		&& !includedIntervals.includes('3')
-		&& !includedIntervals.includes('4');
+		&& !givenModifiers.includes(allModifiers.sus)
+		&& !givenModifiers.includes(allModifiers.sus2);
+}
+
+function shouldAdd4(givenModifiers) {
+	return hasMajorIntent(givenModifiers)
+		&& (
+			givenModifiers.includes(allModifiers.dom11)
+			|| givenModifiers.includes(allModifiers.ma11)
+		);
 }
 
 function shouldAdd5(includedIntervals) {
@@ -122,9 +183,22 @@ function shouldAdd5(includedIntervals) {
 		&& !includedIntervals.includes('#5');
 }
 
-function shouldRemove11(includedIntervals) {
-	return includedIntervals.includes('3')
-		|| includedIntervals.includes('4');
+//
+function shouldRemove11(givenModifiers) {
+	return hasMajorIntent(givenModifiers)
+		&& (
+			givenModifiers.includes(allModifiers.dom11)
+			|| givenModifiers.includes(allModifiers.ma11)
+			|| givenModifiers.includes(allModifiers.dom13)
+			|| givenModifiers.includes(allModifiers.ma13)
+		);
+}
+
+function hasMajorIntent(givenModifiers) {
+	return !givenModifiers.includes(allModifiers.mi)
+		&& !givenModifiers.includes(allModifiers.dim)
+		&& !givenModifiers.includes(allModifiers.dim7)
+		&& !givenModifiers.includes(allModifiers.halfDim);
 }
 
 

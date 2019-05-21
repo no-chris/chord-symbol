@@ -1,173 +1,134 @@
 import allModifiers from './allModifiers';
 
-export default {
-	'bass':			allModifiers.bass,
+const major = {
+	'Δ':		allModifiers.ma,
+	'M': 		allModifiers.ma,
+	//'MA': 		allModifiers.ma,
+	//'MAJ': 		allModifiers.ma,
+	'Ma': 		allModifiers.ma,
+	'Maj': 		allModifiers.ma,
+	'Major':	allModifiers.ma,
+	'ma':		allModifiers.ma,
+	'maj':		allModifiers.ma,
+	'major':	allModifiers.ma,
+};
 
-	'sus2':			allModifiers.sus2,
-	'suspended2':	allModifiers.sus2,
+const major7th = getDerivedModifiers(major, allModifiers.ma7, symbol => symbol + '7');
+const major9th = getDerivedModifiers(major, allModifiers.ma9, symbol => symbol + '9');
+const major11th = getDerivedModifiers(major, allModifiers.ma11, symbol => symbol + '11');
+const major13th = getDerivedModifiers(major, allModifiers.ma13, symbol => symbol + '13');
 
-	'2':			allModifiers.add2,
-	'add2':			allModifiers.add2,
+const addma7 = getDerivedModifiers(major, allModifiers.ma7, symbol => 'add' + symbol + '7');
 
-	'omit3': 		allModifiers.omit3,
-	'no3': 			allModifiers.omit3,
-
-	'-': 			allModifiers.min,
-	'm': 			allModifiers.min,
-	'MI': 			allModifiers.min,
-	'MIN': 			allModifiers.min,
-	'Mi': 			allModifiers.min,
-	'Min': 			allModifiers.min,
-	'Minor':		allModifiers.min,
-	'mi': 			allModifiers.min,
-	'min': 			allModifiers.min,
-	'minor':		allModifiers.min,
-	'b3':			allModifiers.min,
-
-	'Δ':			allModifiers.maj,
-	'M': 			allModifiers.maj,
-	'MA': 			allModifiers.maj,
-	'MAJ': 			allModifiers.maj,
-	'Ma': 			allModifiers.maj,
-	'Maj': 			allModifiers.maj,
-	'Major':		allModifiers.maj,
-	'ma':			allModifiers.maj,
-	'maj':			allModifiers.maj,
-	'major':		allModifiers.maj,
-
-	'add3':			allModifiers.add3,
-
-	'sus':			allModifiers.sus,
-	'sus4':			allModifiers.sus,
-	'suspended':	allModifiers.sus,
-	'suspended4':	allModifiers.sus,
-
-	'4':			allModifiers.add4,
-	'add4':			allModifiers.add4,
-
-	'omit5': 		allModifiers.omit5,
-	'no5': 			allModifiers.omit5,
-
-	'b5':	 		allModifiers.fifthFlat,
-	'♭5':			allModifiers.fifthFlat,
-
-	'Ø':			allModifiers.halfDim,
-	'ø':			allModifiers.halfDim,
-
+const dim = {
 	'°':			allModifiers.dim,
 	'0':			allModifiers.dim,
 	'dim':		    allModifiers.dim,
 	'dim.':		    allModifiers.dim,
 	'diminished':	allModifiers.dim,
+};
 
-	'°7':			allModifiers.dim7,
-	'07':			allModifiers.dim7,
-	'dim7':		    allModifiers.dim7,
-	'dim.7':	    allModifiers.dim7,
-	'diminished7':	allModifiers.dim7,
-	'7°':			allModifiers.dim7,
-	'70':			allModifiers.dim7,
-	'7dim':		    allModifiers.dim7,
-	'7dim.':	 	allModifiers.dim7,
-	'7diminished':	allModifiers.dim7,
+const dim7_prefix = getDerivedModifiers(dim, allModifiers.dim7, symbol => '7' + symbol);
+const dim7_suffix = getDerivedModifiers(dim, allModifiers.dim7, symbol => symbol + '7');
 
+export default {
 
-	'5': 			allModifiers.power,
+	// major
+	...major,
+	...major7th,
+	...major9th,
+	...major11th,
+	...major13th,
 
-	'#5':			allModifiers.fifthSharp,
-	'♯5':			allModifiers.fifthSharp,
+	// minor
+	'-': 			allModifiers.mi,
+	'm': 			allModifiers.mi,
+	//'MI': 			allModifiers.mi,
+	//'MIN': 			allModifiers.mi,
+	'Mi': 			allModifiers.mi,
+	'Min': 			allModifiers.mi,
+	'Minor':		allModifiers.mi,
+	'mi': 			allModifiers.mi,
+	'min': 			allModifiers.mi,
+	'minor':		allModifiers.mi,
+	'b3':			allModifiers.mi,
 
+	// suspended
+	'sus':			allModifiers.sus,
+	'sus4':			allModifiers.sus,
+	'suspended':	allModifiers.sus,
+	'suspended4':	allModifiers.sus,
+	'sus2':			allModifiers.sus2,
+	'suspended2':	allModifiers.sus2,
+
+	// dominant
+	'7':			allModifiers.dom7,
+	'9':			allModifiers.dom9,
+	'11':			allModifiers.dom11,
+	'13':			allModifiers.dom13,
+
+	// diminished / augmented
+	...dim,
+	...dim7_prefix,
+	...dim7_suffix,
+	'Ø':			allModifiers.halfDim,
+	'ø':			allModifiers.halfDim,
 	'+':		 	allModifiers.aug,
 	'aug':		 	allModifiers.aug,
 	'augmented': 	allModifiers.aug,
 
-	'6':			allModifiers.add6,
-	'add6':			allModifiers.add6,
-
-	'6/9':			allModifiers.sixthNinth,
-	'69':			allModifiers.sixthNinth,
-
-	'7':			allModifiers.seventhFlat,
-
-	'Δ7':			allModifiers.seventh,
-	'M7':			allModifiers.seventh,
-	'MA7': 			allModifiers.seventh,
-	'MAJ7': 		allModifiers.seventh,
-	'Ma7': 			allModifiers.seventh,
-	'Maj7':			allModifiers.seventh,
-	'Major7':		allModifiers.seventh,
-	'ma7':			allModifiers.seventh,
-	'maj7':			allModifiers.seventh,
-	'major7':		allModifiers.seventh,
-
-	'addΔ7':		allModifiers.addma7,
-	'addM7':		allModifiers.addma7,
-	'addMA7': 		allModifiers.addma7,
-	'addMAJ7': 		allModifiers.addma7,
-	'addMa7': 		allModifiers.addma7,
-	'addMaj7':		allModifiers.addma7,
-	'addMajor7':	allModifiers.addma7,
-	'addma7':		allModifiers.addma7,
-	'addmaj7':		allModifiers.addma7,
-	'addmajor7':	allModifiers.addma7,
-
+	// alterations
+	'b5':	 		allModifiers.fifthFlat,
+	'♭5':			allModifiers.fifthFlat,
+	'#5':			allModifiers.fifthSharp,
+	'♯5':			allModifiers.fifthSharp,
 	'b9':			allModifiers.ninthFlat,
 	'♭9':			allModifiers.ninthFlat,
-
-	'addb9': 		allModifiers.addb9,
-	'add♭9': 		allModifiers.addb9,
-
-	'9':			allModifiers.ninth,
-
-	'add9': 		allModifiers.add9,
-
-
-	'Δ9':			allModifiers.majorNinth,
-	'M9':			allModifiers.majorNinth,
-	'MA9': 			allModifiers.majorNinth,
-	'MAJ9': 		allModifiers.majorNinth,
-	'Ma9': 			allModifiers.majorNinth,
-	'Maj9':			allModifiers.majorNinth,
-	'Major9':		allModifiers.majorNinth,
-	'ma9':			allModifiers.majorNinth,
-	'maj9':			allModifiers.majorNinth,
-	'major9':		allModifiers.majorNinth,
-
-
+	'addb9': 		allModifiers.ninthFlat,
+	'add♭9': 		allModifiers.ninthFlat,
 	'#9':			allModifiers.ninthSharp,
 	'♯9':			allModifiers.ninthSharp,
-
-	'add#9': 		allModifiers.adds9,
-	'add♯9': 		allModifiers.adds9,
-
-	'11':			allModifiers.eleventh,
-
-	'add11': 		allModifiers.add11,
-
+	'add#9': 		allModifiers.ninthSharp,
+	'add♯9': 		allModifiers.ninthSharp,
 	'#11':			allModifiers.eleventhSharp,
 	'♯11':			allModifiers.eleventhSharp,
-
-	'add#11': 		allModifiers.adds11,
-
+	'add#11': 		allModifiers.eleventhSharp,
 	'b13':			allModifiers.thirteenthFlat,
 	'♭13':			allModifiers.thirteenthFlat,
+	'addb13': 		allModifiers.thirteenthFlat,
+	'add♭13': 		allModifiers.thirteenthFlat,
 
-	'addb13': 		allModifiers.addb13,
-	'add♭13': 		allModifiers.addb13,
-
-	'13':			allModifiers.thirteenth,
-
-
-	'Δ13':			allModifiers.majorThirteenth,
-	'M13':			allModifiers.majorThirteenth,
-	'MA13': 			allModifiers.majorThirteenth,
-	'MAJ13': 		allModifiers.majorThirteenth,
-	'Ma13': 			allModifiers.majorThirteenth,
-	'Maj13':			allModifiers.majorThirteenth,
-	'Major13':		allModifiers.majorThirteenth,
-	'ma13':			allModifiers.majorThirteenth,
-	'maj13':			allModifiers.majorThirteenth,
-	'major13':		allModifiers.majorThirteenth,
-
+	// added
+	...addma7,
+	'2':			allModifiers.add9,
+	'add2':			allModifiers.add9,
+	'add3':			allModifiers.add3,
+	'4':			allModifiers.add11,
+	'add4':			allModifiers.add11,
+	'6':			allModifiers.add6,
+	'add6':			allModifiers.add6,
+	'6/9':			allModifiers.add69,
+	'69':			allModifiers.add69,
+	'add9': 		allModifiers.add9,
+	'add11': 		allModifiers.add11,
 	'add13': 		allModifiers.add13,
+
+	// special
+	'bass':			allModifiers.bass,
+	'omit3': 		allModifiers.omit3,
+	'no3': 			allModifiers.omit3,
+	'omit5': 		allModifiers.omit5,
+	'no5': 			allModifiers.omit5,
+	'5': 			allModifiers.power,
+
 };
+
+
+function getDerivedModifiers(source, modifierId, mapFn) {
+	return Object.keys(source)
+		.map(mapFn)
+		.reduce((acc, curr) => {
+			acc[curr] = modifierId;
+			return acc;
+		}, {});
+}

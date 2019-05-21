@@ -79,11 +79,9 @@ const allCases = [
 	[ 'GMA7(#5)/F#', 		'G', [ '1', '3', '#5', '7' ], 'F#' ],
 	[ 'EbMA7(#5)/F', 		'Eb',[ '1', '3', '#5', '7' ], 'F' ],
 	[ 'BMA7SUS/F#', 		'B', [ '1', '4', '5', '7' ], 'F#' ],
-	/* * /
-	/* */
 ];
 
-describe('Realbook chords', () => {
+describe('The New RealBook - All chords symbols', () => {
 
 	describe.each(allCases)('%s', (input, rootNote, allIntervals, bassNote) => {
 		test('is parsed: ' + allIntervals.join(' '), () => {
