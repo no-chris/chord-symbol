@@ -1,8 +1,3 @@
-// Modifiers are either directly mapped to degrees (most of the time), or to chord qualities.
-// The later is useful when a modifier impact multiple degrees (dim, dim7, ma9...)
-// They also help identifying the intent behind a given;
-// Some may look like duplicates because they yield the same result, but they are not
-
 export default {
 
 	// major

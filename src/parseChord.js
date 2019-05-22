@@ -3,7 +3,8 @@ import _difference from 'lodash/difference';
 
 import allModifiers from './allModifiers';
 import allModifiersDetails from './allModifiersDetails';
-import allModifiersSymbols, { allVariants } from './allModifiersSymbols';
+import allModifiersSymbols, { allVariants as allModifiersVariants } from './allModifiersSymbols';
+import { variantsToNotes, allVariants as allNotesVariants } from './allNotes';
 import intervalsToSemitones from './intervalsToSemitones';
 
 export default function parseChord(input) {
@@ -17,7 +18,7 @@ export default function parseChord(input) {
 		if (chord.descriptor) {
 			chord.parsableDescriptor = getParsableDescriptor(chord.descriptor);
 
-			const descriptorRegex = new RegExp(allVariants.map(escapeRegex).join('|'), 'g');
+			const descriptorRegex = new RegExp(allModifiersVariants.map(escapeRegex).join('|'), 'g');
 			const descriptorMatches = chord.parsableDescriptor.match(descriptorRegex);
 
 			let remainingChars = chord.parsableDescriptor;
@@ -71,12 +72,12 @@ export default function parseChord(input) {
 
 
 function parseBasic(input) {
-	const notesRegex = '([ABCDEFG][#b]?)';
+	const notesRegex = allNotesVariants.join('|');
 	const notesAndDescriptorRegex = new RegExp(
 		'^'
-		+ notesRegex
+		+ '(' + notesRegex + ')'
 		+ '(.*?)'
-		+ '(\/' + notesRegex + ')?'
+		+ '(\/(' + notesRegex + '))?'
 		+ '$'
 	);
 	const result = input.match(notesAndDescriptorRegex);
@@ -85,13 +86,13 @@ function parseBasic(input) {
 	if (result && result[1]) {
 		chord = {
 			input,
-			rootNote: result[1]
+			rootNote: variantsToNotes[result[1]]
 		};
 		if (result[2]) {
 			chord.descriptor = result[2];
 		}
 		if (result[4]) {
-			chord.bassNote = result[4];
+			chord.bassNote = variantsToNotes[result[4]];
 		}
 	}
 	return chord;

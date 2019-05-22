@@ -11,7 +11,7 @@ const VARIANT_THRESHOLD = /**/1000/** /0/**/ ; // set this to 0 if you have time
 const allSrcSymbols = [
 	/**/
 
-	// Chords symbol from: Contemporary Music Theory
+	// Chords symbols from: Contemporary Music Theory
 
 	[ 'C5',						'C', ['1', '5'], 										[ allModifiers.power ] ],
 	[ 'C(omit3)',				'C', ['1', '5'], 										[ allModifiers.omit3 ] ],
@@ -124,7 +124,7 @@ const allSrcSymbols = [
 	[ 'Cdim7(add b13)',			'C', ['1', 'b3', 'b5', 'bb7', 'b13'], 					[ allModifiers.dim7, allModifiers.thirteenthFlat ] ],
 
 
-	// Chords symbol from: The New Real Book vol1
+	// Chords symbols from: The New Real Book vol1
 
 	[ 'C bass', 			'C', ['1'], 										[ allModifiers.bass ] ],
 	[ 'C', 					'C', ['1', '3', '5'] ],

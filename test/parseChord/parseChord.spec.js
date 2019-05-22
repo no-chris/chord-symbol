@@ -61,34 +61,6 @@ describe('invalid chords', () => {
 });
 
 
-describe('Root and bass notes', () => {
-	const allCases = [];
-	const allNotes = ['Ab', 'A', 'A#', 'Bb', 'B', 'C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#'];
-	let chordSymbol;
-	//todo: add fake notes?
-
-	allNotes.forEach(rootNote => {
-		allCases.push([rootNote, rootNote]);
-
-		allNotes
-			.filter(bassNote => bassNote !== rootNote)
-			.forEach(bassNote => {
-				chordSymbol = rootNote + '/' + bassNote;
-				allCases.push([chordSymbol, rootNote, bassNote]);
-			});
-	});
-
-	let parsed;
-	describe.each(allCases)('%s', (input, rootNote, bassNote) => {
-		test(`rootNote: '${rootNote}', bassNote: '${bassNote}'`, () => {
-			parsed = parseChord(input);
-			expect(parsed.rootNote).toBe(rootNote);
-			expect(parsed.bassNote).toBe(bassNote);
-		});
-	});
-});
-
-
 describe('Descriptor / parsable descriptor', () => {
 	describe.each([
 
