@@ -1,29 +1,12 @@
-//import _memoize from 'lodash/memoize';
 import _uniq from 'lodash/uniq';
-//import _intersection from 'lodash/intersection';
-//import _cloneDeep from 'lodash/cloneDeep';
 import _difference from 'lodash/difference';
-
-
 
 import allModifiers from './allModifiers';
 import allModifiersDetails from './allModifiersDetails';
-import symbolsToModifiers from './symbolsToModifiers';
+import allModifiersSymbols, { allVariants } from './allModifiersSymbols';
 import intervalsToSemitones from './intervalsToSemitones';
 
-
-const allSymbols = Object
-	.keys(symbolsToModifiers)
-	.sort((a, b) => b.length - a.length)
-	.map(escapeRegex)
-	.join('|');
-const symbolsRegexp = new RegExp(allSymbols, 'g');
-
-//console.log(allSymbols);
-
-
 export default function parseChord(input) {
-
 	const includedIntervals = ['1'];
 	const omittedIntervals = [];
 	const givenModifiers = [];
@@ -31,23 +14,31 @@ export default function parseChord(input) {
 	const chord = parseBasic(input);
 
 	if (chord) {
-
 		if (chord.descriptor) {
 			chord.parsableDescriptor = getParsableDescriptor(chord.descriptor);
 
-			const results = chord.parsableDescriptor.match(symbolsRegexp);
+			const descriptorRegex = new RegExp(allVariants.map(escapeRegex).join('|'), 'g');
+			const descriptorMatches = chord.parsableDescriptor.match(descriptorRegex);
+
+			let remainingChars = chord.parsableDescriptor;
 			let modifierId;
 			let modifierDetail;
 
-			if (results) {
-				results.forEach(symbol => {
-					modifierId = symbolsToModifiers[symbol];
+			if (descriptorMatches) {
+				descriptorMatches.forEach(match => {
+					modifierId = allModifiersSymbols[match];
 					modifierDetail = allModifiersDetails[modifierId];
 
 					includedIntervals.push(...(modifierDetail.includes || []));
 					omittedIntervals.push(...(modifierDetail.omit || []));
 					givenModifiers.push(modifierId);
+
+					remainingChars = remainingChars.replace(match, '');
 				});
+			}
+
+			if (givenModifiers.length === 0 || remainingChars.trim().length > 0) {
+				return null;
 			}
 		}
 		// add implied intervals for major chord
@@ -75,10 +66,8 @@ export default function parseChord(input) {
 			.map(degree => intervalsToSemitones[degree])
 			.sort((a, b) => (a - b));
 	}
-
 	return chord;
 }
-
 
 
 function parseBasic(input) {
@@ -113,7 +102,7 @@ function getParsableDescriptor(descriptor) {
 		toLowerCaseExceptMajorM,
 		removeSpaces,
 		addDisambiguators,
-		addMissingVerbs
+		addMissingVerbs,
 	];
 
 	return allFilters.reduce((parsableDescriptor, filter) => {
@@ -136,11 +125,11 @@ function removeSpaces(descriptor) {
 
 function addDisambiguators(descriptor) {
 	return descriptor
-		.replace(/(7?dim)add/g, (match, $1) => `(${$1})add`)
-		.replace(/([m|M])add/g, (match, $1) => `(${$1})add`)
-		.replace(/i(no[3|5])/g, (match, $1) => `i(${$1})`)
-		.replace(/([b|♭|#|♯]9)6/g, (match, $1) => `${$1}(6)`)
-		.replace(/(9\/?6)/g, (match, $1) => `(${$1})`)
+		.replace(/(7?dim)add/g, '$1 add')
+		.replace(/([m|M])add/g, '$1 add')
+		.replace(/i(no[3|5])/g, 'i $1')
+		.replace(/([b|♭|#|♯]9)6/g, '$1 6')
+		.replace(/(9\/?6)/g, ' $1')
 	;
 }
 
@@ -172,7 +161,7 @@ function addMissingVerbs(descriptor) {
 					allTokensWithVerbs.push(currentVerb + token);
 				}
 			});
-		return '(' + allTokensWithVerbs.join(',') + ')';
+		return ' ' + allTokensWithVerbs.join(' ') + ' ';
 	});
 }
 
@@ -219,8 +208,7 @@ function hasMajorIntent(givenModifiers) {
 		&& !givenModifiers.includes(allModifiers.halfDim);
 }
 
-
 // Based on https://stackoverflow.com/a/6969486
 function escapeRegex(string) {
-	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	return string.replace(/[.\-*+?^${}()|[\]\\]/g, '\\$&');
 }

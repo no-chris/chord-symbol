@@ -2,7 +2,7 @@ import intervalsToSemitones from '../../src/intervalsToSemitones';
 import allModifiers from '../../src/allModifiers';
 
 import combineModifiers from './helpers/combineModifiers';
-import getAllSymbolModifiers from '../../src/getAllSymbolModifiers';
+import getAllSymbolModifiers from './helpers/getAllSymbolModifiers';
 
 import parseChord from '../../src/parseChord';
 
@@ -10,7 +10,6 @@ const VARIANT_THRESHOLD = /**/1000/** /0/**/ ; // set this to 0 if you have time
 
 const allSrcSymbols = [
 	/**/
-
 
 	// Chords symbol from: Contemporary Music Theory
 
@@ -213,6 +212,8 @@ const allSrcSymbols = [
 	[ 'Csus2', 		'C', ['1', '5', '9'], 					[ allModifiers.sus2 ] ],
 	[ 'C6(#9)',		'C', ['1', '3', '5', '6', '#9'],		[ allModifiers.add6, allModifiers.ninthSharp ] ],
 	[ 'C6(b9)',		'C', ['1', '3', '5', '6', 'b9'],		[ allModifiers.add6, allModifiers.ninthFlat ] ],
+	[ 'C6M9',		'C', ['1', '3', '5', '6', '7', '9'],	[ allModifiers.ma9, allModifiers.add6 ] ],
+	[ 'Cø',			'C', ['1', 'b3', 'b5', 'b7'],			[ allModifiers.halfDim ] ],
 
 
 ];

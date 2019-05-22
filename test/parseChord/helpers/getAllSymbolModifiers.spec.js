@@ -1,6 +1,6 @@
 import allModifiers from '../../../src/allModifiers';
 
-import getAllSymbolModifiers from '../../../src/getAllSymbolModifiers';
+import getAllSymbolModifiers from './getAllSymbolModifiers';
 
 describe('getAllSymbolModifiers()', () => {
 	test('should retrieve all symbols for the given modifier', () => {

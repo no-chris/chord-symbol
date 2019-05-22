@@ -70,7 +70,11 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 
 # Lexicon
 
-Symbol: 
-Descriptor
-Modifier:
-
+- **Symbol**: the whole group of characters used to describe a given chord. Ex: `C9(#11)/F`
+- **Root Note**: first part of the symbol (1 or 2 characters). Ex: `C`, `Bb`
+- **Bass Note**: note after the last `/` of the symbol, if present. Ex: `F` 
+- **Descriptor**: what's between the root and bass note. It is the part that describe which intervals are used in the chord. Ex: `9(#11)`
+- **Modifier**: a modification to the intervals of the chord. A modifier can either affect a single interval (`#11`, `add9`...) 
+or multiple intervals (`9`, for `dominant9th`, means that both `b7` and `9` should be added to the chord)
+- **Modifier symbol**: different ways of writing the same modifier. A suspended chord can be written `Csus`, `Csus4`,`Csuspended`, `Csuspended4`. 
+All those symbols will yield the same intervals list because they all refers to the same modifier.

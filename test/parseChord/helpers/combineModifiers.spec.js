@@ -66,20 +66,20 @@ describe('combineModifiers()', () => {
 		expect(combined).toEqual(expected);
 	});
 
-	test('should wrap modifier in parenthesis if it starts with an accidental', () => {
+	test('should wrap first modifier in parenthesis if it starts with an accidental', () => {
 		const combined = combineModifiers(
 			['b9', '♭9'],
 			['#11', '♯11'],
 		);
 		const expected = [
-			'(b9#11)',
-			'(b9♯11)',
-			'(♭9#11)',
-			'(♭9♯11)',
-			'(#11b9)',
-			'(#11♭9)',
-			'(♯11b9)',
-			'(♯11♭9)',
+			'(b9)#11',
+			'(b9)♯11',
+			'(♭9)#11',
+			'(♭9)♯11',
+			'(#11)b9',
+			'(#11)♭9',
+			'(♯11)b9',
+			'(♯11)♭9',
 		].sort();
 
 		expect(combined).toEqual(expected);

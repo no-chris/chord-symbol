@@ -1,5 +1,5 @@
 /**
- * WARNING: when adding new strings, be careful of possible edge cases that might arise with some combinations.
+ * WARNING: when adding new modifiers symbols, be careful of possible edge cases that might arise with some combinations.
  * For example, without edge case handling, "madd9" would be parsed as "ma" instead of "m"+"add9"
  */
 import allModifiers from './allModifiers';
@@ -33,7 +33,7 @@ const dim = {
 const dim7_prefix = getDerivedModifiers(dim, allModifiers.dim7, symbol => '7' + symbol);
 const dim7_suffix = getDerivedModifiers(dim, allModifiers.dim7, symbol => symbol + '7');
 
-export default {
+const allModifiersSymbols = {
 
 	// major
 	...major,
@@ -51,7 +51,6 @@ export default {
 	'mi': 			allModifiers.mi,
 	'min': 			allModifiers.mi,
 	'minor':		allModifiers.mi,
-	'b3':			allModifiers.mi,
 
 	// suspended
 	'sus':			allModifiers.sus,
@@ -78,6 +77,7 @@ export default {
 	'augmented': 	allModifiers.aug,
 
 	// alterations
+	'b3':			allModifiers.mi,
 	'b5':	 		allModifiers.fifthFlat,
 	'♭5':			allModifiers.fifthFlat,
 	'#5':			allModifiers.fifthSharp,
@@ -125,12 +125,18 @@ export default {
 
 };
 
-
-function getDerivedModifiers(source, modifierId, mapFn) {
+function getDerivedModifiers(source, modifierId, derivedFn) {
 	return Object.keys(source)
-		.map(mapFn)
+		.map(derivedFn)
 		.reduce((acc, curr) => {
 			acc[curr] = modifierId;
 			return acc;
 		}, {});
 }
+
+const allVariants = Object.keys(allModifiersSymbols)
+	.sort((a, b) => b.length - a.length);
+
+export default allModifiersSymbols;
+export { allVariants };
+
