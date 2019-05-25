@@ -57,9 +57,13 @@ export default function parseChord(input) {
 		if (shouldRemove11(givenModifiers)) {
 			omittedIntervals.push('11');
 		}
+		// apply b13 specific rules
+		if (shouldRemove5(includedIntervals)) {
+			omittedIntervals.push('5');
+		}
 
 		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals))
-			.sort((a, b) => (stripAccidentals(a) - stripAccidentals(b)));
+			.sort((a, b) => (intervalsToSemitones[a] - intervalsToSemitones[b]));
 
 		chord.modifiers = givenModifiers;
 		chord.intervals = finalIntervals;
@@ -166,10 +170,6 @@ function addMissingVerbs(descriptor) {
 	});
 }
 
-function stripAccidentals(input) {
-	return input.replace('b', '').replace('#', '');
-}
-
 function shouldAdd3(includedIntervals, givenModifiers) {
 	return !includedIntervals.includes('b3')
 		&& !includedIntervals.includes('3')
@@ -188,7 +188,8 @@ function shouldAdd4(givenModifiers) {
 function shouldAdd5(includedIntervals) {
 	return !includedIntervals.includes('b5')
 		&& !includedIntervals.includes('5')
-		&& !includedIntervals.includes('#5');
+		&& !includedIntervals.includes('#5')
+		&& !includedIntervals.includes('b13');
 }
 
 //
@@ -200,6 +201,11 @@ function shouldRemove11(givenModifiers) {
 			|| givenModifiers.includes(allModifiers.dom13)
 			|| givenModifiers.includes(allModifiers.ma13)
 		);
+}
+
+
+function shouldRemove5(includedIntervals) {
+	return includedIntervals.includes('b13');
 }
 
 function hasMajorIntent(givenModifiers) {

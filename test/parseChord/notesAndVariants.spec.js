@@ -2,8 +2,6 @@ import { variantsToNotes, allVariants } from '../../src/allNotes';
 
 import parseChord from '../../src/parseChord';
 
-
-
 describe('Root and bass notes', () => {
 	const allCases = [];
 	let chordSymbol;
