@@ -1,10 +1,11 @@
 import _clone from 'lodash/clone';
 import _find from 'lodash/find';
 import _remove from 'lodash/remove';
-import _isArray from 'lodash/isArray';
 
-import allModifiers from '../src/allModifiers';
-import intervalsToSemitones from '../src/intervalsToSemitones';
+import allModifiers from '../../allModifiers';
+import intervalsToSemitones from '../../intervalsToSemitones';
+
+import { hasOneOf, hasAll, hasNoneOf } from '../helpers/hasInterval';
 
 const allQualities = {
 	ma: 'ma',
@@ -25,37 +26,9 @@ const allQualities = {
 	sus: 'sus',
 	susMa7: 'susMa7',
 	susDom7: 'susDom7',
-	// 6sus??
+	// todo: 6sus??
 };
 
-const qualityToDescriptor = {
-	[allQualities.ma]: '',
-	[allQualities.ma6]: '6',
-	[allQualities.ma69]: '69',
-	[allQualities.ma7]: 'ma{EXT}',
-	[allQualities.dom7]: '{EXT}',
-	[allQualities.aug]: '+',
-
-	[allQualities.mi]: 'mi',
-	[allQualities.mi6]: 'mi6',
-	[allQualities.mi69]: 'mi69',
-	[allQualities.mi7]: 'mi{EXT}',
-	[allQualities.miMa7]: 'miMa{EXT}',
-	[allQualities.dim]: 'dim',
-	[allQualities.dim7]: 'dim7',
-
-	[allQualities.sus]: 'sus',
-	[allQualities.susMa7]: 'ma{EXT}sus',
-	[allQualities.susDom7]: '{EXT}sus',
-};
-
-
-const miscDescriptors = {
-	power: '5',
-	bass: ' bass',
-	omit: 'no',
-	add: 'add'
-};
 
 const intervalsToQualities = [
 
@@ -83,27 +56,63 @@ const intervalsToQualities = [
 ].sort((a, b) => (b.intervals.length - a.intervals.length));
 
 
+const descriptors = {
+	[allQualities.ma]: '',
+	[allQualities.ma6]: '6',
+	[allQualities.ma69]: '69',
+	[allQualities.ma7]: 'ma{EXT}',
+	[allQualities.dom7]: '{EXT}',
+	[allQualities.aug]: '+',
 
+	[allQualities.mi]: 'mi',
+	[allQualities.mi6]: 'mi6',
+	[allQualities.mi69]: 'mi69',
+	[allQualities.mi7]: 'mi{EXT}',
+	[allQualities.miMa7]: 'miMa{EXT}',
+	[allQualities.dim]: 'dim',
+	[allQualities.dim7]: 'dim7',
 
-export default function normalizeChord(parsed) {
-	let normalized = parsed.rootNote;
-	let chordIntervals = _clone(parsed.intervals);
+	[allQualities.sus]: 'sus',
+	[allQualities.susMa7]: 'ma{EXT}sus',
+	[allQualities.susDom7]: '{EXT}sus',
+
+	power: '5',
+	bass: ' bass',
+	omit: 'omit',
+	add: 'add',
+	add2: '2',
+	sus2: 'sus2',
+	add7: 'Ma7',
+};
+
+/**
+ *
+ * @param {Chord} chord
+ * @returns {Chord}
+ */
+export default function normalizeDescriptor(chord) {
+	let normalizedDescriptor = {
+		quality: '',
+		changes: [],
+	};
+	let chordIntervals = _clone(chord.intervals);
+
 	let alterations = [];
 	let addeds = [];
 	let omitteds = [];
 
 	/**
-	 * This will contain the "straight" version of the chord, ie intervals WITHOUT adds, alterations & omitted intervals
+	 * This will contain the "straight" version of the chord, ie intervals WITHOUT alterations
 	 * It be useful to distinguish later between addeds/accidentals
 	 */
 	let baseIntervals = ['1'];
 
 
 	if (isPowerChord(chordIntervals)) {
-		normalized += miscDescriptors.power;
+		normalizedDescriptor.quality = descriptors.power;
 
 	} else if (isBass(chordIntervals)) {
-		normalized += miscDescriptors.bass;
+		normalizedDescriptor.quality = descriptors.bass;
 
 	} else {
 		omitteds = getOmitted(chordIntervals);
@@ -116,34 +125,33 @@ export default function normalizeChord(parsed) {
 
 		detectAddedsAndAlterations(quality.id);
 
-		const parenthesis = getParenthesis(addeds, alterations, omitteds);
-
-		normalized += getNormalizedDescriptor(quality.id, extensions);
-		if (parenthesis.length) {
-			normalized += '(' + parenthesis.join(',') + ')';
-		}
+		normalizedDescriptor = {
+			quality: getNormalizedQuality(quality.id, extensions),
+			changes: getChordChanges(addeds, alterations, omitteds),
+		};
 	}
 
-	if (parsed.bassNote) {
-		normalized += '/' + parsed.bassNote;
-	}
-	return normalized;
+	return {
+		...chord,
+		normalizedDescriptor,
+	};
 
 
 	/**
-	 * Use of "omit" and "add" in chord symbol can makes it difficult to identify chord quality, especially if the 3rd is missing
-	 * We try here to "rebuild" the chord quality for the following cases:
-	 * - chord created with the "omit3" modifier
-	 * - if both 3 and 4 are present, we assume the chord has been created with an "add3" modifier
+	 * Use of "omit" and "add" in chord symbol can makes it difficult to identify chord quality,
+	 * especially if the 3rd is missing.
+	 * We try to detect those cases and to "rebuild" the chord quality
 	 */
 	function restaureChordQuality() {
-		if (has(omitteds, '3')) {
-			if (parsed.modifiers.includes(allModifiers.mi)) {
+		// Chord created with the "omit3" modifier
+		if (hasAll(omitteds, '3')) {
+			if (chord.modifiers.includes(allModifiers.mi)) {
 				chordIntervals.push('b3');
 			} else {
 				chordIntervals.push('3');
 			}
 		}
+		// If both 3 and 4 are present, we assume the chord has been created with an "add3" modifier
 		if (hasAll(chordIntervals, ['3', '4'])) {
 			addeds.push('3');
 			_remove(chordIntervals, o => o === '3');
@@ -167,7 +175,7 @@ export default function normalizeChord(parsed) {
 }
 
 function isPowerChord(intervals) {
-	return intervals.length === 2 && intervals[0] === '1' && intervals[1] === '5';
+	return intervals.length === 2 && intervals[0] === '1' && intervals[1] === '5'; //todo: use hasOnly()
 }
 
 function isBass(intervals) {
@@ -175,14 +183,14 @@ function isBass(intervals) {
 }
 
 function getOmitted(intervals) {
-	const omittedLocal = [];
+	const omitteds = [];
 	if (hasNoneOf(intervals, ['b3', '3', '4'])) {
-		omittedLocal.push('3');
+		omitteds.push('3');
 	}
 	if (hasNoneOf(intervals, ['b5', '5', '#5', 'b13'])) {
-		omittedLocal.push('5');
+		omitteds.push('5');
 	}
-	return omittedLocal;
+	return omitteds;
 }
 
 function getChordQuality(allIntervals) {
@@ -244,8 +252,8 @@ function getHighestExtension(extensions) {
 	return highestExtension || '7';
 }
 
-function getNormalizedDescriptor(quality, extensions) {
-	return qualityToDescriptor[quality].replace('{EXT}', getHighestExtension(extensions));
+function getNormalizedQuality(quality, extensions) {
+	return descriptors[quality].replace('{EXT}', getHighestExtension(extensions));
 }
 
 function isAlteration(quality, interval) {
@@ -273,7 +281,7 @@ function isAlteration(quality, interval) {
 	return qualityAlterations[quality].includes(interval);
 }
 
-function getParenthesis(addeds, alterations, omitteds) {
+function getChordChanges(addeds, alterations, omitteds) {
 	const formattedOmitteds = formatOmitteds(omitteds);
 	const formattedAddeds = formatAddeds(addeds);
 
@@ -287,12 +295,12 @@ function formatAddeds(addeds) {
 	return addeds.map((add, index) => {
 		let formatted = '';
 		if (index === 0) {
-			formatted += miscDescriptors.add;
+			formatted += descriptors.add;
 			if (['b', '#'].includes(add[0])) {
 				formatted += ' ';
 			}
 		}
-		formatted += (add === '7') ? 'Ma7' : add;
+		formatted += (add === '7') ? descriptors.add7 : add;
 		return formatted;
 	});
 }
@@ -309,27 +317,15 @@ function getSortableInterval(interval) {
 }
 
 function formatOmitteds(omitteds) {
-	return omitteds.map(o => miscDescriptors.omit + o);
-}
-
-
-function hasOneOf(allIntervals, search) {
-	return has(allIntervals, search, 'oneOf');
-}
-function hasAll(allIntervals, search) {
-	return has(allIntervals, search, 'all');
-}
-function hasNoneOf(allIntervals, search) {
-	return has(allIntervals, search, 'none');
-}
-function has(allIntervals, search, require = 'all') {
-	const arraySearch = (_isArray(search)) ? search : [search];
-
-	const lookupMethod = (require === 'oneOf') ? 'some' : 'every';
-
-	return arraySearch[lookupMethod](interval => {
-		return (require === 'none')
-			? !allIntervals.includes(interval)
-			: allIntervals.includes(interval);
+	return omitteds.map((omitted, index) => {
+		let formatted = '';
+		if (index === 0) {
+			formatted += descriptors.omit;
+		}
+		formatted += omitted;
+		return formatted;
 	});
 }
+
+
+

@@ -6,7 +6,29 @@ import allModifiersDetails from './allModifiersDetails';
 import allModifiersSymbols, { allVariants as allModifiersVariants } from './allModifiersSymbols';
 import { variantsToNotes, allVariants as allNotesVariants } from './allNotes';
 import intervalsToSemitones from './intervalsToSemitones';
+import { hasNoneOf } from './renderer/helpers/hasInterval';
 
+
+/**
+ * @typedef {Object} Chord
+ * @type {Object}
+ * @property {String} rootNote
+ * @property {String} [bassNote]
+ * @property {String[]} intervals
+ * @property {Number[]} semitones
+ * @property {String[]} modifiers
+ * @property {String} descriptor
+ * @property {String} parsableDescriptor
+ * @property {String} [normalizedDescriptor]
+ * @property {String} [normalizedDescriptor.quality]
+ * @property {String[]} [normalizedDescriptor.changes] - alterations, added and omitted notes
+ */
+
+
+/**
+ * @param {String} input
+ * @returns {Chord|Null}
+ */
 export default function parseChord(input) {
 	const includedIntervals = ['1'];
 	const omittedIntervals = [];
@@ -42,24 +64,27 @@ export default function parseChord(input) {
 				return null;
 			}
 		}
+		// fixme: this is a mess
 		// add implied intervals for major chord
 		if (shouldAdd3(includedIntervals, givenModifiers)) {
-			includedIntervals.push('3'); //fixme: I should be a constant?
+			includedIntervals.push('3');
 		}
 		if (shouldAdd5(includedIntervals)) {
 			includedIntervals.push('5');
 		}
-		// apply 11th specific rules
-		if (shouldAdd4(givenModifiers)) {
+		if (isMajorSuspended(includedIntervals, givenModifiers)) {
+			omittedIntervals.push('b3', '3', '11');
 			includedIntervals.push('4');
-			omittedIntervals.push('b3', '3');
+		}
+		if (shouldRemove5(includedIntervals)) {
+			omittedIntervals.push('5');
 		}
 		if (shouldRemove11(givenModifiers)) {
 			omittedIntervals.push('11');
 		}
-		// apply b13 specific rules
-		if (shouldRemove5(includedIntervals)) {
-			omittedIntervals.push('5');
+		if (isMiSus(givenModifiers)) {
+			omittedIntervals.push('b3');
+			includedIntervals.push('4');
 		}
 
 		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals))
@@ -171,41 +196,38 @@ function addMissingVerbs(descriptor) {
 }
 
 function shouldAdd3(includedIntervals, givenModifiers) {
-	return !includedIntervals.includes('b3')
-		&& !includedIntervals.includes('3')
+	return hasNoneOf(includedIntervals, ['b3', '3'])
 		&& !givenModifiers.includes(allModifiers.sus)
 		&& !givenModifiers.includes(allModifiers.sus2);
 }
 
-function shouldAdd4(givenModifiers) {
-	return hasMajorIntent(givenModifiers)
-		&& (
-			givenModifiers.includes(allModifiers.dom11)
-			|| givenModifiers.includes(allModifiers.ma11)
-		);
-}
-
 function shouldAdd5(includedIntervals) {
-	return !includedIntervals.includes('b5')
-		&& !includedIntervals.includes('5')
-		&& !includedIntervals.includes('#5')
-		&& !includedIntervals.includes('b13');
+	return hasNoneOf(includedIntervals, ['b5', '5', '#5', 'b13']);
 }
 
-//
-function shouldRemove11(givenModifiers) {
+function isMajorSuspended(includedIntervals, givenModifiers) {
 	return hasMajorIntent(givenModifiers)
 		&& (
-			givenModifiers.includes(allModifiers.dom11)
-			|| givenModifiers.includes(allModifiers.ma11)
-			|| givenModifiers.includes(allModifiers.dom13)
-			|| givenModifiers.includes(allModifiers.ma13)
+			givenModifiers.includes(allModifiers.ma11)
+			|| givenModifiers.includes(allModifiers.dom11)
 		);
 }
 
+function isMiSus(givenModifiers) {
+	return givenModifiers.includes(allModifiers.mi)
+		&& givenModifiers.includes(allModifiers.sus);
+}
 
 function shouldRemove5(includedIntervals) {
 	return includedIntervals.includes('b13');
+}
+
+function shouldRemove11(givenModifiers) {
+	return hasMajorIntent(givenModifiers)
+		&& (
+			givenModifiers.includes(allModifiers.dom13)
+			|| givenModifiers.includes(allModifiers.ma13)
+		);
 }
 
 function hasMajorIntent(givenModifiers) {

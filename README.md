@@ -29,8 +29,9 @@ I actually wrote it first because I could not find any suitable library for Chor
 
 The objective of `chord-symbol` is to be able to parse correctly most chords symbols used to describe Pop/Rock/Jazz music.
 This objective will be considered to be met if the library can fully understand all chords definitions of symbols present in:
-- `The New Real Book` series (`p.6` of `Volmume 1`)
 - Mark Harrison's `Contemporary Music Theory` book series
+- `The New Real Book` series (`p.6` of `Volmume 1`)
+- Polychords are outside the scope
 
 That's more than 110 distinct chords symbols, from the basic `C` to the uncommon `C7(b9,#9,#11,b13)`. 
 Of course, `chord-symbol` does not limit itself to this list and is able to recognize a much greater amount of chords symbols.

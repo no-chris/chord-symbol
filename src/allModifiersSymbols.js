@@ -60,7 +60,7 @@ const allModifiersSymbols = {
 	'sus2':			allModifiers.sus2,
 	'suspended2':	allModifiers.sus2,
 
-	// dominant
+	// dominant //fixme: conio? add mi7, mi9, etc.
 	'7':			allModifiers.dom7,
 	'9':			allModifiers.dom9,
 	'11':			allModifiers.dom11,

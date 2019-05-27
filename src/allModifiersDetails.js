@@ -95,6 +95,7 @@ export default {
 
 
 	// added
+	//fixme: move this to an add?!
 	[allModifiers.add3]: {
 		includes: ['3'],
 	},
@@ -104,8 +105,8 @@ export default {
 	[allModifiers.add69]: {
 		includes: ['6', '9'],
 	},
-	[allModifiers.addma7]: {
-		includes: ['7'],
+	[allModifiers.add7]: {
+		includes: ['7'], //fixme: needed?
 	},
 	[allModifiers.add9]: {
 		includes: ['9'],
