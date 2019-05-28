@@ -7,7 +7,8 @@ import getAllSymbolModifiers from './helpers/getAllSymbolModifiers';
 import parseChord from '../../src/parseChord';
 import chordRendererFactory from '../../src/renderer/chordRendererFactory';
 
-const VARIANT_THRESHOLD = /**/1000/** /0/**/ ; // set this to 0 if you have time
+const TEST_SUITE = process.env.TEST_SUITE;
+const VARIANT_THRESHOLD = 750; // limit the number of tested combinations per symbol
 
 const allSrcSymbols = [
 	/**/
@@ -33,7 +34,7 @@ const allSrcSymbols = [
 	[ 'Cma7',			'C', ['1', '3', '5', '7'], 						'Cma7',				[ m.ma7 ] ],
 	[ 'Cma7(#5)',		'C', ['1', '3', '#5', '7'], 					'Cma7(#5)', 		[ m.ma7, m.fifthSharp ] ],
 	[ 'Cadd9(omit3)',	'C', ['1', '5', '9'], 							'C(add9,omit3)', 	[ m.omit3, m.add9 ] ],
-	[ 'Cadd9(no3)',		'C', ['1', '5', '9'], 							'C(add9,omit3)',	[ m.omit3, m.add6 ] ],
+	[ 'Cadd9(no3)',		'C', ['1', '5', '9'], 							'C(add9,omit3)',	[ m.omit3, m.add9 ] ],
 	[ 'Cadd9',			'C', ['1', '3', '5', '9'], 						'C(add9)',			[ m.add9 ] ],
 	[ 'C(add9)',		'C', ['1', '3', '5', '9'],						'C(add9)', ],
 	[ 'Cma9',			'C', ['1', '3', '5', '7', '9'], 				'Cma9', 			[ m.ma9 ] ],
@@ -262,13 +263,14 @@ allSrcSymbols.forEach(symbolSrc => {
 			.map(variant => rootNote + variant + ((bassNote) ? '/' + bassNote : ''))
 			.filter(variant => variant !== symbol);
 
-		if (shouldAddVariants(allVariants.length)) {
+		if (TEST_SUITE !== 'short') {
 			allVariants
+				.slice(0, VARIANT_THRESHOLD)
 				.filter(variant => {
 					return !allCasesSymbols.includes(variant);
 				})
 				.forEach(variant => {
-					//addCase(symbol + ' / variant: ' + variant, variant, rootNote, printed, intervals);
+					addCase(symbol + ' / variant: ' + variant, variant, rootNote, printed, intervals);
 				});
 		}
 	}
@@ -279,18 +281,9 @@ function addCase(title, symbol, rootNote, printed, intervals) {
 	allCasesSymbols.push(symbol);
 }
 
-function shouldAddVariants(numberOfVariants) {
-	return (numberOfVariants &&
-		(
-			(VARIANT_THRESHOLD > 0 && numberOfVariants < VARIANT_THRESHOLD)
-			|| (VARIANT_THRESHOLD === 0)
-		)
-	);
-}
-
 const renderChord = chordRendererFactory();
 
-describe.skip.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
+describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	test('is parsed: ' + intervals.join(' '), () => {
 		const semitones = intervals.map(interval => intervalsToSemitones[interval]).sort((a, b) => (a - b));
 		const parsed = parseChord(symbol);
@@ -313,4 +306,3 @@ describe.skip.each(allCases)('%s', (title, symbol, rootNote, printed, intervals)
 		expect(chord1.intervals).toEqual(chord2.intervals);
 	});
 });
-

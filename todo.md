@@ -1,11 +1,11 @@
 + check for invalid chars
 + change edge case replacement functions
++ Cmisus Cmisus4 (fig 1.31)
++ have 11 instead of 4 (no?)
 - create "light" and "heavy" test suites
-- complete dom7 with mi7, dom9 with mi9...
+- complete dom7 with mi7, dom9 with mi9...: really?
 - handle 7 6 chord as 13 or add 13
 - add chords in CMT glossary
-- Cmisus Cmisus4 (fig 1.31)
-- have 11 instead of 4
 - demo site
 
 Render functionality:

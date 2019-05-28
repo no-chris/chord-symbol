@@ -2,7 +2,9 @@ import { variantsToNotes, allVariants } from '../../src/allNotes';
 
 import parseChord from '../../src/parseChord';
 
-describe.skip('Root and bass notes', () => {
+const TEST_SUITE = process.env.TEST_SUITE;
+
+describe('Root and bass notes', () => {
 	const allCases = [];
 	let chordSymbol;
 
@@ -13,7 +15,9 @@ describe.skip('Root and bass notes', () => {
 			.filter(bassNote => bassNote !== rootNote)
 			.forEach(bassNote => {
 				chordSymbol = rootNote + '/' + bassNote;
-				allCases.push([chordSymbol, variantsToNotes[rootNote], variantsToNotes[bassNote]]);
+				if (TEST_SUITE !== 'short') {
+					allCases.push([chordSymbol, variantsToNotes[rootNote], variantsToNotes[bassNote]]);
+				}
 			});
 	});
 

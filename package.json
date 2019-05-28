@@ -4,6 +4,7 @@
   "description": "the definitive chord parser",
   "main": "index.js",
   "scripts": {
+    "test-short": "TEST_SUITE=short jest",
     "test": "jest"
   },
   "author": "Christophe Noël",

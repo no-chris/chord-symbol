@@ -64,7 +64,7 @@ export default function parseChord(input) {
 				return null;
 			}
 		}
-		// fixme: this is a mess
+		// fixme: this is a mess. Fix this with separating addeds?
 		// add implied intervals for major chord
 		if (shouldAdd3(includedIntervals, givenModifiers)) {
 			includedIntervals.push('3');
