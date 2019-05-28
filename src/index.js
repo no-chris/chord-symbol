@@ -1,23 +1,4 @@
-/*
 import parseChord from './parseChord';
+import chordRendererFactory from './renderer/chordRendererFactory';
 
-
-class Chord  {
-	constructor(symbol) {
-		this.symbol = symbol;
-		this.parsed = parseChord(symbol);
-	}
-
-	getSymbol() {
-		return this.symbol;
-	}
-
-	getNormalizedSymbol() {
-
-	}
-}
-
-export function fromSymbol(symbol) {
-	return new Chord(symbol);
-}
-*/
+export { parseChord, chordRendererFactory };

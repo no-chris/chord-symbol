@@ -1,12 +1,8 @@
 {
   "name": "chord-symbol",
   "version": "0.1.0",
-  "description": "the definitive chord parser",
-  "main": "index.js",
-  "scripts": {
-    "test-short": "TEST_SUITE=short jest",
-    "test": "jest"
-  },
+  "description": "The definitive chord parser",
+  "main": "src/index.js",
   "author": "Christophe Noël",
   "license": "MIT",
   "devDependencies": {
@@ -14,13 +10,29 @@
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
     "cartesian": "^1.0.1",
+    "clean-webpack-plugin": "^2.0.2",
     "eslint": "^5.16.0",
     "get-permutations": "^1.0.0",
-    "jest": "^24.8.0"
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.8.0",
+    "sloc": "^0.2.1",
+    "terser-webpack-plugin": "^1.3.0",
+    "webpack": "^4.32.2",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.2"
   },
   "dependencies": {
     "core-js": "^3.0.1",
     "lodash": "^4.17.11"
+  },
+  "scripts": {
+    "test-short": "TEST_SUITE=short jest",
+    "test": "jest",
+    "bundle": "webpack --config webpack.lib.js && webpack --config webpack.docs.js",
+    "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
+    "outdated": "npm outdated",
+    "audit": "npm audit"
   }
 }

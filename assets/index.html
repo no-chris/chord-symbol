@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js" lang="en_EN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+    body {
+        background-color: #f5f5fa;
+        color: #3c4449;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        padding: 50px;
+        line-height: 2em;
+    }
+    input {
+        font-size: 20px;
+        width: 500px;
+        padding: 10px;
+    }
+</style>
+<div id="app">
+    <h1>Chord-Symbol</h1>
+    <div>
+        <a href="https://github.com/no-chris/chord-symbol">GitHub</a>
+    </div>
+    <div>
+        <label for="chordInput">Enter chord symbol: </label><input type="text" id="chordInput" class="chordInput" />
+    </div>
+    <ul>
+        <li><strong>Normalized: </strong><span data-output="normalized">-</span></li>
+        <li><strong>Normalized (short): </strong><span data-output="normalizedShort">-</span></li>
+        <li><strong>Intervals: </strong><span data-output="intervals">-</span></li>
+        <li><strong>Semitones: </strong><span data-output="semitones">-</span></li>
+    </ul>
+</div>
+</body>
+</html>
