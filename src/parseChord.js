@@ -231,7 +231,7 @@ function getFifths(allModifiers) {
 
 function getSixth(allModifiers) {
 	const sixth = [];
-	if (hasOneOf(allModifiers, [m.add6, m.add69]) && !allModifiers.includes[m.seventh]) {
+	if (hasOneOf(allModifiers, [m.add6, m.add69]) && !allModifiers.includes(m.seventh)) {
 		sixth.push('6');
 	}
 	return sixth;
@@ -302,7 +302,7 @@ function getThirteenths(allModifiers) {
 	const thirteenths = [];
 	if (
 		hasOneOf(allModifiers, [m.add13, m.thirteenth])
-		|| hasAll(allModifiers, [m.add6, m.add69, m.seventh])
+		|| (hasOneOf(allModifiers, [m.add6, m.add69]) && allModifiers.includes(m.seventh))
 	) {
 		thirteenths.push('13');
 	}
