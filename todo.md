@@ -11,6 +11,7 @@
 - add C11 to shortNamings
 - Cm13(#11) =>  Cm13(add #11)
 - rendering of D9(b13) vs D(b13) => add or not?
+- Domit3 !!!
 
 Render functionality:
 Filters:
