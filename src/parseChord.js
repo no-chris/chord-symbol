@@ -4,7 +4,7 @@ import m from './allModifiers';
 import allModifiersSymbols, { allVariants as allModifiersVariants } from './allModifiersSymbols';
 import { variantsToNotes, allVariants as allNotesVariants } from './allNotes';
 import intervalsToSemitones from './intervalsToSemitones';
-import { hasNoneOf, hasOneOf, hasAll } from './renderer/helpers/hasInterval';
+import { hasNoneOf, hasOneOf } from './renderer/helpers/hasInterval';
 
 
 /**
@@ -76,7 +76,7 @@ function parseBasic(input) {
 		'^'
 		+ '(' + notesRegex + ')'
 		+ '(.*?)'
-		+ '(\/(' + notesRegex + '))?'
+		+ '(/(' + notesRegex + '))?'
 		+ '$'
 	);
 	const result = input.match(notesAndDescriptorRegex);
@@ -231,7 +231,7 @@ function getFifths(allModifiers) {
 
 function getSixth(allModifiers) {
 	const sixth = [];
-	if (hasOneOf(allModifiers, [m.add6, m.add69]) && !allModifiers.includes(m.seventh)) {
+	if (hasOneOf(allModifiers, [m.add6, m.add69]) && !isExtended(allModifiers)) {
 		sixth.push('6');
 	}
 	return sixth;
@@ -302,7 +302,7 @@ function getThirteenths(allModifiers) {
 	const thirteenths = [];
 	if (
 		hasOneOf(allModifiers, [m.add13, m.thirteenth])
-		|| (hasOneOf(allModifiers, [m.add6, m.add69]) && allModifiers.includes(m.seventh))
+		|| (hasOneOf(allModifiers, [m.add6, m.add69]) && isExtended(allModifiers))
 	) {
 		thirteenths.push('13');
 	}
@@ -312,8 +312,12 @@ function getThirteenths(allModifiers) {
 	return thirteenths;
 }
 
-function hasMajorIntent(givenModifiers) {
-	return hasNoneOf(givenModifiers, [m.mi, m.dim, m.dim7, m.halfDim]);
+function hasMajorIntent(allModifiers) {
+	return hasNoneOf(allModifiers, [m.mi, m.dim, m.dim7, m.halfDim]);
+}
+
+function isExtended(allModifiers) {
+	return hasOneOf(allModifiers, [m.seventh, m.ninth, m.eleventh, m.thirteenth]);
 }
 
 // Based on https://stackoverflow.com/a/6969486

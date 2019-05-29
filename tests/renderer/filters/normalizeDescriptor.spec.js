@@ -89,6 +89,11 @@ describe('normalizeDescriptor', () => {
 		['dim #9 add',			'C°(#9)', 			'dim', 	['add #9'] ],
 		['dim7 M7 add',			'C°7(ma7)', 		'dim7', ['addMa7'] ],
 
+		// more edge cases...
+		['mi6 + dominant9',		'C6m9', 			'mi9', 	['add13'] ],
+		['6 + dominant9',		'C679', 			'13', 	[] ],
+		['min + aug',			'Cm+', 				'mi', 	['#5'] ],
+
 		/**/
 		/**/
 

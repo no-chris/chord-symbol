@@ -6,5 +6,6 @@ module.exports = {
 	'rules': {
 		'no-restricted-imports': ['off'],
 		'max-len': [ 'off' ],
+		'max-params': [ 'warn', { max: 6 } ],
 	},
 };

@@ -51,6 +51,7 @@ const allModifiersSymbols = {
 	'aug':		 	allModifiers.aug,
 	'augmented': 	allModifiers.aug,
 
+	// seventh
 	'7':			allModifiers.seventh,
 
 	// suspended
@@ -65,7 +66,6 @@ const allModifiersSymbols = {
 	'9':			allModifiers.ninth,
 	'11':			allModifiers.eleventh,
 	'13':			allModifiers.thirteenth,
-
 
 	// alterations
 	'b3':			allModifiers.mi,

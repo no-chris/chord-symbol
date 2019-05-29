@@ -30,6 +30,7 @@ const allQualities = {
 };
 
 
+// !!! order is important here
 const intervalsToQualities = [
 
 	{ intervals: [ '3' ],				id: allQualities.ma },
@@ -37,13 +38,14 @@ const intervalsToQualities = [
 	{ intervals: [ '3', '6', '9' ],		id: allQualities.ma69 },
 	{ intervals: [ '3', '7' ],			id: allQualities.ma7 },
 	{ intervals: [ '3', 'b7' ],			id: allQualities.dom7 },
-	{ intervals: [ '3', '#5' ],			id: allQualities.aug },
 
 	{ intervals: [ 'b3' ],				id: allQualities.mi },
 	{ intervals: [ 'b3', '6' ],			id: allQualities.mi6 },
 	{ intervals: [ 'b3', '6', '9' ],	id: allQualities.mi69 },
 	{ intervals: [ 'b3', '7' ],			id: allQualities.miMa7 },
 	{ intervals: [ 'b3', 'b7' ],		id: allQualities.mi7 },
+
+	{ intervals: [ '3', '#5' ],			id: allQualities.aug },
 	{ intervals: [ 'b3', 'b5' ],		id: allQualities.dim },
 	{ intervals: [ 'b3', 'b5', 'bb7' ],	id: allQualities.dim7 },
 
