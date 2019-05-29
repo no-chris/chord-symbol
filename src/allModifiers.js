@@ -1,30 +1,21 @@
 export default {
 
-	// major
+	// base
 	ma: 'ma',
-	ma7: 'ma7',
-	ma9: 'ma9',
-	ma11: 'ma11',
-	ma13: 'ma13',
-
-	// minor
 	mi: 'mi',
+	dim: 'dim',
+	halfDim: 'halfDim',
+	aug: 'aug',
+	seventh: 'seventh',
 
 	// suspended
 	sus: 'sus',
 	sus2: 'sus2',
 
-	// dominant
-	dom7: 'dom7',
-	dom9: 'dom9',
-	dom11: 'dom11',
-	dom13: 'dom13',
-
-	// diminished / augmented
-	dim: 'dim',
-	dim7: 'dim7',
-	halfDim: 'halfDim',
-	aug: 'aug',
+	// extensions
+	ninth: 'ninth',
+	eleventh: 'eleventh',
+	thirteenth: 'thirteenth',
 
 	// alterations
 	fifthFlat: 'b5',
@@ -35,7 +26,6 @@ export default {
 	thirteenthFlat: 'b13',
 
 	// added
-	add2: 'add2',
 	add3: 'add3',
 	add4: 'add4',
 	add6: 'add6',

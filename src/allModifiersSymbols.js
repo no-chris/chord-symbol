@@ -5,6 +5,7 @@
 import allModifiers from './allModifiers';
 
 const major = {
+	'^':		allModifiers.ma,
 	'Δ':		allModifiers.ma,
 	'M': 		allModifiers.ma,
 	'Ma': 		allModifiers.ma,
@@ -15,32 +16,14 @@ const major = {
 	'major':	allModifiers.ma,
 };
 
-const major7th = getDerivedModifiers(major, allModifiers.ma7, symbol => symbol + '7');
-const major9th = getDerivedModifiers(major, allModifiers.ma9, symbol => symbol + '9');
-const major11th = getDerivedModifiers(major, allModifiers.ma11, symbol => symbol + '11');
-const major13th = getDerivedModifiers(major, allModifiers.ma13, symbol => symbol + '13');
-
-const add7 = getDerivedModifiers(major, allModifiers.ma7, symbol => 'add' + symbol + '7');
-
-const dim = {
-	'°':			allModifiers.dim,
-	'0':			allModifiers.dim,
-	'dim':		    allModifiers.dim,
-	'dim.':		    allModifiers.dim,
-	'diminished':	allModifiers.dim,
-};
-
-const dim7_prefix = getDerivedModifiers(dim, allModifiers.dim7, symbol => '7' + symbol);
-const dim7_suffix = getDerivedModifiers(dim, allModifiers.dim7, symbol => symbol + '7');
+const major7th = getDerivedModifiers(major, allModifiers.add7, symbol => symbol + '7');
+const add7 = getDerivedModifiers(major, allModifiers.add7, symbol => 'add' + symbol + '7');
 
 const allModifiersSymbols = {
 
 	// major
 	...major,
 	...major7th,
-	...major9th,
-	...major11th,
-	...major13th,
 
 	// minor
 	'-': 			allModifiers.mi,
@@ -52,6 +35,24 @@ const allModifiersSymbols = {
 	'min': 			allModifiers.mi,
 	'minor':		allModifiers.mi,
 
+	// diminished / augmented
+	'°':			allModifiers.dim,
+	'o':			allModifiers.dim,
+	'0':			allModifiers.dim,
+	'dim':		    allModifiers.dim,
+	'dim.':		    allModifiers.dim,
+	'diminished':	allModifiers.dim,
+
+	'Ø':			allModifiers.halfDim,
+	'ø':			allModifiers.halfDim,
+	'h':			allModifiers.halfDim,
+
+	'+':		 	allModifiers.aug,
+	'aug':		 	allModifiers.aug,
+	'augmented': 	allModifiers.aug,
+
+	'7':			allModifiers.seventh,
+
 	// suspended
 	'sus':			allModifiers.sus,
 	'sus4':			allModifiers.sus,
@@ -60,21 +61,11 @@ const allModifiersSymbols = {
 	'sus2':			allModifiers.sus2,
 	'suspended2':	allModifiers.sus2,
 
-	// dominant //fixme: conio? add mi7, mi9, etc.
-	'7':			allModifiers.dom7,
-	'9':			allModifiers.dom9,
-	'11':			allModifiers.dom11,
-	'13':			allModifiers.dom13,
+	// extensions
+	'9':			allModifiers.ninth,
+	'11':			allModifiers.eleventh,
+	'13':			allModifiers.thirteenth,
 
-	// diminished / augmented
-	...dim,
-	...dim7_prefix,
-	...dim7_suffix,
-	'Ø':			allModifiers.halfDim,
-	'ø':			allModifiers.halfDim,
-	'+':		 	allModifiers.aug,
-	'aug':		 	allModifiers.aug,
-	'augmented': 	allModifiers.aug,
 
 	// alterations
 	'b3':			allModifiers.mi,

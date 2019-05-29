@@ -5,6 +5,9 @@ describe('normalizeDescriptor', () => {
 
 	describe.each([
 
+		/**/
+		/**/
+
 		['Dominant7', 		'C7', 		'7'],
 		['Dominant9', 		'C9', 		'9'],
 		['Dominant11', 		'C11', 		'9sus'],
@@ -87,6 +90,8 @@ describe('normalizeDescriptor', () => {
 		['dim7 M7 add',			'C°7(ma7)', 		'dim7', ['addMa7'] ],
 
 		/**/
+		/**/
+
 
 	])('%s: %s', (title, input, quality, changes = []) => {
 		test('is normalized: ' + quality + ((changes.length === 0) ? '' : '(' + changes.join(',') + ')'), () => {

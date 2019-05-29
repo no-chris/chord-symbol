@@ -1,12 +1,10 @@
 import _uniq from 'lodash/uniq';
-import _difference from 'lodash/difference';
 
-import allModifiers from './allModifiers';
-import allModifiersDetails from './allModifiersDetails';
+import m from './allModifiers';
 import allModifiersSymbols, { allVariants as allModifiersVariants } from './allModifiersSymbols';
 import { variantsToNotes, allVariants as allNotesVariants } from './allNotes';
 import intervalsToSemitones from './intervalsToSemitones';
-import { hasNoneOf } from './renderer/helpers/hasInterval';
+import { hasNoneOf, hasOneOf, hasAll } from './renderer/helpers/hasInterval';
 
 
 /**
@@ -30,8 +28,6 @@ import { hasNoneOf } from './renderer/helpers/hasInterval';
  * @returns {Chord|Null}
  */
 export default function parseChord(input) {
-	const includedIntervals = ['1'];
-	const omittedIntervals = [];
 	const givenModifiers = [];
 
 	const chord = parseBasic(input);
@@ -45,15 +41,10 @@ export default function parseChord(input) {
 
 			let remainingChars = chord.parsableDescriptor;
 			let modifierId;
-			let modifierDetail;
 
 			if (descriptorMatches) {
 				descriptorMatches.forEach(match => {
 					modifierId = allModifiersSymbols[match];
-					modifierDetail = allModifiersDetails[modifierId];
-
-					includedIntervals.push(...(modifierDetail.includes || []));
-					omittedIntervals.push(...(modifierDetail.omit || []));
 					givenModifiers.push(modifierId);
 
 					remainingChars = remainingChars.replace(match, '');
@@ -64,35 +55,14 @@ export default function parseChord(input) {
 				return null;
 			}
 		}
-		// fixme: this is a mess. Fix this with separating addeds?
-		// add implied intervals for major chord
-		if (shouldAdd3(includedIntervals, givenModifiers)) {
-			includedIntervals.push('3');
-		}
-		if (shouldAdd5(includedIntervals)) {
-			includedIntervals.push('5');
-		}
-		if (isMajorSuspended(includedIntervals, givenModifiers)) {
-			omittedIntervals.push('b3', '3', '11');
-			includedIntervals.push('4');
-		}
-		if (shouldRemove5(includedIntervals)) {
-			omittedIntervals.push('5');
-		}
-		if (shouldRemove11(givenModifiers)) {
-			omittedIntervals.push('11');
-		}
-		if (isMiSus(givenModifiers)) {
-			omittedIntervals.push('b3');
-			includedIntervals.push('4');
-		}
 
-		const finalIntervals = _uniq(_difference(includedIntervals, omittedIntervals))
+
+		const intervals = _uniq(getIntervals(givenModifiers))
 			.sort((a, b) => (intervalsToSemitones[a] - intervalsToSemitones[b]));
 
 		chord.modifiers = givenModifiers;
-		chord.intervals = finalIntervals;
-		chord.semitones = finalIntervals
+		chord.intervals = intervals;
+		chord.semitones = intervals
 			.map(degree => intervalsToSemitones[degree])
 			.sort((a, b) => (a - b));
 	}
@@ -195,49 +165,160 @@ function addMissingVerbs(descriptor) {
 	});
 }
 
-function shouldAdd3(includedIntervals, givenModifiers) {
-	return hasNoneOf(includedIntervals, ['b3', '3'])
-		&& !givenModifiers.includes(allModifiers.sus)
-		&& !givenModifiers.includes(allModifiers.sus2);
+function getIntervals(allModifiers) {
+	if (allModifiers.includes(m.power)) {
+		return ['1', '5'];
+
+	} else if (allModifiers.includes(m.bass)) {
+		return ['1'];
+	}
+
+	return [
+		'1',
+		...getThird(allModifiers),
+		...getFourth(allModifiers),
+		...getFifths(allModifiers),
+		...getSixth(allModifiers),
+		...getSevenths(allModifiers),
+		...getNinths(allModifiers),
+		...getElevenths(allModifiers),
+		...getThirteenths(allModifiers),
+	];
 }
 
-function shouldAdd5(includedIntervals) {
-	return hasNoneOf(includedIntervals, ['b5', '5', '#5', 'b13']);
+function getThird(allModifiers) {
+	const third = [];
+	if (allModifiers.includes(m.omit3)) {
+		return [];
+	}
+	if (!hasOneOf(allModifiers, [m.sus, m.sus2])) {
+		if (!hasMajorIntent(allModifiers)) {
+			third.push('b3');
+		} else if (!allModifiers.includes(m.eleventh)) {
+			third.push('3');
+		}
+	}
+	if (allModifiers.includes(m.add3)) {
+		third.push('3');
+	}
+	return third;
 }
 
-function isMajorSuspended(includedIntervals, givenModifiers) {
-	return hasMajorIntent(givenModifiers)
-		&& (
-			givenModifiers.includes(allModifiers.ma11)
-			|| givenModifiers.includes(allModifiers.dom11)
-		);
+function getFourth(allModifiers) {
+	const fourth = [];
+	if (hasOneOf(allModifiers, [m.sus, m.add4]) || (allModifiers.includes(m.eleventh) && hasMajorIntent(allModifiers))) {
+		fourth.push('4');
+	}
+	return fourth;
 }
 
-function isMiSus(givenModifiers) {
-	return givenModifiers.includes(allModifiers.mi)
-		&& givenModifiers.includes(allModifiers.sus);
+function getFifths(allModifiers) {
+	const fifths = [];
+	if (allModifiers.includes(m.omit5)) {
+		return [];
+	}
+	if (hasOneOf(allModifiers, [m.dim, m.halfDim, m.fifthFlat])) {
+		fifths.push('b5');
+	}
+	if (hasOneOf(allModifiers, [m.aug, m.fifthSharp])) {
+		fifths.push('#5');
+	}
+	if (!fifths.length && !allModifiers.includes(m.thirteenthFlat)) {
+		fifths.push('5');
+	}
+	return fifths;
 }
 
-function shouldRemove5(includedIntervals) {
-	return includedIntervals.includes('b13');
+function getSixth(allModifiers) {
+	const sixth = [];
+	if (hasOneOf(allModifiers, [m.add6, m.add69]) && !allModifiers.includes[m.seventh]) {
+		sixth.push('6');
+	}
+	return sixth;
 }
 
-function shouldRemove11(givenModifiers) {
-	return hasMajorIntent(givenModifiers)
-		&& (
-			givenModifiers.includes(allModifiers.dom13)
-			|| givenModifiers.includes(allModifiers.ma13)
-		);
+function getSevenths(allModifiers) {
+	const sevenths = [];
+	if (hasOneOf(allModifiers, [m.seventh, m.halfDim])) {
+		if (allModifiers.includes(m.dim)) {
+			sevenths.push('bb7');
+
+		} else if (allModifiers.includes(m.halfDim)) {
+			sevenths.push('b7');
+
+		} else {
+			sevenths.push(getMinorOrMajorSeventh(allModifiers));
+		}
+
+	} else if (hasOneOf(allModifiers, [m.ninth, m.eleventh, m.thirteenth])) {
+		sevenths.push(getMinorOrMajorSeventh(allModifiers));
+	}
+
+	if (allModifiers.includes(m.add7)) {
+		sevenths.push('7');
+	}
+	return sevenths;
+}
+
+function getMinorOrMajorSeventh(allModifiers) {
+	return (allModifiers.includes(m.ma)) ? '7' : 'b7';
+}
+
+function getNinths(allModifiers) {
+	const ninth = [];
+	if (
+		hasOneOf(allModifiers, [m.add69, m.ninth, m.eleventh, m.thirteenth])
+		&& hasNoneOf(allModifiers, [m.ninthFlat, m.ninthSharp])
+	) {
+		ninth.push('9');
+	}
+	if (hasOneOf(allModifiers, [m.sus2, m.add9])) {
+		ninth.push('9');
+	}
+	if (allModifiers.includes(m.ninthFlat)) {
+		ninth.push('b9');
+	}
+	if (allModifiers.includes(m.ninthSharp)) {
+		ninth.push('#9');
+	}
+	return ninth;
+}
+
+function getElevenths(allModifiers) {
+	const elevenths = [];
+	if (hasOneOf(allModifiers, [m.eleventh, m.thirteenth]) && !hasMajorIntent(allModifiers)) {
+		elevenths.push('11');
+	}
+	if (allModifiers.includes(m.add11)) {
+		elevenths.push('11');
+	}
+	if (allModifiers.includes(m.eleventhSharp)) {
+		elevenths.push('#11');
+	}
+	return elevenths;
+}
+
+function getThirteenths(allModifiers) {
+	const thirteenths = [];
+	if (
+		hasOneOf(allModifiers, [m.add13, m.thirteenth])
+		|| hasAll(allModifiers, [m.add6, m.add69, m.seventh])
+	) {
+		thirteenths.push('13');
+	}
+	if (allModifiers.includes(m.thirteenthFlat)) {
+		thirteenths.push('b13');
+	}
+	return thirteenths;
 }
 
 function hasMajorIntent(givenModifiers) {
-	return !givenModifiers.includes(allModifiers.mi)
-		&& !givenModifiers.includes(allModifiers.dim)
-		&& !givenModifiers.includes(allModifiers.dim7)
-		&& !givenModifiers.includes(allModifiers.halfDim);
+	return hasNoneOf(givenModifiers, [m.mi, m.dim, m.dim7, m.halfDim]);
 }
 
 // Based on https://stackoverflow.com/a/6969486
 function escapeRegex(string) {
 	return string.replace(/[.\-*+?^${}()|[\]\\]/g, '\\$&');
 }
+
+
