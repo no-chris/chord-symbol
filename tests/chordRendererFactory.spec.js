@@ -1,5 +1,5 @@
 import chordRendererFactory from '../src/renderer/chordRendererFactory';
-import parseChord from '../src/parseChord';
+import parseChord from '../src/parser/parseChord';
 
 describe('Module', () => {
 	test('Should expose a function', () => {

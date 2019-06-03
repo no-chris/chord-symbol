@@ -15,17 +15,21 @@
         color: #3c4449;
         font-family: 'Roboto', sans-serif;
         font-size: 20px;
-        padding: 50px;
-        line-height: 2em;
+        padding: 10px 50px;
+        line-height: 1.5em;
     }
     input {
         font-size: 20px;
         width: 500px;
         padding: 10px;
     }
+    [data-output="json"] {
+        font-size: 12px;
+        line-height: 1.2em;
+    }
 </style>
 <div id="app">
-    <h1>Chord-Symbol</h1>
+    <div><img src="chordSymbol.png" /></div>
     <div>
         <a href="https://github.com/no-chris/chord-symbol">GitHub</a>
     </div>
@@ -39,6 +43,7 @@
         <li><strong>Semitones: </strong><span data-output="semitones">-</span></li>
         <li><strong>RootNote: </strong><span data-output="rootnote">-</span></li>
         <li><strong>BassNote: </strong><span data-output="bassnote">-</span></li>
+        <li><strong>Json: </strong><br/><pre data-output="json">-</pre></li>
     </ul>
 </div>
 <script type="text/javascript" src="chord-symbol.js"></script></body>

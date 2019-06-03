@@ -1,101 +1,60 @@
 import _uniq from 'lodash/uniq';
 
-import m from './allModifiers';
-import allModifiersSymbols, { allVariants as allModifiersVariants } from './allModifiersSymbols';
-import { variantsToNotes, allVariants as allNotesVariants } from './allNotes';
-import intervalsToSemitones from './intervalsToSemitones';
-import { hasNoneOf, hasOneOf } from './renderer/helpers/hasInterval';
+import m from '../../dics/allModifiers';
+import allModifiersSymbols, { allVariants as allModifiersVariants } from '../../dics/allModifiersSymbols';
+import intervalsToSemitones from '../../dics/intervalsToSemitones';
+import { hasNoneOf, hasOneOf } from '../../renderer/helpers/hasInterval';
 
 
 /**
- * @typedef {Object} Chord
- * @type {Object}
- * @property {String} rootNote
- * @property {String} [bassNote]
- * @property {String[]} intervals
- * @property {Number[]} semitones
- * @property {String[]} modifiers
- * @property {String} descriptor
- * @property {String} parsableDescriptor
- * @property {String} [normalizedDescriptor]
- * @property {String} [normalizedDescriptor.quality]
- * @property {String[]} [normalizedDescriptor.changes] - alterations, added and omitted notes
- */
-
-
-/**
- * @param {String} input
+ * @param {Chord} chord
  * @returns {Chord|Null}
  */
-export default function parseChord(input) {
-	const givenModifiers = [];
-
-	const chord = parseBasic(input);
+export default function parseDescriptor(chord) {
+	const chordModifiers = [];
 
 	if (chord) {
-		if (chord.descriptor) {
-			chord.parsableDescriptor = getParsableDescriptor(chord.descriptor);
+		if (chord.input.descriptor) {
+			chord.input.parsableDescriptor = getParsableDescriptor(chord.input.descriptor);
 
 			const descriptorRegex = new RegExp(allModifiersVariants.map(escapeRegex).join('|'), 'g');
-			const descriptorMatches = chord.parsableDescriptor.match(descriptorRegex);
+			const descriptorMatches = chord.input.parsableDescriptor.match(descriptorRegex);
 
-			let remainingChars = chord.parsableDescriptor;
+			let remainingChars = chord.input.parsableDescriptor;
 			let modifierId;
 
 			if (descriptorMatches) {
 				descriptorMatches.forEach(match => {
 					modifierId = allModifiersSymbols[match];
-					givenModifiers.push(modifierId);
+					chordModifiers.push(modifierId);
 
 					remainingChars = remainingChars.replace(match, '');
 				});
 			}
 
-			if (givenModifiers.length === 0 || remainingChars.trim().length > 0) {
+			if (chordModifiers.length === 0 || remainingChars.trim().length > 0) {
 				return null;
 			}
 		}
 
 
-		const intervals = _uniq(getIntervals(givenModifiers))
+		const intervals = _uniq(getIntervals(chordModifiers))
 			.sort((a, b) => (intervalsToSemitones[a] - intervalsToSemitones[b]));
 
-		chord.modifiers = givenModifiers;
-		chord.intervals = intervals;
-		chord.semitones = intervals
+		chord.input.modifiers = chordModifiers;
+		chord.normalized.intervals = intervals;
+		chord.normalized.semitones = intervals
 			.map(degree => intervalsToSemitones[degree])
 			.sort((a, b) => (a - b));
-	}
-	return chord;
-}
 
-
-function parseBasic(input) {
-	const notesRegex = allNotesVariants.join('|');
-	const notesAndDescriptorRegex = new RegExp(
-		'^'
-		+ '(' + notesRegex + ')'
-		+ '(.*?)'
-		+ '(/(' + notesRegex + '))?'
-		+ '$'
-	);
-	const result = input.match(notesAndDescriptorRegex);
-
-	let chord = null;
-	if (result && result[1]) {
-		chord = {
-			input,
-			rootNote: variantsToNotes[result[1]]
+		chord.normalized.intents = {
+			major: hasMajorIntent(chordModifiers),
+			eleventh: chordModifiers.includes(m.eleventh),
 		};
-		if (result[2]) {
-			chord.descriptor = result[2];
-		}
-		if (result[4]) {
-			chord.bassNote = variantsToNotes[result[4]];
-		}
 	}
 	return chord;
 }
+
 
 function getParsableDescriptor(descriptor) {
 	const allFilters = [
@@ -115,8 +74,7 @@ function toLowerCaseExceptMajorM(descriptor) {
 		.replace(/[A-LN-Za-z]+/g, match => match.toLowerCase())
 		.replace('oMit', 'omit')
 		.replace('diM', 'dim')
-		.replace('augMented', 'augmented')
-	;
+		.replace('augMented', 'augmented');
 }
 
 function removeSpaces(descriptor) {
@@ -129,8 +87,7 @@ function addDisambiguators(descriptor) {
 		.replace(/([m|M])add/g, '$1 add')
 		.replace(/i(no[3|5])/g, 'i $1')
 		.replace(/([b|♭|#|♯]9)6/g, '$1 6')
-		.replace(/(9\/?6)/g, ' $1')
-	;
+		.replace(/(9\/?6)/g, ' $1');
 }
 
 function addMissingVerbs(descriptor) {
@@ -206,7 +163,7 @@ function getThird(allModifiers) {
 
 function getFourth(allModifiers) {
 	const fourth = [];
-	if (hasOneOf(allModifiers, [m.sus, m.add4]) || (allModifiers.includes(m.eleventh) && hasMajorIntent(allModifiers))) {
+	if (hasOneOf(allModifiers, [m.sus, m.add4])) {
 		fourth.push('4');
 	}
 	return fourth;
@@ -286,10 +243,10 @@ function getNinths(allModifiers) {
 
 function getElevenths(allModifiers) {
 	const elevenths = [];
-	if (hasOneOf(allModifiers, [m.eleventh, m.thirteenth]) && !hasMajorIntent(allModifiers)) {
+	if (hasOneOf(allModifiers, [m.thirteenth]) && !hasMajorIntent(allModifiers)) {
 		elevenths.push('11');
-	}
-	if (allModifiers.includes(m.add11)) {
+
+	} else if (hasOneOf(allModifiers, [m.eleventh, m.add11])) {
 		elevenths.push('11');
 	}
 	if (allModifiers.includes(m.eleventhSharp)) {

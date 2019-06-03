@@ -69,22 +69,27 @@ const latinNotation = {
 	'Sol#': allNotes.GSharp,
 };
 
-// for german, we only set variants from english notation
 const germanNotation = {
 	'As': 	allNotes.AFlat,
+	'A': 	allNotes.A,
 	'Ais': 	allNotes.ASharp,
 	'Hes': 	allNotes.BFlat,
 	'H': 	allNotes.B,
 	'His': 	allNotes.C,
 	'Ces': 	allNotes.B,
+	'C': 	allNotes.C,
 	'Cis': 	allNotes.CSharp,
 	'Des': 	allNotes.DFlat,
+	'D': 	allNotes.D,
 	'Dis': 	allNotes.DSharp,
 	'Es': 	allNotes.EFlat,
+	'E': 	allNotes.E,
 	'Eis': 	allNotes.F,
 	'Fes': 	allNotes.E,
+	'F': 	allNotes.F,
 	'Fis': 	allNotes.FSharp,
 	'Ges': 	allNotes.GFlat,
+	'G': 	allNotes.G,
 	'Gis': 	allNotes.GSharp,
 };
 

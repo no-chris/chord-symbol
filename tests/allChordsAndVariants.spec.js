@@ -1,10 +1,10 @@
-import intervalsToSemitones from '../src/intervalsToSemitones';
-import m from '../src/allModifiers';
+import intervalsToSemitones from '../src/dics/intervalsToSemitones';
+import m from '../src/dics/allModifiers';
 
-import combineModifiers from './parseChord/helpers/combineModifiers';
-import getAllSymbolModifiers from './parseChord/helpers/getAllSymbolModifiers';
+import combineModifiers from './parser/helpers/combineModifiers';
+import getAllSymbolModifiers from './parser/helpers/getAllSymbolModifiers';
 
-import parseChord from '../src/parseChord';
+import parseChord from '../src/parser/parseChord';
 import chordRendererFactory from '../src/renderer/chordRendererFactory';
 
 const TEST_SUITE = process.env.TEST_SUITE;
@@ -118,8 +118,8 @@ const allSrcSymbols = [
 	[ 'C9(#5,#11)',		'C', ['1', '3', '#5', 'b7', '9', '#11'], 				'C9(#5,#11)', 		[ m.ninth, m.fifthSharp, m.eleventhSharp ] ],
 	[ 'C9(#11)',		'C', ['1', '3', '5', 'b7', '9', '#11'], 				'C9(#11)', 			[ m.ninth, m.eleventhSharp ] ],
 	[ 'C9(#11,b13)',	'C', ['1', '3', 'b7', '9', '#11', 'b13'],				'C9(#11,b13)', 		[ m.ninth, m.eleventhSharp, m.thirteenthFlat ] ],
-	[ 'C11',			'C', ['1', '4', '5', 'b7', '9'], 						'C9sus', 			[ m.eleventh ] ],
-	[ 'C11(b9)',		'C', ['1', '4', '5', 'b7', 'b9'], 						'C7sus(b9)',		[ m.eleventh, m.ninthFlat ] ],
+	[ 'C11',			'C', ['1', '5', 'b7', '9', '11'], 						'C9sus', 			[ m.eleventh ] ],
+	[ 'C11(b9)',		'C', ['1', '5', 'b7', 'b9', '11'], 						'C7sus(b9)',		[ m.eleventh, m.ninthFlat ] ],
 	[ 'C13',			'C', ['1', '3', '5', 'b7', '9', '13'], 					'C13', 				[ m.thirteenth ] ],
 	[ 'C13sus',			'C', ['1', '4', '5', 'b7', '9', '13'], 					'C13sus',			[ m.sus, m.thirteenth ] ],
 	[ 'C13(b5)',		'C', ['1', '3', 'b5', 'b7', '9', '13'], 				'C13(b5)', 			[ m.thirteenth, m.fifthFlat ] ],
@@ -288,9 +288,9 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 		const semitones = intervals.map(interval => intervalsToSemitones[interval]).sort((a, b) => (a - b));
 		const parsed = parseChord(symbol);
 
-		expect(parsed.intervals).toEqual(intervals);
-		expect(parsed.semitones).toEqual(semitones);
-		expect(parsed.rootNote).toEqual(rootNote);
+		expect(parsed.normalized.intervals).toEqual(intervals);
+		expect(parsed.normalized.semitones).toEqual(semitones);
+		expect(parsed.normalized.rootNote).toEqual(rootNote);
 	});
 
 	test('is rendered: ' + printed, () => {

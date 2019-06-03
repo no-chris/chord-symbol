@@ -1,6 +1,6 @@
-import normalizeDescriptor from '../../../src/renderer/filters/normalizeDescriptor';
+import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
 import shortenNormalized from '../../../src/renderer/filters/shortenNormalized';
-import parseChord from '../../../src/parseChord';
+import parseChord from '../../../src/parser/parseChord';
 
 describe('shortenNormalized', () => {
 
@@ -26,14 +26,14 @@ describe('shortenNormalized', () => {
 
 		['Cmi7(omit3)',  	'm7', 	['no3'] ],
 
-	])('%s => %s', (input, quality, changes = []) => {
-		test('is rendered ' + quality, () => {
+	])('%s => %s', (input, descriptor, chordChanges = []) => {
+		test('is rendered ' + descriptor, () => {
 			const chord = parseChord(input);
 			const normalized = normalizeDescriptor(chord);
 			const shortened = shortenNormalized(normalized);
 
-			expect(shortened.normalizedDescriptor.quality).toStrictEqual(quality);
-			expect(shortened.normalizedDescriptor.changes).toStrictEqual(changes);
+			expect(shortened.formatted.descriptor).toStrictEqual(descriptor);
+			expect(shortened.formatted.chordChanges).toStrictEqual(chordChanges);
 		});
 	});
 });

@@ -1,6 +1,5 @@
 import _cloneDeep from 'lodash/cloneDeep';
 
-import normalizeDescriptor from './filters/normalizeDescriptor';
 import shortenNormalized from './filters/shortenNormalized';
 
 import textPrinter from './printer/text';
@@ -12,11 +11,10 @@ import textPrinter from './printer/text';
  */
 export default function chordRendererFactory({
 	useShortNamings = false,
+	printer = 'text'
 } = {}) {
 
 	const allFilters = [];
-
-	allFilters.push(normalizeDescriptor);
 
 	if (useShortNamings) {
 		allFilters.push(shortenNormalized);
@@ -29,9 +27,14 @@ export default function chordRendererFactory({
 	}
 
 	function renderChord(chord) {
-		const modifiedChord = applyFilters(chord);
+		const filteredChord = applyFilters(chord);
 
-		return textPrinter(modifiedChord);
+		switch (printer) {
+			case 'text': return textPrinter(filteredChord);
+			case 'raw': return filteredChord;
+
+		}
+		return textPrinter(filteredChord);
 	}
 
 	return renderChord;

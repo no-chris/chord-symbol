@@ -16,25 +16,25 @@ const shortDescriptors = {
  * @returns {Chord}
  */
 export default function shortenNormalized(chord) {
-	let quality;
-	let changes = [];
+	let descriptor;
+	let chordChanges = [];
 
 	if (isSus2(chord)) {
-		quality = shortDescriptors.sus2;
+		descriptor = shortDescriptors.sus2;
 
 	} else if (isAdd2(chord)) {
-		quality = shortDescriptors.add2;
+		descriptor = shortDescriptors.add2;
 
 	} else if (isAug7(chord)) {
-		quality = shortDescriptors.aug7;
+		descriptor = shortDescriptors.aug7;
 
 	} else {
-		quality = chord.normalizedDescriptor.quality
+		descriptor = chord.formatted.descriptor
 			.replace('mi', shortDescriptors.mi)
 			.replace(/[m|M]a/, shortDescriptors.ma)
 			.replace('dim', shortDescriptors.dim);
 
-		changes = chord.normalizedDescriptor.changes
+		chordChanges = chord.formatted.chordChanges
 			.map(change => {
 				return change
 					.replace(/[m|M]a/, shortDescriptors.ma)
@@ -44,22 +44,23 @@ export default function shortenNormalized(chord) {
 	}
 	return {
 		...chord,
-		normalizedDescriptor: {
-			quality,
-			changes,
+		formatted: {
+			...chord.formatted,
+			descriptor,
+			chordChanges,
 		}
 	};
 }
 
 function isSus2(chord) {
-	return hasExactly(chord.intervals, ['1', '5', '9']);
+	return hasExactly(chord.normalized.intervals, ['1', '5', '9']);
 }
 
 function isAdd2(chord) {
-	return hasExactly(chord.intervals, ['1', '3', '5', '9']);
+	return hasExactly(chord.normalized.intervals, ['1', '3', '5', '9']);
 }
 
 function isAug7(chord) {
-	return hasExactly(chord.intervals, ['1', '3', '#5', 'b7']);
+	return hasExactly(chord.normalized.intervals, ['1', '3', '#5', 'b7']);
 }
 

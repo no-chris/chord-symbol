@@ -1,6 +1,6 @@
-import { variantsToNotes, allVariants } from '../../src/allNotes';
+import { variantsToNotes, allVariants } from '../src/dics/allNotes';
 
-import parseChord from '../../src/parseChord';
+import parseChord from '../src/parser/parseChord';
 
 const TEST_SUITE = process.env.TEST_SUITE;
 
@@ -25,8 +25,8 @@ describe('Root and bass notes', () => {
 	describe.each(allCases)('%s', (input, rootNote, bassNote) => {
 		test(`rootNote: '${rootNote}', bassNote: '${bassNote}'`, () => {
 			parsed = parseChord(input);
-			expect(parsed.rootNote).toBe(rootNote);
-			expect(parsed.bassNote).toBe(bassNote);
+			expect(parsed.normalized.rootNote).toBe(rootNote);
+			expect(parsed.normalized.bassNote).toBe(bassNote);
 		});
 	});
 });

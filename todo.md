@@ -10,13 +10,15 @@
 + Domit3 => let's accept that as a known issue
 + Cm+ => C+(add b3) : WTF?!
 + rendering of D9(b13) vs D(b13) => add or not?
+
+- question: suspended vs add4?
 - add symbols from https://raw.githubusercontent.com/felixroos/jazzband/master/scripts/sheets.json
 - parse 11 to 11 instead of 4 ? add C11 to shortNamings
-- option to disable latin name parsing
+- option to disable latin name parsing, have test failing ambiguous Fadd or other Esus: or start with english, if null try parsing in other systems
 
 Render functionality:
 Filters:
-- simplify
+- simplify (level1: keep bass and 7th, level2: keep min and maj triad)
 - transpose
 - system converter (latin / etc)
 + normalizer 
@@ -25,6 +27,11 @@ Filters:
 
 Printers:
 + text
++ raw
 - html
 - react component
 - "Realbook markup"
+
+
+
+https://opensource.guide/

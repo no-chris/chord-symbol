@@ -1,4 +1,4 @@
-import allModifiers from '../../../src/allModifiers';
+import allModifiers from '../../../src/dics/allModifiers';
 
 import getAllSymbolModifiers from './getAllSymbolModifiers';
 

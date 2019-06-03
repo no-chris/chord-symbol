@@ -3,23 +3,19 @@
  * @returns {String}
  */
 export default function textPrinter(chord) {
-	let printed = chord.rootNote;
+	const { rootNote, bassNote, descriptor, chordChanges } = chord.formatted;
 
-	if (chord.normalizedDescriptor) {
-		const { quality, changes } = chord.normalizedDescriptor;
-		if (quality) {
-			printed += quality;
-		}
-		if (changes && changes.length) {
-			printed += '(' + changes.join(',') + ')';
-		}
+	let printed = rootNote;
 
-	} else if (chord.descriptor) {
-		printed += chord.descriptor;
+	if (descriptor) {
+		printed += descriptor;
+	}
+	if (chordChanges && chordChanges.length) {
+		printed += '(' + chordChanges.join(',') + ')';
+	}
+	if (bassNote) {
+		printed += '/' + bassNote;
 	}
 
-	if (chord.bassNote) {
-		printed += '/' + chord.bassNote;
-	}
 	return printed;
 }
