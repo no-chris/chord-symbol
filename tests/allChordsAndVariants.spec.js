@@ -281,8 +281,6 @@ function addCase(title, symbol, rootNote, printed, intervals) {
 	allCasesSymbols.push(symbol);
 }
 
-const renderChord = chordRendererFactory();
-
 describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	test('is parsed: ' + intervals.join(' '), () => {
 		const semitones = intervals.map(interval => intervalsToSemitones[interval]).sort((a, b) => (a - b));
@@ -294,6 +292,8 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	});
 
 	test('is rendered: ' + printed, () => {
+		const renderChord = chordRendererFactory();
+
 		const chord = parseChord(symbol);
 		const rendered = renderChord(chord);
 
@@ -301,9 +301,11 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	});
 
 	test('is rendered, then re-parsed correctly', () => {
+		const renderChord = chordRendererFactory({ useShortNamings: true });
+
 		const chord1 = parseChord(symbol);
 		const rendered = renderChord(chord1);
 		const chord2 = parseChord(rendered);
-		expect(chord1.intervals).toEqual(chord2.intervals);
+		expect(chord1.normalized.intervals).toEqual(chord2.normalized.intervals);
 	});
 });

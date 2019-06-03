@@ -1,4 +1,4 @@
-import { hasExactly, hasNoneOf, hasOneOf, hasAll } from '../../../src/renderer/helpers/hasInterval';
+import { hasExactly, hasNoneOf, hasOneOf, hasAll } from '../../../src/helpers/hasElement';
 
 describe('hasExactly', () => {
 	describe.each([

@@ -1,7 +1,7 @@
 import intervalsToSemitones from '../../dics/intervalsToSemitones';
 
 import { qualities } from '../../dics/qualities';
-import { hasNoneOf } from '../../renderer/helpers/hasInterval';
+import { hasNoneOf } from '../../helpers/hasElement';
 
 const qualityToDescriptor = {
 	[qualities.ma]: 	() => '',

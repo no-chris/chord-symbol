@@ -1,4 +1,4 @@
-import { parseChord, chordRendererFactory } from '../index';
+import { parseChord, chordRendererFactory } from '../../src/index';
 
 const renderChordNormalized = chordRendererFactory();
 const renderChordShort = chordRendererFactory({ useShortNamings: true });

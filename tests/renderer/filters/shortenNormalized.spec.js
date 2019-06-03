@@ -26,6 +26,10 @@ describe('shortenNormalized', () => {
 
 		['Cmi7(omit3)',  	'm7', 	['no3'] ],
 
+		['C11', 		 	'11', 	[] ],
+		['CM11', 		 	'ma11', [] ],
+		['C11(b9)', 	 	'11', 	['b9'] ],
+
 	])('%s => %s', (input, descriptor, chordChanges = []) => {
 		test('is rendered ' + descriptor, () => {
 			const chord = parseChord(input);

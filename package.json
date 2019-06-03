@@ -30,7 +30,7 @@
   "scripts": {
     "test-short": "TEST_SUITE=short jest",
     "test": "jest",
-    "bundle": "webpack --config webpack.lib.js && webpack --config webpack.docs.js",
+    "bundle": "webpack --config webpack.config.js",
     "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
     "outdated": "npm outdated",
     "audit": "npm audit"

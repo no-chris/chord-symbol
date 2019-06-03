@@ -5,10 +5,11 @@
 const path = require('path');
 
 const HtmlWebpackPlugin 	= require('html-webpack-plugin');
-const CleanWebpackPlugin    = require('clean-webpack-plugin');
+const {CleanWebpackPlugin}  = require('clean-webpack-plugin');
 const TerserPlugin       	= require('terser-webpack-plugin');
+const CopyPlugin			= require('copy-webpack-plugin');
 
-const buildDir = 'docs';
+const buildDir = path.resolve(process.cwd(), '../docs');
 
 const config = {
 	target:'web',
@@ -16,12 +17,12 @@ const config = {
 	devtool: 'source-map',
 
 	entry: {
-		'chord-symbol': './src/docs/index.js',
+		'chord-symbol': './src/index.js',
 	},
 
 	output: {
 		filename: '[name].js',
-		path: path.resolve(process.cwd(), buildDir),
+		path: buildDir,
 	},
 
 	optimization: {
@@ -38,6 +39,9 @@ const config = {
 			title: 'Chord-Symbol',
 			template:'assets/index.html',
 		}),
+		new CopyPlugin([
+			{ from: 'assets/img', to: buildDir + '/img' },
+		]),
 	],
 
 	module: {

@@ -92,7 +92,7 @@ describe('normalizeDescriptor', () => {
 
 		['do not repeat add',	'C(add9,add13)', 	'', 	['add9', '13'] ],
 		['do not repeat omit',	'C7(omit3,omit5)', 	'7', 	['omit3', '5'] ],
-		['added + omitted',		'C7(omit3,5,add13)', '7', 	['add13', 'omit3', '5'] ],
+		['added + omitted',		'C(omit5,3,add13,9)','', 	['add9', '13', 'omit3', '5'] ],
 		['omit m3',				'Cm7(omit3)', 		'mi7', 	['omit3'] ],
 
 		['b5 always alt (dom)',	'C7(b5)', 			'7', 	['b5'] ],
@@ -110,6 +110,10 @@ describe('normalizeDescriptor', () => {
 		['dim b9 add',			'C°(b9)', 			'dim', 	['add b9'] ],
 		['dim #9 add',			'C°(#9)', 			'dim', 	['add #9'] ],
 		['dim7 M7 add',			'C°7(ma7)', 		'dim7', ['addMa7'] ],
+
+		// displayed extension is not the highest extension
+		['11',					'C11', 				'9sus', [] ],
+		['11 + b9',				'C11(b9)', 			'7sus',	['b9'] ],
 
 		// more edge cases...
 		['mi6 + dominant9',		'C6m9', 			'mi9',	['add13'] ],

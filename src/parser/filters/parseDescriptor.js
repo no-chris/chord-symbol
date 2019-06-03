@@ -3,7 +3,7 @@ import _uniq from 'lodash/uniq';
 import m from '../../dics/allModifiers';
 import allModifiersSymbols, { allVariants as allModifiersVariants } from '../../dics/allModifiersSymbols';
 import intervalsToSemitones from '../../dics/intervalsToSemitones';
-import { hasNoneOf, hasOneOf } from '../../renderer/helpers/hasInterval';
+import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 
 
 /**

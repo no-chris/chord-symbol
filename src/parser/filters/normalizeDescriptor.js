@@ -3,7 +3,7 @@ import _find from 'lodash/find';
 import _uniq from 'lodash/uniq';
 import _without from 'lodash/without';
 
-import { hasOneOf, hasAll, hasNoneOf, hasExactly } from '../../renderer/helpers/hasInterval';
+import { hasOneOf, hasAll, hasNoneOf, hasExactly } from '../../helpers/hasElement';
 
 import { qualities } from '../../dics/qualities';
 import intervalsToSemitones from '../../dics/intervalsToSemitones';
