@@ -18,14 +18,15 @@
 - add symbols from https://raw.githubusercontent.com/felixroos/jazzband/master/scripts/sheets.json
 - option to disable latin name parsing, have test failing ambiguous Fadd or other Esus: or start with english, if null try parsing in other systems
 - avoid concurrent qualities?
+- C611 => C13sus
 
 Render functionality:
 Filters:
++ normalizer 
++ normalizer "simplifier" (!)
 - simplify (level1: keep bass and 7th, level2: keep min and maj triad)
 - transpose
 - system converter (latin / etc)
-+ normalizer 
-+ normalizer "simplifier" (!)
 - chord notes
 
 Printers:

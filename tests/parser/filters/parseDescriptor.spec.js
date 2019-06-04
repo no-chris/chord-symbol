@@ -1,4 +1,5 @@
 import chain from '../../../src/helpers/chain';
+import { englishVariants } from '../../../src/dics/allNotes';
 
 import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import initChord from '../../../src/parser/filters/initChord';
@@ -8,7 +9,7 @@ import intervalsToSemitones from '../../../src/dics/intervalsToSemitones';
 function parseChord(symbol) {
 	const allFilters = [
 		initChord,
-		parseBase,
+		parseBase.bind(null, englishVariants),
 	];
 	return chain(allFilters, symbol);
 }

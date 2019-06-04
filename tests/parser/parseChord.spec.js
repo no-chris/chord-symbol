@@ -1,6 +1,41 @@
 import parseChord from '../../src/parser/parseChord';
 
+import { allVariants as allNotesVariants } from '../../src/dics/allNotes';
+import { allVariants as allModifiersVariants } from '../../src/dics/allModifiersSymbols';
 
+describe('ambiguous rootNote', () => {
+	const allCases = [];
+
+	let modifierFirstLetter;
+	let noteConflict;
+	let symbol;
+
+	allNotesVariants.forEach(noteVariant => {
+		allModifiersVariants.forEach(modifierVariant => {
+			modifierFirstLetter = modifierVariant[0];
+			noteConflict = noteVariant + modifierFirstLetter;
+
+			if (!['♭', 'b', '♯', '#'].includes(modifierFirstLetter) && allNotesVariants.includes(noteConflict)) {
+				symbol = noteVariant + modifierVariant;
+				allCases.push([
+					symbol + ' conflict with: ' + noteConflict,
+					symbol,
+					noteVariant,
+					modifierVariant
+				]);
+			}
+		});
+	});
+
+	describe.each(allCases)('%s', (title, input, rootNote, descriptor) => {
+		test('is  parsed ' + rootNote + ' + ' + descriptor, () => {
+			const chord = parseChord(input);
+			expect(chord.input.rootNote).toBe(rootNote);
+			expect(chord.input.descriptor).toBe(descriptor);
+		});
+	});
+
+});
 
 describe('invalid chords', () => {
 	describe.each([
@@ -25,9 +60,6 @@ describe('invalid chords', () => {
 		[ 'A7/mb5/G' ],
 		[ 'A,b97' ],
 		[ 'A7,mb5/G' ],
-		[ 'Domit3' ], // this is actually valid as "D omit3" but fails as "Do mit3".
-		[ 'Fadd9' ], // Same problem here. We might as well disable "latin" names by default and have them as an option
-		[ 'Esus' ], // Again, more problematic, with german names
 
 	])('%s', (symbol) => {
 		test('should return null', () => {

@@ -79,3 +79,8 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 or multiple intervals (`9`, for `dominant9th`, means that both `b7` and `9` should be added to the chord)
 - **Modifier symbol**: different ways of writing the same modifier. A suspended chord can be written `Csus`, `Csus4`,`Csuspended`, `Csuspended4`. 
 All those symbols will yield the same intervals list because they all refers to the same modifier.
+
+
+Limited support for alternate namings
+will try to parse english notes, if it fails, will loop through latin and german
+In case of ambiguous, english will always take precedence. This means that the chord Do cannot be written, because it will be parsed as Ddim. 

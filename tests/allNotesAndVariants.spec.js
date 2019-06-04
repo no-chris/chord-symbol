@@ -1,4 +1,4 @@
-import { variantsToNotes, allVariants } from '../src/dics/allNotes';
+import { allVariantsToNotes, allVariants } from '../src/dics/allNotes';
 
 import parseChord from '../src/parser/parseChord';
 
@@ -9,14 +9,16 @@ describe('Root and bass notes', () => {
 	let chordSymbol;
 
 	allVariants.forEach(rootNote => {
-		allCases.push([rootNote, variantsToNotes[rootNote]]);
+		if (rootNote !== 'Do') { // edge case, "Do" is "Ddim" in english notation)
+			allCases.push([rootNote, allVariantsToNotes[rootNote]]);
+		}
 
 		allVariants
 			.filter(bassNote => bassNote !== rootNote)
 			.forEach(bassNote => {
 				chordSymbol = rootNote + '/' + bassNote;
 				if (TEST_SUITE !== 'short') {
-					allCases.push([chordSymbol, variantsToNotes[rootNote], variantsToNotes[bassNote]]);
+					allCases.push([chordSymbol, allVariantsToNotes[rootNote], allVariantsToNotes[bassNote]]);
 				}
 			});
 	});

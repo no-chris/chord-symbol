@@ -1,4 +1,5 @@
 import chain from '../../../src/helpers/chain';
+import { englishVariants } from '../../../src/dics/allNotes';
 
 import formatSymbolParts from '../../../src/parser/filters/formatSymbolParts';
 
@@ -11,7 +12,7 @@ import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor
 function parseChord(symbol) {
 	const filters = [
 		initChord,
-		parseBase,
+		parseBase.bind(null, englishVariants),
 		parseDescriptor,
 		normalizeNotes,
 		normalizeDescriptor,

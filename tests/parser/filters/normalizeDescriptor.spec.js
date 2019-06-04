@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { englishVariants } from '../../../src/dics/allNotes';
 
 import chain from '../../../src/helpers/chain';
 
@@ -8,10 +9,11 @@ import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 
 import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
 
+
 function parseChord(symbol) {
 	const filters = [
 		initChord,
-		parseBase,
+		parseBase.bind(null, englishVariants),
 		parseDescriptor,
 	];
 	return chain(filters, symbol);

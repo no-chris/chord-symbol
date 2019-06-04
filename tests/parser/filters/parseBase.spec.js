@@ -1,6 +1,8 @@
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 
+import { englishVariants } from '../../../src/dics/allNotes';
+
 describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 	describe.each([
 
@@ -19,7 +21,7 @@ describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 	])('%s', (symbol, rootNote, descriptor, bassNote) => {
 		test(`rootNote: '${rootNote}', descriptor: '${descriptor}', bassNote: '${bassNote}'`, () => {
 			const chord = initChord(symbol);
-			const parsed = parseBase(chord).input;
+			const parsed = parseBase(englishVariants, chord).input;
 
 			expect(parsed.symbol).toBe(symbol);
 			expect(parsed.rootNote).toBe(rootNote);
@@ -40,7 +42,7 @@ describe('invalid chords', () => {
 	])('%s', (symbol) => {
 		test('should return null', () => {
 			const chord = initChord(symbol);
-			const parsed = parseBase(chord);
+			const parsed = parseBase(englishVariants, chord);
 
 			expect(parsed).toBeNull();
 		});

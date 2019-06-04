@@ -18,7 +18,7 @@ const allNotes = {
 	GSharp: 'G#',
 };
 
-const englishNotation = {
+const english = {
 	'Ab': 	allNotes.AFlat,
 	'A': 	allNotes.A,
 	'A#': 	allNotes.ASharp,
@@ -42,7 +42,7 @@ const englishNotation = {
 	'G#': 	allNotes.GSharp,
 };
 
-const latinNotation = {
+const latin = {
 	'Lab': 	allNotes.AFlat,
 	'La': 	allNotes.A,
 	'La#': 	allNotes.ASharp,
@@ -69,7 +69,7 @@ const latinNotation = {
 	'Sol#': allNotes.GSharp,
 };
 
-const germanNotation = {
+const german = {
 	'As': 	allNotes.AFlat,
 	'A': 	allNotes.A,
 	'Ais': 	allNotes.ASharp,
@@ -107,15 +107,52 @@ function getAccidentalsVariation(source) {
 		}, {});
 }
 
-const variantsToNotes = {
-	...englishNotation,
-	...getAccidentalsVariation(englishNotation),
-	...latinNotation,
-	...getAccidentalsVariation(latinNotation),
-	...germanNotation,
+
+const englishVariantsToNotes= {
+	...english,
+	...getAccidentalsVariation(english)
 };
 
-const allVariants = Object.keys(variantsToNotes)
+const latinVariantsToNotes 	= {
+	...latin,
+	...getAccidentalsVariation(latin)
+};
+
+const germanVariantsToNotes = {
+	...german
+};
+
+const allVariantsToNotes = {
+	...englishVariantsToNotes,
+	...latinVariantsToNotes,
+	...germanVariantsToNotes,
+};
+
+
+const allVariants = Object.keys(allVariantsToNotes)
 	.sort((a, b) => b.length - a.length);
 
-export { allNotes, allVariants, variantsToNotes };
+const englishVariants = Object.keys(englishVariantsToNotes)
+	.sort((a, b) => b.length - a.length);
+
+const latinVariants = Object.keys(latinVariantsToNotes)
+	.sort((a, b) => b.length - a.length);
+
+const germanVariants = Object.keys(germanVariantsToNotes)
+	.sort((a, b) => b.length - a.length);
+
+
+export {
+	allNotes,
+
+	allVariants,
+	englishVariants,
+	latinVariants,
+	germanVariants,
+
+	allVariantsToNotes,
+	englishVariantsToNotes,
+	latinVariantsToNotes,
+	germanVariantsToNotes,
+
+};

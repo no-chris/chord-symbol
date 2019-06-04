@@ -11,8 +11,7 @@ import textPrinter from './printer/text';
  * @returns {function(*=): String}
  */
 export default function chordRendererFactory({
-	useShortNamings = false,
-	printer = 'text'
+	useShortNamings = false
 } = {}) {
 
 	const allFilters = [];
@@ -24,11 +23,6 @@ export default function chordRendererFactory({
 	function renderChord(chord) {
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
 
-		switch (printer) {
-			case 'text': return textPrinter(filteredChord);
-			case 'raw': return filteredChord;
-
-		}
 		return textPrinter(filteredChord);
 	}
 

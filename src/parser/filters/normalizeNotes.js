@@ -1,10 +1,10 @@
-import { variantsToNotes } from '../../dics/allNotes';
+import { allVariantsToNotes } from '../../dics/allNotes';
 
 export default function normalizeNotes(chord) {
-	chord.normalized.rootNote = variantsToNotes[chord.input.rootNote];
+	chord.normalized.rootNote = allVariantsToNotes[chord.input.rootNote];
 
 	if (chord.input.bassNote) {
-		chord.normalized.bassNote = variantsToNotes[chord.input.bassNote];
+		chord.normalized.bassNote = allVariantsToNotes[chord.input.bassNote];
 	}
 
 	return chord;

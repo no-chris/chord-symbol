@@ -1,5 +1,7 @@
 import chain from '../helpers/chain';
 
+import { englishVariants, latinVariants, germanVariants } from '../dics/allNotes';
+
 import initChord from './filters/initChord';
 import parseBase from './filters/parseBase';
 import parseDescriptor from './filters/parseDescriptor';
@@ -52,18 +54,31 @@ import formatSymbolParts from './filters/formatSymbolParts';
  */
 
 /**
- * @param {String} input
+ * @param {String} symbol
  * @returns {Chord|Null}
  */
 export default function parseChord(symbol) {
-	const allFilters = [
-		initChord,
-		parseBase,
-		parseDescriptor,
-		normalizeNotes,
-		normalizeDescriptor,
-		formatSymbolParts,
+	const allNotes = [
+		englishVariants,
+		latinVariants,
+		germanVariants,
 	];
 
-	return chain(allFilters, symbol);
+	let chord;
+	let allFilters;
+
+	while (allNotes.length && !chord) {
+		allFilters = [
+			initChord,
+			parseBase.bind(null, allNotes.shift()),
+			parseDescriptor,
+			normalizeNotes,
+			normalizeDescriptor,
+			formatSymbolParts,
+		];
+
+		chord = chain(allFilters, symbol);
+	}
+	return chord;
+
 }

@@ -1,12 +1,10 @@
-import { allVariants } from '../../dics/allNotes';
-
 /**
  * @param {Chord} chord
  * @returns {Chord|null}
  */
-export default function parseBase(chord) {
+export default function parseBase(noteVariants, chord) {
 	const { symbol } = chord.input;
-	const notesRegex = allVariants.join('|');
+	const notesRegex = noteVariants.join('|');
 	const notesAndDescriptorRegex = new RegExp(
 		'^'
 		+ '(' + notesRegex + ')'
