@@ -120,6 +120,10 @@ describe('Intervals & semitones', () => {
 
 		[ 'Aomit3omit5',	[ '1' ],									{ major: true, eleventh: false } ],
 
+		[ 'C4',				[ '1', '3', '4', '5' ],						{ major: true, eleventh: false } ],
+		[ 'Cadd4',			[ '1', '3', '4', '5' ],						{ major: true, eleventh: false } ],
+
+
 	])('%s', (symbol, intervals, intents) => {
 		test('is parsed: ' + intervals.join('-'), () => {
 			const chord = parseChord(symbol);

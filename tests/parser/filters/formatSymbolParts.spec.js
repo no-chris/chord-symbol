@@ -81,6 +81,9 @@ describe('normalizeDescriptor', () => {
 		['power',				'C5',				'5',		[] ],
 		['bass',				'A bass',			' bass',	[] ],
 
+		['add4',				'C4', 				'sus', 	['add3'] ],
+		['add4',				'Cadd4', 			'sus', 	['add3'] ],
+
 		['sort alt>add',		'C7b5(add13)', 		'7', 	['b5', 'add13'] ],
 		['sort alt>omit',		'C7b5(add13)', 		'7', 	['b5', 'add13'] ],
 		['sort alt b>#',		'C7(#11,#9,b9,#5,b5)','7', 	['b5', '#5', 'b9', '#9', '#11'] ],
