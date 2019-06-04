@@ -1,3 +1,5 @@
+import chain from '../helpers/chain';
+
 import initChord from './filters/initChord';
 import parseBase from './filters/parseBase';
 import parseDescriptor from './filters/parseDescriptor';
@@ -40,7 +42,6 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {String[]} omits
  */
 
-
 /**
  * @typedef {Object} FormattedChord
  * @type {Object}
@@ -49,50 +50,6 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {String} descriptor
  * @property {String[]} chordChanges
  */
-
-/**
- * parse:
- * 	parse basic => input
- * 	parse descriptor => input
- * 	normalize notes
- * 	normalize descriptor
- *	format
- */
-
-
-
-const results = {
-	input: {
-		symbol: 'DoMaj7/Mi',
-		rootNote: 'Do',
-		bassNote: 'Mi',
-		descriptor: 'maj7',
-		parsableDescriptor: 'maj 7',
-		modifiers: [],
-	},
-	normalized: {
-		intents: {},
-		intervals: [],
-		semitones: [],
-		notes: [],
-		rootNote: 'C',
-		bassNote: 'E',
-		quality: 'ma',
-		isSuspended: false,
-		extension: 9,
-		alterations: [],
-		omits: [],
-		adds: [],
-	},
-	// really?
-	formatted: {
-		rootNote: 'C',
-		bassNote: 'E',
-		descriptor: 'maj7',
-		chordChanges: ['add11', '13', 'omit3', 'no3'],
-		//simplified: 'Cmaj7', // todo really?
-	}
-};
 
 /**
  * @param {String} input
@@ -108,7 +65,5 @@ export default function parseChord(symbol) {
 		formatSymbolParts,
 	];
 
-	return allFilters.reduce((filteredChord, filter) => {
-		return (filteredChord) ? filter(filteredChord) : null;
-	}, symbol);
+	return chain(allFilters, symbol);
 }

@@ -1,3 +1,5 @@
+import chain from '../../../src/helpers/chain';
+
 import formatSymbolParts from '../../../src/parser/filters/formatSymbolParts';
 
 import initChord from '../../../src/parser/filters/initChord';
@@ -7,15 +9,14 @@ import normalizeNotes from '../../../src/parser/filters/normalizeNotes';
 import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
 
 function parseChord(symbol) {
-	return [
+	const filters = [
 		initChord,
 		parseBase,
 		parseDescriptor,
 		normalizeNotes,
 		normalizeDescriptor,
-	].reduce((chord, filter) => {
-		return (chord) ? filter(chord) : null;
-	}, symbol);
+	];
+	return chain(filters, symbol);
 }
 
 describe('normalizeDescriptor', () => {

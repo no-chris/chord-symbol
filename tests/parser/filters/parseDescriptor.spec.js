@@ -1,15 +1,16 @@
+import chain from '../../../src/helpers/chain';
+
 import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 import intervalsToSemitones from '../../../src/dics/intervalsToSemitones';
 
 function parseChord(symbol) {
-	return [
+	const allFilters = [
 		initChord,
 		parseBase,
-	].reduce((chord, filter) => {
-		return (chord) ? filter(chord) : null;
-	}, symbol);
+	];
+	return chain(allFilters, symbol);
 }
 
 describe('Parsable descriptor', () => {

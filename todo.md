@@ -12,12 +12,11 @@
 + rendering of D9(b13) vs D(b13) => add or not?
 + parse 11 to 11 instead of 4 ? add C11 to shortNamings
 + do not allow multiple times the same modifier
++ question: suspended vs add4? / weird rendering: Cadd11, C4
++ add run chain
 
-+ question: suspended vs add4?
-    weird rendering: Cadd11, C4
 - add symbols from https://raw.githubusercontent.com/felixroos/jazzband/master/scripts/sheets.json
 - option to disable latin name parsing, have test failing ambiguous Fadd or other Esus: or start with english, if null try parsing in other systems
-- add run chain
 - avoid concurrent qualities?
 
 Render functionality:

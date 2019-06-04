@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import chain from '../../../src/helpers/chain';
+
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
@@ -7,13 +9,12 @@ import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
 
 function parseChord(symbol) {
-	return [
+	const filters = [
 		initChord,
 		parseBase,
-		parseDescriptor
-	].reduce((chord, filter) => {
-		return (chord) ? filter(chord) : null;
-	}, symbol);
+		parseDescriptor,
+	];
+	return chain(filters, symbol);
 }
 
 

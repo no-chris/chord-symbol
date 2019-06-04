@@ -1,5 +1,7 @@
 import _uniq from 'lodash/uniq';
 
+import chain from '../../helpers/chain';
+
 import m from '../../dics/allModifiers';
 import allModifiersSymbols, { allVariants as allModifiersVariants } from '../../dics/allModifiersSymbols';
 import intervalsToSemitones from '../../dics/intervalsToSemitones';
@@ -63,9 +65,7 @@ function getParsableDescriptor(descriptor) {
 		addMissingVerbs,
 	];
 
-	return allFilters.reduce((parsableDescriptor, filter) => {
-		return filter(parsableDescriptor);
-	}, descriptor);
+	return chain(allFilters, descriptor);
 }
 
 function toLowerCaseExceptMajorM(descriptor) {

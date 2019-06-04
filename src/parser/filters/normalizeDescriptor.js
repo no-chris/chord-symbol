@@ -3,6 +3,8 @@ import _find from 'lodash/find';
 import _uniq from 'lodash/uniq';
 import _without from 'lodash/without';
 
+import chain from '../../helpers/chain';
+
 import { hasOneOf, hasAll, hasNoneOf, hasExactly } from '../../helpers/hasElement';
 
 import { qualities } from '../../dics/qualities';
@@ -127,9 +129,7 @@ function getIntervalsForQualityDetection(allIntervals, chord, isSuspended, omits
 		_uniq,
 	];
 
-	return allFilters.reduce((intervals, filter) => {
-		return filter(intervals);
-	}, _clone(allIntervals));
+	return chain(allFilters, _clone(allIntervals));
 }
 
 function undoOmit3(omits, allIntervals) {
