@@ -106,7 +106,4 @@ describe('normalizeDescriptor', () => {
 			expect(normalized.omits).toEqual(expectedFull.omits);
 		});
 	});
-
 });
-
-//todo: set sensitive defaults if intents are not there

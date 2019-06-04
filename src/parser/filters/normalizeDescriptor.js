@@ -35,8 +35,7 @@ export default function normalizeDescriptor(chord) {
 
 		const isSuspended = getIsSuspended(chordIntervals, chord.normalized.intents.major);
 
-		const { qualityIntervals = null, quality = null } = getChordQuality(chordIntervals, chord, isSuspended, omits) || {};
-		if (quality === null) return null;
+		const { qualityIntervals, quality } = getChordQuality(chordIntervals, chord, isSuspended, omits);
 
 		const extensions = getExtensions(chordIntervals, quality);
 

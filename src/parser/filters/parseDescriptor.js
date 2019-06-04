@@ -11,50 +11,49 @@ import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
  * @returns {Chord|Null}
  */
 export default function parseDescriptor(chord) {
-	const chordModifiers = [];
+	let allModifiers = [];
 
-	if (chord) {
-		if (chord.input.descriptor) {
-			chord.input.parsableDescriptor = getParsableDescriptor(chord.input.descriptor);
+	if (chord.input.descriptor) {
+		chord.input.parsableDescriptor = getParsableDescriptor(chord.input.descriptor);
 
-			const descriptorRegex = new RegExp(allModifiersVariants.map(escapeRegex).join('|'), 'g');
-			const descriptorMatches = chord.input.parsableDescriptor.match(descriptorRegex);
+		allModifiers = getModifiers(chord.input.parsableDescriptor);
 
-			let remainingChars = chord.input.parsableDescriptor;
-			let modifierId;
-
-			if (descriptorMatches) {
-				descriptorMatches.forEach(match => {
-					modifierId = allModifiersSymbols[match];
-					chordModifiers.push(modifierId);
-
-					remainingChars = remainingChars.replace(match, '');
-				});
-			}
-
-			if (chordModifiers.length === 0 || remainingChars.trim().length > 0) {
-				return null;
-			}
-		}
-
-
-		const intervals = _uniq(getIntervals(chordModifiers))
-			.sort((a, b) => (intervalsToSemitones[a] - intervalsToSemitones[b]));
-
-		chord.input.modifiers = chordModifiers;
-		chord.normalized.intervals = intervals;
-		chord.normalized.semitones = intervals
-			.map(degree => intervalsToSemitones[degree])
-			.sort((a, b) => (a - b));
-
-		chord.normalized.intents = {
-			major: hasMajorIntent(chordModifiers),
-			eleventh: chordModifiers.includes(m.eleventh),
-		};
+		if (!allModifiers) return null;
 	}
+
+	chord.normalized.intervals = getIntervals(allModifiers);
+	chord.normalized.semitones = getSemitones(chord.normalized.intervals);
+	chord.normalized.intents = getIntents(allModifiers);
+
 	return chord;
 }
 
+function getModifiers(parsableDescriptor) {
+	const modifiers = [];
+
+	const descriptorRegex = new RegExp(allModifiersVariants.map(escapeRegex).join('|'), 'g');
+	const descriptorMatches = parsableDescriptor.match(descriptorRegex);
+
+	let remainingChars = parsableDescriptor;
+	let modifierId;
+
+	if (descriptorMatches) {
+		descriptorMatches.forEach(match => {
+			modifierId = allModifiersSymbols[match];
+			if (modifiers.includes(modifierId)) {
+				return null;
+			}
+			modifiers.push(modifierId);
+
+			remainingChars = remainingChars.replace(match, '');
+		});
+	}
+
+	if (modifiers.length === 0 || remainingChars.trim().length > 0) {
+		return null;
+	}
+	return modifiers;
+}
 
 function getParsableDescriptor(descriptor) {
 	const allFilters = [
@@ -130,7 +129,7 @@ function getIntervals(allModifiers) {
 		return ['1'];
 	}
 
-	return [
+	return _uniq([
 		'1',
 		...getThird(allModifiers),
 		...getFourth(allModifiers),
@@ -140,7 +139,8 @@ function getIntervals(allModifiers) {
 		...getNinths(allModifiers),
 		...getElevenths(allModifiers),
 		...getThirteenths(allModifiers),
-	];
+	])
+		.sort((a, b) => (intervalsToSemitones[a] - intervalsToSemitones[b]));
 }
 
 function getThird(allModifiers) {
@@ -282,4 +282,17 @@ function escapeRegex(string) {
 	return string.replace(/[.\-*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function getSemitones(allIntervals) {
+	return allIntervals
+		.map(interval => intervalsToSemitones[interval])
+		.sort((a, b) => (a - b));
+}
+
+// intents will be used later at formatting for disambiguation of some potentially confusing cases
+function getIntents(allModifiers) {
+	return {
+		major: hasMajorIntent(allModifiers),
+		eleventh: allModifiers.includes(m.eleventh),
+	};
+}
 

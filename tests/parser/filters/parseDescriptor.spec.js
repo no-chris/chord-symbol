@@ -1,6 +1,7 @@
 import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
+import intervalsToSemitones from '../../../src/dics/intervalsToSemitones';
 
 function parseChord(symbol) {
 	return [
@@ -68,65 +69,84 @@ describe('Parsable descriptor', () => {
 });
 
 
-describe('Intervals', () => {
+describe('Intervals & semitones', () => {
 	describe.each([
 
-		[ 'A',				[ '1', '3', '5'] ],
-		[ 'A6',				[ '1', '3', '5', '6'] ],
-		[ 'A69',			[ '1', '3', '5', '6', '9'] ],
-		[ 'AM7',			[ '1', '3', '5', '7'] ],
-		[ 'AM9',			[ '1', '3', '5', '7', '9'] ],
-		[ 'AM11',			[ '1', '5', '7', '9', '11'] ],
-		[ 'AM13',			[ '1', '3', '5', '7', '9', '13'] ],
+		[ 'A',				[ '1', '3', '5'], 					{ major: true, eleventh: false } ],
+		[ 'A6',				[ '1', '3', '5', '6'],				{ major: true, eleventh: false } ],
+		[ 'A69',			[ '1', '3', '5', '6', '9'],			{ major: true, eleventh: false } ],
+		[ 'AM7',			[ '1', '3', '5', '7'],				{ major: true, eleventh: false } ],
+		[ 'AM9',			[ '1', '3', '5', '7', '9'],			{ major: true, eleventh: false } ],
+		[ 'AM11',			[ '1', '5', '7', '9', '11'],		{ major: true, eleventh: true } ],
+		[ 'AM13',			[ '1', '3', '5', '7', '9', '13'],	{ major: true, eleventh: false } ],
 
-		[ 'A7',				[ '1', '3', '5', 'b7'] ],
-		[ 'A9',				[ '1', '3', '5', 'b7', '9'] ],
-		[ 'A11',			[ '1', '5', 'b7', '9', '11'] ],
-		[ 'A13',			[ '1', '3', '5', 'b7', '9', '13'] ],
+		[ 'A7',				[ '1', '3', '5', 'b7'],				{ major: true, eleventh: false } ],
+		[ 'A9',				[ '1', '3', '5', 'b7', '9'],		{ major: true, eleventh: false } ],
+		[ 'A11',			[ '1', '5', 'b7', '9', '11'],		{ major: true, eleventh: true } ],
+		[ 'A13',			[ '1', '3', '5', 'b7', '9', '13'],	{ major: true, eleventh: false } ],
 
-		[ 'Am',				[ '1', 'b3', '5'] ],
-		[ 'Am6',			[ '1', 'b3', '5', '6'] ],
-		[ 'Am69',			[ '1', 'b3', '5', '6', '9'] ],
-		[ 'Am7',			[ '1', 'b3', '5', 'b7'] ],
-		[ 'Am9',			[ '1', 'b3', '5', 'b7', '9'] ],
-		[ 'Am11',			[ '1', 'b3', '5', 'b7', '9', '11'] ],
-		[ 'Am13',			[ '1', 'b3', '5', 'b7', '9', '11', '13'] ],
-		[ 'Am67',			[ '1', 'b3', '5', 'b7', '13'] ],
-		[ 'Am6/97',			[ '1', 'b3', '5', 'b7', '9', '13'] ],
+		[ 'Am',				[ '1', 'b3', '5'],							{ major: false, eleventh: false } ],
+		[ 'Am6',			[ '1', 'b3', '5', '6'],						{ major: false, eleventh: false } ],
+		[ 'Am69',			[ '1', 'b3', '5', '6', '9'],				{ major: false, eleventh: false } ],
+		[ 'Am7',			[ '1', 'b3', '5', 'b7'],					{ major: false, eleventh: false } ],
+		[ 'Am9',			[ '1', 'b3', '5', 'b7', '9'],				{ major: false, eleventh: false } ],
+		[ 'Am11',			[ '1', 'b3', '5', 'b7', '9', '11'],			{ major: false, eleventh: true } ],
+		[ 'Am13',			[ '1', 'b3', '5', 'b7', '9', '11', '13'],	{ major: false, eleventh: false } ],
+		[ 'Am67',			[ '1', 'b3', '5', 'b7', '13'],				{ major: false, eleventh: false } ],
+		[ 'Am6/97',			[ '1', 'b3', '5', 'b7', '9', '13'],			{ major: false, eleventh: false } ],
 
-		[ 'Csus',			[ '1', '4', '5'] ],
-		[ 'Csus(add3)',		[ '1', '3', '4', '5'] ],
-		[ 'AM7sus',			[ '1', '4', '5', '7'] ],
-		[ 'AM9sus',			[ '1', '4', '5', '7', '9'] ],
-		[ 'AM11sus',		[ '1', '4', '5', '7', '9', '11'] ],
-		[ 'AM13sus',		[ '1', '4', '5', '7', '9', '13'] ],
-		[ 'A7sus',			[ '1', '4', '5', 'b7'] ],
-		[ 'A9sus',			[ '1', '4', '5', 'b7', '9'] ],
-		[ 'A11sus',			[ '1', '4', '5', 'b7', '9', '11'] ],
-		[ 'A13sus',			[ '1', '4', '5', 'b7', '9', '13'] ],
+		[ 'Csus',			[ '1', '4', '5'],							{ major: true, eleventh: false } ],
+		[ 'Csus(add3)',		[ '1', '3', '4', '5'],						{ major: true, eleventh: false } ],
+		[ 'AM7sus',			[ '1', '4', '5', '7'],						{ major: true, eleventh: false } ],
+		[ 'AM9sus',			[ '1', '4', '5', '7', '9'],					{ major: true, eleventh: false } ],
+		[ 'AM11sus',		[ '1', '4', '5', '7', '9', '11'],			{ major: true, eleventh: true } ],
+		[ 'AM13sus',		[ '1', '4', '5', '7', '9', '13'],			{ major: true, eleventh: false } ],
+		[ 'A7sus',			[ '1', '4', '5', 'b7'],						{ major: true, eleventh: false } ],
+		[ 'A9sus',			[ '1', '4', '5', 'b7', '9'],				{ major: true, eleventh: false } ],
+		[ 'A11sus',			[ '1', '4', '5', 'b7', '9', '11'],			{ major: true, eleventh: true } ],
+		[ 'A13sus',			[ '1', '4', '5', 'b7', '9', '13'],			{ major: true, eleventh: false } ],
 
-		[ 'Adim',			[ '1', 'b3', 'b5'] ],
-		[ 'Ah',				[ '1', 'b3', 'b5', 'b7'] ],
-		[ 'Adim7',			[ '1', 'b3', 'b5', 'bb7'] ],
-		[ 'Adim(ma7)',		[ '1', 'b3', 'b5', '7'] ],
-		[ 'Ao7(ma7)',		[ '1', 'b3', 'b5', 'bb7', '7'] ],
-		[ 'Ao7(add ma7)',	[ '1', 'b3', 'b5', 'bb7', '7'] ],
-		[ 'A+',				[ '1', '3', '#5'] ],
-		[ 'A+7',			[ '1', '3', '#5', 'b7'] ],
+		[ 'Adim',			[ '1', 'b3', 'b5'],							{ major: false, eleventh: false } ],
+		[ 'Ah',				[ '1', 'b3', 'b5', 'b7'],					{ major: false, eleventh: false } ],
+		[ 'Adim7',			[ '1', 'b3', 'b5', 'bb7'],					{ major: false, eleventh: false } ],
+		[ 'Adim(ma7)',		[ '1', 'b3', 'b5', '7'],					{ major: false, eleventh: false } ],
+		[ 'Ao7(ma7)',		[ '1', 'b3', 'b5', 'bb7', '7'],				{ major: false, eleventh: false } ],
+		[ 'Ao7(add ma7)',	[ '1', 'b3', 'b5', 'bb7', '7'],				{ major: false, eleventh: false } ],
+		[ 'A+',				[ '1', '3', '#5'],							{ major: true, eleventh: false } ],
+		[ 'A+7',			[ '1', '3', '#5', 'b7'],					{ major: true, eleventh: false } ],
 
-		[ 'A(bass)',		[ '1' ] ],
-		[ 'A5',				[ '1', '5' ] ],
+		[ 'A(bass)',		[ '1' ],									{ major: true, eleventh: false } ],
+		[ 'A5',				[ '1', '5' ],								{ major: true, eleventh: false } ],
 
-		[ 'Aomit3omit5',	[ '1' ] ],
+		[ 'Aomit3omit5',	[ '1' ],									{ major: true, eleventh: false } ],
 
-	])('%s', (symbol, intervals) => {
+	])('%s', (symbol, intervals, intents) => {
 		test('is parsed: ' + intervals.join('-'), () => {
 			const chord = parseChord(symbol);
 			const parsed = parseDescriptor(chord);
+			const semitones = intervals.map(interval => intervalsToSemitones[interval]);
+
 			expect(parsed.normalized.intervals).toEqual(intervals);
+			expect(parsed.normalized.semitones).toEqual(semitones);
+			expect(parsed.normalized.intents).toEqual(intents);
 		});
 	});
 });
 
 
-// todo: add intents test
+describe('invalid chords', () => {
+	describe.each([
+
+		[ 'Modifier does not exist', 'Az' ],
+		[ 'Modifier is applied multiple times, 1', 'Aminm' ],
+		[ 'Modifier is applied multiple times, 2', 'C°dim' ],
+
+	])('%s', (title, symbol) => {
+		test(symbol + ': should return null', () => {
+			const chord = parseChord(symbol);
+			const parsed = parseDescriptor(chord);
+
+			expect(parsed).toBeNull();
+		});
+	});
+});

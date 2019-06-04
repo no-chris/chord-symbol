@@ -20,7 +20,6 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {String} [bassNote]
  * @property {String} descriptor
  * @property {String} parsableDescriptor
- * @property {String[]} modifiers
  */
 /**
  * @typedef {Object} NormalizedChord
