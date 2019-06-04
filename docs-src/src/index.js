@@ -8,23 +8,29 @@ const chordInput = document.getElementById('chordInput');
 const normalized = document.querySelector('[data-output="normalized"]');
 const normalizedShort = document.querySelector('[data-output="normalizedShort"]');
 const intervals = document.querySelector('[data-output="intervals"]');
-const semitones = document.querySelector('[data-output="semitones"]');
-const rootNote = document.querySelector('[data-output="rootNote"]');
-const bassNote = document.querySelector('[data-output="bassNote"]');
 const json = document.querySelector('[data-output="json"]');
+const outputDetails = document.querySelector('.output-details');
 
 let input;
 let chord;
+let symbolNormalized;
+let symbolShort;
 
 chordInput.addEventListener('keyup', () => {
 	input = chordInput.value;
 	chord = parseChord(input);
 
-	normalized.textContent 		= (!chord) ? '-' : renderChordNormalized(chord);
-	normalizedShort.textContent = (!chord) ? '-' : renderChordShort(chord);
+	symbolNormalized = (!chord) ? '' : renderChordNormalized(chord);
+	symbolShort = (!chord) ? '' : renderChordShort(chord);
+
+	if (!chord) {
+		outputDetails.classList.add('hidden');
+	} else {
+		outputDetails.classList.remove('hidden');
+	}
+
+	normalized.textContent 		= (!chord) ? '-' : symbolNormalized;
+	normalizedShort.textContent = (symbolNormalized === symbolShort) ? '' : 'alternate: ' + symbolShort;
 	intervals.textContent 		= (!chord) ? '-' : chord.normalized.intervals.join('-');
-	semitones.textContent 		= (!chord) ? '-' : chord.normalized.semitones.join('-');
-	rootNote.textContent 		= (!chord) ? '-' : chord.formatted.rootNote;
-	bassNote.textContent 		= (!chord) ? '-' : chord.formatted.bassNote;
 	json.textContent 			= (!chord) ? '-' : JSON.stringify(chord, null, 4);
 });

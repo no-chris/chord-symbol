@@ -41,6 +41,7 @@ const config = {
 		}),
 		new CopyPlugin([
 			{ from: 'assets/img', to: buildDir + '/img' },
+			{ from: 'assets/css', to: buildDir + '/css' },
 		]),
 	],
 
