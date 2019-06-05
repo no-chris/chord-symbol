@@ -8,7 +8,6 @@ import chain from '../../helpers/chain';
 import { hasOneOf, hasAll, hasNoneOf, hasExactly } from '../../helpers/hasElement';
 
 import { qualities } from '../../dics/qualities';
-import intervalsToSemitones from '../../dics/intervalsToSemitones';
 
 /**
  * @param {Chord} chord
@@ -100,16 +99,16 @@ function getChordQuality(allIntervals, chord, isSuspended, omits) {
 	const intervalsForQualityDetection = getIntervalsForQualityDetection(allIntervals, chord, isSuspended, omits);
 
 	const intervalsToQualities = [
-		// !!! do not change order
-		{ qualityIntervals: [ '3' ],				quality: qualities.ma },
-		{ qualityIntervals: [ '3', '6' ],			quality: qualities.ma6 },
-		{ qualityIntervals: [ '3', '7' ],			quality: qualities.ma7 },
-		{ qualityIntervals: [ '3', 'b7' ],			quality: qualities.dom7 },
-
+		// !!! do not change order without a good reason
 		{ qualityIntervals: [ 'b3' ],				quality: qualities.mi },
 		{ qualityIntervals: [ 'b3', '6' ],			quality: qualities.mi6 },
 		{ qualityIntervals: [ 'b3', '7' ],			quality: qualities.miMa7 },
 		{ qualityIntervals: [ 'b3', 'b7' ],			quality: qualities.mi7 },
+
+		{ qualityIntervals: [ '3' ],				quality: qualities.ma },
+		{ qualityIntervals: [ '3', '6' ],			quality: qualities.ma6 },
+		{ qualityIntervals: [ '3', '7' ],			quality: qualities.ma7 },
+		{ qualityIntervals: [ '3', 'b7' ],			quality: qualities.dom7 },
 
 		{ qualityIntervals: [ '3', '#5' ],			quality: qualities.aug },
 		{ qualityIntervals: [ 'b3', 'b5' ],			quality: qualities.dim },
@@ -216,7 +215,7 @@ function getAddsAndAlterations(chordIntervals, baseIntervals, quality) {
 	const alterations = [];
 
 	chordIntervals
-		.filter(interval => (interval !== '5' && intervalsToSemitones[interval] >= intervalsToSemitones['b5']))
+		.filter(interval => (interval !== '5' && interval !== '4'))
 		.forEach(interval => {
 			if (!baseIntervals.includes(interval)) {
 				if (isAlteration(quality, interval)) {

@@ -93,6 +93,8 @@ describe('normalizeDescriptor', () => {
 		['alt + add + omit','C7omit3b5add13', 	{ quality: 'dominant7', alterations: ['b5'], adds: ['13'], omits: ['3'] } ],
 		['mutliple alts',	'C7(#11,#9,b9,#5,b5)',{ quality: 'dominant7', alterations: ['b5', '#5', 'b9', '#9', '#11'] } ],
 		['add ma7',			'Cdim7(add ma7)',	{ quality: 'diminished7', adds: ['7'] } ],
+		['minor + add3',	'Cm(add3)',			{ quality: 'minor', adds: ['3'] } ],
+		['minor + aug',		'Cm+',				{ quality: 'minor', alterations: ['#5'] } ],
 
 		/**/
 		/**/
