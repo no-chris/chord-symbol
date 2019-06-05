@@ -32,7 +32,7 @@ export default function combineModifiers() {
 		.map(permutation => cartesian(permutation))
 		.map(permutationProducts => {
 			return permutationProducts.map(product => {
-				product[0] = product[0].replace(/^['b|♭|#|♯'].*/, '($&)');
+				product[0] = product[0].replace(/^[b♭#♯].*/, '($&)');
 				return product;
 			});
 		})

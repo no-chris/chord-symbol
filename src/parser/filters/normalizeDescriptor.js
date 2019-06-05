@@ -244,7 +244,7 @@ function isAlteration(quality, interval) {
 		[qualities.mi]: 	['b5', '#5', 'b13'],
 		[qualities.mi6]: 	['b5', '#5', 'b13'],
 		[qualities.mi7]: 	['b5', '#5', 'b13'],
-		[qualities.miMa7]: 	['b5', '#5', 'b13'], //todo: double check all this
+		[qualities.miMa7]: 	['b5', '#5', 'b13'],
 
 		[qualities.aug]: 	[],
 		[qualities.dim]: 	[],

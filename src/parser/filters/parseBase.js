@@ -1,4 +1,5 @@
 /**
+ * @param {String[]} noteVariants
  * @param {Chord} chord
  * @returns {Chord|null}
  */
