@@ -17,6 +17,7 @@
 + C611 => C13sus => ok
 + Bmiadd3
 + Cm+ => C+(add b3) : WTF?!
++ add build pipeline
 
 - add symbols from https://raw.githubusercontent.com/felixroos/jazzband/master/scripts/sheets.json
 - avoid concurrent qualities?
