@@ -7,7 +7,7 @@ import chain from '../../helpers/chain';
 
 import { hasOneOf, hasAll, hasNoneOf, hasExactly } from '../../helpers/hasElement';
 
-import { qualities } from '../../dics/qualities';
+import { qualities } from '../../dictionaries/qualities';
 
 /**
  * @param {Chord} chord

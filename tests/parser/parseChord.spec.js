@@ -1,7 +1,7 @@
 import parseChord from '../../src/parser/parseChord';
 
-import { allVariants as allNotesVariants } from '../../src/dics/allNotes';
-import { allVariants as allModifiersVariants } from '../../src/dics/allModifiersSymbols';
+import { allVariants as allNotesVariants } from '../../src/dictionaries/notes';
+import { allVariants as allModifiersVariants } from '../../src/dictionaries/modifiers';
 
 describe('ambiguous rootNote', () => {
 	const allCases = [];

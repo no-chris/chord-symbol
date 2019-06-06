@@ -2,9 +2,9 @@ import _uniq from 'lodash/uniq';
 
 import chain from '../../helpers/chain';
 
-import m from '../../dics/allModifiers';
-import allModifiersSymbols, { allVariants as allModifiersVariants } from '../../dics/allModifiersSymbols';
-import intervalsToSemitones from '../../dics/intervalsToSemitones';
+import m from '../../dictionaries/modifiers';
+import { allSymbols, allVariants } from '../../dictionaries/modifiers';
+import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
 import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 
 
@@ -33,7 +33,7 @@ export default function parseDescriptor(chord) {
 function getModifiers(parsableDescriptor) {
 	const modifiers = [];
 
-	const descriptorRegex = new RegExp(allModifiersVariants.map(escapeRegex).join('|'), 'g');
+	const descriptorRegex = new RegExp(allVariants.map(escapeRegex).join('|'), 'g');
 	const descriptorMatches = parsableDescriptor.match(descriptorRegex);
 
 	let remainingChars = parsableDescriptor;
@@ -41,7 +41,7 @@ function getModifiers(parsableDescriptor) {
 
 	if (descriptorMatches) {
 		descriptorMatches.forEach(match => {
-			modifierId = allModifiersSymbols[match];
+			modifierId = allSymbols[match];
 			if (modifiers.includes(modifierId)) {
 				return null;
 			}

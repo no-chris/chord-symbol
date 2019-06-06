@@ -1,6 +1,6 @@
 import chain from '../helpers/chain';
 
-import { englishVariants, latinVariants, germanVariants } from '../dics/allNotes';
+import { englishVariants, latinVariants, germanVariants } from '../dictionaries/notes';
 
 import initChord from './filters/initChord';
 import parseBase from './filters/parseBase';

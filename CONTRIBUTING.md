@@ -1,4 +1,4 @@
-Many thanks for reading this and considering contributing to this project.
+Many thanks for reading this and considering contributing to this project, this is fantastic!
 
 - full unit tests suite must be passing: `npm test`
 - 100% code coverage must be maintained

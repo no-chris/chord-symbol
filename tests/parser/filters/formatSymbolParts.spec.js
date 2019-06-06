@@ -1,5 +1,5 @@
 import chain from '../../../src/helpers/chain';
-import { englishVariants } from '../../../src/dics/allNotes';
+import { englishVariants } from '../../../src/dictionaries/notes';
 
 import formatSymbolParts from '../../../src/parser/filters/formatSymbolParts';
 

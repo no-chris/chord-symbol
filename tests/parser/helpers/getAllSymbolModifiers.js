@@ -1,8 +1,8 @@
 import _pickBy from 'lodash/pickBy';
-import allModifiersSymbols from '../../../src/dics/allModifiersSymbols';
+import { allSymbols } from '../../../src/dictionaries/modifiers';
 
 export default function getAllSymbolModifiers(modifier) {
-	const allSymbols = _pickBy(allModifiersSymbols, v => v === modifier);
+	const allSymbolsForModifier = _pickBy(allSymbols, v => v === modifier);
 
-	return Object.keys(allSymbols);
+	return Object.keys(allSymbolsForModifier);
 }

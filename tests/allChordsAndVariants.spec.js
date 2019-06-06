@@ -1,5 +1,5 @@
-import intervalsToSemitones from '../src/dics/intervalsToSemitones';
-import m from '../src/dics/allModifiers';
+import intervalsToSemitones from '../src/dictionaries/intervalsToSemitones';
+import m from '../src/dictionaries/modifiers';
 
 import combineModifiers from './parser/helpers/combineModifiers';
 import getAllSymbolModifiers from './parser/helpers/getAllSymbolModifiers';

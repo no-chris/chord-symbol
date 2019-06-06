@@ -1,10 +1,10 @@
 import chain from '../../../src/helpers/chain';
-import { englishVariants } from '../../../src/dics/allNotes';
+import { englishVariants } from '../../../src/dictionaries/notes';
 
 import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
-import intervalsToSemitones from '../../../src/dics/intervalsToSemitones';
+import intervalsToSemitones from '../../../src/dictionaries/intervalsToSemitones';
 
 function parseChord(symbol) {
 	const allFilters = [

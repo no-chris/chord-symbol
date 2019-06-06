@@ -1,4 +1,4 @@
-import { allVariantsToNotes, englishVariants, latinVariants, germanVariants } from '../src/dics/allNotes';
+import { allVariantsToNotes, englishVariants, latinVariants, germanVariants } from '../src/dictionaries/notes';
 
 import parseChord from '../src/parser/parseChord';
 

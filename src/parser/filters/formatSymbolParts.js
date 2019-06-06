@@ -1,6 +1,6 @@
-import intervalsToSemitones from '../../dics/intervalsToSemitones';
+import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
 
-import { qualities } from '../../dics/qualities';
+import { qualities } from '../../dictionaries/qualities';
 import { hasNoneOf } from '../../helpers/hasElement';
 
 const qualityToDescriptor = {

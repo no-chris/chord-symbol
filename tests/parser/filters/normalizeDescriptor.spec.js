@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { englishVariants } from '../../../src/dics/allNotes';
+import { englishVariants } from '../../../src/dictionaries/notes';
 
 import chain from '../../../src/helpers/chain';
 

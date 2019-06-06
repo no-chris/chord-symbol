@@ -1,7 +1,7 @@
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 
-import { englishVariants } from '../../../src/dics/allNotes';
+import { englishVariants } from '../../../src/dictionaries/notes';
 
 describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 	describe.each([

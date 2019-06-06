@@ -1,4 +1,4 @@
-import { allVariantsToNotes } from '../../dics/allNotes';
+import { allVariantsToNotes } from '../../dictionaries/notes';
 
 export default function normalizeNotes(chord) {
 	chord.normalized.rootNote = allVariantsToNotes[chord.input.rootNote];
