@@ -8,6 +8,7 @@ setup. It enforces:
 - a fully working unit test suite
 - code coverage threshold (100%, no less)
 - auto update of the demo site
+- auto update of Readme TOC and API documentation
 - up to date npm dependencies (optional)
 - no npm security issues (optional)
 

@@ -6,11 +6,11 @@ import shortenNormalized from './filters/shortenNormalized';
 import textPrinter from './printer/text';
 
 /**
- *
- * @param options
- * @returns {function(*=): String}
+ * Create a pre-configured chord rendering function
+ * @param {Boolean} useShortNamings - if true, use short rendering instead of the academic rendering of chords
+ * @returns {function(Chord): String}
  */
-export default function chordRendererFactory({
+function chordRendererFactory({
 	useShortNamings = false
 } = {}) {
 
@@ -20,12 +20,22 @@ export default function chordRendererFactory({
 		allFilters.push(shortenNormalized);
 	}
 
+	return renderChord;
+
+	/**
+	 * Render a chord structure
+	 * @param {Chord} chord - the chord structure to render
+	 * @returns {String|*} output might depends on the selected printer
+	 */
 	function renderChord(chord) {
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
 
 		return textPrinter(filteredChord);
 	}
-
-	return renderChord;
 }
 
+/**
+ * @module chordRendererFactory
+ * Create the rendering function of chord structures
+ **/
+export default chordRendererFactory;

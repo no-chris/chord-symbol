@@ -17,6 +17,8 @@
     "get-permutations": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.8.0",
+    "jsdoc-to-markdown": "^5.0.0",
+    "markdown-toc": "^1.2.0",
     "sloc": "^0.2.1",
     "terser-webpack-plugin": "^1.3.0",
     "webpack": "^4.33.0",
@@ -33,8 +35,9 @@
     "test": "jest",
     "bundle": "webpack && cd docs-src && npx webpack && cd .. ",
     "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
+    "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md src/parser/parseChord.js src/renderer/chordRendererFactory.js> API.md",
     "outdated": "npm outdated && cd docs-src && npm outdated && cd ..",
     "audit": "npm audit && cd docs-src && npm audit && cd .. ",
-    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run outdated && npm run audit"
+    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run doc && npm run outdated && npm run audit"
   }
 }
