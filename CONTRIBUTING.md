@@ -1,9 +1,34 @@
 Many thanks for reading this and considering contributing to this project, this is fantastic!
 
-- full unit tests suite must be passing: `npm test`
-- 100% code coverage must be maintained
-- no eslint errors/warnings `npx eslint -- src tests`
+Any kind of pull requests (PR) is very much welcome: new feature, bugfixes, typos, documentation, etc.
 
-All of those checks are automated if you try to build the application: `npm build`:
-- please do not commit the resulting files in the PR
-- a build failure is fine if it concerns npm outdated dependencies npm security issues
+To make it easier for contributors to respect coding guidelines and standards, a build pipeline has been 
+setup. It enforces:
+- respect of lint rules
+- a fully working unit test suite
+- code coverage threshold (100%, no less)
+- auto update of the demo site
+- up to date npm dependencies (optional)
+- no npm security issues (optional)
+
+The last two are optionals, meaning that pull requests will be accepted if the build fails on those steps, 
+but on those steps only.
+
+# In practice
+
+- create atomic PR. 1 PR equals 1 feature/bugfix/change.
+- once you are done with your changes, make sure the build pass:
+```
+npm run-script build
+```
+If it fails on any other stage than the last two steps, please fix it before submitting the PR for review.
+
+The unit test suite takes a long time to run (> 2 minutes on my Macbook pro). 
+During development, you can use the short suite that does not generate symbol variations:
+```
+npm run-script test-short
+```
+
+Thanks a lot!
+
+Christophe

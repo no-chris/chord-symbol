@@ -1,75 +1,196 @@
 # chord-symbol
 
+`chord-symbol`is a parser for chord symbol. It transforms a string that represent a chord (`Cm7`, for example), into a suite
+of intervals: `1, b3, 5, b7`. It also normalize the chord characteristics by isolating its quality, 
+extensions, alterations, added and omitted notes.
+
+See the [demo site](XXXXXXXXXXX).
+
+## Features
+
+- [x] recognize root note and bass note
+- [x] recognize chord "vertical quality" (`major`, `major7`, `minor`, `diminished`, `diminished7`...)
+- [x] recognize extensions, alterations, added and omitted notes
+- [x] convert chord symbol into a list of intervals
+- [x] normalize the chord naming (two options: `academic` and `short`)
+- [x] recognize a huge number of chords (unit test suite contains more than 65 000 variations!)
+- [x] basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
+
+Coming soon:
+- [ ] transpose chord
+- [ ] simplify chord
+- [ ] select notation system for rendering (`english`, `latin`, `german`)
+- [ ] render to Nashville notation system
+- [ ] find chord individual notes
+- [ ] allow custom processing. `chord-symbol` use a pipe-and-filters architecture for both parsing and rendering.
+The plan is to allow for custom filters to be added if such capability is needed 
+(add extra information on parsing, define custom rendering rules, etc.)
+
+## Installation
+
+```
+npm install --save chord-symbol
+```
+
+## Usage
+
+```
+import { parseChord, chordRendererFactory } from 'chord-symbol';
+
+const chord = parseChord('C9sus');
+
+const renderChord = chordRendererFactory({ useShortNamings: true });
+
+console.log(renderChord(chord));
+// -> C11
+```
+
+## Unit tests
+
+`chord-symbol` has a **massive** unit test suite of close to 70 000 tests!
+
+```
+npm test
+```
+
+It also has a "light" suite, much faster, which does not generate all chords variations (>1000 tests "only"):
+```
+npm run-script test-short
+```
+
+## API Documentation
+
+(incoming)
+
+### parseChord(string)
+### chordRendererFactory(options)
+### renderChord(chord)
 
 
-## Why parse chords symbols?
-Being able to parse chord symbol can serve a number of different purposes. For example, you may want to:
+## Background information
+
+### Why parse chords symbols?
+Parsing chord symbol can serve a number of different purposes. For example, you may want to:
 1. Check if a given string can be considered as a valid chord naming
 1. Transpose a chord
-1. Simplify a chord
-1. Convert from one notation system to the other (`english`, `latin`, `german`, `Nashville`)
+1. Convert from one notation system to the other (`english`, `latin`, `german`...)
 
-Those first goals require that the parser gets only a basic understanding of the chord. This is quite easy to achieve.
-The next goals, on the other hand, require a full "musical" understanding of the chord, which is much more challenging for complex shapes.
-It's also much more rewarding, as this will enable you to:
+Those first goals require that the parser gets only a basic understanding of the chord.
+This is quite easy to achieve. The next goals, on the other hand, require a full "musical" 
+understanding of the chord, which is much more challenging for complex shapes.
+It's also much more rewarding, as it will enable you to:
 
-1. Normalize chord naming
-1. Display the chord fingering on a instrument
+1. Normalize chord naming: `CM7`, `CMaj7`, `CΔ7`, `Cmajor7` will all be consistently rendered `Cma7` (for example)
+1. Simplify a chord: `Cm7(b9,#9)` will automatically be simplified into `Cm`
+1. Display the chord fingering for guitar, ukulele, etc.
 1. Playback the chord on a computer
-1. etc.
+1. Or feed the chord intervals to any other piece of software that expects to receive a chord as an input
 
-This library aims to make all this possible by converting chord symbols into a suite of intervals, which can then be named and printed, or passed as an input of other libraries.
+This library aims to make all this possible by converting chord symbols into a suite of intervals, 
+which can then be named, printed, or passed as an input of other libraries.
 
 A very common use case of this library would be to use it to render [Chords Charts](https://en.wikipedia.org/wiki/Chord_chart).
-I actually wrote it first because I could not find any suitable library for ChordMark, a new way of writing Chords Charts that aims to solve a number of issues with currents formats.
+I actually wrote it first because I could not find any suitable library for ChordMark, a new way of writing Chords Charts 
+that aims to solve a number of issues with currents formats.
 
-## Guiding principles
+### Guiding principles
 
-### Clearly defined scope
+Chord symbols can be defined as "_a musical language [that must] be kept as succinct and free for variants as possible_". 
+This definition is taken from the landmark book `Standardized Chord Symbol Notation: A Uniform System for the Music Profession` 
+by Carl Brandt and Clinton Roemer, in 1976.
 
-The objective of `chord-symbol` is to be able to parse correctly most chords symbols used to describe Pop/Rock/Jazz music.
-This objective will be considered to be met if the library can fully understand all chords definitions of symbols present in:
-- Mark Harrison's `Contemporary Music Theory` book series
-- `The New Real Book` series (`p.6` of `Volmume 1`)
-- Polychords are outside the scope
+Ultimately, the same book later admits that, as the symbols get more and more complex, the process of building chord symbols
+"_becomes self-defeating. Musical shorthand ceases to exist, and the goal of INSTANT CHORD RECOGNITION AND ANALYSIS
+is never achieved. While the possible number of chromatically altered chordal functions is finite, [...] 
+it is unreasonable to ask the player to have all of theses combinations stored away for instant read-out._"
 
-That's more than 110 distinct chords symbols, from the basic `C` to the uncommon `C7(b9,#9,#11,b13)`. 
-Of course, `chord-symbol` does not limit itself to this list and is able to recognize a much greater amount of chords symbols.
+Chord symbols also leaves a lot of room for interpretation. Depending on who you ask, people will have
+different ideas on what notes should be played for a given symbol. 
+Most probably, they will also disagree on what is the correct way to write a given chord name, 
+or on the way to name a given set of notes.
 
-### Universality
+For all those reasons, any chord parsing and rendering library is by design opinionated. 
 
-`chord-symbol` should be able to parse the largest possible amount of chords symbols. In order to achieve this goal, it should:
-- recognize most popular note naming schemes: `english`, `german` or `latin`;
-- recognize all kind of syntax of chords modifiers: `Major7` should work as well as `Δ7`;
-- recognize modifiers independently of the order they are written: `Cm7(#11)` should yield the same result than `C(#11)7m`, even if the latest is very unlikely to be written that way;
-- recognize modifiers in parenthesis (`C(add#9)`), and multiple comma-separated alterations (`C7(b9,#9,#11,b13)`)
+The following explain the rationale behind the choices that have been made in the writing of `chord-symbols`.
 
-### Efficiency
+#### Chord definitions
 
-To produce a specific chord, it should always be possible to use the shortest possible and unambiguous notation.
+Definitions of chords intervals and "_vertical qualities_" is based, as closely as possible, on Mark Harrison's 
+`Contemporary Music Theory` [book series](https://www.harrisonmusic.com).
 
-### Reference-based
+#### Symbol parsing
 
-Interpretation of chords modifiers, as well of normalized rendering of chords symbols, are based on information gathered in Mark Harrison's `Contemporary Music Theory` books series.
+Goal has been for set `chord-symbol` to be able to correctly recognize:
+- all the chords symbols present in Mark Harrison's `Contemporary Music Theory` books series
+- all the chords symbols present in `The New Real Book` series (`p.6` of `Volume 1`, for example)
 
-Rendering guidelines are very close - though with some differences - to the principles found in `Standardized Chord Symbol Notation: A Uniform System for the Music Profession (1976)` by Carl Brandt and Clinton Roemer.
+That's already close to 200 distinct chord symbols. 
+If you know any other good references that could be added to this list, feel free to suggest them.
+This goal has been reached and is enforced by the extensive unit test suite.
 
-### Flexibility over musical constrains
+In order to adapt for a wider range of use-cases, `chord-symbol` also has built-in support for a myriad of variations in chord namings.
+For example, `Cma7` could as well be written `CM7`, `C7M`, `C7major`, `Cmajor7`, `CMa7`, `CMAJOR7`, `CM7`, `C7Δ`, `C^7`, `C7^`
+... just to name a few of the possible variations.
+The unit test suite automatically generate all chords variants for a given set of modifiers, bringing the number of 
+recognized chords to over 65 000! 
 
-For now, `chord-symbol` does not care if the chord you are writing makes any kind of "musical" sense. Feel free to write `Csusb55#567` if you feel like it, and the parser will yield the corresponding interval list.
-Don't expect it to sound good, though, nor to be recognized by a chord fingering library ;-)
+More than 100 different modifiers are available for you to use as chord descriptors. 
+Among those: `M`, `Maj`, `m`, `minor`, `Δ`, `^`, `b5`, `o`, `-`, `ø`, `#9`, `b13`, `+`, `dim`, `69`, `add11`, `omit3`, etc.   
+You can check [the full list](XXXXXXXXX). Hopefully, this should allow `chord-symbol` to work out-of-the-box with most available chord charts.
 
-## Non functional requirements
+#### Rendering and normalization
 
-- `TDD` first. To meet the guiding principle of `Universality`, `chord-symbol` has a *massive* unit test suite with generated test cases to ensure correct parsing of all possible chords symbols variations.
-- Low barriers to entry for community contributors: plain Javascript, little to no dependencies, in-line documentation, 100% code coverage, and contributor guide.
+Again, primary source for chord rendering is based on rules defined by Mark Harrison's `Contemporary Music Theory` book series.
+The book `Standardized Chord Symbol Notation` has also been extensively used.
 
-# Contributor guide
+Those rules, however, are sometimes quite academic and does not reflect real-world usage of chords symbols, 
+especially in chords charts available online (but that is true for printed material as well).
+Who write the "theoretically" correct `C(add9,omit3)` instead of the incorrect, but widely used, `Csus2`?
 
-- 
+For this reason, `chord-symbol` offer a `shortNamings` option for chord rendering, which is supposed to better
+reflect current usages. Main differences are:
 
+| Default ("academic") | Short namings |
+|----------------------|---------------|
+| Cma7                 | CM7           |
+| Cmi                  | Cm            |
+| C(add9)              | C2            |
+| C(add9,omit3)        | Csus2         |
+| C7(#5)               | C7+           |
+| Cdim                 | C°            |
+| Cdim7                | C°7           |
+| C(omit5)             | C(no5)        |
+| C9sus                | C11           |
+| C7(omit3)            | C7(no3)       |
+
+
+## Limitations
+
+### No constrains
+
+`chord-symbol` will do its best to infer the correct intervals from the symbol that you are writing, but will not prevent
+you from describing weird chords that makes little to no musical sense. 
+For example, you can write `Cmi(add3)` and it will yield `1-b3-3-5`, which correctly translate the intent 
+behind the symbol, even though the musical intent is questionable at best.
+Deciding what should be "_musically correct_" or not, however, is a vast topic that is way beyond the scope 
+of the current library. 
+
+### Support for different notation systems
+
+`chord-symbol` can recognize notes written in `english`, `latin` and `german` system with the following limits:
+- the latin `Do` (`C`) conflict with the english `D` and the `o` modifier, which is widely used in some popular software 
+to describe a diminished chord. Given the prevalence of this modifier, priority has been given to it.
+For this reason, it is not possible to use the `Do` symbol to describe a `C` chord.
+- because of the way disambiguation is achieved for this type of conflicts, notation systems cannot be mixed in the same symbol.
+As far as `chord-symbol` is concerned (and most sane people too, btw), `Sol/B` is not a valid chord, and neither is `Hes/Re`.
+
+### Musical scope
+
+`chord-symbol` is built with Pop/Rock/Jazz music in mind. It does not recognize [polychords](XXXXXXXXX).
 
 # Lexicon
+
+Some helpful vocabulary, should you decide to dig into the source code of this library...
 
 - **Symbol**: the whole group of characters used to describe a given chord. Ex: `C9(#11)/F`
 - **Root Note**: first part of the symbol (1 or 2 characters). Ex: `C`, `Bb`
@@ -79,8 +200,5 @@ Don't expect it to sound good, though, nor to be recognized by a chord fingering
 or multiple intervals (`9`, for `dominant9th`, means that both `b7` and `9` should be added to the chord)
 - **Modifier symbol**: different ways of writing the same modifier. A suspended chord can be written `Csus`, `Csus4`,`Csuspended`, `Csuspended4`. 
 All those symbols will yield the same intervals list because they all refers to the same modifier.
-
-
-Limited support for alternate namings
-will try to parse english notes, if it fails, will loop through latin and german
-In case of ambiguous, english will always take precedence. This means that the chord Do cannot be written, because it will be parsed as Ddim. 
+- **Changes**: a generic term to group all kinds of changes that can be made to the intervals defined by the chord "vertical quality":
+extensions, alterations, added and omitted notes.
