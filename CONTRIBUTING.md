@@ -1,3 +1,5 @@
+# Contributing guidelines
+
 Many thanks for reading this and considering contributing to this project, this is fantastic!
 
 Any kind of pull requests (PR) is very much welcome: new feature, bugfixes, typos, documentation, etc.

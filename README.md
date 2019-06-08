@@ -1,5 +1,13 @@
 # ChordSymbol
 
+`ChordSymbol` is a parser and renderer for chord symbols. It transforms a string that represent a chord (`Cm7`, for example), into a suite
+of intervals: `1, b3, 5, b7`. It also normalize the chord characteristics by isolating its quality, 
+extensions, alterations, added and omitted notes. This later allow to render the chords in a normalized way.
+
+I wrote it because I could not find anything both accurate and flexible enough for my needs among available libraries.
+
+See the [demo site](https://no-chris.github.io/chord-symbol).
+
 <!-- toc -->
 
 - [Features](#features)
@@ -10,7 +18,7 @@
 - [Background information](#background-information)
   * [Why parse chords symbols?](#why-parse-chords-symbols)
   * [Guiding principles](#guiding-principles)
-    + [Chord definitions](#chord-definitions)
+    + [Chords definition](#chords-definition)
     + [Symbol parsing](#symbol-parsing)
     + [Rendering and normalization](#rendering-and-normalization)
 - [Limitations](#limitations)
@@ -20,14 +28,6 @@
 - [Lexicon](#lexicon)
 
 <!-- tocstop -->
-
-`ChordSymbol` is a parser for chord symbols. It transforms a string that represent a chord (`Cm7`, for example), into a suite
-of intervals: `1, b3, 5, b7`. It also normalize the chord characteristics by isolating its quality, 
-extensions, alterations, added and omitted notes. This later allow to render the chords in a normalized way.
-
-I wrote it because I could not find anything both accurate and flexible enough for my needs among available libraries.
-
-See the [demo site](XXXXXXXXXXX).
 
 ## Features
 
@@ -130,11 +130,13 @@ or on the way to name a given set of notes.
 For all those reasons, any chord parsing and rendering library is by design opinionated. 
 
 The following explain the rationale behind the choices that have been made in the writing of `chord-symbols`.
+Of course they are all questionable and I'm happy to discuss those in order to improve this lib.
 
 #### Chords definition
 
 Definitions of chords intervals and "_vertical qualities_" is based, as closely as possible, on Mark Harrison's 
 `Contemporary Music Theory` [book series](https://www.harrisonmusic.com).
+Please report any mistake or inconsistencies.
 
 #### Symbol parsing
 
@@ -154,7 +156,7 @@ recognized chords to over 65 000!
 
 More than 100 different modifiers are available for you to use as chord descriptors. 
 Among those: `M`, `Maj`, `m`, `minor`, `Δ`, `^`, `b5`, `o`, `-`, `ø`, `#9`, `b13`, `+`, `dim`, `69`, `add11`, `omit3`, etc.   
-You can check [the full list](XXXXXXXXX). Hopefully, this should allow `ChordSymbol` to work out-of-the-box with most available chord charts.
+You can check [the full list](https://github.com/no-chris/chord-symbol/blob/master/src/dictionaries/modifiers.js). Hopefully, this should allow `ChordSymbol` to work out-of-the-box with most available chord charts.
 
 #### Rendering and normalization
 
@@ -204,7 +206,7 @@ As far as `ChordSymbol` is concerned (and most sane people too, btw), `Sol/B` is
 
 ### Musical scope
 
-`ChordSymbol` is built with Pop/Rock/Jazz music in mind. It does not recognize [polychords](XXXXXXXXX).
+`ChordSymbol` is built with Pop/Rock/Jazz music in mind. It does not recognize [polychords](https://en.wikipedia.org/wiki/Polychord).
 
 ## Lexicon
 

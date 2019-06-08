@@ -1,8 +1,8 @@
 import intervalsToSemitones from '../src/dictionaries/intervalsToSemitones';
 import m from '../src/dictionaries/modifiers';
 
-import combineModifiers from './parser/helpers/combineModifiers';
-import getAllSymbolModifiers from './parser/helpers/getAllSymbolModifiers';
+import combineModifiers from './testsHelpers/combineModifiers';
+import getAllSymbolModifiers from './testsHelpers/getAllSymbolModifiers';
 
 import parseChord from '../src/parser/parseChord';
 import chordRendererFactory from '../src/renderer/chordRendererFactory';
@@ -11,6 +11,7 @@ const TEST_SUITE = process.env.TEST_SUITE;
 const VARIANT_THRESHOLD = 750; // limit the number of tested combinations per symbol
 
 const allSrcSymbols = [
+
 	/**/
 
 	// Chords symbols from: Contemporary Music Theory
@@ -192,7 +193,7 @@ const allSrcSymbols = [
 	[ 'CMI(add9)', 			'C', ['1', 'b3', '5', '9'], 						'Cmi(add9)', 			[ m.mi, m.add9 ] ],
 	[ 'CMI6/9', 			'C', ['1', 'b3', '5', '6', '9'], 					'Cmi69', 				[ m.mi, m.add69 ] ],
 	[ 'C7', 				'C', ['1', '3', '5', 'b7'], 						'C7', 					[ m.seventh ] ],
-	[ 'C7(omit 3)', 		'C', ['1', '5', 'b7'], 								'C7(omit3)', 				[ m.seventh, m.omit3 ] ],
+	[ 'C7(omit 3)', 		'C', ['1', '5', 'b7'], 								'C7(omit3)', 			[ m.seventh, m.omit3 ] ],
 	[ 'C9', 				'C', ['1', '3', '5', 'b7', '9'], 					'C9', 					[ m.ninth ] ],
 	[ 'C13', 				'C', ['1', '3', '5', 'b7', '9', '13'], 				'C13', 					[ m.thirteenth ] ],
 	[ 'C7SUS', 				'C', ['1', '4', '5', 'b7'], 						'C7sus', 				[ m.sus, m.seventh ] ],
@@ -218,8 +219,8 @@ const allSrcSymbols = [
 	[ 'C7(#5,b9)', 			'C', ['1', '3', '#5', 'b7', 'b9'], 					'C7(#5,b9)', 			[ m.seventh, m.fifthSharp, m.ninthFlat ] ],
 	[ 'C7(#5,#9)', 			'C', ['1', '3', '#5', 'b7', '#9'], 					'C7(#5,#9)', 			[ m.seventh, m.fifthSharp, m.ninthSharp ] ],
 	[ 'C9(#5)', 			'C', ['1', '3', '#5', 'b7', '9'], 					'C9(#5)', 				[ m.ninth, m.fifthSharp ] ],
-	[ 'C°7', 				'C', ['1', 'b3', 'b5', 'bb7'], 						'Cdim7', 					[ m.dim7 ] ],
-	[ 'C°7(add MA7)', 		'C', ['1', 'b3', 'b5', 'bb7', '7'], 				'Cdim7(addMa7)', 			[ m.dim7, m.add7 ] ],
+	[ 'C°7', 				'C', ['1', 'b3', 'b5', 'bb7'], 						'Cdim7', 				[ m.dim7 ] ],
+	[ 'C°7(add MA7)', 		'C', ['1', 'b3', 'b5', 'bb7', '7'], 				'Cdim7(addMa7)', 		[ m.dim7, m.add7 ] ],
 	[ 'C/E', 				'C/E', ['1', '3', '5' ], 			'C/E' ],
 	[ 'C/G', 				'C/G', ['1', '3', '5' ], 			'C/G' ],
 	[ 'E/C', 				'E/C', ['1', '3', '5' ], 			'E/C' ],
@@ -233,7 +234,6 @@ const allSrcSymbols = [
 	[ 'BMA7SUS/F#', 		'B/F#',['1', '4', '5', '7'], 		'Bma7sus/F#', 	[ m.sus, m.ma7 ] ],
 
 	/**/
-
 
 	// other chords symbols
 

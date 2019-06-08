@@ -1,4 +1,4 @@
-import allModifiers from '../../../src/dictionaries/modifiers';
+import allModifiers from '../../src/dictionaries/modifiers';
 
 import getAllSymbolModifiers from './getAllSymbolModifiers';
 

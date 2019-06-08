@@ -7,7 +7,7 @@ import textPrinter from './printer/text';
 
 /**
  * Create a pre-configured chord rendering function
- * @param {Boolean} useShortNamings - if true, use short rendering instead of the academic rendering of chords
+ * @param {Boolean} useShortNamings - if true, use short namings instead of the "academic" ones
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
@@ -36,6 +36,6 @@ function chordRendererFactory({
 
 /**
  * @module chordRendererFactory
- * Create the rendering function of chord structures
+ * Expose the chordRendererFactory() function
  **/
 export default chordRendererFactory;
