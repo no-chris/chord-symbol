@@ -4,9 +4,9 @@
 -- Cadd11
 -- C11(add3)
 -- CM711
-- API documentation
 - auto changelog
 - check available extensions on chord types
+- add keywords
 
 Render functionality:
 Filters:

@@ -13,6 +13,7 @@
     "babel-loader": "^8.0.6",
     "cartesian": "^1.0.1",
     "clean-webpack-plugin": "^3.0.0",
+    "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
     "get-permutations": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
@@ -40,7 +41,8 @@
     "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/parser/parseChord.js src/renderer/chordRendererFactory.js> API.md",
     "outdated": "npm outdated && cd docs-src && npm outdated && cd ..",
     "audit": "npm audit && cd docs-src && npm audit && cd .. ",
-    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run doc && npm run outdated && npm run audit"
+    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run doc && npm run outdated && npm run audit",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "size-limit": [
     {
