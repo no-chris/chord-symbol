@@ -12,11 +12,6 @@ setup. It enforces:
 - anti-library bloat with `size-limit` monitoring
 - auto update of the demo site
 - auto update of Readme TOC and API documentation
-- up to date npm dependencies (optional)
-- no npm security issues (optional)
-
-The last two are optionals, meaning that pull requests will be accepted if the build fails on those steps, 
-but on those steps only.
 
 # In practice
 

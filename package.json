@@ -1,7 +1,7 @@
 {
   "name": "chord-symbol",
   "version": "0.1.0",
-  "description": "The definitive chord parser",
+  "description": "Chord symbol parser and renderer",
   "main": "src/index.js",
   "author": "Christophe Noël",
   "license": "MIT",
@@ -15,6 +15,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
+    "generate-changelog": "^1.7.1",
     "get-permutations": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.8.0",
@@ -39,10 +40,11 @@
     "size": "size-limit",
     "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
     "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/parser/parseChord.js src/renderer/chordRendererFactory.js> API.md",
-    "outdated": "npm outdated && cd docs-src && npm outdated && cd ..",
-    "audit": "npm audit && cd docs-src && npm audit && cd .. ",
-    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run doc && npm run outdated && npm run audit",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run doc",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags"
   },
   "size-limit": [
     {
@@ -50,5 +52,17 @@
       "webpack": false,
       "limit": "25 KB"
     }
+  ],
+  "keywords": [
+    "chord",
+    "chords",
+    "chord-parsing",
+    "guitar",
+    "guitar-chords",
+    "music",
+    "music-theory",
+    "parser",
+    "piano",
+    "ukulele"
   ]
 }
