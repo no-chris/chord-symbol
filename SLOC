@@ -2,17 +2,17 @@ Source code:
 
 ---------- Result ------------
 
-            Physical :  1386
-              Source :  1047
-             Comment :  109
+            Physical :  1418
+              Source :  1048
+             Comment :  137
  Single-line comment :  23
-       Block comment :  86
+       Block comment :  114
                Mixed :  0
  Empty block comment :  0
-               Empty :  230
+               Empty :  233
                To Do :  0
 
-Number of files read :  21
+Number of files read :  20
 
 ----------------------------
 
@@ -38,17 +38,17 @@ Total:
 
 ---------- Result ------------
 
-            Physical :  2669
-              Source :  1875
-             Comment :  372
+            Physical :  2701
+              Source :  1876
+             Comment :  400
  Single-line comment :  33
-       Block comment :  339
+       Block comment :  367
                Mixed :  3
  Empty block comment :  6
-               Empty :  431
+               Empty :  434
                To Do :  0
 
-Number of files read :  37
+Number of files read :  36
 
 ----------------------------
 

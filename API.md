@@ -190,7 +190,7 @@ Abstract representation of the chord based on its intervals
     <td>rootNote</td><td><code>String</code></td><td><p>the normalized root note in english notation. Ex: <code>C</code></p>
 </td>
     </tr><tr>
-    <td>[bassNote]</td><td><code>String</code></td><td><p>the normalized bass note in english notation. Ex: <code>Gb</code></p>
+    <td>bassNote</td><td><code>String</code></td><td><p>the normalized bass note in english notation. Ex: <code>Gb</code></p>
 </td>
     </tr><tr>
     <td>intervals</td><td><code>Array.&lt;String&gt;</code></td><td><p>list of intervals composing the chord. Ex: <code>[&#39;1&#39;, &#39;b3&#39;, &#39;b5&#39;, &#39;b7&#39;]</code> for <code>Cm7b5/Gb</code></p>
@@ -253,7 +253,7 @@ Intended to be used as building blocks of a rendered chord
     <td>rootNote</td><td><code>String</code></td><td><p>formatted root note</p>
 </td>
     </tr><tr>
-    <td>[bassNote]</td><td><code>String</code></td><td><p>formatted bass note</p>
+    <td>bassNote</td><td><code>String</code></td><td><p>formatted bass note</p>
 </td>
     </tr><tr>
     <td>descriptor</td><td><code>String</code></td><td><p>the descriptor, gives the vertical quality of the chords and its extensions</p>
