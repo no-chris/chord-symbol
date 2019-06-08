@@ -17,7 +17,7 @@ Expose the chordRendererFactory() function</a></dt>
 <dt><a href="#parseChord">parseChord(symbol)</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
 <dd><p>Convert an input string into an abstract chord structure</p>
 </dd>
-<dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings)</a> ⇒ <code>function</code></dt>
+<dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings, simplify)</a> ⇒ <code>function</code></dt>
 <dd><p>Create a pre-configured chord rendering function</p>
 </dd>
 </dl>
@@ -72,7 +72,7 @@ Convert an input string into an abstract chord structure
 
 <a name="chordRendererFactory"></a>
 
-## chordRendererFactory(useShortNamings) ⇒ <code>function</code>
+## chordRendererFactory(useShortNamings, simplify) ⇒ <code>function</code>
 Create a pre-configured chord rendering function
 
 **Kind**: global function  
@@ -85,6 +85,10 @@ Create a pre-configured chord rendering function
   <tbody>
 <tr>
     <td>useShortNamings</td><td><code>Boolean</code></td><td><p>if true, use short namings instead of the &quot;academic&quot; ones</p>
+</td>
+    </tr><tr>
+    <td>simplify</td><td><code>&#x27;none&#x27;</code> | <code>&#x27;max&#x27;</code> | <code>&#x27;core&#x27;</code></td><td><p>The level of simplification. <code>max</code> will basically remove everything but minor 3rd,
+<code>core</code> will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.</p>
 </td>
     </tr>  </tbody>
 </table>

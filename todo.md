@@ -5,6 +5,7 @@
 -- C11(add3)
 -- CM711
 -- Cmi11 : no alternate rendering!
+-- G4add9 (3 ?!!)
 - auto changelog
 - check available extensions on chord types
 - add keywords
@@ -26,7 +27,4 @@ Printers:
 - react component
 - "Realbook markup"
 
-
-
-https://opensource.guide/
-https://dependabot.com/
+add google analytics
