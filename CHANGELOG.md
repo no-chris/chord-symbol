@@ -1,3 +1,13 @@
+#### 0.2.1 (2019-06-08)
+
+##### Build System / Dependencies
+
+*  Add github links to package.json ([9711b730](https://github.com/no-chris/chord-symbol/commit/9711b7308871446f00d4fa32e787b21c318165ec))
+
+##### Documentation Changes
+
+*  Fix API documentation link on NPM ([ba9b7dbb](https://github.com/no-chris/chord-symbol/commit/ba9b7dbb68e858d7f3f4df5ffdc84314d5a868c9))
+
 ### 0.2.0 (2019-06-08)
 
 ##### Build System / Dependencies
