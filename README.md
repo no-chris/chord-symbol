@@ -87,7 +87,7 @@ npm run-script test-short
 
 ## API Documentation
 
-[See this file](API.md)
+[See this file](https://github.com/no-chris/chord-symbol/blob/master/API.md)
 
 ## Background information
 
