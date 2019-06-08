@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="en_EN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Chord-Symbol</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <div class="logo">
+            <img alt="chordSymbol" src="img/chordSymbol.png" />
+        </div>
+
+        <div class="links">
+            <a href="https://github.com/no-chris/chord-symbol">GitHub</a>
+        </div>
+
+        <div class="input">
+            <label for="chordInput">Enter chord symbol:</label><br />
+            <input type="text" id="chordInput" class="chordInput" />
+        </div>
+
+        <div class="output">
+            <div data-output="normalized">-</div>
+        </div>
+
+        <div class="output-details hidden">
+            <div data-output="normalizedShort"></div>
+
+            <div class="intervals-container">
+                <strong>Intervals: </strong><span data-output="intervals">-</span>
+            </div>
+
+            <div class="output-json">
+                <strong>Json: </strong><br/><pre data-output="json">-</pre>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="chord-symbol.js"></script><script type="text/javascript" src="chord-symbol.js"></script></body>
+</html>
