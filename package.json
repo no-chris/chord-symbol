@@ -1,6 +1,6 @@
 {
   "name": "chord-symbol",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Chord symbol parser and renderer",
   "main": "lib/chord-symbol.js",
   "author": "Christophe Noël",
