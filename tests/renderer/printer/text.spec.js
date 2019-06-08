@@ -19,3 +19,9 @@ describe('Normalized descriptor', () => {
 		});
 	});
 });
+
+describe('null', () => {
+	test('should return null if given invalid chord', () => {
+		expect(textPrinter(null)).toBeNull();
+	});
+});
