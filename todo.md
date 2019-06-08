@@ -4,6 +4,7 @@
 -- Cadd11
 -- C11(add3)
 -- CM711
+-- Cmi11 : no alternate rendering!
 - auto changelog
 - check available extensions on chord types
 - add keywords
