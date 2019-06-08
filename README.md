@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/no-chris/chord-symbol.svg?branch=master)](https://travis-ci.com/no-chris/chord-symbol)
+[![Coverage Status](https://coveralls.io/repos/github/no-chris/chord-symbol/badge.svg?branch=master)](https://coveralls.io/github/no-chris/chord-symbol?branch=master)
+
 # ChordSymbol
 
 `ChordSymbol` is a parser and renderer for chord symbols. It transforms a string that represent a chord (`Cm7`, for example), into a suite
