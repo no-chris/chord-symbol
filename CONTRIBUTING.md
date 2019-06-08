@@ -9,6 +9,7 @@ setup. It enforces:
 - respect of lint rules
 - a fully working unit test suite
 - code coverage threshold (100%, no less)
+- anti-library bloat with `size-limit` monitoring
 - auto update of the demo site
 - auto update of Readme TOC and API documentation
 - up to date npm dependencies (optional)
