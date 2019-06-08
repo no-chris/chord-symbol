@@ -1,3 +1,9 @@
+### 0.3.0 (2019-06-08)
+
+##### Build System / Dependencies
+
+*  Make the bundle version usable as a library (!) ([40497493](https://github.com/no-chris/chord-symbol/commit/40497493a6049bc982cd387d74af20b08f3bdacd))
+
 #### 0.2.1 (2019-06-08)
 
 ##### Build System / Dependencies
