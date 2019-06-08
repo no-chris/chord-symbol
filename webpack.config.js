@@ -8,7 +8,7 @@ const {CleanWebpackPlugin}  = require('clean-webpack-plugin');
 const TerserPlugin       	= require('terser-webpack-plugin');
 const BundleAnalyzerPlugin 	= require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const buildDir = 'dist';
+const buildDir = 'lib';
 
 const config = {
 	target:'web',
@@ -22,6 +22,10 @@ const config = {
 	output: {
 		filename: '[name].js',
 		path: path.resolve(process.cwd(), buildDir),
+		library: 'chordSymbol',
+		libraryTarget: 'umd',
+		// https://github.com/webpack/webpack/pull/8625
+		globalObject: 'typeof self !== \'undefined\' ? self : this',
 	},
 
 	optimization: {
@@ -48,7 +52,7 @@ const config = {
 				loader: 'babel-loader'
 			},
 		]
-	}
+	},
 };
 
 module.exports = config;

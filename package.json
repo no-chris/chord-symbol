@@ -2,7 +2,7 @@
   "name": "chord-symbol",
   "version": "0.2.1",
   "description": "Chord symbol parser and renderer",
-  "main": "src/index.js",
+  "main": "lib/chord-symbol.js",
   "author": "Christophe Noël",
   "license": "MIT",
   "repository": {
@@ -72,5 +72,9 @@
     "parser",
     "piano",
     "ukulele"
+  ],
+  "files": [
+    "lib",
+    "src"
   ]
 }
