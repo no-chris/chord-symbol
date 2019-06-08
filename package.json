@@ -5,6 +5,14 @@
   "main": "src/index.js",
   "author": "Christophe Noël",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/no-chris/chord-symbol.git"
+  },
+  "bugs": {
+    "url": "https://github.com/no-chris/chord-symbol/issues"
+  },
+  "homepage": "https://github.com/no-chris/chord-symbol#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
