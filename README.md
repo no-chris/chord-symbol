@@ -74,13 +74,13 @@ console.log(renderChord(chord));
 
 ## Unit tests
 
-`ChordSymbol` has a **massive** unit test suite of close to 70 000 tests!
+`ChordSymbol` has a **massive** unit test suite of ~70 000 tests!
 
 ```
 npm test
 ```
 
-It also has a "light" suite, much faster, which does not generate all chords variations (>1000 tests "only"):
+It also has a "light" suite, much faster, which does not generate all chords variations (>1200 tests "only"):
 ```
 npm run-script test-short
 ```
