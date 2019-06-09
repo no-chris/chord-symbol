@@ -4,6 +4,7 @@ import chain from '../helpers/chain';
 
 import shortenNormalized from './filters/shortenNormalized';
 import simplifyFilter from './filters/simplify';
+import transpose from './filters/transpose';
 import textPrinter from './printer/text';
 
 /**
@@ -11,11 +12,17 @@ import textPrinter from './printer/text';
  * @param {Boolean} useShortNamings - if true, use short namings instead of the "academic" ones
  * @param {('none'|'max'|'core')} simplify - The level of simplification. `max` will basically remove everything but minor 3rd,
  * `core` will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.
+ * @param {Number} transposeValue - positive or negative semitones value
+ * @param {Boolean} harmonizeAccidentals - convert accidentals to either sharp or flats
+ * @param {Boolean} useFlats - prefer flats for transposition/harmonization
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
 	useShortNamings = false,
 	simplify = 'none',
+	transposeValue = 0,
+	harmonizeAccidentals = false,
+	useFlats = false,
 } = {}) {
 
 	const allFilters = [];
@@ -23,6 +30,12 @@ function chordRendererFactory({
 	if (simplify !== 'none') {
 		allFilters.push(
 			simplifyFilter.bind(null, simplify)
+		);
+	}
+
+	if (harmonizeAccidentals || transposeValue !== 0) {
+		allFilters.push(
+			transpose.bind(null, transposeValue, useFlats)
 		);
 	}
 
