@@ -22,7 +22,7 @@ const config = {
 	output: {
 		filename: '[name].js',
 		path: path.resolve(process.cwd(), buildDir),
-		library: 'chordSymbol',
+		library: 'chord-symbol',
 		libraryTarget: 'umd',
 		// https://github.com/webpack/webpack/pull/8625
 		globalObject: 'typeof self !== \'undefined\' ? self : this',
