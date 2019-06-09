@@ -42,10 +42,10 @@ See the [demo site](https://no-chris.github.io/chord-symbol).
 - [x] normalize the chord naming (two options: `academic` and `short`)
 - [x] recognize a huge number of chords (unit test suite contains more than 65 000 variations!)
 - [x] basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
+- [x] transpose chord
+- [x] simplify chord
 
 Coming soon:
-- [ ] transpose chord
-- [ ] simplify chord
 - [ ] select notation system for rendering (`english`, `latin`, `german`)
 - [ ] render to Nashville notation system
 - [ ] find chord individual notes
