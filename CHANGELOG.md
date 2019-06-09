@@ -1,3 +1,21 @@
+### 0.4.0 (2019-06-09)
+
+##### Build System / Dependencies
+
+*  Enforce 100% coverage on build ([140bd6f7](https://github.com/no-chris/chord-symbol/commit/140bd6f79e6854e0d94b75e49b2659cbd5690d74))
+*  Update node dependency in travis.yml ([ceef6e9e](https://github.com/no-chris/chord-symbol/commit/ceef6e9eb62042e324dd6754407ab3d3d85d8880))
+
+##### Chores
+
+*  Add bundled file to codebeatignore ([34bcecd8](https://github.com/no-chris/chord-symbol/commit/34bcecd8203c074eb29f0b4155d5f74acbf6e02f))
+*  Add bundled file to codebeatignore ([2152d045](https://github.com/no-chris/chord-symbol/commit/2152d0459feca4a5bb4522c7a7f1410450acc0e2))
+
+##### New Features
+
+* **renderer:**
+  *  Add transposing capabilities ([0f47a982](https://github.com/no-chris/chord-symbol/commit/0f47a982bdfa9de9f4434206e810f02029a155ae))
+  *  Add rendering filter to simplify chords ([77b19fa4](https://github.com/no-chris/chord-symbol/commit/77b19fa4d93e21389a1f27e6d20a0e1d69aaacd6))
+
 ### 0.3.0 (2019-06-08)
 
 ##### Build System / Dependencies
