@@ -27,7 +27,7 @@ function chordRendererFactory({
 
 	const allFilters = [];
 
-	if (simplify !== 'none') {
+	if (['max', 'core'].includes(simplify)) {
 		allFilters.push(
 			simplifyFilter.bind(null, simplify)
 		);

@@ -15,7 +15,8 @@ describe('No filter', () => {
 
 	describe.each([
 
-		['Cm7', 'Cmi7'],
+		['Cm7', 	'Cmi7'],
+		['C7sus', 	'C7sus'],
 
 	])('%s', (input, expected) => {
 
@@ -103,4 +104,20 @@ describe('Transpose', () => {
 		});
 	});
 
+});
+
+describe('invalid options values', () => {
+	describe.each([
+
+		['invalid simplify value', 						'Cm7', 		'Cmi7', 	{ simplify: false }],
+		['invalid simplify value, suspended chord', 	'C7sus', 	'C7sus',	{ simplify: false }],
+
+	])('%s', (title, input, expected, options) => {
+
+		test(input + ' is rendered: ' + expected, () => {
+			const renderChord = chordRendererFactory(options);
+			const chord = Object.freeze(parseChord(input));
+			expect(renderChord(chord)).toBe(expected);
+		});
+	});
 });
