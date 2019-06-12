@@ -1,16 +1,20 @@
 language: node_js
 node_js:
-  - "12.4.0"
+- 12.4.0
 branches:
   only:
-    - master
+  - master
 cache:
   directories:
-    - node_modules
+  - node_modules
 before_install:
-  - npm update
+- npm update
 install:
-  - npm install
+- npm install
 script:
-  - npm test
-  - npm run-script coveralls
+- npm test
+- npm run-script coveralls
+- npm run-script mutations
+env:
+  global:
+    secure: AqKd2rqOgfMI4EHCie/yqMKQVvmfLfAuIsOXHAksZdwV9kE5B9YCpns7iFa5rnCTgoybP1SCTsCWrutzFu5FJIjNbcatKZGmRgXsEKgYqbaBF5qDlk18oUI6aemufMe4c3zvoqceTAmM+mf4BjD2PTzFTDTBsPOxdcNIuJfNkxKIb960z544UwfhI/thTa0vU/HZrGyqyMbjUXa2E/BGNv4VcCEuRxdeEided9bBvCrNdHleNqCichblEgu6q9bt1J4jhgX2q3aIjUB3zs51CsbjyNFN66I9kcgr9U002uKGaDuVHdqlrgPuuAzh1wiixtNRq1JekPwOKfFAoyZoLqLRzxzrwmQpzHr3GPOceLn1xQm3gWx5gIY1z7VDTbt3pv1WPWaede4GFpNGQNyoJDHI6aNMXmkxQZPZykF7w/LH8VdUG+hKL2O3Wo6tzSm7rAekEW7FMYaxUAHyo+YleEIM34uIYp/GdH/ABkFGm3lOosPS/4CnHMMKDrutgV1TDC+umiEl5XLVZVGbcz7BIEO5CozmC/LNYaUTV0lPok/0xQ5KEAl86PXyLMBenkvlGA//2Vke7j2B0C7vzdpC99vKQtE20+H2PUzThhgA+6TGllc8TrLIRmfjgmZO/+3rjBJiFZMzqxpD9ZcaSShQyOyKM+dTBv5FS2Re4D2W9g4=
