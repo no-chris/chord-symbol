@@ -1,11 +1,7 @@
 /* eslint-env node */
-/**
- * This is the webpack configuration for the library only
- */
 const path = require('path');
 
 const {CleanWebpackPlugin}  = require('clean-webpack-plugin');
-const TerserPlugin       	= require('terser-webpack-plugin');
 const BundleAnalyzerPlugin 	= require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const buildDir = 'lib';
@@ -29,11 +25,11 @@ const config = {
 	},
 
 	optimization: {
-		minimizer: [
-			new TerserPlugin({
-				sourceMap: true,
-			}),
-		],
+		minimize: false,
+	},
+
+	performance: {
+		hints: false
 	},
 
 	plugins: [
