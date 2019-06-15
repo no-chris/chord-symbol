@@ -1,3 +1,9 @@
+#### 0.4.2 (2019-06-15)
+
+##### Build System / Dependencies
+
+* **deps-dev:**  bump webpack from 4.33.0 to 4.34.0 ([d072534b](https://github.com/no-chris/chord-symbol/commit/d072534b6aafdd0bd85a6fd563e1408734d21581))
+
 #### 0.4.1 (2019-06-15)
 
 ##### Build System / Dependencies
