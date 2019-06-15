@@ -1,3 +1,24 @@
+#### 0.4.1 (2019-06-15)
+
+##### Build System / Dependencies
+
+* **deps-dev:**  bump webpack-cli from 3.3.3 to 3.3.4 ([5c93f99d](https://github.com/no-chris/chord-symbol/commit/5c93f99db614407e94a4a8c82697b3be218bfa05))
+
+##### Documentation Changes
+
+*  Update feature list ([9e6c8705](https://github.com/no-chris/chord-symbol/commit/9e6c87058e8f3abcbe03362966577b0a5b35bdcc))
+
+##### Bug Fixes
+
+*  Do not minify bundle ([4c6d2c9c](https://github.com/no-chris/chord-symbol/commit/4c6d2c9c425f3bec436eec3c5ed07047bebfb0fd))
+* **renderer:**  Fix rendering with invalid simplify value ([f98432f6](https://github.com/no-chris/chord-symbol/commit/f98432f6ce5ab9d62b2d21f4101a8fe587223719))
+
+##### Tests
+
+*  remove stryker from travis (too long!) ([ae5c2828](https://github.com/no-chris/chord-symbol/commit/ae5c2828fac18c06759a8b0fd8486c37ba6712bf))
+*  add stryker to travis ([8e0eb826](https://github.com/no-chris/chord-symbol/commit/8e0eb826f99f1c34506c430f53823009096b019c))
+*  Add stryker for mutation testing ([366142cc](https://github.com/no-chris/chord-symbol/commit/366142ccefa465e185935a7d4088421b8b380a1d))
+
 ### 0.4.0 (2019-06-09)
 
 ##### Build System / Dependencies
