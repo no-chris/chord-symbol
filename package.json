@@ -36,7 +36,7 @@
     "sloc": "^0.2.1",
     "webpack": "^4.35.0",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.3"
+    "webpack-cli": "^3.3.5"
   },
   "dependencies": {
     "core-js": "^3.0.1",
