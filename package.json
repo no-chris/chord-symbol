@@ -15,7 +15,7 @@
   "homepage": "https://github.com/no-chris/chord-symbol#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.5.0",
     "@babel/preset-env": "^7.4.4",
     "@stryker-mutator/core": "^2.0.1",
     "@stryker-mutator/javascript-mutator": "^2.0.0",
