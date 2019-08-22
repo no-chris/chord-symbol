@@ -21,7 +21,7 @@
     "@stryker-mutator/core": "^2.0.2",
     "@stryker-mutator/javascript-mutator": "^2.0.2",
     "@stryker-mutator/jest-runner": "^2.0.2",
-    "babel-jest": "^24.8.0",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "cartesian": "^1.0.1",
     "clean-webpack-plugin": "^3.0.0",
