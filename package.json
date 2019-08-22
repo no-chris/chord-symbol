@@ -33,7 +33,7 @@
     "jest": "^24.9.0",
     "jsdoc-to-markdown": "^5.0.0",
     "markdown-toc": "^1.2.0",
-    "size-limit": "^2.0.2",
+    "size-limit": "^2.1.1",
     "sloc": "^0.2.1",
     "webpack": "^4.39.2",
     "webpack-bundle-analyzer": "^3.4.1",
