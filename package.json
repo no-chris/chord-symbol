@@ -35,7 +35,7 @@
     "markdown-toc": "^1.2.0",
     "size-limit": "^2.1.2",
     "sloc": "^0.2.1",
-    "webpack": "^4.39.3",
+    "webpack": "^4.40.0",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.8"
   },
