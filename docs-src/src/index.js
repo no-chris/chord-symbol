@@ -1,3 +1,5 @@
+/*eslint complexity: ["error", 12]*/
+
 import { parseChord, chordRendererFactory } from '../../src/index';
 import 'custom-piano-keys';
 
