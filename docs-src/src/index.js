@@ -1,4 +1,5 @@
 import { parseChord, chordRendererFactory } from '../../src/index';
+import 'custom-piano-keys';
 
 const renderChordNormalized = chordRendererFactory();
 const renderChordShort = chordRendererFactory({ useShortNamings: true });
@@ -33,4 +34,44 @@ chordInput.addEventListener('keyup', () => {
 	normalizedShort.textContent = (symbolNormalized === symbolShort) ? '' : 'alternate: ' + symbolShort;
 	intervals.textContent 		= (!chord) ? '-' : chord.normalized.intervals.join('-');
 	json.textContent 			= (!chord) ? '-' : JSON.stringify(chord, null, 4);
+
+	updatePianoKeys(chord);
 });
+
+
+
+// Custom piano keys
+// https://github.com/jutunen/custom-piano-keys
+const pianokeysDiv = document.querySelector('[data-output="pianokeys"]');
+
+let mappedNotes;
+let markedKeys;
+let pianokeys;
+let rootNotes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+let rootNoteIndex;
+let octaveCount;
+
+function myReducer(total, item) {
+	return total + ' ' + item;
+}
+
+function updatePianoKeys() {
+	if(pianokeysDiv.firstChild) {
+		pianokeysDiv.firstChild.remove();
+	}
+	if(chord) {
+		rootNoteIndex = rootNotes.indexOf(chord.normalized.rootNote);
+		if(rootNoteIndex !== -1) {
+			mappedNotes = chord.normalized.semitones.map(x => x + 1 + rootNoteIndex);
+			octaveCount = 1;
+			if(mappedNotes.some(x => x > 12)) {
+				octaveCount = 2;
+			}
+			markedKeys = mappedNotes.reduce(myReducer,'').trim();
+			pianokeys = document.createElement('custom-piano-keys');
+			pianokeys.setAttribute('marked-keys', markedKeys);
+			pianokeys.setAttribute('oct-count', octaveCount);
+			pianokeysDiv.appendChild(pianokeys);
+		}
+	}
+}

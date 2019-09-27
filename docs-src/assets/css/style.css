@@ -72,3 +72,8 @@ input {
     margin-top: 32px;
     text-align: left;
 }
+
+.showcase {
+    text-align: left;
+    font-size: 0.8em;
+}
