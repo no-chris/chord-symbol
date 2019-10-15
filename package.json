@@ -34,7 +34,7 @@
     "jsdoc-to-markdown": "^5.0.1",
     "markdown-toc": "^1.2.0",
     "sloc": "^0.2.1",
-    "webpack": "^4.41.0",
+    "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.5.2",
     "webpack-cli": "^3.3.9"
   },
