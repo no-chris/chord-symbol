@@ -39,7 +39,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.5",
     "custom-piano-keys": "0.0.10",
     "lodash": "^4.17.15"
   },
