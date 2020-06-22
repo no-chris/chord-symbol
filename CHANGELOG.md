@@ -1,3 +1,13 @@
+#### 0.5.1 (2020-06-22)
+
+##### Build System / Dependencies
+
+* **deps:**  bump acorn from 6.3.0 to 6.4.1 in /docs-src ([ed31f126](https://github.com/no-chris/chord-symbol/commit/ed31f126317df1fa460119fd71189f53fa1731d8))
+
+##### Other Changes
+
+* no-chris/chord-symbol ([ec2e4f10](https://github.com/no-chris/chord-symbol/commit/ec2e4f103b0ca17a3f9b9299869492da55a1d330))
+
 ### 0.5.0 (2020-06-22)
 
 ##### Build System / Dependencies
