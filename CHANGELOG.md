@@ -1,3 +1,62 @@
+### 0.5.0 (2020-06-22)
+
+##### Build System / Dependencies
+
+* **deps-dev:**
+  *  bump @babel/preset-env from 7.8.4 to 7.8.6 ([75412889](https://github.com/no-chris/chord-symbol/commit/7541288920a2937e0c782b0dd47bc6e91873b1f9))
+  *  bump @babel/core from 7.8.4 to 7.8.6 ([53d6f972](https://github.com/no-chris/chord-symbol/commit/53d6f9721edf4166b74b79b1bdd08eeaddc0b724))
+  *  bump webpack-cli from 3.3.7 to 3.3.8 ([d6541d36](https://github.com/no-chris/chord-symbol/commit/d6541d36b548c83afe3fe3f2750e98793df8a7fe))
+  *  bump @size-limit/preset-small-lib from 2.1.1 to 2.1.2 ([bdf41432](https://github.com/no-chris/chord-symbol/commit/bdf4143227623b3be4869448b52058fabdb1f067))
+  *  bump size-limit from 2.1.1 to 2.1.2 ([de243c74](https://github.com/no-chris/chord-symbol/commit/de243c747e508fc38b63fb6bb944d08e8c5d12cf))
+  *  bump eslint from 6.2.1 to 6.3.0 ([810379db](https://github.com/no-chris/chord-symbol/commit/810379db1300984ead6a0d87f9888028c3911cba))
+  *  bump jsdoc-to-markdown from 5.0.0 to 5.0.1 ([ac673057](https://github.com/no-chris/chord-symbol/commit/ac6730576178d7ade9013acc36e8c55e4e5cebe1))
+  *  bump webpack from 4.39.2 to 4.39.3 ([5b540b1f](https://github.com/no-chris/chord-symbol/commit/5b540b1f127e189660c814bf6bad510f6bfc74d9))
+  *  bump jest from 24.8.0 to 24.9.0 ([42df072a](https://github.com/no-chris/chord-symbol/commit/42df072a0361f464e741c0622166de1695739e72))
+  *  bump size-limit from 2.0.2 to 2.1.1 ([08487e61](https://github.com/no-chris/chord-symbol/commit/08487e619756e37c5556f5eae5b97fa712d12c95))
+  *  bump webpack from 4.39.1 to 4.39.2 ([9ffe8b18](https://github.com/no-chris/chord-symbol/commit/9ffe8b18fbf79b4559d0edb209a953b633186b82))
+  *  bump eslint from 6.1.0 to 6.2.1 ([e8b020bc](https://github.com/no-chris/chord-symbol/commit/e8b020bc72e0f6a412fdef97b13d0dace9dc8693))
+  *  bump webpack-cli from 3.3.6 to 3.3.7 ([3cea4515](https://github.com/no-chris/chord-symbol/commit/3cea4515c1dd619427e67a2904165f8d9823d465))
+  *  bump babel-jest from 24.8.0 to 24.9.0 ([32ed6e9e](https://github.com/no-chris/chord-symbol/commit/32ed6e9ee5863dabb5a74d5427318e76b54cc650))
+  *  bump @size-limit/preset-small-lib from 2.0.2 to 2.1.1 ([ff0a8df5](https://github.com/no-chris/chord-symbol/commit/ff0a8df5256247370499fe1216f6873624f8224a))
+  *  bump coveralls from 3.0.4 to 3.0.5 ([17a9bf64](https://github.com/no-chris/chord-symbol/commit/17a9bf6403060c489341ac6fed51cd41c1c18183))
+  *  bump @stryker-mutator/jest-runner from 2.0.0 to 2.0.1 ([b9dcfe4b](https://github.com/no-chris/chord-symbol/commit/b9dcfe4bda8b12bc64b0adbf749ae9a013ca59a5))
+  *  bump @stryker-mutator/javascript-mutator ([21d88a87](https://github.com/no-chris/chord-symbol/commit/21d88a87930a2e87fcd57be453a2a1cf9f6381a9))
+  *  bump @stryker-mutator/core from 2.0.0 to 2.0.1 ([dd514547](https://github.com/no-chris/chord-symbol/commit/dd5145473e93e0d9da4c65f32c7bc456f963da94))
+  *  bump webpack from 4.35.0 to 4.35.2 ([16eba7cc](https://github.com/no-chris/chord-symbol/commit/16eba7ccc7ed5cf2442dc7193882028ba07f7806))
+  *  bump generate-changelog from 1.7.1 to 1.8.0 ([819a461c](https://github.com/no-chris/chord-symbol/commit/819a461c4e1a94db55441bdfda471ffb018f689d))
+  *  bump eslint from 5.16.0 to 6.0.1 ([0bd9d7fc](https://github.com/no-chris/chord-symbol/commit/0bd9d7fce0f8108e774be6bccc5282ff21672134))
+  *  bump webpack-cli from 3.3.4 to 3.3.5 ([d13a3a36](https://github.com/no-chris/chord-symbol/commit/d13a3a36121af7cbaee4a40cd7f5e320099403af))
+  *  bump webpack from 4.34.0 to 4.35.0 ([1831f456](https://github.com/no-chris/chord-symbol/commit/1831f456f123cf27c3ac2ea32d27711215eb59dc))
+  *  bump size-limit from 1.3.6 to 1.3.7 ([b226eb7f](https://github.com/no-chris/chord-symbol/commit/b226eb7f76d10bc28c84ab51f984477b02456b1b))
+* **deps:**
+  *  bump custom-piano-keys from 0.0.13 to 0.0.14 ([f71921df](https://github.com/no-chris/chord-symbol/commit/f71921df58732e35444649eff5b4ced15e271f97))
+  *  Update dependencies ([9ef83adf](https://github.com/no-chris/chord-symbol/commit/9ef83adf452df8932fbe4d379282e4468ff85964))
+  *  bump mixin-deep from 1.3.1 to 1.3.2 in /docs-src ([5d9c2bf0](https://github.com/no-chris/chord-symbol/commit/5d9c2bf08bfd9b32e36cfe694e3d7f0a9224f078))
+  *  [security] bump mixin-deep from 1.3.1 to 1.3.2 ([4f9d5fad](https://github.com/no-chris/chord-symbol/commit/4f9d5fad5ca1e7a6d876f4a5ab8923e1cdeb8066))
+  *  bump lodash from 4.17.11 to 4.17.15 in /docs-src ([ecb1d3d3](https://github.com/no-chris/chord-symbol/commit/ecb1d3d305a94b59c13586739a1b02d63e34330b))
+  *  bump core-js from 3.2.0 to 3.2.1 ([15b62095](https://github.com/no-chris/chord-symbol/commit/15b620952534361e846d69c1ae0bff55343f5782))
+  *  [security] bump remarkable from 1.7.1 to 1.7.4 ([695f1f5e](https://github.com/no-chris/chord-symbol/commit/695f1f5eb0d8ac40f25e09f4ce34358ab174123a))
+  *  bump core-js from 3.1.3 to 3.1.4 ([d190bc2c](https://github.com/no-chris/chord-symbol/commit/d190bc2c8621dbfcb6da933cc5e2013d60be4a24))
+
+##### Documentation Changes
+
+*  fix typos in readme ([0c019408](https://github.com/no-chris/chord-symbol/commit/0c019408fc5cb2c776e6553f22f8502dec93ff8f))
+
+##### New Features
+
+* **demo:**
+  *  Moved Custom Piano Key integration into a dedicated Showcase section ([11ed5ef3](https://github.com/no-chris/chord-symbol/commit/11ed5ef3b9ed9f3b5605128c0594770ce14372ee))
+  *  Add Google Analytics tracking code ([5c010320](https://github.com/no-chris/chord-symbol/commit/5c0103209f574f21ab4d0df8d66785b070bfa655))
+
+##### Bug Fixes
+
+*  Fix size limit build step ([30c7c4b1](https://github.com/no-chris/chord-symbol/commit/30c7c4b13f01dbf5abdf9bd6ab82d87df416ba93))
+
+##### Other Changes
+
+* no-chris/chord-symbol ([63ef827e](https://github.com/no-chris/chord-symbol/commit/63ef827e264f1e41124acfd40c7ee2889e6e5458))
+* no-chris/chord-symbol ([6f2e2537](https://github.com/no-chris/chord-symbol/commit/6f2e25379e0c974b6467d206f61225803d1d10e8))
+
 #### 0.4.2 (2019-06-15)
 
 ##### Build System / Dependencies
