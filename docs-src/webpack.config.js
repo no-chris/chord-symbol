@@ -39,10 +39,12 @@ const config = {
 			title: 'Chord-Symbol',
 			template:'assets/index.html',
 		}),
-		new CopyPlugin([
-			{ from: 'assets/img', to: buildDir + '/img' },
-			{ from: 'assets/css', to: buildDir + '/css' },
-		]),
+		new CopyPlugin({
+			patterns: [
+				{ from: 'assets/img', to: buildDir + '/img' },
+				{ from: 'assets/css', to: buildDir + '/css' },
+			]
+		}),
 	],
 
 	module: {

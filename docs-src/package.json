@@ -9,18 +9,19 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.0",
-    "@babel/preset-env": "^7.7.1",
-    "babel-loader": "^8.0.6",
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.0.4",
-    "html-webpack-plugin": "^3.2.0",
-    "terser-webpack-plugin": "^1.4.1",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "copy-webpack-plugin": "^6.0.2",
+    "html-webpack-plugin": "^4.3.0",
+    "terser-webpack-plugin": "^3.0.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "core-js": "^3.3.6"
+    "core-js": "^3.6.5",
+    "custom-piano-keys": "0.0.14"
   }
 }

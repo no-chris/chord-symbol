@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "custom-piano-keys": "^0.0.14",
     "lodash": "^4.17.15"
   },
   "scripts": {
