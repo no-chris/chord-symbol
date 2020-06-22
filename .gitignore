@@ -1,7 +1,6 @@
 node_modules
 coverage
 lib/report.html
-.stryker-tmp
 
 # IDE files
 .idea/**/workspace.xml
