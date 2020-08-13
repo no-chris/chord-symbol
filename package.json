@@ -27,7 +27,7 @@
     "generate-changelog": "^1.8.0",
     "get-permutations": "^1.0.0",
     "html-webpack-plugin": "^4.3.0",
-    "jest": "^26.0.1",
+    "jest": "^26.4.0",
     "jsdoc-to-markdown": "^6.0.1",
     "markdown-toc": "^1.2.0",
     "size-limit": "^4.5.1",
