@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.20"
   },
   "scripts": {
     "lint": "eslint src tests docs-src/src",
