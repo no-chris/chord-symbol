@@ -177,7 +177,7 @@ function getFifths(allModifiers) {
 	if (hasOneOf(allModifiers, [m.dim, m.halfDim, m.fifthFlat])) {
 		fifths.push('b5');
 	}
-	if (hasOneOf(allModifiers, [m.aug, m.fifthSharp])) {
+	if (hasOneOf(allModifiers, [m.aug, m.fifthSharp, m.alt])) {
 		fifths.push('#5');
 	}
 	if (!fifths.length && !allModifiers.includes(m.thirteenthFlat)) {
@@ -209,6 +209,9 @@ function getSevenths(allModifiers) {
 
 	} else if (hasOneOf(allModifiers, [m.ninth, m.eleventh, m.thirteenth])) {
 		sevenths.push(getMinorOrMajorSeventh(allModifiers));
+
+	} else if (hasOneOf(allModifiers, [m.alt])) {
+		sevenths.push(getMinorOrMajorSeventh(allModifiers));
 	}
 
 	if (allModifiers.includes(m.add7)) {
@@ -232,10 +235,10 @@ function getNinths(allModifiers) {
 	if (hasOneOf(allModifiers, [m.sus2, m.add9])) {
 		ninth.push('9');
 	}
-	if (allModifiers.includes(m.ninthFlat)) {
+	if ((hasOneOf(allModifiers, [m.ninthFlat, m.alt]))) {
 		ninth.push('b9');
 	}
-	if (allModifiers.includes(m.ninthSharp)) {
+	if ((hasOneOf(allModifiers, [m.ninthSharp, m.alt]))) {
 		ninth.push('#9');
 	}
 	return ninth;
@@ -248,8 +251,8 @@ function getElevenths(allModifiers) {
 
 	} else if (hasOneOf(allModifiers, [m.eleventh, m.add11])) {
 		elevenths.push('11');
-	}
-	if (allModifiers.includes(m.eleventhSharp)) {
+
+	} else if (hasOneOf(allModifiers, [m.eleventhSharp, m.alt])) {
 		elevenths.push('#11');
 	}
 	return elevenths;
@@ -263,7 +266,7 @@ function getThirteenths(allModifiers) {
 	) {
 		thirteenths.push('13');
 	}
-	if (allModifiers.includes(m.thirteenthFlat)) {
+	if (hasOneOf(allModifiers, [m.thirteenthFlat, m.alt])) {
 		thirteenths.push('b13');
 	}
 	return thirteenths;
@@ -295,4 +298,3 @@ function getIntents(allModifiers) {
 		eleventh: allModifiers.includes(m.eleventh),
 	};
 }
-

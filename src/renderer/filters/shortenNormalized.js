@@ -9,6 +9,7 @@ const shortDescriptors = {
 	dim: '°',
 	aug7: '7+',
 	eleventh: '11',
+	alt: '7alt',
 };
 
 
@@ -30,6 +31,10 @@ export default function shortenNormalized(chord) {
 
 	} else if (isAug7(chord)) {
 		descriptor = shortDescriptors.aug7;
+		chordChanges = [];
+
+	} else if (isAlt(chord)) {
+		descriptor = shortDescriptors.alt;
 		chordChanges = [];
 
 	} else if (isEleventh(chord)) {
@@ -73,7 +78,19 @@ function isAug7(chord) {
 	return hasExactly(chord.normalized.intervals, ['1', '3', '#5', 'b7']);
 }
 
+function isAlt(chord) {
+	return hasExactly(chord.normalized.intervals, [
+		'1',
+		'3',
+		'#5',
+		'b7',
+		'b9',
+		'#9',
+		'#11',
+		'b13'
+	]);
+}
+
 function isEleventh(chord) {
 	return chord.normalized.intents.eleventh;
 }
-
