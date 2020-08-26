@@ -1,5 +1,5 @@
 import transpose from '../../../src/renderer/filters/transpose';
-import parseChord from '../../../src/parser/parseChord';
+import chordParserFactory from '../../../src/parser/chordParserFactory';
 
 describe.each([
 
@@ -96,6 +96,8 @@ describe.each([
 
 ])('Transpose: %s', (title, symbol, value, useFlats, transposedRoot, transposedBass) => {
 	test('Should convert ' + symbol + ' into ' + transposedRoot, () => {
+		const parseChord = chordParserFactory();
+
 		const chord = parseChord(symbol);
 
 		const transposed = transpose(value, useFlats, chord);

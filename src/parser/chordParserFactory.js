@@ -68,39 +68,48 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * If multiple added/omits are present, the `add/omit` symbol is only printed once: `A+(add b9,#9)`
  */
 
+
 /**
- * Convert an input string into an abstract chord structure
- * @param {String} symbol - the chord symbol candidate
- * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
+ * Create a chord parser function
+ * @returns {function(String): Chord|Null}
  */
-function parseChord(symbol) {
-	const allNotes = [
-		englishVariants,
-		latinVariants,
-		germanVariants,
-	];
+function chordParserFactory() {
 
-	let chord;
-	let allFilters;
+	return parseChord;
 
-	while (allNotes.length && !chord) {
-		allFilters = [
-			initChord,
-			parseBase.bind(null, allNotes.shift()),
-			parseDescriptor,
-			normalizeNotes,
-			normalizeDescriptor,
-			formatSymbolParts,
+	/**
+	 * Convert an input string into an abstract chord structure
+	 * @param {String} symbol - the chord symbol candidate
+	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
+	 */
+	function parseChord(symbol) {
+		const allNotes = [
+			englishVariants,
+			latinVariants,
+			germanVariants,
 		];
 
-		chord = chain(allFilters, symbol);
-	}
-	return chord;
+		let chord;
+		let allFilters;
 
+		while (allNotes.length && !chord) {
+			allFilters = [
+				initChord,
+				parseBase.bind(null, allNotes.shift()),
+				parseDescriptor,
+				normalizeNotes,
+				normalizeDescriptor,
+				formatSymbolParts,
+			];
+
+			chord = chain(allFilters, symbol);
+		}
+		return chord;
+	}
 }
 
 /**
- * @module parseChord
- * Expose the parseChord() function
+ * @module chordParserFactory
+ * Expose the chordParserFactory() function
  */
-export default parseChord;
+export default chordParserFactory;

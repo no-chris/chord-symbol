@@ -1,5 +1,5 @@
+import chordParserFactory from '../../src/parser/chordParserFactory';
 import chordRendererFactory from '../../src/renderer/chordRendererFactory';
-import parseChord from '../../src/parser/parseChord';
 
 describe('Module', () => {
 	test('Should expose a function', () => {
@@ -21,6 +21,7 @@ describe('No filter', () => {
 	])('%s', (input, expected) => {
 
 		test('is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory();
 			const chord = Object.freeze(parseChord(input));
 			expect(renderChord(chord)).toBe(expected);
@@ -38,6 +39,7 @@ describe('all filters', () => {
 	])('%s', (input, expected) => {
 
 		test('is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({
 				useShortNamings: true,
 				transposeValue: 8,
@@ -65,6 +67,7 @@ describe('useShortNamings', () => {
 
 	])('%s', (input, expected) => {
 		test('is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({ useShortNamings: true });
 			const chord = parseChord(input);
 			expect(renderChord(chord)).toBe(expected);
@@ -98,6 +101,7 @@ describe('Transpose', () => {
 
 	])('%s', (title, input, transposeValue, useFlats, harmonizeAccidentals, transposed) => {
 		test(input + 'is transposed: ' + transposed, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({ transposeValue, useFlats, harmonizeAccidentals });
 			const chord = parseChord(input);
 			expect(renderChord(chord)).toBe(transposed);
@@ -115,6 +119,7 @@ describe('invalid options values', () => {
 	])('%s', (title, input, expected, options) => {
 
 		test(input + ' is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory(options);
 			const chord = Object.freeze(parseChord(input));
 			expect(renderChord(chord)).toBe(expected);

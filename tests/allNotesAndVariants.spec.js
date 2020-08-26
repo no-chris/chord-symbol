@@ -1,6 +1,6 @@
 import { allVariantsToNotes, englishVariants, latinVariants, germanVariants } from '../src/dictionaries/notes';
 
-import parseChord from '../src/parser/parseChord';
+import chordParserFactory from '../src/parser/chordParserFactory';
 
 const TEST_SUITE = process.env.TEST_SUITE;
 
@@ -29,6 +29,7 @@ describe('Root and bass notes', () => {
 	let parsed;
 	describe.each(allCases)('%s', (input, rootNote, bassNote) => {
 		test(`rootNote: '${rootNote}', bassNote: '${bassNote}'`, () => {
+			const parseChord = chordParserFactory();
 			parsed = parseChord(input);
 			expect(parsed.normalized.rootNote).toBe(rootNote);
 			expect(parsed.normalized.bassNote).toBe(bassNote);
