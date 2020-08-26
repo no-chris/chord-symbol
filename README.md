@@ -53,7 +53,7 @@ Coming soon:
 
 ## Installation
 
-```bash
+```shell
 npm install --save chord-symbol
 ```
 
@@ -75,7 +75,7 @@ console.log(renderChord(chord));
 
 ### From v0.5.1 to v1.0.0
 
-You now need to create a parser by using the `chordParserFactory` instead of using the parser directly.
+You now need to create a parser by using the `chordParserFactory` instead of importing the parser directly.
 This will allow greater flexibility by offering the possibility to configure the parser.
 
 In short, instead of:
@@ -85,7 +85,7 @@ import { parseChord } from 'chord-symbol';
 const chord = parseChord('C9sus');
 ```
 
-Do:
+do:
 ```javascript
 import { chordPaserFactory } from 'chord-symbol';
 
@@ -99,12 +99,12 @@ const chord = parseChord('C9sus');
 
 `ChordSymbol` has a **massive** unit test suite of ~70 000 tests!
 
-```bash
+```shell
 npm test
 ```
 
 It also has a "light" suite, much faster, which does not generate all chords variations (>1200 tests "only"):
-```bash
+```shell
 npm run-script test-short
 ```
 
