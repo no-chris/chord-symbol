@@ -15,6 +15,8 @@ See the [demo site](https://no-chris.github.io/chord-symbol).
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Migration guides](#migration-guides)
+  * [From v0.5.1 to v1.0.0](#from-v051-to-v100)
 - [Unit tests](#unit-tests)
 - [API Documentation](#api-documentation)
 - [Background information](#background-information)
@@ -51,33 +53,58 @@ Coming soon:
 
 ## Installation
 
-```
+```bash
 npm install --save chord-symbol
 ```
 
 ## Usage
 
-```
-import { parseChord, chordRendererFactory } from 'chord-symbol';
+```javascript
+import { chordPaserFactory, chordRendererFactory } from 'chord-symbol';
+
+const parseChord = chordParserFactory();
+const renderChord = chordRendererFactory({ useShortNamings: true });
 
 const chord = parseChord('C9sus');
-
-const renderChord = chordRendererFactory({ useShortNamings: true });
 
 console.log(renderChord(chord));
 // -> C11
 ```
 
+## Migration guides
+
+### From v0.5.1 to v1.0.0
+
+You now need to create a parser by using the `chordParserFactory` instead of using the parser directly.
+This will allow greater flexibility by offering the possibility to configure the parser.
+
+In short, instead of:
+```javascript
+import { parseChord } from 'chord-symbol';
+
+const chord = parseChord('C9sus');
+```
+
+Do:
+```javascript
+import { chordPaserFactory } from 'chord-symbol';
+
+const parseChord = chordParserFactory();
+const chord = parseChord('C9sus');
+```
+
+
+
 ## Unit tests
 
 `ChordSymbol` has a **massive** unit test suite of ~70 000 tests!
 
-```
+```bash
 npm test
 ```
 
 It also has a "light" suite, much faster, which does not generate all chords variations (>1200 tests "only"):
-```
+```bash
 npm run-script test-short
 ```
 
