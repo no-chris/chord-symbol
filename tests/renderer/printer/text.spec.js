@@ -1,4 +1,4 @@
-import parseChord from '../../../src/parser/parseChord';
+import chordParserFactory from '../../../src/parser/chordParserFactory';
 import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
 import textPrinter from '../../../src/renderer/printer/text';
 
@@ -13,6 +13,7 @@ describe('Normalized descriptor', () => {
 
 	])('%s', (title, input, expected) => {
 		test('return normalized descriptor', () => {
+			const parseChord = chordParserFactory();
 			const normalized = normalizeDescriptor(parseChord(input));
 			const printed = textPrinter(normalized);
 			expect(printed).toEqual(expected);

@@ -1,9 +1,9 @@
 ## Modules
 
 <dl>
-<dt><a href="#parseChord
-Expose the parseChord_new functionmodule_">parseChord
-Expose the parseChord() function</a></dt>
+<dt><a href="#chordParserFactory
+Expose the chordParserFactory_new functionmodule_">chordParserFactory
+Expose the chordParserFactory() function</a></dt>
 <dd></dd>
 <dt><a href="#chordRendererFactory
 Expose the chordRendererFactory_new functionmodule_">chordRendererFactory
@@ -14,8 +14,8 @@ Expose the chordRendererFactory() function</a></dt>
 ## Functions
 
 <dl>
-<dt><a href="#parseChord">parseChord(symbol)</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
-<dd><p>Convert an input string into an abstract chord structure</p>
+<dt><a href="#chordParserFactory">chordParserFactory()</a> ⇒ <code>function</code></dt>
+<dd><p>Create a chord parser function</p>
 </dd>
 <dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats)</a> ⇒ <code>function</code></dt>
 <dd><p>Create a pre-configured chord rendering function</p>
@@ -40,22 +40,28 @@ Intended to be used as building blocks of a rendered chord</p>
 </dd>
 </dl>
 
-<a name="parseChord
-Expose the parseChord_new functionmodule_"></a>
+<a name="chordParserFactory
+Expose the chordParserFactory_new functionmodule_"></a>
 
-## parseChord
-Expose the parseChord() function
+## chordParserFactory
+Expose the chordParserFactory() function
 <a name="chordRendererFactory
 Expose the chordRendererFactory_new functionmodule_"></a>
 
 ## chordRendererFactory
 Expose the chordRendererFactory() function
-<a name="parseChord"></a>
+<a name="chordParserFactory"></a>
 
-## parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
-Convert an input string into an abstract chord structure
+## chordParserFactory() ⇒ <code>function</code>
+Create a chord parser function
 
 **Kind**: global function  
+<a name="chordParserFactory..parseChord"></a>
+
+### chordParserFactory~parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
+Convert an input string into an abstract chord structure
+
+**Kind**: inner method of [<code>chordParserFactory</code>](#chordParserFactory)  
 **Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - A chord object if the given string is successfully parsed. Null otherwise.  
 <table>
   <thead>
