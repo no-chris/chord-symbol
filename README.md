@@ -74,7 +74,7 @@ If you want to use the library directly in the browser, you can proceed as follo
 <html>
 <body>
 <script type="module">
-	import { chordParserFactory, chordRendererFactory } from './lib/chord-symbol.mjs';
+	import { chordParserFactory, chordRendererFactory } from './lib/chord-symbol-esm.js';
 
 	const parseChord = chordParserFactory();
 	const renderChord = chordRendererFactory({ useShortNamings: true});
