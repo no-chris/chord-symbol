@@ -10,7 +10,7 @@ const buildDir = 'lib';
 export default {
 	input: 'src/index.js',
 	output: {
-		file: path.resolve(process.cwd(), buildDir) + '/chord-symbol.mjs',
+		file: path.resolve(process.cwd(), buildDir) + '/chord-symbol-esm.js',
 		format: 'es'
 	},
 	plugins: [
