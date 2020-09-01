@@ -65,10 +65,29 @@ import { chordPaserFactory, chordRendererFactory } from 'chord-symbol';
 const parseChord = chordParserFactory();
 const renderChord = chordRendererFactory({ useShortNamings: true });
 
-const chord = parseChord('C9sus');
+const chord = parseChord('Cmaj7');
 
 console.log(renderChord(chord));
-// -> C11
+// -> CM7
+```
+
+If you want to use the library directly in the browser, you can proceed as follow:
+
+```html
+<html>
+<body>
+<script type="module">
+	import { chordParserFactory, chordRendererFactory } from './lib/chord-symbol-esm.js';
+
+	const parseChord = chordParserFactory();
+	const renderChord = chordRendererFactory({ useShortNamings: true});
+
+	const chord = parseChord('Cmaj7');
+	console.log(renderChord(chord));
+    // -> CM7
+</script>
+</body>
+</html>
 ```
 
 ## Migration guides
