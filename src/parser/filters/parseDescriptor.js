@@ -251,8 +251,8 @@ function getElevenths(allModifiers) {
 
 	} else if (hasOneOf(allModifiers, [m.eleventh, m.add11])) {
 		elevenths.push('11');
-
-	} else if (hasOneOf(allModifiers, [m.eleventhSharp, m.alt])) {
+	}
+	if (hasOneOf(allModifiers, [m.eleventhSharp, m.alt])) {
 		elevenths.push('#11');
 	}
 	return elevenths;
