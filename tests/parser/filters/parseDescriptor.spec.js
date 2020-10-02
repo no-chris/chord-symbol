@@ -68,7 +68,7 @@ describe('Parsable descriptor', () => {
 	])('%s', (symbol, parsableDescriptor) => {
 		test(`correctly transform descriptor into: >${parsableDescriptor}<`, () => {
 			const chord = parseChord(symbol);
-			const parsed = parseDescriptor(chord);
+			const parsed = parseDescriptor({}, chord);
 			expect(parsed.input.parsableDescriptor).toBe(parsableDescriptor);
 		});
 	});
@@ -133,7 +133,7 @@ describe('Intervals & semitones', () => {
 	])('%s', (symbol, intervals, intents) => {
 		test('is parsed: ' + intervals.join('-'), () => {
 			const chord = parseChord(symbol);
-			const parsed = parseDescriptor(chord);
+			const parsed = parseDescriptor({}, chord);
 			const semitones = intervals.map(interval => intervalsToSemitones[interval]);
 
 			expect(parsed.normalized.intervals).toEqual(intervals);
@@ -154,9 +154,40 @@ describe('invalid chords', () => {
 	])('%s', (title, symbol) => {
 		test(symbol + ': should return null', () => {
 			const chord = parseChord(symbol);
-			const parsed = parseDescriptor(chord);
+			const parsed = parseDescriptor({}, chord);
 
 			expect(parsed).toBeNull();
+		});
+	});
+});
+
+describe('altered chords', () => {
+	describe.each([
+
+		[ 'b5', 	{ fifthFlat: true }, 		['1', '3', 'b5'] ],
+		[ '#5',		{ fifthSharp: true }, 		['1', '3', '#5'] ],
+		[ 'b7', 	{ seventhMinor: true }, 	['1', '3', '5', 'b7'] ],
+		[ 'b9', 	{ ninthFlat: true }, 		['1', '3', '5', 'b9'] ],
+		[ '#9', 	{ ninthSharp: true }, 		['1', '3', '5', '#9'] ],
+		[ '#11', 	{ eleventhSharp: true }, 	['1', '3', '5', '#11'] ],
+		[ '#11', 	{ thirteenthFlat: true }, 	['1', '3', '5', 'b13'] ],
+
+		[ 'all', 	{
+			fifthFlat: 		true,
+			fifthSharp: 	true,
+			seventhMinor: 	true,
+			ninthFlat: 		true,
+			ninthSharp: 	true,
+			eleventhSharp:	true,
+			thirteenthFlat:	true,
+		}, 										['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'] ],
+
+	])('%s', (title, altIntervals, intervals) => {
+		test( 'alt should yield intervals ' + intervals.join(' '), () => {
+			const chord = parseChord('Calt');
+			const parsed = parseDescriptor(altIntervals, chord);
+
+			expect(parsed.normalized.intervals).toEqual(intervals);
 		});
 	});
 });

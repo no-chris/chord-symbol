@@ -68,12 +68,40 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * If multiple added/omits are present, the `add/omit` symbol is only printed once: `A+(add b9,#9)`
  */
 
+/**
+ * Intervals affected by the Alt modifier
+ * @typedef {Object} AltIntervals
+ * @type {Object}
+ * @property {Boolean} fifthFlat
+ * @property {Boolean} fifthSharp
+ * @property {Boolean} seventhMinor
+ * @property {Boolean} ninthFlat
+ * @property {Boolean} ninthSharp
+ * @property {Boolean} eleventhSharp
+ * @property {Boolean} thirteenthFlat
+ */
+
+/**
+ * @type AltIntervals
+ */
+const defaultAltIntervals = {
+	fifthFlat: 		false,
+	fifthSharp: 	false,
+	seventhMinor: 	false,
+	ninthFlat: 		false,
+	ninthSharp: 	false,
+	eleventhSharp:	false,
+	thirteenthFlat:	false,
+};
 
 /**
  * Create a chord parser function
+ * @param {AltIntervals} altIntervals - user selection of intervals affected by the alt modifier
  * @returns {function(String): Chord|Null}
  */
-function chordParserFactory() {
+function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
+
+	const allAltIntervals = Object.assign({}, defaultAltIntervals, altIntervals);
 
 	return parseChord;
 
@@ -96,7 +124,7 @@ function chordParserFactory() {
 			allFilters = [
 				initChord,
 				parseBase.bind(null, allNotes.shift()),
-				parseDescriptor,
+				parseDescriptor.bind(null, allAltIntervals),
 				normalizeNotes,
 				normalizeDescriptor,
 				formatSymbolParts,

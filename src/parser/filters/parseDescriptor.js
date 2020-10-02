@@ -9,10 +9,11 @@ import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 
 
 /**
+ * @param {AltIntervals} altIntervals
  * @param {Chord} chord
  * @returns {Chord|Null}
  */
-export default function parseDescriptor(chord) {
+export default function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
 
 	if (chord.input.descriptor) {
@@ -23,7 +24,7 @@ export default function parseDescriptor(chord) {
 		if (!allModifiers) return null;
 	}
 
-	chord.normalized.intervals = getIntervals(allModifiers);
+	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
 	chord.normalized.semitones = getSemitones(chord.normalized.intervals);
 	chord.normalized.intents = getIntents(allModifiers);
 
@@ -121,7 +122,7 @@ function addMissingVerbs(descriptor) {
 	});
 }
 
-function getIntervals(allModifiers) {
+function getIntervals(allModifiers, altIntervals) {
 	if (allModifiers.includes(m.power)) {
 		return ['1', '5'];
 
@@ -133,12 +134,12 @@ function getIntervals(allModifiers) {
 		'1',
 		...getThird(allModifiers),
 		...getFourth(allModifiers),
-		...getFifths(allModifiers),
+		...getFifths(allModifiers, altIntervals),
 		...getSixth(allModifiers),
-		...getSevenths(allModifiers),
-		...getNinths(allModifiers),
-		...getElevenths(allModifiers),
-		...getThirteenths(allModifiers),
+		...getSevenths(allModifiers, altIntervals),
+		...getNinths(allModifiers, altIntervals),
+		...getElevenths(allModifiers, altIntervals),
+		...getThirteenths(allModifiers, altIntervals),
 	])
 		.sort((a, b) => (intervalsToSemitones[a] - intervalsToSemitones[b]));
 }
@@ -169,15 +170,15 @@ function getFourth(allModifiers) {
 	return fourth;
 }
 
-function getFifths(allModifiers) {
+function getFifths(allModifiers, altIntervals) {
 	const fifths = [];
 	if (allModifiers.includes(m.omit5)) {
 		return [];
 	}
-	if (hasOneOf(allModifiers, [m.dim, m.halfDim, m.fifthFlat])) {
+	if (hasOneOf(allModifiers, [m.dim, m.halfDim, m.fifthFlat]) || shouldAlter(allModifiers, altIntervals.fifthFlat)) {
 		fifths.push('b5');
 	}
-	if (hasOneOf(allModifiers, [m.aug, m.fifthSharp, m.alt])) {
+	if (hasOneOf(allModifiers, [m.aug, m.fifthSharp]) || shouldAlter(allModifiers, altIntervals.fifthSharp)) {
 		fifths.push('#5');
 	}
 	if (!fifths.length && !allModifiers.includes(m.thirteenthFlat)) {
@@ -194,7 +195,7 @@ function getSixth(allModifiers) {
 	return sixth;
 }
 
-function getSevenths(allModifiers) {
+function getSevenths(allModifiers, altIntervals) {
 	const sevenths = [];
 	if (hasOneOf(allModifiers, [m.seventh, m.halfDim])) {
 		if (allModifiers.includes(m.dim)) {
@@ -209,11 +210,10 @@ function getSevenths(allModifiers) {
 
 	} else if (hasOneOf(allModifiers, [m.ninth, m.eleventh, m.thirteenth])) {
 		sevenths.push(getMinorOrMajorSeventh(allModifiers));
-
-	} else if (hasOneOf(allModifiers, [m.alt])) {
-		sevenths.push(getMinorOrMajorSeventh(allModifiers));
 	}
-
+	if (shouldAlter(allModifiers, altIntervals.seventhMinor)) {
+		sevenths.push('b7');
+	}
 	if (allModifiers.includes(m.add7)) {
 		sevenths.push('7');
 	}
@@ -224,7 +224,7 @@ function getMinorOrMajorSeventh(allModifiers) {
 	return (allModifiers.includes(m.ma)) ? '7' : 'b7';
 }
 
-function getNinths(allModifiers) {
+function getNinths(allModifiers, altIntervals) {
 	const ninth = [];
 	if (
 		hasOneOf(allModifiers, [m.add69, m.ninth, m.eleventh, m.thirteenth])
@@ -235,16 +235,16 @@ function getNinths(allModifiers) {
 	if (hasOneOf(allModifiers, [m.sus2, m.add9])) {
 		ninth.push('9');
 	}
-	if ((hasOneOf(allModifiers, [m.ninthFlat, m.alt]))) {
+	if (hasOneOf(allModifiers, [m.ninthFlat]) || shouldAlter(allModifiers, altIntervals.ninthFlat)) {
 		ninth.push('b9');
 	}
-	if ((hasOneOf(allModifiers, [m.ninthSharp, m.alt]))) {
+	if (hasOneOf(allModifiers, [m.ninthSharp]) || shouldAlter(allModifiers, altIntervals.ninthSharp)) {
 		ninth.push('#9');
 	}
 	return ninth;
 }
 
-function getElevenths(allModifiers) {
+function getElevenths(allModifiers, altIntervals) {
 	const elevenths = [];
 	if (hasOneOf(allModifiers, [m.thirteenth]) && !hasMajorIntent(allModifiers)) {
 		elevenths.push('11');
@@ -252,13 +252,13 @@ function getElevenths(allModifiers) {
 	} else if (hasOneOf(allModifiers, [m.eleventh, m.add11])) {
 		elevenths.push('11');
 	}
-	if (hasOneOf(allModifiers, [m.eleventhSharp, m.alt])) {
+	if (hasOneOf(allModifiers, [m.eleventhSharp]) || shouldAlter(allModifiers, altIntervals.eleventhSharp)) {
 		elevenths.push('#11');
 	}
 	return elevenths;
 }
 
-function getThirteenths(allModifiers) {
+function getThirteenths(allModifiers, altIntervals) {
 	const thirteenths = [];
 	if (
 		hasOneOf(allModifiers, [m.add13, m.thirteenth])
@@ -266,10 +266,14 @@ function getThirteenths(allModifiers) {
 	) {
 		thirteenths.push('13');
 	}
-	if (hasOneOf(allModifiers, [m.thirteenthFlat, m.alt])) {
+	if (hasOneOf(allModifiers, [m.thirteenthFlat]) || shouldAlter(allModifiers, altIntervals.thirteenthFlat)) {
 		thirteenths.push('b13');
 	}
 	return thirteenths;
+}
+
+function shouldAlter(allModifiers, isDegreeAlterated) {
+	return (allModifiers.includes(m.alt) && isDegreeAlterated);
 }
 
 function hasMajorIntent(allModifiers) {
