@@ -42,6 +42,7 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {Object} intents - keep track of intents that are part of the symbol but cannot be conveyed by the interval list only
  * @property {Boolean} intents.major - whether the chord has a major quality or not. Especially useful to find the source quality of suspended chords
  * @property {Boolean} intents.eleventh - for edge cases ; allows to differentiate between `C9sus` and `C11`
+ * @property {Boolean} intents.alt - if the chord was specified as altered
  * @property {String} quality - "Vertical quality" of the chord, its core characteristics,
  * usually conveyed by the 3rd and the 7th, and sometimes the 5th. Ex: `major`, `minor7`, `minorMajor7`...
  * @property {Boolean} isSuspended - whether the chord has a suspended 3rd or not

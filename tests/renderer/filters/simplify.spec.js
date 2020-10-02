@@ -78,12 +78,12 @@ describe('simplifyFilter examples', () => {
 		['C/E', 				'C', 		'C/E'],
 		['CM9/E', 				'C', 		'Cma7/E'],
 
-		['C7alt', 				'C', 		'C7(#5)'],
-		['C7alt.', 				'C', 		'C7(#5)'],
-		['C7altered', 			'C', 		'C7(#5)'],
-		['Calt', 				'C', 		'C7(#5)'],
-		['Calt.', 				'C', 		'C7(#5)'],
-		['Caltered', 			'C', 		'C7(#5)'],
+		['C7alt', 				'C', 		'C7'],
+		['C7alt.', 				'C', 		'C7'],
+		['C7altered', 			'C', 		'C7'],
+		['Calt', 				'C', 		'C7'],
+		['Calt.', 				'C', 		'C7'],
+		['Caltered', 			'C', 		'C7'],
 
 
 	])('%s', (input, max, core) => {
