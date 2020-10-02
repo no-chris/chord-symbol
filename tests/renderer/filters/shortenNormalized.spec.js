@@ -1,6 +1,6 @@
 import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
 import shortenNormalized from '../../../src/renderer/filters/shortenNormalized';
-import parseChord from '../../../src/parser/parseChord';
+import chordParserFactory from '../../../src/parser/chordParserFactory';
 
 describe('shortenNormalized', () => {
 
@@ -32,6 +32,8 @@ describe('shortenNormalized', () => {
 
 	])('%s => %s', (input, descriptor, chordChanges = []) => {
 		test('is rendered ' + descriptor, () => {
+			const parseChord = chordParserFactory();
+
 			const chord = parseChord(input);
 			const normalized = normalizeDescriptor(chord);
 			const shortened = shortenNormalized(normalized);

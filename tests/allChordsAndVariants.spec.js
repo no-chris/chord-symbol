@@ -4,7 +4,7 @@ import m from '../src/dictionaries/modifiers';
 import combineModifiers from './testsHelpers/combineModifiers';
 import getAllSymbolModifiers from './testsHelpers/getAllSymbolModifiers';
 
-import parseChord from '../src/parser/parseChord';
+import chordParserFactory from '../src/parser/chordParserFactory';
 import chordRendererFactory from '../src/renderer/chordRendererFactory';
 
 const TEST_SUITE = process.env.TEST_SUITE;
@@ -290,6 +290,8 @@ function addCase(title, symbol, rootNote, printed, intervals) {
 
 describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	test('is parsed: ' + intervals.join(' '), () => {
+		const parseChord = chordParserFactory();
+
 		const semitones = intervals.map(interval => intervalsToSemitones[interval]).sort((a, b) => (a - b));
 		const parsed = parseChord(symbol);
 
@@ -299,6 +301,7 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	});
 
 	test('is rendered: ' + printed, () => {
+		const parseChord = chordParserFactory();
 		const renderChord = chordRendererFactory();
 
 		const chord = parseChord(symbol);
@@ -308,6 +311,7 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	});
 
 	test('is rendered, then re-parsed correctly', () => {
+		const parseChord = chordParserFactory();
 		const renderChord = chordRendererFactory({ useShortNamings: true });
 
 		const chord1 = parseChord(symbol);
