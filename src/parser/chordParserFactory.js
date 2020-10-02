@@ -74,7 +74,6 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @type {Object}
  * @property {Boolean} fifthFlat
  * @property {Boolean} fifthSharp
- * @property {Boolean} seventhMinor
  * @property {Boolean} ninthFlat
  * @property {Boolean} ninthSharp
  * @property {Boolean} eleventhSharp
@@ -87,7 +86,6 @@ import formatSymbolParts from './filters/formatSymbolParts';
 const defaultAltIntervals = {
 	fifthFlat: 		false,
 	fifthSharp: 	false,
-	seventhMinor: 	false,
 	ninthFlat: 		false,
 	ninthSharp: 	false,
 	eleventhSharp:	false,

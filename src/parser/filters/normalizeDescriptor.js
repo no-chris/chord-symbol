@@ -31,6 +31,10 @@ export default function normalizeDescriptor(chord) {
 	} else if (isBass(chordIntervals)) {
 		normalized.quality = qualities.bass;
 
+	} else if (isAlteredChord(chord.normalized.intents)) {
+		normalized.quality = qualities.dom7;
+		normalized.alterations = ['alt'];
+
 	} else {
 		const omits = getOmits(chordIntervals, chord.normalized.intents.major);
 
@@ -73,6 +77,10 @@ function isPowerChord(intervals) {
 
 function isBass(intervals) {
 	return hasExactly(intervals, ['1']);
+}
+
+function isAlteredChord(intents) {
+	return intents.alt;
 }
 
 function getIsSuspended(intervals, hasMajorIntent) {

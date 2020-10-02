@@ -136,7 +136,7 @@ function getIntervals(allModifiers, altIntervals) {
 		...getFourth(allModifiers),
 		...getFifths(allModifiers, altIntervals),
 		...getSixth(allModifiers),
-		...getSevenths(allModifiers, altIntervals),
+		...getSevenths(allModifiers),
 		...getNinths(allModifiers, altIntervals),
 		...getElevenths(allModifiers, altIntervals),
 		...getThirteenths(allModifiers, altIntervals),
@@ -195,8 +195,11 @@ function getSixth(allModifiers) {
 	return sixth;
 }
 
-function getSevenths(allModifiers, altIntervals) {
+function getSevenths(allModifiers) {
 	const sevenths = [];
+	if (hasOneOf(allModifiers, [m.alt])) {
+		sevenths.push('b7');
+	}
 	if (hasOneOf(allModifiers, [m.seventh, m.halfDim])) {
 		if (allModifiers.includes(m.dim)) {
 			sevenths.push('bb7');
@@ -210,9 +213,6 @@ function getSevenths(allModifiers, altIntervals) {
 
 	} else if (hasOneOf(allModifiers, [m.ninth, m.eleventh, m.thirteenth])) {
 		sevenths.push(getMinorOrMajorSeventh(allModifiers));
-	}
-	if (shouldAlter(allModifiers, altIntervals.seventhMinor)) {
-		sevenths.push('b7');
 	}
 	if (allModifiers.includes(m.add7)) {
 		sevenths.push('7');

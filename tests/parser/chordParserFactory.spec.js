@@ -84,18 +84,16 @@ describe('invalid chords', () => {
 describe('custom alt intervals', () => {
 	describe.each([
 
-		[ 'b5', 	{ fifthFlat: true }, 		['1', '3', 'b5'] ],
-		[ '#5',		{ fifthSharp: true }, 		['1', '3', '#5'] ],
-		[ 'b7', 	{ seventhMinor: true }, 	['1', '3', '5', 'b7'] ],
-		[ 'b9', 	{ ninthFlat: true }, 		['1', '3', '5', 'b9'] ],
-		[ '#9', 	{ ninthSharp: true }, 		['1', '3', '5', '#9'] ],
-		[ '#11', 	{ eleventhSharp: true }, 	['1', '3', '5', '#11'] ],
-		[ 'b13', 	{ thirteenthFlat: true }, 	['1', '3', '5', 'b13'] ],
+		[ 'b5', 	{ fifthFlat: true }, 		['1', '3', 'b5', 'b7'] ],
+		[ '#5',		{ fifthSharp: true }, 		['1', '3', '#5', 'b7'] ],
+		[ 'b9', 	{ ninthFlat: true }, 		['1', '3', '5', 'b7', 'b9'] ],
+		[ '#9', 	{ ninthSharp: true }, 		['1', '3', '5', 'b7', '#9'] ],
+		[ '#11', 	{ eleventhSharp: true }, 	['1', '3', '5', 'b7', '#11'] ],
+		[ 'b13', 	{ thirteenthFlat: true }, 	['1', '3', '5', 'b7', 'b13'] ],
 
 		[ 'all', 	{
 			fifthFlat: 		true,
 			fifthSharp: 	true,
-			seventhMinor: 	true,
 			ninthFlat: 		true,
 			ninthSharp: 	true,
 			eleventhSharp:	true,
