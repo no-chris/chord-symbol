@@ -82,8 +82,8 @@ function removeSpaces(descriptor) {
 
 function addDisambiguators(descriptor) {
 	return descriptor
-		.replace(/(7?dim)add/g, '$1 add')
-		.replace(/([m|M])add/g, '$1 add')
+		.replace(/(7?dim)(alt|add)/g, '$1 $2')
+		.replace(/([m|M])(alt|add)/g, '$1 $2')
 		.replace(/i(no[35])/g, 'i $1')
 		.replace(/([b♭#♯]9)6/g, '$1 6')
 		.replace(/(9\/?6)/g, ' $1');
