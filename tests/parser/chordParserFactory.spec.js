@@ -108,6 +108,7 @@ describe('custom alt intervals', () => {
 			const parsed = parseChord('Calt');
 
 			expect(parsed.normalized.intervals).toEqual(intervals);
+			expect(parsed.normalized.intents.alt).toEqual(true);
 		});
 	});
 });

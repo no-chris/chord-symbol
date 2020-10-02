@@ -300,5 +300,6 @@ function getIntents(allModifiers) {
 	return {
 		major: hasMajorIntent(allModifiers),
 		eleventh: allModifiers.includes(m.eleventh),
+		alt: allModifiers.includes(m.alt),
 	};
 }
