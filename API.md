@@ -15,7 +15,8 @@ Expose the chordRendererFactory() function</a></dt>
 
 <dl>
 <dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
-<dd></dd>
+<dd><p>Default alterations triggered by the use of the alt modifier, eg none.</p>
+</dd>
 </dl>
 
 ## Functions
@@ -63,6 +64,8 @@ Expose the chordRendererFactory() function
 <a name="defaultAltIntervals"></a>
 
 ## defaultAltIntervals : [<code>AltIntervals</code>](#AltIntervals)
+Default alterations triggered by the use of the alt modifier, eg none.
+
 **Kind**: global constant  
 <a name="chordParserFactory"></a>
 
@@ -79,8 +82,8 @@ Create a chord parser function
   <tbody>
 <tr>
     <td>altIntervals</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (none by default).
-Since writing &quot;C7alt&quot; is a way to leave some room for interpretation by the player, Chord-symbol does alter any interval
-by default when parsing an &quot;alt&quot; chord. If you would like &quot;alt&quot; to consistently yield a specific set of intervals,
+Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol does alter any interval
+by default when parsing an &quot;alt&quot; chord symbol. If you would like &quot;alt&quot; to consistently yield a specific set of intervals,
 you can specify those here.</p>
 </td>
     </tr>  </tbody>
