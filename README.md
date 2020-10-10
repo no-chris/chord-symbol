@@ -94,8 +94,17 @@ If you want to use the library directly in the browser, you can proceed as follo
 
 ### From v0.5.1 to v1.0.0
 
+This version contains 2 breaking changes:
+
+#### BREAKING - Intervals consistency
+
+`ChordSymbol` used to parse any valid combinations of modifiers without considering if the resulting interval list would contain invalid intervals combinations.
+A new filter has been added ([checkIntervalsConsistency](https://github.com/no-chris/chord-symbol/blob/master/src/parser/filters/checkIntervalsConsistency.js)) to spot most basic mistakes and reject obviously invalid symbols, like `Cm(add3)` or `C(b9)add9`.
+As a result, some symbols that would have previously been considered as valid are now rejected and the parser will return `null`.
+
+#### BREAKING - API change
 You now need to create a parser by using the `chordParserFactory` instead of importing the parser directly.
-This will allow greater flexibility by offering the possibility to configure the parser.
+This allows greater flexibility by offering the possibility to configure the parser.
 
 In short, instead of:
 ```javascript
