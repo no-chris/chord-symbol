@@ -1,4 +1,5 @@
 import chordParserFactory from '../../src/parser/chordParserFactory';
+import chordRendererFactory from '../../src/renderer/chordRendererFactory';
 
 import { allVariants as allNotesVariants } from '../../src/dictionaries/notes';
 import { allVariants as allModifiersVariants } from '../../src/dictionaries/modifiers';
@@ -107,6 +108,26 @@ describe('custom alt intervals', () => {
 
 			expect(parsed.normalized.intervals).toEqual(intervals);
 			expect(parsed.normalized.intents.alt).toEqual(true);
+		});
+	});
+});
+
+describe('rendering of alt modifier should short-circuit other modifiers', () => {
+	describe.each([
+
+		[ 'C9alt', 		'C7(alt)' ],
+		[ 'C(b9)alt', 	'C7(alt)' ],
+		[ 'C13alt', 	'C7(alt)' ],
+		[ 'C(#5)alt', 	'C7(alt)' ],
+		[ 'C(b5)alt', 	'C7(alt)' ],
+
+	])('%s', (chord, rendered) => {
+		test(chord + ' => ' + rendered, () => {
+			const parseChord = chordParserFactory();
+			const renderChord = chordRendererFactory();
+			const parsed = parseChord(chord);
+
+			expect(renderChord(parsed)).toEqual(rendered);
 		});
 	});
 });
