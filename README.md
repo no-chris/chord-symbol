@@ -207,9 +207,10 @@ For this reason, `ChordSymbol` offer a `shortNamings` option for chord rendering
 
 ## Limitations
 
-### No constrains
+### Intervals consistency
 
-`ChordSymbol` will do its best to infer the correct intervals from the symbol that you are writing, but will not prevent you from describing weird chords that makes little to no musical sense. For example, you can write `Cmi(add3)`, and it will yield `1-b3-3-5`, which correctly translates the intent behind the symbol, even though the musical intent is questionable at best. Deciding what should be "_musically correct_" or not, however, is a vast topic that is way beyond the scope of the current library. 
+`ChordSymbol` will check intervals consistency to spot most basics errors, like writing a chord symbol that would result in mixing a `b3` with a `3` (`Cm(add3)`, for example).
+The enforced rules are very basic, though, so there is no absolute guarantee that `ChordSymbol` will reject all symbols that would be considered "musically incorrect".
 
 ### Support for different notation systems
 
