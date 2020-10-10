@@ -70,15 +70,15 @@ import formatSymbolParts from './filters/formatSymbolParts';
  */
 
 /**
- * Intervals affected by the Alt modifier
+ * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
  * @typedef {Object} AltIntervals
  * @type {Object}
- * @property {Boolean} fifthFlat
- * @property {Boolean} fifthSharp
- * @property {Boolean} ninthFlat
- * @property {Boolean} ninthSharp
- * @property {Boolean} eleventhSharp
- * @property {Boolean} thirteenthFlat
+ * @property {Boolean} fifthFlat - if the alt modifier should flatten the fifth
+ * @property {Boolean} fifthSharp - if the alt modifier should sharpen the fifth
+ * @property {Boolean} ninthFlat - if the alt modifier should flatten the ninth
+ * @property {Boolean} ninthSharp - if the alt modifier should sharpen the ninth
+ * @property {Boolean} eleventhSharp - if the alt modifier should sharpen the eleventh
+ * @property {Boolean} thirteenthFlat - if the alt modifier should flatten the thirteenth
  */
 
 /**
@@ -95,7 +95,10 @@ const defaultAltIntervals = {
 
 /**
  * Create a chord parser function
- * @param {AltIntervals} altIntervals - user selection of intervals affected by the alt modifier
+ * @param {AltIntervals} altIntervals - user selection of intervals affected by the "alt" modifier (none by default).
+ * Since writing "C7alt" is a way to leave some room for interpretation by the player, Chord-symbol does alter any interval
+ * by default when parsing an "alt" chord. If you would like "alt" to consistently yield a specific set of intervals,
+ * you can specify those here.
  * @returns {function(String): Chord|Null}
  */
 function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {

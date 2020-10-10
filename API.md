@@ -11,10 +11,17 @@ Expose the chordRendererFactory() function</a></dt>
 <dd></dd>
 </dl>
 
+## Constants
+
+<dl>
+<dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
-<dt><a href="#chordParserFactory">chordParserFactory()</a> ⇒ <code>function</code></dt>
+<dt><a href="#chordParserFactory">chordParserFactory(altIntervals)</a> ⇒ <code>function</code></dt>
 <dd><p>Create a chord parser function</p>
 </dd>
 <dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats)</a> ⇒ <code>function</code></dt>
@@ -38,6 +45,9 @@ Expose the chordRendererFactory() function</a></dt>
 <dd><p>Pre-rendered version of the chord with the main &quot;vertical quality&quot; and the chord changes.
 Intended to be used as building blocks of a rendered chord</p>
 </dd>
+<dt><a href="#AltIntervals">AltIntervals</a> : <code>Object</code></dt>
+<dd><p>Intervals affected by the Alt modifier when parsing an altered chord written &quot;C7alt&quot;, for example.</p>
+</dd>
 </dl>
 
 <a name="chordParserFactory
@@ -50,12 +60,32 @@ Expose the chordRendererFactory_new functionmodule_"></a>
 
 ## chordRendererFactory
 Expose the chordRendererFactory() function
+<a name="defaultAltIntervals"></a>
+
+## defaultAltIntervals : [<code>AltIntervals</code>](#AltIntervals)
+**Kind**: global constant  
 <a name="chordParserFactory"></a>
 
-## chordParserFactory() ⇒ <code>function</code>
+## chordParserFactory(altIntervals) ⇒ <code>function</code>
 Create a chord parser function
 
 **Kind**: global function  
+<table>
+  <thead>
+    <tr>
+      <th>Param</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>altIntervals</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (none by default).
+Since writing &quot;C7alt&quot; is a way to leave some room for interpretation by the player, Chord-symbol does alter any interval
+by default when parsing an &quot;alt&quot; chord. If you would like &quot;alt&quot; to consistently yield a specific set of intervals,
+you can specify those here.</p>
+</td>
+    </tr>  </tbody>
+</table>
+
 <a name="chordParserFactory..parseChord"></a>
 
 ### chordParserFactory~parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
@@ -227,6 +257,9 @@ Abstract representation of the chord based on its intervals
     <td>intents.eleventh</td><td><code>Boolean</code></td><td><p>for edge cases ; allows to differentiate between <code>C9sus</code> and <code>C11</code></p>
 </td>
     </tr><tr>
+    <td>intents.alt</td><td><code>Boolean</code></td><td><p>if the chord was specified as altered</p>
+</td>
+    </tr><tr>
     <td>quality</td><td><code>String</code></td><td><p>&quot;Vertical quality&quot; of the chord, its core characteristics,
 usually conveyed by the 3rd and the 7th, and sometimes the 5th. Ex: <code>major</code>, <code>minor7</code>, <code>minorMajor7</code>...</p>
 </td>
@@ -281,6 +314,42 @@ Intended to be used as building blocks of a rendered chord
     <td>chordChanges</td><td><code>Array.&lt;String&gt;</code></td><td><p>sorted and prefixed list of changes, whether altered, added or omitted notes.
 Changes are given in the following order: alterations and added, sorted by interval, then omitted.
 If multiple added/omits are present, the <code>add/omit</code> symbol is only printed once: <code>A+(add b9,#9)</code></p>
+</td>
+    </tr>  </tbody>
+</table>
+
+<a name="AltIntervals"></a>
+
+## AltIntervals : <code>Object</code>
+Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
+
+**Kind**: global typedef  
+**Properties**
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>fifthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the fifth</p>
+</td>
+    </tr><tr>
+    <td>fifthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the fifth</p>
+</td>
+    </tr><tr>
+    <td>ninthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the ninth</p>
+</td>
+    </tr><tr>
+    <td>ninthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the ninth</p>
+</td>
+    </tr><tr>
+    <td>eleventhSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the eleventh</p>
+</td>
+    </tr><tr>
+    <td>thirteenthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the thirteenth</p>
 </td>
     </tr>  </tbody>
 </table>
