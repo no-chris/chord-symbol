@@ -1,6 +1,7 @@
-import { parseChord, chordRendererFactory } from '../../src/index';
+import { chordParserFactory, chordRendererFactory } from '../../src/index';
 import 'custom-piano-keys';
 
+const parseChord = chordParserFactory();
 const renderChordNormalized = chordRendererFactory();
 const renderChordShort = chordRendererFactory({ useShortNamings: true });
 

@@ -1,7 +1,17 @@
-import parseChord from '../../src/parser/parseChord';
+import chordParserFactory from '../../src/parser/chordParserFactory';
 
 import { allVariants as allNotesVariants } from '../../src/dictionaries/notes';
 import { allVariants as allModifiersVariants } from '../../src/dictionaries/modifiers';
+
+describe('Module', () => {
+	test('Should expose a function', () => {
+		expect(chordParserFactory).toBeInstanceOf(Function);
+	});
+	test('Factory should return a function', () => {
+		const parseChord = chordParserFactory();
+		expect(parseChord).toBeInstanceOf(Function);
+	});
+});
 
 describe('ambiguous rootNote', () => {
 	const allCases = [];
@@ -29,6 +39,7 @@ describe('ambiguous rootNote', () => {
 
 	describe.each(allCases)('%s', (title, input, rootNote, descriptor) => {
 		test('is  parsed ' + rootNote + ' + ' + descriptor, () => {
+			const parseChord = chordParserFactory();
 			const chord = parseChord(input);
 			expect(chord.input.rootNote).toBe(rootNote);
 			expect(chord.input.descriptor).toBe(descriptor);
@@ -72,6 +83,7 @@ describe('invalid chords', () => {
 
 	])('%s', (symbol) => {
 		test('should return null', () => {
+			const parseChord = chordParserFactory();
 			const parsed = parseChord(symbol);
 			expect(parsed).toBeNull();
 		});
