@@ -8,6 +8,7 @@ import parseDescriptor from './filters/parseDescriptor';
 import normalizeNotes from './filters/normalizeNotes';
 import normalizeDescriptor from './filters/normalizeDescriptor';
 import formatSymbolParts from './filters/formatSymbolParts';
+import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
 
 /**
  * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
@@ -91,6 +92,7 @@ function parseChord(symbol) {
 			normalizeNotes,
 			normalizeDescriptor,
 			formatSymbolParts,
+			checkIntervalsConsistency,
 		];
 
 		chord = chain(allFilters, symbol);
