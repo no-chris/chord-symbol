@@ -337,16 +337,16 @@ Intervals affected by the Alt modifier when parsing an altered chord written "C7
   </thead>
   <tbody>
 <tr>
-    <td>fifthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the fifth</p>
+    <td>fifthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat fifth</p>
 </td>
     </tr><tr>
-    <td>fifthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the fifth</p>
+    <td>fifthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp fifth</p>
 </td>
     </tr><tr>
-    <td>ninthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the ninth</p>
+    <td>ninthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat ninth</p>
 </td>
     </tr><tr>
-    <td>ninthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the ninth</p>
+    <td>ninthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp ninth</p>
 </td>
     </tr><tr>
     <td>eleventhSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the eleventh</p>

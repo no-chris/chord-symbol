@@ -73,10 +73,10 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
  * @typedef {Object} AltIntervals
  * @type {Object}
- * @property {Boolean} fifthFlat - if the alt modifier should flatten the fifth
- * @property {Boolean} fifthSharp - if the alt modifier should sharpen the fifth
- * @property {Boolean} ninthFlat - if the alt modifier should flatten the ninth
- * @property {Boolean} ninthSharp - if the alt modifier should sharpen the ninth
+ * @property {Boolean} fifthFlat - if the alt modifier should yield a flat fifth
+ * @property {Boolean} fifthSharp - if the alt modifier should yield a sharp fifth
+ * @property {Boolean} ninthFlat - if the alt modifier should yield a flat ninth
+ * @property {Boolean} ninthSharp - if the alt modifier should yield a sharp ninth
  * @property {Boolean} eleventhSharp - if the alt modifier should sharpen the eleventh
  * @property {Boolean} thirteenthFlat - if the alt modifier should flatten the thirteenth
  */
