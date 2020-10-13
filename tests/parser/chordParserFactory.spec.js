@@ -75,6 +75,7 @@ describe('invalid chords', () => {
 
 		// Invalid intervals combos
 		[ 'Cm(add3)' ],
+		[ 'C11sus4' ],
 		[ 'C7M7' ],
 		[ 'C(b9)(add9)' ],
 		[ 'C(#9)(add9)' ],
