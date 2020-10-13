@@ -63,7 +63,22 @@ describe('nameIndividualChordNotes', () => {
 		[ 'B13', 	['B', 'D#', 'F#', 'A', 'C#', 'G#'] ],
 		[ 'Bm13', 	['B', 'D', 'F#', 'A', 'C#', 'E', 'G#'] ],
 
+		// all qualities, with #/b difference between major and min
+		[ 'D', 		['D', 'F#', 'A'] ],
+		[ 'D6', 	['D', 'F#', 'A', 'B'] ],
+		[ 'D7', 	['D', 'F#', 'A', 'C'] ],
+		[ 'DM7', 	['D', 'F#', 'A', 'C#'] ],
+		[ 'D+', 	['D', 'F#', 'A#'] ],
+
+		[ 'Dm', 	['D', 'F', 'A'] ],
+		[ 'Dm6', 	['D', 'F', 'A', 'B'] ],
+		[ 'Dm7', 	['D', 'F', 'A', 'C'] ],
+		[ 'DmM7', 	['D', 'F', 'A', 'Db'] ],
+		[ 'D°', 	['D', 'F', 'Ab'] ],
+		[ 'D°7', 	['D', 'F', 'Ab', 'B'] ],
+
 		/**/
+
 	])('%s', (symbol, expectedNotes) => {
 		test(symbol + ' is composed of: ' + expectedNotes.join(', '), () => {
 			const chord = parseChord(symbol);
