@@ -1,5 +1,5 @@
 import { notes } from '../../dictionaries/notes';
-import { qualities } from '../../dictionaries/qualities';
+import { majorQualities } from '../../dictionaries/qualities';
 
 const notesSharp = [
 	notes.A,
@@ -29,14 +29,6 @@ const notesFlat  = [
 	notes.GFlat,
 	notes.G,
 	notes.AFlat
-];
-
-const majorQualities = [
-	qualities.ma,
-	qualities.ma6,
-	qualities.ma7,
-	qualities.dom7,
-	qualities.aug
 ];
 
 const rootNoteToScaleAccidentals = {
