@@ -29,6 +29,11 @@ const chordChangesDescriptors = {
 	sus: 'sus',
 };
 
+
+/**
+ * @param {Chord} chord
+ * @returns {Chord}
+ */
 export default function formatSymbolParts(chord) {
 	chord.formatted = {
 		rootNote: chord.normalized.rootNote,
