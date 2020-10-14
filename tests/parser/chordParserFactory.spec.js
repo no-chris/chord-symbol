@@ -52,6 +52,7 @@ describe('ambiguous rootNote', () => {
 describe('invalid chords', () => {
 	describe.each([
 
+		// wrong notes or descriptors
 		[ 'I' ],
 		[ 'I/A' ],
 		[ 'Im' ],
@@ -72,6 +73,15 @@ describe('invalid chords', () => {
 		[ 'A7/mb5/G' ],
 		[ 'A,b97' ],
 		[ 'A7,mb5/G' ],
+
+		// Invalid intervals combos
+		[ 'Cm(add3)' ],
+		[ 'C11sus4' ],
+		[ 'C7M7' ],
+		[ 'C(b9)(add9)' ],
+		[ 'C(#9)(add9)' ],
+		[ 'C(#11)(add11)' ],
+		[ 'C(b13)(add13)' ],
 
 	])('%s', (symbol) => {
 		test('should return null', () => {

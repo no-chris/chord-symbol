@@ -44,10 +44,10 @@
     "lodash": "^4.17.20"
   },
   "scripts": {
-    "lint": "eslint src tests docs-src/src",
+    "lint": "eslint src tests",
     "test-short": "TEST_SUITE=short jest",
     "test": "jest",
-    "bundle": "webpack && cd docs-src && npx webpack && cd .. && npx rollup -c rollup.config.js",
+    "bundle": "webpack && npx rollup -c rollup.config.js",
     "size": "size-limit",
     "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
     "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",

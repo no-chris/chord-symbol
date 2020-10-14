@@ -8,6 +8,8 @@ import parseDescriptor from './filters/parseDescriptor';
 import normalizeNotes from './filters/normalizeNotes';
 import normalizeDescriptor from './filters/normalizeDescriptor';
 import formatSymbolParts from './filters/formatSymbolParts';
+import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
+import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
 
 /**
  * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
@@ -38,6 +40,7 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {String} rootNote - the normalized root note in english notation. Ex: `C`
  * @property {String} bassNote - the normalized bass note in english notation. Ex: `Gb`
  * @property {String[]} intervals - list of intervals composing the chord. Ex: `['1', 'b3', 'b5', 'b7']` for `Cm7b5/Gb`
+ * @property {String[]} notes - list of notes composing the chord. Ex: `['C', 'Eb', 'Gb', 'Bb']` for `Cm7b5/Gb`
  * @property {Number[]} semitones - intervals converted to semitones. Ex: `[0, 3, 6, 10]`
  * @property {Object} intents - keep track of intents that are part of the symbol but cannot be conveyed by the interval list only
  * @property {Boolean} intents.major - whether the chord has a major quality or not. Especially useful to find the source quality of suspended chords
@@ -131,6 +134,8 @@ function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
 				normalizeNotes,
 				normalizeDescriptor,
 				formatSymbolParts,
+				checkIntervalsConsistency,
+				nameIndividualChordNotes,
 			];
 
 			chord = chain(allFilters, symbol);
