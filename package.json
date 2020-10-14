@@ -61,7 +61,7 @@
     {
       "path": "./lib/chord-symbol.js",
       "webpack": false,
-      "limit": "70 KB"
+      "limit": "72 KB"
     }
   ],
   "keywords": [

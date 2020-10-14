@@ -248,6 +248,9 @@ Abstract representation of the chord based on its intervals
     <td>intervals</td><td><code>Array.&lt;String&gt;</code></td><td><p>list of intervals composing the chord. Ex: <code>[&#39;1&#39;, &#39;b3&#39;, &#39;b5&#39;, &#39;b7&#39;]</code> for <code>Cm7b5/Gb</code></p>
 </td>
     </tr><tr>
+    <td>notes</td><td><code>Array.&lt;String&gt;</code></td><td><p>list of notes composing the chord. Ex: <code>[&#39;C&#39;, &#39;Eb&#39;, &#39;Gb&#39;, &#39;Bb&#39;]</code> for <code>Cm7b5/Gb</code></p>
+</td>
+    </tr><tr>
     <td>semitones</td><td><code>Array.&lt;Number&gt;</code></td><td><p>intervals converted to semitones. Ex: <code>[0, 3, 6, 10]</code></p>
 </td>
     </tr><tr>
