@@ -1,3 +1,5 @@
+import _cloneDeep from 'lodash/cloneDeep';
+
 import chordParserFactory from '../../src/parser/chordParserFactory';
 import chordRendererFactory from '../../src/renderer/chordRendererFactory';
 
@@ -8,6 +10,20 @@ describe('Module', () => {
 	test('Factory should return a function', () => {
 		const renderChord = chordRendererFactory();
 		expect(renderChord).toBeInstanceOf(Function);
+	});
+});
+
+describe('Immutability', () => {
+	test('Should not modify chord representation given as an input', () => {
+		const parseChord = chordParserFactory();
+		const renderChord = chordRendererFactory({ transposeValue: 5, useShortNamings: true, simplify: 'core'});
+
+		const parsed = Object.freeze(parseChord('Ch(#11,b13)'));
+		const parsedCopy = _cloneDeep(parsed);
+
+		renderChord(parsed);
+
+		expect(parsed).toEqual(parsedCopy);
 	});
 });
 
