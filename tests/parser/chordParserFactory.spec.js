@@ -134,10 +134,10 @@ describe('custom alt intervals', () => {
 describe('rendering of alt modifier should short-circuit other modifiers', () => {
 	describe.each([
 
-		[ 'Chalt', 		'C7(alt)' ],
-		[ 'C7#9alt', 	'C7(alt)' ],
-		[ 'C7b13alt', 	'C7(alt)' ],
-		[ 'Cm7alt', 	'C7(alt)' ],
+		[ 'Chalt', 		'C7alt' ],
+		[ 'C7#9alt', 	'C7alt' ],
+		[ 'C7b13alt', 	'C7alt' ],
+		[ 'Cm7alt', 	'C7alt' ],
 
 	])('%s', (chord, rendered) => {
 		test(chord + ' => ' + rendered, () => {

@@ -12,7 +12,10 @@ export default function textPrinter(chord) {
 			printed += descriptor;
 		}
 		if (chordChanges && chordChanges.length) {
-			printed += '(' + chordChanges.join(',') + ')';
+
+			printed += chordChanges.includes('alt') ?
+				'alt' :
+				'(' + chordChanges.join(',') + ')';
 		}
 		if (bassNote) {
 			printed += '/' + bassNote;
