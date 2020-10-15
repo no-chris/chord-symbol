@@ -8,7 +8,7 @@ import intervalsToSemitones from '../../../src/dictionaries/intervalsToSemitones
 
 function parseChord(symbol) {
 	const allFilters = [
-		initChord,
+		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
 	];
 	return chain(allFilters, symbol);

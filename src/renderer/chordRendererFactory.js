@@ -54,6 +54,9 @@ function chordRendererFactory({
 	 * @returns {String|*} output might depends on the selected printer
 	 */
 	function renderChord(chord) {
+		if (chord === null) {
+			return null;
+		}
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
 
 		return (printer === 'raw') ? rawPrinter(filteredChord) : textPrinter(filteredChord);

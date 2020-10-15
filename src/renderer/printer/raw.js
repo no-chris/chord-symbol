@@ -1,3 +1,5 @@
+import _cloneDeep from 'lodash/cloneDeep';
+
 import textPrinter from './text';
 import chordParserFactory from '../../parser/chordParserFactory';
 
@@ -7,7 +9,8 @@ import chordParserFactory from '../../parser/chordParserFactory';
  */
 export default function rawPrinter(chord) {
 	const textPrinted = textPrinter(chord);
-	const parseChord = chordParserFactory();
+	const parseChord = chordParserFactory(chord.parserConfiguration);
+	const reParsed = parseChord(textPrinted);
 
-	return parseChord(textPrinted);
+	return _cloneDeep(reParsed);
 }

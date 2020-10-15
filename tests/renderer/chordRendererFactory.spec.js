@@ -163,3 +163,10 @@ describe('invalid options values', () => {
 		});
 	});
 });
+
+describe('invalid parsed chord', () => {
+	test('should return null if given chord is null', () => {
+		const renderChord = chordRendererFactory({ printer: 'raw' });
+		expect(renderChord(null)).toBeNull();
+	});
+});
