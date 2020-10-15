@@ -110,6 +110,27 @@ describe('Transpose', () => {
 
 });
 
+describe('Printers', () => {
+
+	const parseChord = chordParserFactory();
+	const chordC = parseChord('C');
+
+	describe.each([
+
+		['text printer', 		'text', 		'C'],
+		['raw printer', 		'raw', 			chordC],
+		['unknown printer', 	'idontexist', 	'C'],
+
+	])('%s', (title, printer, expected) => {
+		test(title, () => {
+			const renderChord = chordRendererFactory({ printer });
+			const rendered = renderChord(chordC);
+			expect(rendered).toEqual(expected);
+		});
+	});
+
+});
+
 describe('invalid options values', () => {
 	describe.each([
 

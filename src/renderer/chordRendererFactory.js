@@ -6,6 +6,7 @@ import shortenNormalized from './filters/shortenNormalized';
 import simplifyFilter from './filters/simplify';
 import transpose from './filters/transpose';
 import textPrinter from './printer/text';
+import rawPrinter from './printer/raw';
 
 /**
  * Create a pre-configured chord rendering function
@@ -15,6 +16,7 @@ import textPrinter from './printer/text';
  * @param {Number} transposeValue - positive or negative semitones value
  * @param {Boolean} harmonizeAccidentals - convert accidentals to either sharp or flats
  * @param {Boolean} useFlats - prefer flats for transposition/harmonization
+ * @param {('text'|'raw')} printer - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
@@ -23,6 +25,7 @@ function chordRendererFactory({
 	transposeValue = 0,
 	harmonizeAccidentals = false,
 	useFlats = false,
+	printer = 'text'
 } = {}) {
 
 	const allFilters = [];
@@ -53,7 +56,7 @@ function chordRendererFactory({
 	function renderChord(chord) {
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
 
-		return textPrinter(filteredChord);
+		return (printer === 'raw') ? rawPrinter(filteredChord) : textPrinter(filteredChord);
 	}
 }
 
