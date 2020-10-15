@@ -20,7 +20,7 @@ describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 
 	])('%s', (symbol, rootNote, descriptor, bassNote) => {
 		test(`rootNote: '${rootNote}', descriptor: '${descriptor}', bassNote: '${bassNote}'`, () => {
-			const chord = initChord(symbol);
+			const chord = initChord({}, symbol);
 			const parsed = parseBase(englishVariants, chord).input;
 
 			expect(parsed.symbol).toBe(symbol);
@@ -41,7 +41,7 @@ describe('invalid chords', () => {
 
 	])('%s', (symbol) => {
 		test('should return null', () => {
-			const chord = initChord(symbol);
+			const chord = initChord({}, symbol);
 			const parsed = parseBase(englishVariants, chord);
 
 			expect(parsed).toBeNull();

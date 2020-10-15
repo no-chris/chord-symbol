@@ -1,5 +1,7 @@
 import _invert from 'lodash/invert';
 
+import nameIndividualChordNotes from '../../parser/filters/nameIndividualChordNotes';
+
 const notes = [
 	'C',
 	'C#',
@@ -26,17 +28,19 @@ const sharpsToFlats = {
 const flatsToSharps = _invert(sharpsToFlats);
 
 export default function transpose(transposeValue, useFlats, chord) {
-	const { rootNote, bassNote } = chord.formatted;
+	const { rootNote, bassNote } = chord.normalized;
 
 	const rootSharp = convertToSharp(rootNote);
-	chord.formatted.rootNote = transposeNote(rootSharp, transposeValue, useFlats);
+	chord.normalized.rootNote = transposeNote(rootSharp, transposeValue, useFlats);
+	chord.formatted.rootNote = chord.normalized.rootNote;
 
 	if (bassNote) {
 		const bassSharp = convertToSharp(bassNote);
-		chord.formatted.bassNote = transposeNote(bassSharp, transposeValue, useFlats);
+		chord.normalized.bassNote = transposeNote(bassSharp, transposeValue, useFlats);
+		chord.formatted.bassNote = chord.normalized.bassNote;
 	}
 
-	return chord;
+	return nameIndividualChordNotes(chord);
 }
 
 function transposeNote(note, value, useFlats) {

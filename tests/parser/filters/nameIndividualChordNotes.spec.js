@@ -13,7 +13,7 @@ import chordParserFactory  from '../../../src/parser/chordParserFactory';
 
 function parseChord(symbol) {
 	const filters = [
-		initChord,
+		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
 		parseDescriptor.bind(null, {}),
 		normalizeDescriptor,

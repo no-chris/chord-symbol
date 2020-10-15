@@ -11,6 +11,7 @@ describe('simplifyFilter()', () => {
 
 		expect(simplified.normalized.intervals).toEqual(['1', 'b3', '5']);
 		expect(simplified.normalized.semitones).toEqual([0, 3, 7]);
+		expect(simplified.normalized.notes).toEqual(['C', 'Eb', 'G']);
 		expect(simplified.normalized.intents.eleventh).toBe(false);
 		expect(simplified.normalized.bassNote).toBeUndefined();
 	});

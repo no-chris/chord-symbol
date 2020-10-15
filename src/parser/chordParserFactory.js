@@ -18,7 +18,8 @@ import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
  * @property {ChordInput} input - information derived from the symbol given as an input.
  * If you need to trace what has generated a given chord, you'll find it here.
  * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
- * @property {FormattedChord} formatted - pre-rendering of the normalized chord
+ * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
+ * @property {Object} parserConfiguration - configuration passed to the parser on chord creation.
  */
 
 /**
@@ -128,7 +129,7 @@ function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
 
 		while (allNotes.length && !chord) {
 			allFilters = [
-				initChord,
+				initChord.bind(null, {}),
 				parseBase.bind(null, allNotes.shift()),
 				parseDescriptor.bind(null, allAltIntervals),
 				normalizeNotes,
