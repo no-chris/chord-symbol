@@ -129,7 +129,7 @@ function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
 
 		while (allNotes.length && !chord) {
 			allFilters = [
-				initChord.bind(null, {}),
+				initChord.bind(null, { altIntervals }),
 				parseBase.bind(null, allNotes.shift()),
 				parseDescriptor.bind(null, allAltIntervals),
 				normalizeNotes,

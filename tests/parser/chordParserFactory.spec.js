@@ -142,3 +142,30 @@ describe('rendering of alt modifier should short-circuit other modifiers', () =>
 	});
 });
 
+
+describe('ParserConfiguration', () => {
+	test('Should save parser configuration in chord definition', () => {
+		const parseChord = chordParserFactory({ altIntervals: {
+			ninthFlat: true,
+			eleventhSharp: true,
+		}});
+		const parsed = parseChord('C');
+
+		const expected = {
+			altIntervals: {
+				ninthFlat: 		true,
+				eleventhSharp:	true,
+			}
+		};
+
+		expect(parsed.parserConfiguration).toEqual(expected);
+	});
+
+	test('Should create the parserConfiguration property', () => {
+		const parseChord = chordParserFactory();
+		const parsed = parseChord('C');
+
+		expect(parsed).toHaveProperty('parserConfiguration');
+	});
+
+});
