@@ -10,7 +10,7 @@ import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 
 function parseChord(symbol) {
 	const filters = [
-		initChord,
+		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
 		parseDescriptor,
 	];
