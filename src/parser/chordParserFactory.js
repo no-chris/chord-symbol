@@ -86,24 +86,24 @@ import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
  */
 
 /**
- * Default alterations triggered by the use of the alt modifier, eg none.
+ * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
  * @type AltIntervals
  */
 const defaultAltIntervals = {
-	fifthFlat: 		false,
-	fifthSharp: 	false,
-	ninthFlat: 		false,
-	ninthSharp: 	false,
-	eleventhSharp:	false,
-	thirteenthFlat:	false,
+	fifthFlat: 		true,
+	fifthSharp: 	true,
+	ninthFlat: 		true,
+	ninthSharp: 	true,
+	eleventhSharp:	true,
+	thirteenthFlat:	true,
 };
 
 /**
  * Create a chord parser function
- * @param {AltIntervals} altIntervals - user selection of intervals affected by the "alt" modifier (none by default).
- * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol does alter any interval
- * by default when parsing an "alt" chord symbol. If you would like "alt" to consistently yield a specific set of intervals,
- * you can specify those here.
+ * @param {AltIntervals} altIntervals - user selection of intervals affected by the "alt" modifier (all by default).
+ * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
+ * some level of flexibility when parsing an "alt" chord symbol.
+ * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
  * @returns {function(String): Chord|Null}
  */
 function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {

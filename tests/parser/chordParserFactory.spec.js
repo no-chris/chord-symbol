@@ -113,7 +113,16 @@ describe('custom alt intervals', () => {
 
 	])('%s', (title, altIntervals, intervals) => {
 		test('alt should yield ' + intervals.join(' '), () => {
-			const parseChord = chordParserFactory({ altIntervals });
+			const noAltIntervals = {
+				fifthFlat: 		false,
+				fifthSharp: 	false,
+				ninthFlat: 		false,
+				ninthSharp: 	false,
+				eleventhSharp:	false,
+				thirteenthFlat:	false,
+			};
+			const allAltIntervals = Object.assign({}, noAltIntervals, altIntervals);
+			const parseChord = chordParserFactory({ altIntervals: allAltIntervals });
 			const parsed = parseChord('Calt');
 
 			expect(parsed.normalized.intervals).toEqual(intervals);
@@ -125,11 +134,10 @@ describe('custom alt intervals', () => {
 describe('rendering of alt modifier should short-circuit other modifiers', () => {
 	describe.each([
 
-		[ 'C9alt', 		'C7(alt)' ],
-		[ 'C(b9)alt', 	'C7(alt)' ],
-		[ 'C13alt', 	'C7(alt)' ],
-		[ 'C(#5)alt', 	'C7(alt)' ],
-		[ 'C(b5)alt', 	'C7(alt)' ],
+		[ 'Chalt', 		'C7(alt)' ],
+		[ 'C7#9alt', 	'C7(alt)' ],
+		[ 'C7b13alt', 	'C7(alt)' ],
+		[ 'Cm7alt', 	'C7(alt)' ],
 
 	])('%s', (chord, rendered) => {
 		test(chord + ' => ' + rendered, () => {
