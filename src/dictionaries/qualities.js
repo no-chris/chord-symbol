@@ -17,4 +17,22 @@ const qualities = {
 	bass: 'bass',
 };
 
-export { qualities };
+const majorQualities = [
+	qualities.ma,
+	qualities.ma6,
+	qualities.ma7,
+	qualities.dom7,
+	qualities.aug,
+];
+
+const minorQualities = [
+	qualities.mi,
+	qualities.mi6,
+	qualities.mi7,
+	qualities.miMa7,
+	qualities.dim,
+	qualities.dim7,
+];
+
+
+export { qualities, majorQualities, minorQualities };

@@ -40,6 +40,7 @@ const allModifiers = {
 	omit3: 'omit3',
 	omit5: 'omit5',
 	power: 'power',
+	alt: 'alt',
 
 };
 
@@ -158,6 +159,9 @@ const allSymbols = {
 	'omit5': 		allModifiers.omit5,
 	'no5': 			allModifiers.omit5,
 	'5': 			allModifiers.power,
+	'alt':			allModifiers.alt,
+	'alt.':			allModifiers.alt,
+	'altered':		allModifiers.alt,
 
 };
 

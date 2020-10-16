@@ -1,5 +1,7 @@
+import _cloneDeep from 'lodash/cloneDeep';
+
+import chordParserFactory from '../../src/parser/chordParserFactory';
 import chordRendererFactory from '../../src/renderer/chordRendererFactory';
-import parseChord from '../../src/parser/parseChord';
 
 describe('Module', () => {
 	test('Should expose a function', () => {
@@ -8,6 +10,20 @@ describe('Module', () => {
 	test('Factory should return a function', () => {
 		const renderChord = chordRendererFactory();
 		expect(renderChord).toBeInstanceOf(Function);
+	});
+});
+
+describe('Immutability', () => {
+	test('Should not modify chord representation given as an input', () => {
+		const parseChord = chordParserFactory();
+		const renderChord = chordRendererFactory({ transposeValue: 5, useShortNamings: true, simplify: 'core'});
+
+		const parsed = Object.freeze(parseChord('Ch(#11,b13)'));
+		const parsedCopy = _cloneDeep(parsed);
+
+		renderChord(parsed);
+
+		expect(parsed).toEqual(parsedCopy);
 	});
 });
 
@@ -21,6 +37,7 @@ describe('No filter', () => {
 	])('%s', (input, expected) => {
 
 		test('is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory();
 			const chord = Object.freeze(parseChord(input));
 			expect(renderChord(chord)).toBe(expected);
@@ -38,6 +55,7 @@ describe('all filters', () => {
 	])('%s', (input, expected) => {
 
 		test('is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({
 				useShortNamings: true,
 				transposeValue: 8,
@@ -65,6 +83,7 @@ describe('useShortNamings', () => {
 
 	])('%s', (input, expected) => {
 		test('is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({ useShortNamings: true });
 			const chord = parseChord(input);
 			expect(renderChord(chord)).toBe(expected);
@@ -98,9 +117,31 @@ describe('Transpose', () => {
 
 	])('%s', (title, input, transposeValue, useFlats, harmonizeAccidentals, transposed) => {
 		test(input + 'is transposed: ' + transposed, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({ transposeValue, useFlats, harmonizeAccidentals });
 			const chord = parseChord(input);
 			expect(renderChord(chord)).toBe(transposed);
+		});
+	});
+
+});
+
+describe('Printers', () => {
+
+	const parseChord = chordParserFactory();
+	const chordC = parseChord('C');
+
+	describe.each([
+
+		['text printer', 		'text', 		'C'],
+		['raw printer', 		'raw', 			chordC],
+		['unknown printer', 	'idontexist', 	'C'],
+
+	])('%s', (title, printer, expected) => {
+		test(title, () => {
+			const renderChord = chordRendererFactory({ printer });
+			const rendered = renderChord(chordC);
+			expect(rendered).toEqual(expected);
 		});
 	});
 
@@ -115,9 +156,17 @@ describe('invalid options values', () => {
 	])('%s', (title, input, expected, options) => {
 
 		test(input + ' is rendered: ' + expected, () => {
+			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory(options);
 			const chord = Object.freeze(parseChord(input));
 			expect(renderChord(chord)).toBe(expected);
 		});
+	});
+});
+
+describe('invalid parsed chord', () => {
+	test('should return null if given chord is null', () => {
+		const renderChord = chordRendererFactory({ printer: 'raw' });
+		expect(renderChord(null)).toBeNull();
 	});
 });

@@ -8,6 +8,8 @@ import parseDescriptor from './filters/parseDescriptor';
 import normalizeNotes from './filters/normalizeNotes';
 import normalizeDescriptor from './filters/normalizeDescriptor';
 import formatSymbolParts from './filters/formatSymbolParts';
+import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
+import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
 
 /**
  * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
@@ -16,7 +18,8 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {ChordInput} input - information derived from the symbol given as an input.
  * If you need to trace what has generated a given chord, you'll find it here.
  * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
- * @property {FormattedChord} formatted - pre-rendering of the normalized chord
+ * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
+ * @property {Object} parserConfiguration - configuration passed to the parser on chord creation.
  */
 
 /**
@@ -38,10 +41,12 @@ import formatSymbolParts from './filters/formatSymbolParts';
  * @property {String} rootNote - the normalized root note in english notation. Ex: `C`
  * @property {String} bassNote - the normalized bass note in english notation. Ex: `Gb`
  * @property {String[]} intervals - list of intervals composing the chord. Ex: `['1', 'b3', 'b5', 'b7']` for `Cm7b5/Gb`
+ * @property {String[]} notes - list of notes composing the chord. Ex: `['C', 'Eb', 'Gb', 'Bb']` for `Cm7b5/Gb`
  * @property {Number[]} semitones - intervals converted to semitones. Ex: `[0, 3, 6, 10]`
  * @property {Object} intents - keep track of intents that are part of the symbol but cannot be conveyed by the interval list only
  * @property {Boolean} intents.major - whether the chord has a major quality or not. Especially useful to find the source quality of suspended chords
  * @property {Boolean} intents.eleventh - for edge cases ; allows to differentiate between `C9sus` and `C11`
+ * @property {Boolean} intents.alt - if the chord was specified as altered
  * @property {String} quality - "Vertical quality" of the chord, its core characteristics,
  * usually conveyed by the 3rd and the 7th, and sometimes the 5th. Ex: `major`, `minor7`, `minorMajor7`...
  * @property {Boolean} isSuspended - whether the chord has a suspended 3rd or not
@@ -69,38 +74,79 @@ import formatSymbolParts from './filters/formatSymbolParts';
  */
 
 /**
- * Convert an input string into an abstract chord structure
- * @param {String} symbol - the chord symbol candidate
- * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
+ * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
+ * @typedef {Object} AltIntervals
+ * @type {Object}
+ * @property {Boolean} fifthFlat - if the alt modifier should yield a flat fifth
+ * @property {Boolean} fifthSharp - if the alt modifier should yield a sharp fifth
+ * @property {Boolean} ninthFlat - if the alt modifier should yield a flat ninth
+ * @property {Boolean} ninthSharp - if the alt modifier should yield a sharp ninth
+ * @property {Boolean} eleventhSharp - if the alt modifier should sharpen the eleventh
+ * @property {Boolean} thirteenthFlat - if the alt modifier should flatten the thirteenth
  */
-function parseChord(symbol) {
-	const allNotes = [
-		englishVariants,
-		latinVariants,
-		germanVariants,
-	];
 
-	let chord;
-	let allFilters;
+/**
+ * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
+ * @type AltIntervals
+ */
+const defaultAltIntervals = {
+	fifthFlat: 		true,
+	fifthSharp: 	true,
+	ninthFlat: 		true,
+	ninthSharp: 	true,
+	eleventhSharp:	true,
+	thirteenthFlat:	true,
+};
 
-	while (allNotes.length && !chord) {
-		allFilters = [
-			initChord,
-			parseBase.bind(null, allNotes.shift()),
-			parseDescriptor,
-			normalizeNotes,
-			normalizeDescriptor,
-			formatSymbolParts,
+/**
+ * Create a chord parser function
+ * @param {AltIntervals} altIntervals - user selection of intervals affected by the "alt" modifier (all by default).
+ * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
+ * some level of flexibility when parsing an "alt" chord symbol.
+ * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
+ * @returns {function(String): Chord|Null}
+ */
+function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
+
+	const allAltIntervals = Object.assign({}, defaultAltIntervals, altIntervals);
+
+	return parseChord;
+
+	/**
+	 * Convert an input string into an abstract chord structure
+	 * @param {String} symbol - the chord symbol candidate
+	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
+	 */
+	function parseChord(symbol) {
+		const allNotes = [
+			englishVariants,
+			latinVariants,
+			germanVariants,
 		];
 
-		chord = chain(allFilters, symbol);
-	}
-	return chord;
+		let chord;
+		let allFilters;
 
+		while (allNotes.length && !chord) {
+			allFilters = [
+				initChord.bind(null, { altIntervals }),
+				parseBase.bind(null, allNotes.shift()),
+				parseDescriptor.bind(null, allAltIntervals),
+				normalizeNotes,
+				normalizeDescriptor,
+				formatSymbolParts,
+				checkIntervalsConsistency,
+				nameIndividualChordNotes,
+			];
+
+			chord = chain(allFilters, symbol);
+		}
+		return chord;
+	}
 }
 
 /**
- * @module parseChord
- * Expose the parseChord() function
+ * @module chordParserFactory
+ * Expose the chordParserFactory() function
  */
-export default parseChord;
+export default chordParserFactory;

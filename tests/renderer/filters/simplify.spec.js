@@ -1,20 +1,23 @@
-import parseChord from '../../../src/parser/parseChord';
+import chordParserFactory from '../../../src/parser/chordParserFactory';
 import chordRendererFactory from '../../../src/renderer/chordRendererFactory';
 
 import simplify from '../../../src/renderer/filters/simplify';
 
 describe('simplifyFilter()', () => {
 	test('should simplifyFilter normalized chord', () => {
+		const parseChord = chordParserFactory();
 		const inputChord = parseChord('Cmi11(b9,#9)');
 		const simplified = simplify('max', inputChord);
 
 		expect(simplified.normalized.intervals).toEqual(['1', 'b3', '5']);
 		expect(simplified.normalized.semitones).toEqual([0, 3, 7]);
+		expect(simplified.normalized.notes).toEqual(['C', 'Eb', 'G']);
 		expect(simplified.normalized.intents.eleventh).toBe(false);
 		expect(simplified.normalized.bassNote).toBeUndefined();
 	});
 
 	test('should not apply simplification by default', () => {
+		const parseChord = chordParserFactory();
 		const inputChord = parseChord('Cmi11(b9,#9)');
 		const simplified = simplify(undefined, inputChord);
 
@@ -76,9 +79,17 @@ describe('simplifyFilter examples', () => {
 		['C/E', 				'C', 		'C/E'],
 		['CM9/E', 				'C', 		'Cma7/E'],
 
+		['C7alt', 				'C', 		'C7(b5,#5)'],
+		['C7alt.', 				'C', 		'C7(b5,#5)'],
+		['C7altered', 			'C', 		'C7(b5,#5)'],
+		['Calt', 				'C', 		'C7(b5,#5)'],
+		['Calt.', 				'C', 		'C7(b5,#5)'],
+		['Caltered', 			'C', 		'C7(b5,#5)'],
+
 
 	])('%s', (input, max, core) => {
 		test('=> ' + max + ' (max)', () => {
+			const parseChord = chordParserFactory();
 			const chord = parseChord(input);
 			const renderChord = chordRendererFactory({
 				simplify: 'max'
@@ -88,6 +99,7 @@ describe('simplifyFilter examples', () => {
 		});
 
 		test('=> ' + core + ' (core)', () => {
+			const parseChord = chordParserFactory();
 			const chord = parseChord(input);
 			const renderChord = chordRendererFactory({
 				simplify: 'core'

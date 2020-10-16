@@ -4,17 +4,23 @@
 
 # ChordSymbol
 
-`ChordSymbol` is a parser and renderer for chord symbols. It transforms a string representing a chord (`Cm7`, for example), into a suite of intervals: `1, b3, 5, b7`. It also normalizes the chord characteristics by isolating its quality, extensions, alterations, added and omitted notes, which later allows rendering the chords in a normalized way.
+`ChordSymbol` is the definitive chord symbol parser and renderer for Javascript/NodeJS.
 
-I wrote it because I could not find anything both accurate and flexible enough for my needs among available libraries.
+While most chord parsing libraries expect you to write chord symbols in a specific way, `ChordSymbol` can handle whatever chord syntax you throw at him, or almost. Currently, the unit test suite contains more than 65 000 distinct chords symbols!
 
-See the [demo site](https://no-chris.github.io/chord-symbol).
+`ChordSymbol` will transform a string representing a chord (`Cm7`, for example) into a suite of intervals (`1, b3, 5, b7`) and individual notes (`C, Eb, G, Bb`). It will also normalize the chord symbol, such as it doesn't matter if the original input was `Cm7`,  `CMINOR7`, `C7min`, or `C7mi`: `ChordSymbol` will consistently render it as `Cmi7`. And if you prefer a different kind of normalization, `ChordSymbol` allows you to configure the rendering to your taste.
+
+See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 
 <!-- toc -->
 
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Migration guides](#migration-guides)
+  * [From v0.5.1 to v1.0.0](#from-v051-to-v100)
+    + [BREAKING - Intervals consistency](#breaking---intervals-consistency)
+    + [BREAKING - API change](#breaking---api-change)
 - [Unit tests](#unit-tests)
 - [API Documentation](#api-documentation)
 - [Background information](#background-information)
@@ -24,7 +30,7 @@ See the [demo site](https://no-chris.github.io/chord-symbol).
     + [Symbol parsing](#symbol-parsing)
     + [Rendering and normalization](#rendering-and-normalization)
 - [Limitations](#limitations)
-  * [No constrains](#no-constrains)
+  * [Intervals consistency](#intervals-consistency)
   * [Support for different notation systems](#support-for-different-notation-systems)
   * [Musical scope](#musical-scope)
 - [Lexicon](#lexicon)
@@ -33,51 +39,102 @@ See the [demo site](https://no-chris.github.io/chord-symbol).
 
 ## Features
 
-- [x] recognize root note and bass note
-- [x] identify chord "vertical quality" (`major`, `major7`, `minor`, `diminished`, `diminished7`...)
-- [x] recognize extensions, alterations, added and omitted notes
-- [x] convert a chord symbol into a list of intervals
-- [x] normalize the chord naming (two options: `academic` and `short`)
-- [x] recognize a vast number of chords (unit test suite contains more than 65 000 variations!)
-- [x] basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
-- [x] transpose chord
-- [x] simplify chord
+- recognize root note and bass note
+- identify chord "vertical quality" (`major`, `major7`, `minor`, `diminished`, `diminished7`...)
+- recognize extensions, alterations, added and omitted notes
+- detect chord intervals
+- detect individual chord notes
+- check intervals consistency to reject invalid chords
+- normalize the chord naming (two options: `academic` and `short`)
+- simplify chord
+- transpose chord
+- recognize a vast number of chords (unit test suite contains more than 65 000 variations!)
+- basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
 
-Coming soon:
-- [ ] select notation system for rendering (`english`, `latin`, `german`)
-- [ ] render to Nashville notation system
-- [ ] find individual chord notes
-- [ ] allow custom processing. `ChordSymbol` uses a pipe-and-filters architecture for both parsing and rendering. The plan is to allow adding custom filters if such capability is needed (add extra information on parsing, define custom rendering rules, etc.)
+Check the [backlog](https://github.com/no-chris/chord-symbol/projects/2) for upcoming features; feel free to [submit ideas or report any bug](https://github.com/no-chris/chord-symbol/issues).
 
 ## Installation
 
-```
+```shell
 npm install --save chord-symbol
 ```
 
 ## Usage
 
-```
-import { parseChord, chordRendererFactory } from 'chord-symbol';
+```javascript
+import { chordPaserFactory, chordRendererFactory } from 'chord-symbol';
 
-const chord = parseChord('C9sus');
-
+const parseChord = chordParserFactory();
 const renderChord = chordRendererFactory({ useShortNamings: true });
 
+const chord = parseChord('Cmaj7');
+
 console.log(renderChord(chord));
-// -> C11
+// -> CM7
 ```
+
+If you want to use the library directly in the browser, you can proceed as follow:
+
+```html
+<html>
+<body>
+<script type="module">
+	import { chordParserFactory, chordRendererFactory } from './lib/chord-symbol-esm.js';
+
+	const parseChord = chordParserFactory();
+	const renderChord = chordRendererFactory({ useShortNamings: true});
+
+	const chord = parseChord('Cmaj7');
+	console.log(renderChord(chord));
+    // -> CM7
+</script>
+</body>
+</html>
+```
+
+## Migration guides
+
+### From v0.5.1 to v1.0.0
+
+This version contains 2 breaking changes:
+
+#### BREAKING - Intervals consistency
+
+`ChordSymbol` used to parse any valid combinations of modifiers without considering if the resulting interval list would contain invalid intervals combinations.
+A new filter has been added ([checkIntervalsConsistency](https://github.com/no-chris/chord-symbol/blob/master/src/parser/filters/checkIntervalsConsistency.js)) to spot most basic mistakes and reject obviously invalid symbols, like `Cm(add3)` or `C(b9)add9`.
+As a result, some symbols that would have previously been considered as valid are now rejected and the parser will return `null`.
+
+#### BREAKING - API change
+You now need to create a parser by using the `chordParserFactory` instead of importing the parser directly.
+This allows greater flexibility by offering the possibility to configure the parser.
+
+In short, instead of:
+```javascript
+import { parseChord } from 'chord-symbol';
+
+const chord = parseChord('C9sus');
+```
+
+do:
+```javascript
+import { chordPaserFactory } from 'chord-symbol';
+
+const parseChord = chordParserFactory();
+const chord = parseChord('C9sus');
+```
+
+
 
 ## Unit tests
 
 `ChordSymbol` has a **massive** unit test suite of ~70 000 tests!
 
-```
+```shell
 npm test
 ```
 
-It also has a "light" suite, much faster, which does not generate all chords variations (>1200 tests "only"):
-```
+It also has a "light" suite, much faster, which does not generate all chords variations (>1300 tests "only"):
+```shell
 npm run-script test-short
 ```
 
@@ -149,21 +206,21 @@ For this reason, `ChordSymbol` offer a `shortNamings` option for chord rendering
 |----------------------|---------------|
 | Cma7                 | CM7           |
 | Cmi                  | Cm            |
+| CmiMa13              | CmM13         |
 | C(add9)              | C2            |
 | C(add9,omit3)        | Csus2         |
-| C7(#5)               | C7+           |
 | Cdim                 | C°            |
 | Cdim7                | C°7           |
 | C(omit5)             | C(no5)        |
-| C9sus                | C11           |
 | C7(omit3)            | C7(no3)       |
 
 
 ## Limitations
 
-### No constrains
+### Intervals consistency
 
-`ChordSymbol` will do its best to infer the correct intervals from the symbol that you are writing, but will not prevent you from describing weird chords that makes little to no musical sense. For example, you can write `Cmi(add3)`, and it will yield `1-b3-3-5`, which correctly translates the intent behind the symbol, even though the musical intent is questionable at best. Deciding what should be "_musically correct_" or not, however, is a vast topic that is way beyond the scope of the current library. 
+`ChordSymbol` will check intervals consistency to spot most basics errors, like writing a chord symbol that would result in mixing a `b3` with a `3` (`Cm(add3)`, for example).
+The enforced rules are very basic, though, so there is no absolute guarantee that `ChordSymbol` will reject all symbols that would be considered "musically incorrect".
 
 ### Support for different notation systems
 

@@ -4,7 +4,7 @@ import m from '../src/dictionaries/modifiers';
 import combineModifiers from './testsHelpers/combineModifiers';
 import getAllSymbolModifiers from './testsHelpers/getAllSymbolModifiers';
 
-import parseChord from '../src/parser/parseChord';
+import chordParserFactory from '../src/parser/chordParserFactory';
 import chordRendererFactory from '../src/renderer/chordRendererFactory';
 
 const TEST_SUITE = process.env.TEST_SUITE;
@@ -243,6 +243,13 @@ const allSrcSymbols = [
 	[ 'C6(b9)',		'C', ['1', '3', '5', '6', 'b9'],		'C6(add b9)',	[ m.add6, m.ninthFlat ] ],
 	[ 'Cø',			'C', ['1', 'b3', 'b5', 'b7'],			'Cmi7(b5)', 	[ m.halfDim ] ],
 
+	// altered chords
+	['Calt',		'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
+	['Calt.',		'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
+	['Caltered',	'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
+	['C7alt', 		'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
+	['C7alt.', 		'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
+	['C7altered', 	'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
 
 ];
 
@@ -283,6 +290,8 @@ function addCase(title, symbol, rootNote, printed, intervals) {
 
 describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	test('is parsed: ' + intervals.join(' '), () => {
+		const parseChord = chordParserFactory();
+
 		const semitones = intervals.map(interval => intervalsToSemitones[interval]).sort((a, b) => (a - b));
 		const parsed = parseChord(symbol);
 
@@ -292,6 +301,7 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	});
 
 	test('is rendered: ' + printed, () => {
+		const parseChord = chordParserFactory();
 		const renderChord = chordRendererFactory();
 
 		const chord = parseChord(symbol);
@@ -301,6 +311,7 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	});
 
 	test('is rendered, then re-parsed correctly', () => {
+		const parseChord = chordParserFactory();
 		const renderChord = chordRendererFactory({ useShortNamings: true });
 
 		const chord1 = parseChord(symbol);

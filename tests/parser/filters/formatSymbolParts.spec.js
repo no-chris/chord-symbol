@@ -11,9 +11,9 @@ import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor
 
 function parseChord(symbol) {
 	const filters = [
-		initChord,
+		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
-		parseDescriptor,
+		parseDescriptor.bind(null, {}),
 		normalizeNotes,
 		normalizeDescriptor,
 	];
