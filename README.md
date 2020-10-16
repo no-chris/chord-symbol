@@ -11,6 +11,7 @@ While most chord parsing libraries expect you to write chord symbols in a specif
 `ChordSymbol` will transform a string representing a chord (`Cm7`, for example) into a suite of intervals (`1, b3, 5, b7`) and individual notes (`C, Eb, G, Bb`). It will also normalize the chord symbol, such as it doesn't matter if the original input was `Cm7`,  `CMINOR7`, `C7min`, or `C7mi`: `ChordSymbol` will consistently render it as `Cmi7`. And if you prefer a different kind of normalization, `ChordSymbol` allows you to configure the rendering to your taste.
 
 See it in action on the [demo site](https://chord-symbol.netlify.app/)!
+
 <!-- toc -->
 
 - [Features](#features)
