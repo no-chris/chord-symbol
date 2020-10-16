@@ -4,9 +4,9 @@
 
 # ChordSymbol
 
-`ChordSymbol` is the ultimate chord symbol parser and renderer for Javascript/NodeJS.
+`ChordSymbol` is the definitive chord symbol parser and renderer for Javascript/NodeJS.
 
-While most chord parsing libraries expect you to write chord symbols in a specific way, `ChordSymbol` can handle whatever chord syntax you throw at him, or almost. And we can prove it: currently, the unit test suite contains more than 65 000 distinct chords symbols!
+While most chord parsing libraries expect you to write chord symbols in a specific way, `ChordSymbol` can handle whatever chord syntax you throw at him, or almost. Currently, the unit test suite contains more than 65 000 distinct chords symbols!
 
 `ChordSymbol` will transform a string representing a chord (`Cm7`, for example) into a suite of intervals (`1, b3, 5, b7`) and individual notes (`C, Eb, G, Bb`). It will also normalize the chord symbol, such as it doesn't matter if the original input was `Cm7`,  `CMINOR7`, `C7min`, or `C7mi`: `ChordSymbol` will consistently render it as `Cmi7`. And if you prefer a different kind of normalization, `ChordSymbol` allows you to configure the rendering to your taste.
 
@@ -205,13 +205,12 @@ For this reason, `ChordSymbol` offer a `shortNamings` option for chord rendering
 |----------------------|---------------|
 | Cma7                 | CM7           |
 | Cmi                  | Cm            |
+| CmiMa13              | CmM13         |
 | C(add9)              | C2            |
 | C(add9,omit3)        | Csus2         |
-| C7(#5)               | C7+           |
 | Cdim                 | C°            |
 | Cdim7                | C°7           |
 | C(omit5)             | C(no5)        |
-| C9sus                | C11           |
 | C7(omit3)            | C7(no3)       |
 
 
