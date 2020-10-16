@@ -15,7 +15,7 @@
   "homepage": "https://github.com/no-chris/chord-symbol#readme",
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.12.1",
     "@babel/preset-env": "^7.11.0",
     "@size-limit/preset-small-lib": "^4.5.7",
     "babel-jest": "^26.3.0",
