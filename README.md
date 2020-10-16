@@ -4,12 +4,13 @@
 
 # ChordSymbol
 
-`ChordSymbol` is a parser and renderer for chord symbols. It transforms a string representing a chord (`Cm7`, for example), into a suite of intervals: `1, b3, 5, b7`. It also normalizes the chord characteristics by isolating its quality, extensions, alterations, added and omitted notes, which later allows rendering the chords in a normalized way.
+`ChordSymbol` is the ultimate chord symbol parser and renderer for Javascript/NodeJS.
 
-I wrote it because I could not find anything both accurate and flexible enough for my needs among available libraries.
+While most chord parsing libraries expect you to write chord symbols in a specific way, `ChordSymbol` can handle whatever chord syntax you throw at him, or almost. And we can prove it: currently, the unit test suite contains more than 65 000 distinct chords symbols!
 
-See the [demo site](https://chord-symbol.netlify.app/).
+`ChordSymbol` will transform a string representing a chord (`Cm7`, for example) into a suite of intervals (`1, b3, 5, b7`) and individual notes (`C, Eb, G, Bb`). It will also normalize the chord symbol, such as it doesn't matter if the original input was `Cm7`,  `CMINOR7`, `C7min`, or `C7mi`: `ChordSymbol` will consistently render it as `Cmi7`. And if you prefer a different kind of normalization, `ChordSymbol` allows you to configure the rendering to your taste.
 
+See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 <!-- toc -->
 
 - [Features](#features)
@@ -41,13 +42,13 @@ See the [demo site](https://chord-symbol.netlify.app/).
 - identify chord "vertical quality" (`major`, `major7`, `minor`, `diminished`, `diminished7`...)
 - recognize extensions, alterations, added and omitted notes
 - detect chord intervals
-- detect chord individual notes
+- detect individual chord notes
 - check intervals consistency to reject invalid chords
 - normalize the chord naming (two options: `academic` and `short`)
+- simplify chord
+- transpose chord
 - recognize a vast number of chords (unit test suite contains more than 65 000 variations!)
 - basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
-- transpose chord
-- simplify chord
 
 Check the [backlog](https://github.com/no-chris/chord-symbol/projects/2) for upcoming features; feel free to [submit ideas or report any bug](https://github.com/no-chris/chord-symbol/issues).
 
@@ -131,7 +132,7 @@ const chord = parseChord('C9sus');
 npm test
 ```
 
-It also has a "light" suite, much faster, which does not generate all chords variations (>1200 tests "only"):
+It also has a "light" suite, much faster, which does not generate all chords variations (>1300 tests "only"):
 ```shell
 npm run-script test-short
 ```
