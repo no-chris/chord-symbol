@@ -1,3 +1,79 @@
+## 1.0.0 (2020-10-16)
+
+##### Build System / Dependencies
+
+* **deps-dev:**  bump html-webpack-plugin from 4.3.0 to 4.4.1 ([6a8b4f03](https://github.com/no-chris/chord-symbol/commit/6a8b4f03ea7a160bde1759caeebfb0a90e091b9c))
+* **deps:**  bump lodash from 4.17.15 to 4.17.20 in /docs-src ([4adebc02](https://github.com/no-chris/chord-symbol/commit/4adebc02dfeac5ecb239ba519600813e135a5072))
+*  Add rollup to create bundle in ES6 module format ([7bae99f6](https://github.com/no-chris/chord-symbol/commit/7bae99f651746e510afeaad5bcedae271416bc4f))
+
+##### Chores
+
+*  build ([53e2b9b7](https://github.com/no-chris/chord-symbol/commit/53e2b9b790e6d21590d189c345c9f3e8ff0b7231))
+*  bundle ([88ad1081](https://github.com/no-chris/chord-symbol/commit/88ad1081a29a248c3da90acd56d04b446b44a845))
+*  Bundle ([ba38e976](https://github.com/no-chris/chord-symbol/commit/ba38e976268b69da2857ebefb697d4ad7d5787e9))
+
+##### Documentation Changes
+
+*  Fix short namings documentation in README ([a1dbca37](https://github.com/no-chris/chord-symbol/commit/a1dbca379e25ca49813b2fd5c95fc45c4bb7e88b))
+*  Update readme ([824495c7](https://github.com/no-chris/chord-symbol/commit/824495c7a59b070e762f66e3f26a46a1fe23a2df))
+*  Add backlog and issue trackers reference to the README, update feature list ([97c7959a](https://github.com/no-chris/chord-symbol/commit/97c7959a6e3b254b6aa0fcfaa1ab70c96e1cf3a5))
+*  Remove demo site from repository ([7d5b88f4](https://github.com/no-chris/chord-symbol/commit/7d5b88f4017fb404edcf6522202b4e787d54d6ce))
+*  Improve documentation on alt intervals configuration. Fix typos. ([3f7164da](https://github.com/no-chris/chord-symbol/commit/3f7164da73a04798760e3ddc3dd0b5b2243228c8))
+*  Update bundle and demo site ([e2f92393](https://github.com/no-chris/chord-symbol/commit/e2f923938770bb7845fda36b59db4c28792780b0))
+*  Update migration guide to v1.0.0 ([4b6d7b0f](https://github.com/no-chris/chord-symbol/commit/4b6d7b0f30a17fdf71803ea00bce5fe553e328d5))
+*  Update documentation on limitations to reflect the use of the new filter ([e7610164](https://github.com/no-chris/chord-symbol/commit/e76101641dfa8ca46d1c6154372077da1769e553))
+*  Add missing functions signature declaration ([3bade13b](https://github.com/no-chris/chord-symbol/commit/3bade13ba57839d0c05ad265fcbe77a04159996f))
+*  Document defaultAltIntervals constant ([45f8ceee](https://github.com/no-chris/chord-symbol/commit/45f8ceeef8882d95a1137c42cbd504ea8e8f9e0f))
+*  Update documentation on how to configure the alt modifier ([708f37f3](https://github.com/no-chris/chord-symbol/commit/708f37f37048a990ef0883a821c808c0fbd493b4))
+*  Update documentation to reflect new bundle name ([d3d39fe3](https://github.com/no-chris/chord-symbol/commit/d3d39fe3f0abee581238cc337ac59873dbc85813))
+*  Add notice on the usage of rollup at the top of the rollup config file ([2c1acc96](https://github.com/no-chris/chord-symbol/commit/2c1acc9691df82ddec6c9b68b63eab54338f75df))
+*  Add documentation on ESM browser usage ([03d3f716](https://github.com/no-chris/chord-symbol/commit/03d3f7165d529b2882ddf6253fa1be069352d877))
+*  fix typos ([41d1664f](https://github.com/no-chris/chord-symbol/commit/41d1664f3fd7fbc3113f2df7c83787a4b49b7eee))
+*  Add migration guide from 0.5.1 to 1.0.0 ([897bc468](https://github.com/no-chris/chord-symbol/commit/897bc468c883c4979c3f30eeed0413c6c98c3a6b))
+* **parser:**  Update parser API documentation ([8022e379](https://github.com/no-chris/chord-symbol/commit/8022e379154357df98a45c4ab03edcbdc196af96))
+
+##### New Features
+
+* **demo:**
+  *  add redirect to the new demo site ([f1fd159a](https://github.com/no-chris/chord-symbol/commit/f1fd159ab4d2a9a427993f6a05c66fe3cea2b211))
+  *  Update parser API in demo site ([9c2f490d](https://github.com/no-chris/chord-symbol/commit/9c2f490da6abe3b04b747307f8e91203c02c3fcd))
+* **renderer:**
+  *  remove parenthesis around (alt) ([286d5a71](https://github.com/no-chris/chord-symbol/commit/286d5a7176dba15b33b1e7bccdbf898e550c0f14))
+  *  ensure each filter update its part of the chord representation only, then ensure an holistic representation is returned - including "input" properties - by the raw filter. ([26b7c1ef](https://github.com/no-chris/chord-symbol/commit/26b7c1ef1f34f46ad9c3ed23caeb599afe44b835))
+  *  ensure the raw representation of the rendered chord is consistent with the enabled filters ([920ae397](https://github.com/no-chris/chord-symbol/commit/920ae39704539d7a3ce9fa11f7d9e7043b4ca8d2))
+  *  Create raw printer to retrieve the processed chord object ([f77132f1](https://github.com/no-chris/chord-symbol/commit/f77132f1be2fe845249c0f5a8c82017c614335d0))
+  *  Handle alt intent in rendering filters ([daa0c068](https://github.com/no-chris/chord-symbol/commit/daa0c0681f30133e760b232262e34e354fb39b1a))
+* **parser:**
+  *  Enable all alterations by default with the alt modifier ([1249c0c3](https://github.com/no-chris/chord-symbol/commit/1249c0c3d10b34a5cbf03829bee984f3a6f75e7b))
+  *  Save the parser configuration in the chord object to allow reparsing the chord in the raw printer ([5b911b79](https://github.com/no-chris/chord-symbol/commit/5b911b79ea61f82061e3e10ff9fbe799b1bfaccd))
+  *  Add filter to name individual chord notes ([34df468a](https://github.com/no-chris/chord-symbol/commit/34df468a9b4adde58a96913907355b9088ea4993))
+  *  Add more forbidden combos ([151e6f29](https://github.com/no-chris/chord-symbol/commit/151e6f29bf62d709ac63b0a6bb6f11bb062e1635))
+  *  Add interval checker to the parser and add integration tests ([e44d1bdd](https://github.com/no-chris/chord-symbol/commit/e44d1bddba86e014c0089bedb06e82378ae9f3fc))
+  *  Add checkIntervalsConsistency filter ([45b10ef0](https://github.com/no-chris/chord-symbol/commit/45b10ef080249a4d4d74224fd7c245f0540f22d7))
+  *  Normalize alt chords and make it dominant7 by default ([cce1b077](https://github.com/no-chris/chord-symbol/commit/cce1b077de9e7826811d25ff371423d56d36d1b8))
+  *  Add alt intent ([99a6fd14](https://github.com/no-chris/chord-symbol/commit/99a6fd1464ffb095fa40150a37e7529d9eece7ce))
+  *  Configure intervals yield by alt modifier ([1e1cedc2](https://github.com/no-chris/chord-symbol/commit/1e1cedc22bfbdfe1d9ec81c57d9f1dc049efb23e))
+  *  Expose a parser Factory instead of the parser function to allow future parser configuration ([175793a9](https://github.com/no-chris/chord-symbol/commit/175793a99463143ea792b19bb647bb98a335f24c))
+
+##### Bug Fixes
+
+* **parser:**  fix typos ([30c9a22f](https://github.com/no-chris/chord-symbol/commit/30c9a22f7a44044065914b77d229ec6e8ec6190b))
+
+##### Refactors
+
+* **renderer:**  remove unsued file ([4a6bd435](https://github.com/no-chris/chord-symbol/commit/4a6bd4350b7c3eb648cffd323216c4f44faaf9e1))
+*  Extract majorQualities to dictionnairies ([136ced57](https://github.com/no-chris/chord-symbol/commit/136ced5717ab1fd7a48a0dbacae596736ba3aedb))
+*  change esm bundle extension for better compatibility with Apache default configuration that do not handle *.mjs files ([7909f285](https://github.com/no-chris/chord-symbol/commit/7909f285d096bbf6da324e528ac6532d70478586))
+*  use proper rollup plugin dependencies ([3312d38e](https://github.com/no-chris/chord-symbol/commit/3312d38e111b27dcea23feb43713442534a93a59))
+
+##### Tests
+
+* **renderer:**
+  *  Ensure the parserConfiguration is passed throught the raw printer ([41f38797](https://github.com/no-chris/chord-symbol/commit/41f38797630eb185d44f97e03cb4aa312124f744))
+  *  Enforce immutability of rendered paramater ([fd4b5e6e](https://github.com/no-chris/chord-symbol/commit/fd4b5e6ef2b865768b37e27e6f3b7d6b19fbfa9a))
+* **parser:**  Add more unit tests for notes detection ([dc7565df](https://github.com/no-chris/chord-symbol/commit/dc7565dfc70986f55788a1666bc3dfbf1fadcc3a))
+* **demo:**  Add more unit tests ([c3b8312e](https://github.com/no-chris/chord-symbol/commit/c3b8312ec031b70985adf67f825e77149049ba89))
+
 #### 0.5.1 (2020-06-22)
 
 ##### Build System / Dependencies
