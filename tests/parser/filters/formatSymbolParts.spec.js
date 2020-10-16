@@ -13,7 +13,7 @@ function parseChord(symbol) {
 	const filters = [
 		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
-		parseDescriptor,
+		parseDescriptor.bind(null, {}),
 		normalizeNotes,
 		normalizeDescriptor,
 	];

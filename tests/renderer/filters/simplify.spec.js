@@ -79,6 +79,13 @@ describe('simplifyFilter examples', () => {
 		['C/E', 				'C', 		'C/E'],
 		['CM9/E', 				'C', 		'Cma7/E'],
 
+		['C7alt', 				'C', 		'C7(b5,#5)'],
+		['C7alt.', 				'C', 		'C7(b5,#5)'],
+		['C7altered', 			'C', 		'C7(b5,#5)'],
+		['Calt', 				'C', 		'C7(b5,#5)'],
+		['Calt.', 				'C', 		'C7(b5,#5)'],
+		['Caltered', 			'C', 		'C7(b5,#5)'],
+
 
 	])('%s', (input, max, core) => {
 		test('=> ' + max + ' (max)', () => {

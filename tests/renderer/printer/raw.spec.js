@@ -2,15 +2,44 @@ import chordParserFactory from '../../../src/parser/chordParserFactory';
 import chordRendererFactory from '../../../src/renderer/chordRendererFactory';
 import rawPrinter from '../../../src/renderer/printer/raw';
 
-const parseChord = chordParserFactory();
-
 describe('raw printer', () => {
 	test('should return a copy of the given chord', () => {
+		const parseChord = chordParserFactory();
+
 		const parsed = parseChord('C');
 		const printed = rawPrinter(parsed);
 
 		expect(printed).not.toBe(parsed);
 		expect(printed).toEqual(parsed);
+	});
+
+	test('should re-parse the chord with the same parserConfiguration (at filter level)', () => {
+		const altIntervals = {
+			altIntervals: {
+				ninthFlat: true,
+				thirteenthFlat: true,
+			}
+		};
+		const parseChord = chordParserFactory({ altIntervals });
+		const parsed = parseChord('Calt');
+		const printed = rawPrinter(parsed);
+
+		expect(printed.parserConfiguration).toEqual({ altIntervals });
+	});
+
+	test('should re-parse the chord with the same parserConfiguration (at renderer level)', () => {
+		const altIntervals = {
+			altIntervals: {
+				ninthFlat: true,
+				thirteenthFlat: true,
+			}
+		};
+		const parseChord = chordParserFactory({ altIntervals });
+		const parsed = parseChord('Calt');
+		const renderChord = chordRendererFactory({ printer: 'raw'});
+		const printed = renderChord(parsed);
+
+		expect(printed.parserConfiguration).toEqual({ altIntervals });
 	});
 
 
@@ -26,6 +55,8 @@ describe('raw printer', () => {
 		'should reflect the output of all rendering filters, as if the chord had been parsed from scratch as rendered',
 		(input, transposeValue, simplify, useShortNamings, expectedTxt
 		) => {
+			const parseChord = chordParserFactory();
+
 			test(input + ' => ' + expectedTxt, () => {
 				const renderTxt = chordRendererFactory({
 					transposeValue,

@@ -8,7 +8,7 @@ const shortDescriptors = {
 	mi: 'm',
 	dim: '°',
 	aug7: '7+',
-	eleventh: '11',
+	eleventh: '11'
 };
 
 
@@ -76,4 +76,3 @@ function isAug7(chord) {
 function isEleventh(chord) {
 	return chord.normalized.intents.eleventh;
 }
-

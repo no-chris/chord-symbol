@@ -46,6 +46,7 @@ import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
  * @property {Object} intents - keep track of intents that are part of the symbol but cannot be conveyed by the interval list only
  * @property {Boolean} intents.major - whether the chord has a major quality or not. Especially useful to find the source quality of suspended chords
  * @property {Boolean} intents.eleventh - for edge cases ; allows to differentiate between `C9sus` and `C11`
+ * @property {Boolean} intents.alt - if the chord was specified as altered
  * @property {String} quality - "Vertical quality" of the chord, its core characteristics,
  * usually conveyed by the 3rd and the 7th, and sometimes the 5th. Ex: `major`, `minor7`, `minorMajor7`...
  * @property {Boolean} isSuspended - whether the chord has a suspended 3rd or not
@@ -72,12 +73,42 @@ import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
  * If multiple added/omits are present, the `add/omit` symbol is only printed once: `A+(add b9,#9)`
  */
 
+/**
+ * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
+ * @typedef {Object} AltIntervals
+ * @type {Object}
+ * @property {Boolean} fifthFlat - if the alt modifier should yield a flat fifth
+ * @property {Boolean} fifthSharp - if the alt modifier should yield a sharp fifth
+ * @property {Boolean} ninthFlat - if the alt modifier should yield a flat ninth
+ * @property {Boolean} ninthSharp - if the alt modifier should yield a sharp ninth
+ * @property {Boolean} eleventhSharp - if the alt modifier should sharpen the eleventh
+ * @property {Boolean} thirteenthFlat - if the alt modifier should flatten the thirteenth
+ */
+
+/**
+ * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
+ * @type AltIntervals
+ */
+const defaultAltIntervals = {
+	fifthFlat: 		true,
+	fifthSharp: 	true,
+	ninthFlat: 		true,
+	ninthSharp: 	true,
+	eleventhSharp:	true,
+	thirteenthFlat:	true,
+};
 
 /**
  * Create a chord parser function
+ * @param {AltIntervals} altIntervals - user selection of intervals affected by the "alt" modifier (all by default).
+ * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
+ * some level of flexibility when parsing an "alt" chord symbol.
+ * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
  * @returns {function(String): Chord|Null}
  */
-function chordParserFactory() {
+function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
+
+	const allAltIntervals = Object.assign({}, defaultAltIntervals, altIntervals);
 
 	return parseChord;
 
@@ -98,9 +129,9 @@ function chordParserFactory() {
 
 		while (allNotes.length && !chord) {
 			allFilters = [
-				initChord.bind(null, {}),
+				initChord.bind(null, { altIntervals }),
 				parseBase.bind(null, allNotes.shift()),
-				parseDescriptor,
+				parseDescriptor.bind(null, allAltIntervals),
 				normalizeNotes,
 				normalizeDescriptor,
 				formatSymbolParts,

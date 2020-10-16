@@ -39,6 +39,7 @@ export default function simplify(level = 'none', chord) {
 	chord.normalized.intervals = intervals;
 	chord.normalized.semitones = intervals.map(interval => intervalsToSemitones[interval]);
 	chord.normalized.intents.eleventh = false;
+	chord.normalized.intents.alt = false;
 
 	if (level === 'max') {
 		delete chord.normalized.bassNote;

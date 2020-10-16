@@ -14,7 +14,7 @@ function parseChord(symbol) {
 	const filters = [
 		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
-		parseDescriptor,
+		parseDescriptor.bind(null, {}),
 	];
 	return chain(filters, symbol);
 }
@@ -39,6 +39,7 @@ describe('normalizeDescriptor', () => {
 		['Dominant9', 		'C9', 		{ quality: 'dominant7', extensions: ['9'] } ],
 		['Dominant11', 		'C11', 		{ quality: 'dominant7', extensions: ['9', '11'], isSuspended: true } ],
 		['Dominant13', 		'C13', 		{ quality: 'dominant7', extensions: ['9', '13'] } ],
+		['Altered', 		'Calt', 	{ quality: 'dominant7', alterations: ['alt'] } ],
 
 		['Major', 			'CMAJ', 	{ quality: 'major' } ],
 		['Major6',			'Cadd6', 	{ quality: 'major6' } ],
