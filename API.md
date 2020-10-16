@@ -15,7 +15,7 @@ Expose the chordRendererFactory() function</a></dt>
 
 <dl>
 <dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
-<dd><p>Default alterations triggered by the use of the alt modifier, eg none.</p>
+<dd><p>Default alterations triggered by the use of the alt modifier, eg all possible alterations.</p>
 </dd>
 </dl>
 
@@ -25,7 +25,7 @@ Expose the chordRendererFactory() function</a></dt>
 <dt><a href="#chordParserFactory">chordParserFactory(altIntervals)</a> ⇒ <code>function</code></dt>
 <dd><p>Create a chord parser function</p>
 </dd>
-<dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats)</a> ⇒ <code>function</code></dt>
+<dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats, printer)</a> ⇒ <code>function</code></dt>
 <dd><p>Create a pre-configured chord rendering function</p>
 </dd>
 </dl>
@@ -64,7 +64,7 @@ Expose the chordRendererFactory() function
 <a name="defaultAltIntervals"></a>
 
 ## defaultAltIntervals : [<code>AltIntervals</code>](#AltIntervals)
-Default alterations triggered by the use of the alt modifier, eg none.
+Default alterations triggered by the use of the alt modifier, eg all possible alterations.
 
 **Kind**: global constant  
 <a name="chordParserFactory"></a>
@@ -81,10 +81,10 @@ Create a chord parser function
   </thead>
   <tbody>
 <tr>
-    <td>altIntervals</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (none by default).
-Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol does alter any interval
-by default when parsing an &quot;alt&quot; chord symbol. If you would like &quot;alt&quot; to consistently yield a specific set of intervals,
-you can specify those here.</p>
+    <td>altIntervals</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
+Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
+some level of flexibility when parsing an &quot;alt&quot; chord symbol.
+If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -111,7 +111,7 @@ Convert an input string into an abstract chord structure
 
 <a name="chordRendererFactory"></a>
 
-## chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats) ⇒ <code>function</code>
+## chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats, printer) ⇒ <code>function</code>
 Create a pre-configured chord rendering function
 
 **Kind**: global function  
@@ -137,6 +137,9 @@ Create a pre-configured chord rendering function
 </td>
     </tr><tr>
     <td>useFlats</td><td><code>Boolean</code></td><td><p>prefer flats for transposition/harmonization</p>
+</td>
+    </tr><tr>
+    <td>printer</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -184,7 +187,10 @@ If you need to trace what has generated a given chord, you&#39;ll find it here.<
     <td>normalized</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
 </td>
     </tr><tr>
-    <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord</p>
+    <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
+</td>
+    </tr><tr>
+    <td>parserConfiguration</td><td><code>Object</code></td><td><p>configuration passed to the parser on chord creation.</p>
 </td>
     </tr>  </tbody>
 </table>
