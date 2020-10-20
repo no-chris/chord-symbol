@@ -1,5 +1,3 @@
-import '../typedefs';
-
 import chain from '../helpers/chain';
 
 import { englishVariants, latinVariants, germanVariants } from '../dictionaries/notes';
@@ -29,11 +27,7 @@ const defaultAltIntervals = {
 
 /**
  * Create a chord parser function
- * @param {Object} [ParserConfiguration]
- * @param {AltIntervals} [ParserConfiguration.altIntervals] - user selection of intervals affected by the "alt" modifier (all by default).
- * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
- * some level of flexibility when parsing an "alt" chord symbol.
- * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
+ * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord|Null}
  */
 function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
