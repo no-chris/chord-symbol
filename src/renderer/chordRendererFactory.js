@@ -1,3 +1,5 @@
+import '../typedefs';
+
 import _cloneDeep from 'lodash/cloneDeep';
 
 import chain from '../helpers/chain';
@@ -10,13 +12,16 @@ import rawPrinter from './printer/raw';
 
 /**
  * Create a pre-configured chord rendering function
- * @param {Boolean} useShortNamings - if true, use short namings instead of the "academic" ones
- * @param {('none'|'max'|'core')} simplify - The level of simplification. `max` will basically remove everything but minor 3rd,
+ * @param {Object} [RendererConfiguration]
+ * @param {Boolean} [RendererConfiguration.useShortNamings] - if true, use short namings instead of the "academic" ones
+ * @param {('none'|'max'|'core')} [RendererConfiguration.simplify] - The level of simplification.
+ * `max` will basically remove everything but minor 3rd,
  * `core` will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.
- * @param {Number} transposeValue - positive or negative semitones value
- * @param {Boolean} harmonizeAccidentals - convert accidentals to either sharp or flats
- * @param {Boolean} useFlats - prefer flats for transposition/harmonization
- * @param {('text'|'raw')} printer - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
+ * @param {Number} [RendererConfiguration.transposeValue] - positive or negative semitones value
+ * @param {Boolean} [RendererConfiguration.harmonizeAccidentals] - convert accidentals to either sharp or flats
+ * @param {Boolean} [RendererConfiguration.useFlats] - prefer flats for transposition/harmonization
+ * @param {('text'|'raw')} [RendererConfiguration.printer] - the printer to use for the rendering.
+ * 'text' returns a string, 'raw' the processed chord object.
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
