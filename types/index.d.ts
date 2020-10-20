@@ -1,4 +1,14 @@
-export { chordParserFactory, chordRendererFactory };
+export {
+    chordParserFactory,
+    chordRendererFactory,
+    AltIntervals,
+    Chord,
+    ChordInput,
+    FormattedChord,
+    NormalizedChord,
+    ParserConfiguration,
+    RendererConfiguration,
+};
 
 /**
  * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
