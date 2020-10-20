@@ -22,10 +22,10 @@ Expose the chordRendererFactory() function</a></dt>
 ## Functions
 
 <dl>
-<dt><a href="#chordParserFactory">chordParserFactory(altIntervals)</a> ⇒ <code>function</code></dt>
+<dt><a href="#chordParserFactory">chordParserFactory([ParserConfiguration])</a> ⇒ <code>function</code></dt>
 <dd><p>Create a chord parser function</p>
 </dd>
-<dt><a href="#chordRendererFactory">chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats, printer)</a> ⇒ <code>function</code></dt>
+<dt><a href="#chordRendererFactory">chordRendererFactory([RendererConfiguration])</a> ⇒ <code>function</code></dt>
 <dd><p>Create a pre-configured chord rendering function</p>
 </dd>
 </dl>
@@ -69,7 +69,7 @@ Default alterations triggered by the use of the alt modifier, eg all possible al
 **Kind**: global constant  
 <a name="chordParserFactory"></a>
 
-## chordParserFactory(altIntervals) ⇒ <code>function</code>
+## chordParserFactory([ParserConfiguration]) ⇒ <code>function</code>
 Create a chord parser function
 
 **Kind**: global function  
@@ -81,7 +81,9 @@ Create a chord parser function
   </thead>
   <tbody>
 <tr>
-    <td>altIntervals</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
+    <td>[ParserConfiguration]</td><td><code>Object</code></td><td></td>
+    </tr><tr>
+    <td>[ParserConfiguration.altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
 Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
 some level of flexibility when parsing an &quot;alt&quot; chord symbol.
 If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
@@ -111,7 +113,7 @@ Convert an input string into an abstract chord structure
 
 <a name="chordRendererFactory"></a>
 
-## chordRendererFactory(useShortNamings, simplify, transposeValue, harmonizeAccidentals, useFlats, printer) ⇒ <code>function</code>
+## chordRendererFactory([RendererConfiguration]) ⇒ <code>function</code>
 Create a pre-configured chord rendering function
 
 **Kind**: global function  
@@ -123,23 +125,27 @@ Create a pre-configured chord rendering function
   </thead>
   <tbody>
 <tr>
-    <td>useShortNamings</td><td><code>Boolean</code></td><td><p>if true, use short namings instead of the &quot;academic&quot; ones</p>
+    <td>[RendererConfiguration]</td><td><code>Object</code></td><td></td>
+    </tr><tr>
+    <td>[RendererConfiguration.useShortNamings]</td><td><code>Boolean</code></td><td><p>if true, use short namings instead of the &quot;academic&quot; ones</p>
 </td>
     </tr><tr>
-    <td>simplify</td><td><code>&#x27;none&#x27;</code> | <code>&#x27;max&#x27;</code> | <code>&#x27;core&#x27;</code></td><td><p>The level of simplification. <code>max</code> will basically remove everything but minor 3rd,
+    <td>[RendererConfiguration.simplify]</td><td><code>&#x27;none&#x27;</code> | <code>&#x27;max&#x27;</code> | <code>&#x27;core&#x27;</code></td><td><p>The level of simplification.
+<code>max</code> will basically remove everything but minor 3rd,
 <code>core</code> will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.</p>
 </td>
     </tr><tr>
-    <td>transposeValue</td><td><code>Number</code></td><td><p>positive or negative semitones value</p>
+    <td>[RendererConfiguration.transposeValue]</td><td><code>Number</code></td><td><p>positive or negative semitones value</p>
 </td>
     </tr><tr>
-    <td>harmonizeAccidentals</td><td><code>Boolean</code></td><td><p>convert accidentals to either sharp or flats</p>
+    <td>[RendererConfiguration.harmonizeAccidentals]</td><td><code>Boolean</code></td><td><p>convert accidentals to either sharp or flats</p>
 </td>
     </tr><tr>
-    <td>useFlats</td><td><code>Boolean</code></td><td><p>prefer flats for transposition/harmonization</p>
+    <td>[RendererConfiguration.useFlats]</td><td><code>Boolean</code></td><td><p>prefer flats for transposition/harmonization</p>
 </td>
     </tr><tr>
-    <td>printer</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
+    <td>[RendererConfiguration.printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><p>the printer to use for the rendering.
+&#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -346,22 +352,22 @@ Intervals affected by the Alt modifier when parsing an altered chord written "C7
   </thead>
   <tbody>
 <tr>
-    <td>fifthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat fifth</p>
+    <td>[fifthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat fifth</p>
 </td>
     </tr><tr>
-    <td>fifthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp fifth</p>
+    <td>[fifthSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp fifth</p>
 </td>
     </tr><tr>
-    <td>ninthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat ninth</p>
+    <td>[ninthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat ninth</p>
 </td>
     </tr><tr>
-    <td>ninthSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp ninth</p>
+    <td>[ninthSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp ninth</p>
 </td>
     </tr><tr>
-    <td>eleventhSharp</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the eleventh</p>
+    <td>[eleventhSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the eleventh</p>
 </td>
     </tr><tr>
-    <td>thirteenthFlat</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the thirteenth</p>
+    <td>[thirteenthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the thirteenth</p>
 </td>
     </tr>  </tbody>
 </table>

@@ -20,7 +20,7 @@
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@size-limit/preset-small-lib": "^4.6.0",
-    "babel-jest": "^26.5.2",
+    "babel-jest": "^26.6.0",
     "babel-loader": "^8.1.0",
     "cartesian": "^1.0.1",
     "clean-webpack-plugin": "^3.0.0",
@@ -29,7 +29,7 @@
     "generate-changelog": "^1.8.0",
     "get-permutations": "^1.0.0",
     "html-webpack-plugin": "^4.5.0",
-    "jest": "^26.5.3",
+    "jest": "^26.6.0",
     "jsdoc-to-markdown": "^6.0.1",
     "markdown-toc": "^1.2.0",
     "rollup": "^2.32.0",
@@ -38,7 +38,7 @@
     "typescript": "^4.0.3",
     "webpack": "^5.1.3",
     "webpack-bundle-analyzer": "^3.9.0",
-    "webpack-cli": "^4.0.0"
+    "webpack-cli": "^4.1.0"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -51,8 +51,9 @@
     "bundle": "webpack && npx rollup -c rollup.config.js",
     "size": "size-limit",
     "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
-    "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
-    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run size && npm run doc",
+    "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
+    "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run size && npm run doc && npm run typescript",
+    "typescript": "rm -rf ./types && npx typescript",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags",
     "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags",
