@@ -1,0 +1,14 @@
+{
+  "endOfLine": "lf",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 4,
+  "trailingComma": "es5",
+  "useTabs": true,
+  "overrides": [{
+    "files": "*.spec.js",
+    "options": {
+      "printWidth": 200
+    }
+  }]
+}
