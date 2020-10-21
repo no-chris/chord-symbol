@@ -19,7 +19,7 @@ describe('chain', () => {
 			return fnInput + 'fn3';
 		};
 
-		const allFunctions = [fn1, fn2, fn3 ];
+		const allFunctions = [fn1, fn2, fn3];
 
 		const result = chain(allFunctions, input);
 		expect(result).toBe(input + 'fn1' + 'fn2' + 'fn3');
@@ -42,7 +42,7 @@ describe('chain', () => {
 			expect(true).toBe(false);
 		};
 
-		const allFunctions = [fn1, fn2, fn3 ];
+		const allFunctions = [fn1, fn2, fn3];
 
 		const result = chain(allFunctions, input);
 		expect(result).toBeNull();

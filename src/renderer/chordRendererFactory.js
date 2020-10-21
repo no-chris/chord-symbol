@@ -21,19 +21,14 @@ function chordRendererFactory({
 	useFlats = false,
 	printer = 'text',
 } = {}) {
-
 	const allFilters = [];
 
 	if (['max', 'core'].includes(simplify)) {
-		allFilters.push(
-			simplifyFilter.bind(null, simplify)
-		);
+		allFilters.push(simplifyFilter.bind(null, simplify));
 	}
 
 	if (harmonizeAccidentals || transposeValue !== 0) {
-		allFilters.push(
-			transpose.bind(null, transposeValue, useFlats)
-		);
+		allFilters.push(transpose.bind(null, transposeValue, useFlats));
 	}
 
 	if (useShortNamings) {
@@ -53,7 +48,9 @@ function chordRendererFactory({
 		}
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
 
-		return (printer === 'raw') ? rawPrinter(filteredChord) : textPrinter(filteredChord);
+		return printer === 'raw'
+			? rawPrinter(filteredChord)
+			: textPrinter(filteredChord);
 	}
 }
 

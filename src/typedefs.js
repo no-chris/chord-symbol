@@ -95,4 +95,3 @@
  * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
  * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
  */
-

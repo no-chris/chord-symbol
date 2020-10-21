@@ -5,7 +5,7 @@ describe('initChord', () => {
 		const parserConfiguration = {
 			parserConfig1: true,
 			parserConfig2: 'string',
-			parserConfig3: { subConfig1: false }
+			parserConfig3: { subConfig1: false },
 		};
 		const chord = initChord(parserConfiguration, 'ChordSymbol');
 
@@ -18,8 +18,8 @@ describe('initChord', () => {
 			parserConfiguration: {
 				parserConfig1: true,
 				parserConfig2: 'string',
-				parserConfig3: { subConfig1: false }
-			}
+				parserConfig3: { subConfig1: false },
+			},
 		};
 
 		expect(chord).toEqual(expected);
@@ -29,7 +29,7 @@ describe('initChord', () => {
 		const parserConfiguration = {
 			parserConfig1: true,
 			parserConfig2: 'string',
-			parserConfig3: { subConfig1: false }
+			parserConfig3: { subConfig1: false },
 		};
 		const chord = initChord(parserConfiguration, 'ChordSymbol');
 

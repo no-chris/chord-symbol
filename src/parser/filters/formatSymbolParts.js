@@ -4,22 +4,24 @@ import { qualities } from '../../dictionaries/qualities';
 import { hasNoneOf } from '../../helpers/hasElement';
 
 const qualityToDescriptor = {
-	[qualities.ma]: 	() => '',
-	[qualities.ma6]: 	(chord) => (chord.normalized.intervals.includes('9')) ? '69' : '6',
-	[qualities.ma7]: 	(chord) => 'ma' + getHighestExtension(chord),
-	[qualities.dom7]: 	(chord) => getHighestExtension(chord),
+	[qualities.ma]: () => '',
+	[qualities.ma6]: (chord) =>
+		chord.normalized.intervals.includes('9') ? '69' : '6',
+	[qualities.ma7]: (chord) => 'ma' + getHighestExtension(chord),
+	[qualities.dom7]: (chord) => getHighestExtension(chord),
 
-	[qualities.mi]: 	() => 'mi',
-	[qualities.mi6]: 	(chord) => (chord.normalized.intervals.includes('9')) ? 'mi69' : 'mi6',
-	[qualities.mi7]: 	(chord) => 'mi' + getHighestExtension(chord),
-	[qualities.miMa7]: 	(chord) => 'miMa' + getHighestExtension(chord),
+	[qualities.mi]: () => 'mi',
+	[qualities.mi6]: (chord) =>
+		chord.normalized.intervals.includes('9') ? 'mi69' : 'mi6',
+	[qualities.mi7]: (chord) => 'mi' + getHighestExtension(chord),
+	[qualities.miMa7]: (chord) => 'miMa' + getHighestExtension(chord),
 
-	[qualities.aug]: 	() => '+',
-	[qualities.dim]: 	() => 'dim',
-	[qualities.dim7]: 	() => 'dim7',
+	[qualities.aug]: () => '+',
+	[qualities.dim]: () => 'dim',
+	[qualities.dim7]: () => 'dim7',
 
-	[qualities.power]: 	() => '5',
-	[qualities.bass]:  	() => ' bass',
+	[qualities.power]: () => '5',
+	[qualities.bass]: () => ' bass',
 };
 
 const chordChangesDescriptors = {
@@ -28,7 +30,6 @@ const chordChangesDescriptors = {
 	omit: 'omit',
 	sus: 'sus',
 };
-
 
 /**
  * @param {Chord} chord
@@ -58,27 +59,31 @@ function getHighestExtension(chord) {
 	let highestExtension = extensions[extensions.length - 1];
 
 	if (highestExtension === '11' && chord.normalized.intents.major) {
-		highestExtension = hasNoneOf(chord.normalized.alterations, ['b9', '#9']) ? '9' : '7';
+		highestExtension = hasNoneOf(chord.normalized.alterations, ['b9', '#9'])
+			? '9'
+			: '7';
 	}
 	return highestExtension || '7';
 }
 
 function getChordChanges(chord) {
 	const formattedOmits = formatOmits(chord.normalized.omits);
-	const formattedAdds = formatAdds(chord.normalized.quality, chord.normalized.adds);
+	const formattedAdds = formatAdds(
+		chord.normalized.quality,
+		chord.normalized.adds
+	);
 
 	return [
 		...sortAddsAndAlterations(formattedAdds, chord.normalized.alterations),
-		...formattedOmits
+		...formattedOmits,
 	];
 }
 
 function formatAdds(quality, adds) {
 	return adds
-		.filter(add => {
+		.filter((add) => {
 			return !(
-				[qualities.ma6, qualities.mi6].includes(quality)
-				&& add === '9'
+				[qualities.ma6, qualities.mi6].includes(quality) && add === '9'
 			);
 		})
 		.map((add, index) => {
@@ -89,7 +94,7 @@ function formatAdds(quality, adds) {
 					formatted += ' ';
 				}
 			}
-			formatted += (add === '7') ? chordChangesDescriptors.add7 : add;
+			formatted += add === '7' ? chordChangesDescriptors.add7 : add;
 			return formatted;
 		});
 }
@@ -111,10 +116,7 @@ function formatOmits(omits) {
 		if (index === 0) {
 			formatted += chordChangesDescriptors.omit;
 		}
-		formatted += (omitted === 'b3') ? '3' : omitted;
+		formatted += omitted === 'b3' ? '3' : omitted;
 		return formatted;
 	});
 }
-
-
-

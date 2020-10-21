@@ -47,7 +47,7 @@
   },
   "scripts": {
     "lint": "eslint src tests",
-    "format": "prettier --write \"**/*.{js,jsx,json,ts}\"",
+    "format": "prettier --write \"**/*.{js,jsx,json,ts,md}\"",
     "test-short": "TEST_SUITE=short jest",
     "test": "jest",
     "bundle": "webpack && npx rollup -c rollup.config.js",
