@@ -76,7 +76,7 @@
  * Configuration of the chord parser
  * @typedef {Object} ParserConfiguration
  * @type {Object}
- * @property {AltIntervals} [altIntervals] - user selection of intervals affected by the "alt" modifier (all by default).
+ * @property {AltIntervals} [altIntervals=defaultAltIntervals] - user selection of intervals affected by the "alt" modifier (all by default).
  * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
  * some level of flexibility when parsing an "alt" chord symbol.
  * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
@@ -86,14 +86,13 @@
  * Configuration of the chord renderer
  * @typedef {Object} RendererConfiguration
  * @type {Object}
- * @property {Boolean} [useShortNamings] - if true, use short namings instead of the "academic" ones
- * @property {('none'|'max'|'core')} [simplify] - The level of simplification.
+ * @property {Boolean} [useShortNamings=false] - if true, use short namings instead of the "academic" ones
+ * @property {('none'|'max'|'core')} [simplify='none'] - The level of simplification.
  * `max` will basically remove everything but minor 3rd,
  * `core` will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.
- * @property {Number} [transposeValue] - positive or negative semitones value
- * @property {Boolean} [harmonizeAccidentals] - convert accidentals to either sharp or flats
- * @property {Boolean} [useFlats] - prefer flats for transposition/harmonization
- * @property {('text'|'raw')} [printer] - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
- * @returns {function(Chord): String}
+ * @property {Number} [transposeValue=0] - positive or negative semitones value
+ * @property {Boolean} [harmonizeAccidentals=false] - convert accidentals to either sharp or flats
+ * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
+ * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
  */
 

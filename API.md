@@ -52,7 +52,7 @@ Intended to be used as building blocks of a rendered chord</p>
 <dt><a href="#ParserConfiguration">ParserConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord parser</p>
 </dd>
-<dt><a href="#RendererConfiguration">RendererConfiguration</a> ⇒ <code>function</code></dt>
+<dt><a href="#RendererConfiguration">RendererConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord renderer</p>
 </dd>
 </dl>
@@ -131,11 +131,11 @@ Create a pre-configured chord rendering function
 
 <a name="chordRendererFactory..renderChord"></a>
 
-### chordRendererFactory~renderChord(chord) ⇒ <code>String</code> \| <code>\*</code>
+### chordRendererFactory~renderChord(chord) ⇒ <code>String</code> \| [<code>Chord</code>](#Chord)
 Render a chord structure
 
 **Kind**: inner method of [<code>chordRendererFactory</code>](#chordRendererFactory)  
-**Returns**: <code>String</code> \| <code>\*</code> - output might depends on the selected printer  
+**Returns**: <code>String</code> \| [<code>Chord</code>](#Chord) - output depends on the selected printer: string for text printer (default), Chord for raw printer  
 <table>
   <thead>
     <tr>
@@ -362,12 +362,12 @@ Configuration of the chord parser
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Type</th><th>Description</th>
+      <th>Name</th><th>Type</th><th>Default</th><th>Description</th>
     </tr>
   </thead>
   <tbody>
 <tr>
-    <td>[altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
+    <td>[altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><code>defaultAltIntervals</code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
 Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
 some level of flexibility when parsing an &quot;alt&quot; chord symbol.
 If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
@@ -377,7 +377,7 @@ If you would like &quot;alt&quot; to consistently yield a specific set of interv
 
 <a name="RendererConfiguration"></a>
 
-## RendererConfiguration ⇒ <code>function</code>
+## RendererConfiguration : <code>Object</code>
 Configuration of the chord renderer
 
 **Kind**: global typedef  
@@ -386,29 +386,29 @@ Configuration of the chord renderer
 <table>
   <thead>
     <tr>
-      <th>Name</th><th>Type</th><th>Description</th>
+      <th>Name</th><th>Type</th><th>Default</th><th>Description</th>
     </tr>
   </thead>
   <tbody>
 <tr>
-    <td>[useShortNamings]</td><td><code>Boolean</code></td><td><p>if true, use short namings instead of the &quot;academic&quot; ones</p>
+    <td>[useShortNamings]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>if true, use short namings instead of the &quot;academic&quot; ones</p>
 </td>
     </tr><tr>
-    <td>[simplify]</td><td><code>&#x27;none&#x27;</code> | <code>&#x27;max&#x27;</code> | <code>&#x27;core&#x27;</code></td><td><p>The level of simplification.
+    <td>[simplify]</td><td><code>&#x27;none&#x27;</code> | <code>&#x27;max&#x27;</code> | <code>&#x27;core&#x27;</code></td><td><code>&#x27;none&#x27;</code></td><td><p>The level of simplification.
 <code>max</code> will basically remove everything but minor 3rd,
 <code>core</code> will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.</p>
 </td>
     </tr><tr>
-    <td>[transposeValue]</td><td><code>Number</code></td><td><p>positive or negative semitones value</p>
+    <td>[transposeValue]</td><td><code>Number</code></td><td><code>0</code></td><td><p>positive or negative semitones value</p>
 </td>
     </tr><tr>
-    <td>[harmonizeAccidentals]</td><td><code>Boolean</code></td><td><p>convert accidentals to either sharp or flats</p>
+    <td>[harmonizeAccidentals]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>convert accidentals to either sharp or flats</p>
 </td>
     </tr><tr>
-    <td>[useFlats]</td><td><code>Boolean</code></td><td><p>prefer flats for transposition/harmonization</p>
+    <td>[useFlats]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>prefer flats for transposition/harmonization</p>
 </td>
     </tr><tr>
-    <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
+    <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
 </td>
     </tr>  </tbody>
 </table>

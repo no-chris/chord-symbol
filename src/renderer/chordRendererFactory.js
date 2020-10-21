@@ -45,10 +45,10 @@ function chordRendererFactory({
 	/**
 	 * Render a chord structure
 	 * @param {Chord} chord - the chord structure to render
-	 * @returns {String|*} output might depends on the selected printer
+	 * @returns {String|Chord} output depends on the selected printer: string for text printer (default), Chord for raw printer
 	 */
 	function renderChord(chord) {
-		if (chord === null) {
+		if (!chord) {
 			return null;
 		}
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
