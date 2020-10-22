@@ -6,7 +6,7 @@
  * If you need to trace what has generated a given chord, you'll find it here.
  * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
  * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
- * @property {Object} parserConfiguration - configuration passed to the parser on chord creation.
+ * @property {ParserConfiguration} parserConfiguration - configuration passed to the parser on chord creation.
  */
 
 /**

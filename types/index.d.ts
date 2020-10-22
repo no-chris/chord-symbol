@@ -30,7 +30,7 @@ type Chord = {
 	/**
 	 * - configuration passed to the parser on chord creation.
 	 */
-	parserConfiguration: any;
+	parserConfiguration: ParserConfiguration;
 };
 /**
  * The source from which the chord structure has been built
