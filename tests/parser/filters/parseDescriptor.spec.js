@@ -126,7 +126,7 @@ describe('Intervals & semitones', () => {
 
 		[ 'Aomit3omit5',	[ '1' ],									{ major: true, eleventh: false,  alt: false } ],
 
-		[ 'C4',				[ '1', '3', '4', '5' ],						{ major: true, eleventh: false,  alt: false } ],
+		[ 'C4',				[ '1', '4', '5' ],							{ major: true, eleventh: false,  alt: false } ],
 		[ 'Cadd4',			[ '1', '3', '4', '5' ],						{ major: true, eleventh: false,  alt: false } ],
 
 
