@@ -41,7 +41,6 @@ describe('normalizeDescriptor', () => {
 		['Major9', 'CM9', { quality: 'major7', extensions: ['9'] }],
 		['Major11', 'CM11', { quality: 'major7', extensions: ['9', '11'], isSuspended: true }],
 		['Major13', 'CM13', { quality: 'major7', extensions: ['9', '13'] }],
-		['Major add4', 'C4', { quality: 'major', extensions: [], adds: ['3'], isSuspended: true }],
 		['Major add4', 'Cadd4', { quality: 'major', extensions: [], adds: ['3'], isSuspended: true }],
 
 		['Minor', 'Cm', { quality: 'minor' }],
@@ -58,6 +57,7 @@ describe('normalizeDescriptor', () => {
 		['MinorMajor13', 'CmΔ13', { quality: 'minorMajor7', extensions: ['9', '11', '13'] }],
 
 		['Sus', 'Csus4', { quality: 'major', isSuspended: true }],
+		['Sus', 'C4', { quality: 'major', isSuspended: true }],
 		['MinorSus', 'Cmisus', { quality: 'minor', isSuspended: true }],
 		['SusDominant7', 'Csus7', { quality: 'dominant7', isSuspended: true }],
 		['SusDominant9', 'Csus9', { quality: 'dominant7', isSuspended: true, extensions: ['9'] }],

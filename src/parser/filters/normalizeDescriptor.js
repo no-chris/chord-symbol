@@ -99,7 +99,8 @@ function isAlteredChord(intents) {
 
 function getIsSuspended(intervals, hasMajorIntent) {
 	return (
-		intervals.includes('4') || (intervals.includes('11') && hasMajorIntent)
+		intervals.includes('4') ||
+		(intervals.includes('11') && hasMajorIntent && !intervals.includes('3'))
 	);
 }
 

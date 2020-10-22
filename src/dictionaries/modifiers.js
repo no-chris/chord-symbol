@@ -105,6 +105,7 @@ const allSymbols = {
 	7: allModifiers.seventh,
 
 	// suspended
+	4: allModifiers.sus,
 	sus: allModifiers.sus,
 	sus4: allModifiers.sus,
 	suspended: allModifiers.sus,
@@ -144,7 +145,6 @@ const allSymbols = {
 	2: allModifiers.add9,
 	add2: allModifiers.add9,
 	add3: allModifiers.add3,
-	4: allModifiers.add4,
 	add4: allModifiers.add4,
 	6: allModifiers.add6,
 	add6: allModifiers.add6,

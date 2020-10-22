@@ -21,6 +21,7 @@ describe('normalizeDescriptor', () => {
 
 		['major', 'C', '', []],
 		['major + sus', 'Csus4', 'sus', []],
+		['major + sus', 'C4', 'sus', []],
 		['major6', 'C6', '6', []],
 		['major6 + sus', 'C6sus4', '6sus', []],
 		['major6 + 9', 'C69', '69', []],
@@ -77,7 +78,6 @@ describe('normalizeDescriptor', () => {
 		['power', 'C5', '5', []],
 		['bass', 'A bass', ' bass', []],
 
-		['add4', 'C4', 'sus', ['add3']],
 		['add4', 'Cadd4', 'sus', ['add3']],
 
 		['sort alt>add', 'C7b5(add13)', '7', ['b5', 'add13']],
