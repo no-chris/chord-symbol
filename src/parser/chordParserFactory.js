@@ -6,6 +6,8 @@ import {
 	germanVariants,
 } from '../dictionaries/notes';
 
+import checkUserFilters from '../helpers/checkUserFilters';
+
 import initChord from './filters/initChord';
 import parseBase from './filters/parseBase';
 import parseDescriptor from './filters/parseDescriptor';
@@ -33,12 +35,17 @@ const defaultAltIntervals = {
  * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord|Null}
  */
-function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
+function chordParserFactory({
+	altIntervals = defaultAltIntervals,
+	customFilters = [],
+} = {}) {
 	const allAltIntervals = Object.assign(
 		{},
 		defaultAltIntervals,
 		altIntervals
 	);
+
+	checkUserFilters(customFilters);
 
 	return parseChord;
 
@@ -63,6 +70,7 @@ function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
 				formatSymbolParts,
 				checkIntervalsConsistency,
 				nameIndividualChordNotes,
+				...customFilters,
 			];
 
 			chord = chain(allFilters, symbol);

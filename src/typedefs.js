@@ -80,6 +80,7 @@
  * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
  * some level of flexibility when parsing an "alt" chord symbol.
  * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
+ * @property {function(String): Chord|Null} [customFilters=[]] - Array of custom filters applied during parsing
  */
 
 /**
