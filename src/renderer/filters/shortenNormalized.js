@@ -32,16 +32,17 @@ export default function shortenNormalized(chord) {
 		descriptor = shortDescriptors.aug7;
 		chordChanges = [];
 
-	} else if (isEleventh(chord)) {
-		descriptor = chord.formatted.descriptor
-			.replace(/7sus|9sus/, shortDescriptors.eleventh);
-
 	} else {
 		descriptor = chord.formatted.descriptor
 			.replace('mi', shortDescriptors.mi)
 			.replace(/[m|M]a/, shortDescriptors.ma)
 			.replace('dim', shortDescriptors.dim)
 		;
+
+		if (isEleventh(chord)) {
+			descriptor = descriptor
+				.replace(/7sus|9sus/, shortDescriptors.eleventh);
+		}
 	}
 
 	chordChanges = chordChanges

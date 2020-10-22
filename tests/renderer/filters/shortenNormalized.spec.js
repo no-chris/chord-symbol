@@ -27,8 +27,10 @@ describe('shortenNormalized', () => {
 		['Cmi7(omit3)',  	'm7', 	['no3'] ],
 
 		['C11', 		 	'11', 	[] ],
-		['CM11', 		 	'ma11', [] ],
+		['CMAJ11', 		 	'M11',  [] ],
+		['Cmi11',  			'm11', 	[] ],
 		['C11(b9)', 	 	'11', 	['b9'] ],
+		['C°11', 	 		'm11', 	['b5'] ],
 
 	])('%s => %s', (input, descriptor, chordChanges = []) => {
 		test('is rendered ' + descriptor, () => {

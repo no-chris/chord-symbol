@@ -6,6 +6,7 @@ describe('getAllSymbolModifiers()', () => {
 	test('should retrieve all symbols for the given modifier', () => {
 		const symbols = getAllSymbolModifiers(allModifiers.sus).sort();
 		const expected = [
+			'4',
 			'sus',
 			'sus4',
 			'suspended',
