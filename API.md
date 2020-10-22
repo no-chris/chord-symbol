@@ -175,7 +175,7 @@ If you need to trace what has generated a given chord, you&#39;ll find it here.<
     <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
 </td>
     </tr><tr>
-    <td>parserConfiguration</td><td><code>Object</code></td><td><p>configuration passed to the parser on chord creation.</p>
+    <td>parserConfiguration</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
 </td>
     </tr>  </tbody>
 </table>

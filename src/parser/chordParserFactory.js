@@ -1,6 +1,10 @@
 import chain from '../helpers/chain';
 
-import { englishVariants, latinVariants, germanVariants } from '../dictionaries/notes';
+import {
+	englishVariants,
+	latinVariants,
+	germanVariants,
+} from '../dictionaries/notes';
 
 import initChord from './filters/initChord';
 import parseBase from './filters/parseBase';
@@ -11,18 +15,17 @@ import formatSymbolParts from './filters/formatSymbolParts';
 import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
 import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
 
-
 /**
  * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
  * @type AltIntervals
  */
 const defaultAltIntervals = {
-	fifthFlat: 		true,
-	fifthSharp: 	true,
-	ninthFlat: 		true,
-	ninthSharp: 	true,
-	eleventhSharp:	true,
-	thirteenthFlat:	true,
+	fifthFlat: true,
+	fifthSharp: true,
+	ninthFlat: true,
+	ninthSharp: true,
+	eleventhSharp: true,
+	thirteenthFlat: true,
 };
 
 /**
@@ -31,8 +34,11 @@ const defaultAltIntervals = {
  * @returns {function(String): Chord|Null}
  */
 function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
-
-	const allAltIntervals = Object.assign({}, defaultAltIntervals, altIntervals);
+	const allAltIntervals = Object.assign(
+		{},
+		defaultAltIntervals,
+		altIntervals
+	);
 
 	return parseChord;
 
@@ -42,11 +48,7 @@ function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
 	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
 	 */
 	function parseChord(symbol) {
-		const allNotes = [
-			englishVariants,
-			latinVariants,
-			germanVariants,
-		];
+		const allNotes = [englishVariants, latinVariants, germanVariants];
 
 		let chord;
 		let allFilters;

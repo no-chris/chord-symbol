@@ -11,10 +11,7 @@ export default {
 	input: 'src/index.js',
 	output: {
 		file: path.resolve(process.cwd(), buildDir) + '/chord-symbol-esm.js',
-		format: 'es'
+		format: 'es',
 	},
-	plugins: [
-		resolve(),
-		commonjs()
-	]
+	plugins: [resolve(), commonjs()],
 };

@@ -29,14 +29,16 @@ import cartesian from 'cartesian';
 
 export default function combineModifiers() {
 	return getPermutations([...arguments])
-		.map(permutation => cartesian(permutation))
-		.map(permutationProducts => {
-			return permutationProducts.map(product => {
+		.map((permutation) => cartesian(permutation))
+		.map((permutationProducts) => {
+			return permutationProducts.map((product) => {
 				product[0] = product[0].replace(/^[b♭#♯].*/, '($&)');
 				return product;
 			});
 		})
-		.map(permutationProducts => permutationProducts.map(product => product.join('')))
+		.map((permutationProducts) =>
+			permutationProducts.map((product) => product.join(''))
+		)
 		.flat()
 		.sort();
 }

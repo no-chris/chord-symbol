@@ -4,7 +4,12 @@
  */
 export default function textPrinter(chord) {
 	if (chord) {
-		const { rootNote, bassNote, descriptor, chordChanges } = chord.formatted;
+		const {
+			rootNote,
+			bassNote,
+			descriptor,
+			chordChanges,
+		} = chord.formatted;
 
 		let printed = rootNote;
 
@@ -12,10 +17,9 @@ export default function textPrinter(chord) {
 			printed += descriptor;
 		}
 		if (chordChanges && chordChanges.length) {
-
-			printed += chordChanges.includes('alt') ?
-				'alt' :
-				'(' + chordChanges.join(',') + ')';
+			printed += chordChanges.includes('alt')
+				? 'alt'
+				: '(' + chordChanges.join(',') + ')';
 		}
 		if (bassNote) {
 			printed += '/' + bassNote;

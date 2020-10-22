@@ -1,6 +1,5 @@
 import { allVariantsToNotes } from '../../dictionaries/notes';
 
-
 /**
  * @param {Chord} chord
  * @returns {Chord}

@@ -1,13 +1,14 @@
 /* eslint-env node */
 const path = require('path');
 
-const {CleanWebpackPlugin}  = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin 	= require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+	.BundleAnalyzerPlugin;
 
 const buildDir = 'lib';
 
 const config = {
-	target:'web',
+	target: 'web',
 	mode: 'production',
 	devtool: 'source-map',
 
@@ -21,7 +22,7 @@ const config = {
 		library: 'chord-symbol',
 		libraryTarget: 'umd',
 		// https://github.com/webpack/webpack/pull/8625
-		globalObject: 'typeof self !== \'undefined\' ? self : this',
+		globalObject: "typeof self !== 'undefined' ? self : this",
 	},
 
 	optimization: {
@@ -29,7 +30,7 @@ const config = {
 	},
 
 	performance: {
-		hints: false
+		hints: false,
 	},
 
 	plugins: [
@@ -45,11 +46,10 @@ const config = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				loader: 'babel-loader'
+				loader: 'babel-loader',
 			},
-		]
+		],
 	},
 };
 
 module.exports = config;
-
