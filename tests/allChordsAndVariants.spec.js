@@ -242,6 +242,7 @@ const allSrcSymbols = [
 	[ 'C6(#9)',		'C', ['1', '3', '5', '6', '#9'],		'C6(add #9)', 	[ m.add6, m.ninthSharp ] ],
 	[ 'C6(b9)',		'C', ['1', '3', '5', '6', 'b9'],		'C6(add b9)',	[ m.add6, m.ninthFlat ] ],
 	[ 'Cø',			'C', ['1', 'b3', 'b5', 'b7'],			'Cmi7(b5)', 	[ m.halfDim ] ],
+	[ 'Cadd11',		'C', ['1', '3', '5', '11'],				'C(add11)', 	[ m.add11 ] ],
 
 	// altered chords
 	['Calt',		'C', ['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],	'C7alt', [ m.alt ] ],
