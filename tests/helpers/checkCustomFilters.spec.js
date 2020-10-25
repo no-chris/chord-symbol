@@ -17,6 +17,7 @@ describe('module', () => {
 		});
 	});
 
+	// prettier-ignore
 	describe.each([
 		['not an array: null', null, 'customFilters should be given as an array'],
 		['not an array: undefined', undefined, 'customFilters should be given as an array'],

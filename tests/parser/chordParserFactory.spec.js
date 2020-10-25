@@ -26,9 +26,17 @@ describe('ambiguous rootNote', () => {
 			modifierFirstLetter = modifierVariant[0];
 			noteConflict = noteVariant + modifierFirstLetter;
 
-			if (!['♭', 'b', '♯', '#'].includes(modifierFirstLetter) && allNotesVariants.includes(noteConflict)) {
+			if (
+				!['♭', 'b', '♯', '#'].includes(modifierFirstLetter) &&
+				allNotesVariants.includes(noteConflict)
+			) {
 				symbol = noteVariant + modifierVariant;
-				allCases.push([symbol + ' conflict with: ' + noteConflict, symbol, noteVariant, modifierVariant]);
+				allCases.push([
+					symbol + ' conflict with: ' + noteConflict,
+					symbol,
+					noteVariant,
+					modifierVariant,
+				]);
 			}
 		});
 	});
@@ -115,8 +123,14 @@ describe('custom alt intervals', () => {
 				eleventhSharp: false,
 				thirteenthFlat: false,
 			};
-			const allAltIntervals = Object.assign({}, noAltIntervals, altIntervals);
-			const parseChord = chordParserFactory({ altIntervals: allAltIntervals });
+			const allAltIntervals = Object.assign(
+				{},
+				noAltIntervals,
+				altIntervals
+			);
+			const parseChord = chordParserFactory({
+				altIntervals: allAltIntervals,
+			});
 			const parsed = parseChord('Calt');
 
 			expect(parsed.normalized.intervals).toEqual(intervals);

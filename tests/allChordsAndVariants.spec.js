@@ -10,6 +10,7 @@ import chordRendererFactory from '../src/renderer/chordRendererFactory';
 const TEST_SUITE = process.env.TEST_SUITE;
 const VARIANT_THRESHOLD = 750; // limit the number of tested combinations per symbol
 
+// prettier-ignore
 const allSrcSymbols = [
 	/**/
 
@@ -262,7 +263,14 @@ allSrcSymbols.forEach((symbolSrc) => {
 	if (!allCasesSymbols.includes(symbol)) {
 		addCase(symbol, symbol, rootNote, printed, intervals);
 
-		allVariants = [...combineModifiers(...modifiers.map(getAllSymbolModifiers))].map((variant) => rootNote + variant + (bassNote ? '/' + bassNote : '')).filter((variant) => variant !== symbol);
+		allVariants = [
+			...combineModifiers(...modifiers.map(getAllSymbolModifiers)),
+		]
+			.map(
+				(variant) =>
+					rootNote + variant + (bassNote ? '/' + bassNote : '')
+			)
+			.filter((variant) => variant !== symbol);
 
 		if (TEST_SUITE !== 'short') {
 			allVariants
@@ -271,7 +279,13 @@ allSrcSymbols.forEach((symbolSrc) => {
 					return !allCasesSymbols.includes(variant);
 				})
 				.forEach((variant) => {
-					addCase(symbol + ' / variant: ' + variant, variant, rootNote, printed, intervals);
+					addCase(
+						symbol + ' / variant: ' + variant,
+						variant,
+						rootNote,
+						printed,
+						intervals
+					);
 				});
 		}
 	}
@@ -286,7 +300,9 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 	test('is parsed: ' + intervals.join(' '), () => {
 		const parseChord = chordParserFactory();
 
-		const semitones = intervals.map((interval) => intervalsToSemitones[interval]).sort((a, b) => a - b);
+		const semitones = intervals
+			.map((interval) => intervalsToSemitones[interval])
+			.sort((a, b) => a - b);
 		const parsed = parseChord(symbol);
 
 		expect(parsed.normalized.intervals).toEqual(intervals);
@@ -311,6 +327,8 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 		const chord1 = parseChord(symbol);
 		const rendered = renderChord(chord1);
 		const chord2 = parseChord(rendered);
-		expect(chord1.normalized.intervals).toEqual(chord2.normalized.intervals);
+		expect(chord1.normalized.intervals).toEqual(
+			chord2.normalized.intervals
+		);
 	});
 });

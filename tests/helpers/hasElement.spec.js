@@ -1,4 +1,9 @@
-import { hasExactly, hasNoneOf, hasOneOf, hasAll } from '../../src/helpers/hasElement';
+import {
+	hasExactly,
+	hasNoneOf,
+	hasOneOf,
+	hasAll,
+} from '../../src/helpers/hasElement';
 
 describe('hasExactly', () => {
 	describe.each([

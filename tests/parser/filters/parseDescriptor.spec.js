@@ -8,11 +8,16 @@ import intervalsToSemitones from '../../../src/dictionaries/intervalsToSemitones
 import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
 
 function parseChord(symbol) {
-	const allFilters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants), getParsableDescriptor];
+	const allFilters = [
+		initChord.bind(null, {}),
+		parseBase.bind(null, englishVariants),
+		getParsableDescriptor,
+	];
 	return chain(allFilters, symbol);
 }
 
 describe('Intervals & semitones', () => {
+	// prettier-ignore
 	describe.each([
 		['A', ['1', '3', '5'], { major: true, eleventh: false, alt: false }],
 		['A6', ['1', '3', '5', '6'], { major: true, eleventh: false, alt: false }],
@@ -68,7 +73,9 @@ describe('Intervals & semitones', () => {
 		test('is parsed: ' + intervals.join('-'), () => {
 			const chord = parseChord(symbol);
 			const parsed = parseDescriptor({}, chord);
-			const semitones = intervals.map((interval) => intervalsToSemitones[interval]);
+			const semitones = intervals.map(
+				(interval) => intervalsToSemitones[interval]
+			);
 
 			expect(parsed.normalized.intervals).toEqual(intervals);
 			expect(parsed.normalized.semitones).toEqual(semitones);

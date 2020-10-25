@@ -38,7 +38,9 @@ describe('shortenNormalized', () => {
 			const shortened = shortenNormalized(normalized);
 
 			expect(shortened.formatted.descriptor).toStrictEqual(descriptor);
-			expect(shortened.formatted.chordChanges).toStrictEqual(chordChanges);
+			expect(shortened.formatted.chordChanges).toStrictEqual(
+				chordChanges
+			);
 		});
 	});
 });

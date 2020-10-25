@@ -48,35 +48,39 @@ describe('raw printer', () => {
 		['Ch(#11,b13)', 2, 'core', false, 'Dmi7(b5)'],
 		['Ch(#11,b13)', 4, 'max', false, 'Emi'],
 		['Ch(#11,b13)', 5, 'max', true, 'Fm'],
-	])('should reflect the output of all rendering filters, as if the chord had been parsed from scratch as rendered', (input, transposeValue, simplify, useShortNamings, expectedTxt) => {
-		const parseChord = chordParserFactory();
+	])(
+		'should reflect the output of all rendering filters, as if the chord had been parsed from scratch as rendered',
+		(input, transposeValue, simplify, useShortNamings, expectedTxt) => {
+			const parseChord = chordParserFactory();
 
-		test(input + ' => ' + expectedTxt, () => {
-			const renderTxt = chordRendererFactory({
-				transposeValue,
-				simplify,
-				useShortNamings,
+			test(input + ' => ' + expectedTxt, () => {
+				const renderTxt = chordRendererFactory({
+					transposeValue,
+					simplify,
+					useShortNamings,
+				});
+				const renderRaw = chordRendererFactory({
+					transposeValue,
+					simplify,
+					useShortNamings,
+					printer: 'raw',
+				});
+
+				const parsedInput = parseChord(input);
+				const inputRenderedTxt = renderTxt(parsedInput);
+				const inputRenderedRaw = renderRaw(parsedInput);
+
+				const parsedRendered = parseChord(inputRenderedTxt);
+
+				// hu?! correct the descriptor in case of shortNamings are used
+				// in that case the fommatted descriptor, at parsing time, always contains le academic naming
+				// so we kind of hack the parsed chord
+				parsedRendered.formatted.descriptor =
+					inputRenderedRaw.formatted.descriptor;
+
+				expect(inputRenderedTxt).toEqual(expectedTxt);
+				expect(inputRenderedRaw).toEqual(parsedRendered);
 			});
-			const renderRaw = chordRendererFactory({
-				transposeValue,
-				simplify,
-				useShortNamings,
-				printer: 'raw',
-			});
-
-			const parsedInput = parseChord(input);
-			const inputRenderedTxt = renderTxt(parsedInput);
-			const inputRenderedRaw = renderRaw(parsedInput);
-
-			const parsedRendered = parseChord(inputRenderedTxt);
-
-			// hu?! correct the descriptor in case of shortNamings are used
-			// in that case the fommatted descriptor, at parsing time, always contains le academic naming
-			// so we kind of hack the parsed chord
-			parsedRendered.formatted.descriptor = inputRenderedRaw.formatted.descriptor;
-
-			expect(inputRenderedTxt).toEqual(expectedTxt);
-			expect(inputRenderedRaw).toEqual(parsedRendered);
-		});
-	});
+		}
+	);
 });

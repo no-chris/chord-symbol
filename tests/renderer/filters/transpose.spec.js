@@ -92,23 +92,26 @@ describe.each([
 
 	['C#+0, b', 'C#', 0, true, 'Db'],
 	['Db+0, #', 'Db', 0, false, 'C#'],
-])('Transpose: %s', (title, symbol, value, useFlats, transposedRoot, transposedBass) => {
-	test('Should convert ' + symbol + ' into ' + transposedRoot, () => {
-		const parseChord = chordParserFactory();
+])(
+	'Transpose: %s',
+	(title, symbol, value, useFlats, transposedRoot, transposedBass) => {
+		test('Should convert ' + symbol + ' into ' + transposedRoot, () => {
+			const parseChord = chordParserFactory();
 
-		const chord = parseChord(symbol);
+			const chord = parseChord(symbol);
 
-		const transposed = transpose(value, useFlats, chord);
+			const transposed = transpose(value, useFlats, chord);
 
-		chord.normalized.rootNote = transposedRoot;
-		chord.formatted.rootNote = transposedRoot;
+			chord.normalized.rootNote = transposedRoot;
+			chord.formatted.rootNote = transposedRoot;
 
-		chord.normalized.bassNote = transposedBass;
-		chord.formatted.bassNote = transposedBass;
+			chord.normalized.bassNote = transposedBass;
+			chord.formatted.bassNote = transposedBass;
 
-		expect(transposed).toEqual(chord);
-	});
-});
+			expect(transposed).toEqual(chord);
+		});
+	}
+);
 
 describe.each([
 	['C13', 'C13', 0, false, ['C', 'E', 'G', 'Bb', 'D', 'A']],
@@ -134,13 +137,26 @@ describe.each([
 	['C13', 'Bb13', 10, true, ['Bb', 'D', 'F', 'Ab', 'C', 'G']],
 	['C13', 'B13', 11, false, ['B', 'D#', 'F#', 'A', 'C#', 'G#']],
 	['Cm13', 'Bm13', 11, false, ['B', 'D', 'F#', 'A', 'C#', 'E', 'G#']],
-])('Should also transpose chord notes', (chord, rendered, transposeValue, useFlats, notes) => {
-	test(chord + ' +' + transposeValue + ' => ' + rendered + ' (' + notes.join(' ') + ')', () => {
-		const parseChord = chordParserFactory();
-		const parsed = parseChord(chord);
+])(
+	'Should also transpose chord notes',
+	(chord, rendered, transposeValue, useFlats, notes) => {
+		test(
+			chord +
+				' +' +
+				transposeValue +
+				' => ' +
+				rendered +
+				' (' +
+				notes.join(' ') +
+				')',
+			() => {
+				const parseChord = chordParserFactory();
+				const parsed = parseChord(chord);
 
-		const transposed = transpose(transposeValue, useFlats, parsed);
+				const transposed = transpose(transposeValue, useFlats, parsed);
 
-		expect(transposed.normalized.notes).toEqual(notes);
-	});
-});
+				expect(transposed.normalized.notes).toEqual(notes);
+			}
+		);
+	}
+);

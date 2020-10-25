@@ -16,7 +16,11 @@ describe('Module', () => {
 describe('Immutability', () => {
 	test('Should not modify chord representation given as an input', () => {
 		const parseChord = chordParserFactory();
-		const renderChord = chordRendererFactory({ transposeValue: 5, useShortNamings: true, simplify: 'core' });
+		const renderChord = chordRendererFactory({
+			transposeValue: 5,
+			useShortNamings: true,
+			simplify: 'core',
+		});
 
 		const parsed = Object.freeze(parseChord('Ch(#11,b13)'));
 		const parsedCopy = _cloneDeep(parsed);
@@ -96,14 +100,28 @@ describe('Transpose', () => {
 		['flat, useFlats', 'Ab', 0, true, false, 'Ab'],
 		['flat, useFlats, harmonizeAccidentals', 'Ab', 0, true, true, 'Ab'],
 		['flat, harmonizeAccidentals', 'Ab', 0, false, true, 'G#'],
-	])('%s', (title, input, transposeValue, useFlats, harmonizeAccidentals, transposed) => {
-		test(input + 'is transposed: ' + transposed, () => {
-			const parseChord = chordParserFactory();
-			const renderChord = chordRendererFactory({ transposeValue, useFlats, harmonizeAccidentals });
-			const chord = parseChord(input);
-			expect(renderChord(chord)).toBe(transposed);
-		});
-	});
+	])(
+		'%s',
+		(
+			title,
+			input,
+			transposeValue,
+			useFlats,
+			harmonizeAccidentals,
+			transposed
+		) => {
+			test(input + 'is transposed: ' + transposed, () => {
+				const parseChord = chordParserFactory();
+				const renderChord = chordRendererFactory({
+					transposeValue,
+					useFlats,
+					harmonizeAccidentals,
+				});
+				const chord = parseChord(input);
+				expect(renderChord(chord)).toBe(transposed);
+			});
+		}
+	);
 });
 
 describe('Printers', () => {
@@ -126,7 +144,12 @@ describe('Printers', () => {
 describe('invalid options values', () => {
 	describe.each([
 		['invalid simplify value', 'Cm7', 'Cmi7', { simplify: false }],
-		['invalid simplify value, suspended chord', 'C7sus', 'C7sus', { simplify: false }],
+		[
+			'invalid simplify value, suspended chord',
+			'C7sus',
+			'C7sus',
+			{ simplify: false },
+		],
 	])('%s', (title, input, expected, options) => {
 		test(input + ' is rendered: ' + expected, () => {
 			const parseChord = chordParserFactory();
@@ -164,7 +187,10 @@ describe('apply user filters', () => {
 		const parseChord = chordParserFactory();
 		const parsed = parseChord('Cm7');
 
-		const renderChord = chordRendererFactory({ customFilters, printer: 'raw' });
+		const renderChord = chordRendererFactory({
+			customFilters,
+			printer: 'raw',
+		});
 		const rendered = renderChord(parsed);
 
 		expect(rendered).toHaveProperty('myFilter1');
@@ -181,7 +207,10 @@ describe('apply user filters', () => {
 		const parsed = parseChord('Cm7');
 
 		const renderChordRaw = chordRendererFactory({ printer: 'raw' });
-		const renderChord = chordRendererFactory({ customFilters, printer: 'raw' });
+		const renderChord = chordRendererFactory({
+			customFilters,
+			printer: 'raw',
+		});
 
 		const renderedRaw = renderChordRaw(parsed);
 		const rendered = renderChord(parsed);

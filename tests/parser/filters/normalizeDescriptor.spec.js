@@ -11,7 +11,12 @@ import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor
 import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
 
 function parseChord(symbol) {
-	const filters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants), getParsableDescriptor, parseDescriptor.bind(null, {})];
+	const filters = [
+		initChord.bind(null, {}),
+		parseBase.bind(null, englishVariants),
+		getParsableDescriptor,
+		parseDescriptor.bind(null, {}),
+	];
 	return chain(filters, symbol);
 }
 
@@ -25,6 +30,7 @@ describe('normalizeDescriptor', () => {
 		omits: [],
 	};
 
+	// prettier-ignore
 	describe.each([
 		/**/
 		/**/

@@ -1,4 +1,9 @@
-import { allVariantsToNotes, englishVariants, latinVariants, germanVariants } from '../src/dictionaries/notes';
+import {
+	allVariantsToNotes,
+	englishVariants,
+	latinVariants,
+	germanVariants,
+} from '../src/dictionaries/notes';
 
 import chordParserFactory from '../src/parser/chordParserFactory';
 
@@ -20,7 +25,11 @@ describe('Root and bass notes', () => {
 				.forEach((bassNote) => {
 					chordSymbol = rootNote + '/' + bassNote;
 					if (TEST_SUITE !== 'short') {
-						allCases.push([chordSymbol, allVariantsToNotes[rootNote], allVariantsToNotes[bassNote]]);
+						allCases.push([
+							chordSymbol,
+							allVariantsToNotes[rootNote],
+							allVariantsToNotes[bassNote],
+						]);
 					}
 				});
 		});

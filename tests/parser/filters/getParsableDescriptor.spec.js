@@ -6,7 +6,10 @@ import parseBase from '../../../src/parser/filters/parseBase';
 import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
 
 function parseChord(symbol) {
-	const allFilters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants)];
+	const allFilters = [
+		initChord.bind(null, {}),
+		parseBase.bind(null, englishVariants),
+	];
 	return chain(allFilters, symbol);
 }
 

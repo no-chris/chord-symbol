@@ -10,7 +10,12 @@ import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
 
 function parseChord(symbol) {
-	const filters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants), getParsableDescriptor, parseDescriptor.bind(null, {})];
+	const filters = [
+		initChord.bind(null, {}),
+		parseBase.bind(null, englishVariants),
+		getParsableDescriptor,
+		parseDescriptor.bind(null, {}),
+	];
 	return chain(filters, symbol);
 }
 
@@ -35,7 +40,9 @@ describe('checkIntervalsConsistency', () => {
 	])('%s: %s', (title, symbol, forbiddenCombo) => {
 		test('yields invalid intervals: ' + forbiddenCombo.join(', '), () => {
 			const chord = parseChord(symbol);
-			expect(hasAll(chord.normalized.intervals, forbiddenCombo)).toBe(true);
+			expect(hasAll(chord.normalized.intervals, forbiddenCombo)).toBe(
+				true
+			);
 
 			const checked = checkIntervalsConsistency(chord);
 			expect(checked).toBeNull();
