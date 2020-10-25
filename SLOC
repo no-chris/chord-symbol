@@ -20,10 +20,10 @@ Tests:
 
 ---------- Result ------------
 
-            Physical :  2145
-              Source :  1556
-             Comment :  327
- Single-line comment :  19
+            Physical :  2287
+              Source :  1693
+             Comment :  332
+ Single-line comment :  24
        Block comment :  308
                Mixed :  2
  Empty block comment :  10
@@ -38,10 +38,10 @@ Total:
 
 ---------- Result ------------
 
-            Physical :  4049
-              Source :  2990
-             Comment :  553
- Single-line comment :  45
+            Physical :  4191
+              Source :  3127
+             Comment :  558
+ Single-line comment :  50
        Block comment :  508
                Mixed :  2
  Empty block comment :  10
