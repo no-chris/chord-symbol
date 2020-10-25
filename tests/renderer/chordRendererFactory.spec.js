@@ -143,3 +143,64 @@ describe('invalid parsed chord', () => {
 		expect(renderChord(null)).toBeNull();
 	});
 });
+
+describe('apply user filters', () => {
+	const myFilter1 = (chord) => {
+		chord.myFilter1 = true;
+		return chord;
+	};
+	const myFilter2 = (chord) => {
+		chord.myFilter2 = { applied: true };
+		return chord;
+	};
+	const myFilter3 = (chord) => {
+		chord.myFilter3 = 'myFilter3 has been applied';
+		return chord;
+	};
+	const myNullFilter = () => null;
+
+	test('should apply user filters', () => {
+		const customFilters = [myFilter1, myFilter2, myFilter3];
+		const parseChord = chordParserFactory();
+		const parsed = parseChord('Cm7');
+
+		const renderChord = chordRendererFactory({ customFilters, printer: 'raw' });
+		const rendered = renderChord(parsed);
+
+		expect(rendered).toHaveProperty('myFilter1');
+		expect(rendered).toHaveProperty('myFilter2');
+		expect(rendered).toHaveProperty('myFilter3');
+		expect(rendered.myFilter1).toEqual(true);
+		expect(rendered.myFilter2).toEqual({ applied: true });
+		expect(rendered.myFilter3).toEqual('myFilter3 has been applied');
+	});
+
+	test('should apply user filters on the raw chord object', () => {
+		const customFilters = [myFilter1, myFilter2, myFilter3];
+		const parseChord = chordParserFactory();
+		const parsed = parseChord('Cm7');
+
+		const renderChordRaw = chordRendererFactory({ printer: 'raw' });
+		const renderChord = chordRendererFactory({ customFilters, printer: 'raw' });
+
+		const renderedRaw = renderChordRaw(parsed);
+		const rendered = renderChord(parsed);
+
+		const expected = {
+			...renderedRaw,
+			myFilter1: true,
+			myFilter2: { applied: true },
+			myFilter3: 'myFilter3 has been applied',
+		};
+		expect(rendered).toEqual(expected);
+	});
+
+	test('render function should return null if a user filter returns null', () => {
+		const customFilters = [myFilter1, myFilter2, myFilter3, myNullFilter];
+		const parseChord = chordParserFactory({ customFilters });
+		const parsed = parseChord('Cm7');
+		const renderChord = chordRendererFactory({ customFilters });
+
+		expect(renderChord(parsed)).toBeNull();
+	});
+});

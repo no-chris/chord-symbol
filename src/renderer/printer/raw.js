@@ -8,9 +8,13 @@ import chordParserFactory from '../../parser/chordParserFactory';
  * @returns {Chord}
  */
 export default function rawPrinter(chord) {
+	const cloned = _cloneDeep(chord);
+
+	// Re-parse the rendered chord to get the 'input' property right
 	const textPrinted = textPrinter(chord);
 	const parseChord = chordParserFactory(chord.parserConfiguration);
 	const reParsed = parseChord(textPrinted);
+	cloned.input = reParsed.input;
 
-	return _cloneDeep(reParsed);
+	return cloned;
 }

@@ -1,4 +1,5 @@
 import chain from '../helpers/chain';
+import checkCustomFilters from '../helpers/checkCustomFilters';
 
 import {
 	englishVariants,
@@ -6,14 +7,15 @@ import {
 	germanVariants,
 } from '../dictionaries/notes';
 
+import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
+import formatSymbolParts from './filters/formatSymbolParts';
+import getParsableDescriptor from './filters/getParsableDescriptor';
 import initChord from './filters/initChord';
-import parseBase from './filters/parseBase';
-import parseDescriptor from './filters/parseDescriptor';
+import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
 import normalizeNotes from './filters/normalizeNotes';
 import normalizeDescriptor from './filters/normalizeDescriptor';
-import formatSymbolParts from './filters/formatSymbolParts';
-import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
-import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
+import parseBase from './filters/parseBase';
+import parseDescriptor from './filters/parseDescriptor';
 
 /**
  * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
@@ -33,12 +35,17 @@ const defaultAltIntervals = {
  * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord|Null}
  */
-function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
+function chordParserFactory({
+	altIntervals = defaultAltIntervals,
+	customFilters = [],
+} = {}) {
 	const allAltIntervals = Object.assign(
 		{},
 		defaultAltIntervals,
 		altIntervals
 	);
+
+	checkCustomFilters(customFilters);
 
 	return parseChord;
 
@@ -57,12 +64,14 @@ function chordParserFactory({ altIntervals = defaultAltIntervals } = {}) {
 			allFilters = [
 				initChord.bind(null, { altIntervals }),
 				parseBase.bind(null, allNotes.shift()),
+				getParsableDescriptor,
 				parseDescriptor.bind(null, allAltIntervals),
 				normalizeNotes,
 				normalizeDescriptor,
 				formatSymbolParts,
 				checkIntervalsConsistency,
 				nameIndividualChordNotes,
+				...customFilters,
 			];
 
 			chord = chain(allFilters, symbol);

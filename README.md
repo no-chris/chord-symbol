@@ -50,6 +50,8 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 -   transpose chord
 -   recognize a vast number of chords (unit test suite contains more than 65 000 variations!)
 -   basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
+-   "pipe-and-filters" architecture: customize the parsing and the rendering with your own processing filters!
+-   typescript types
 
 Check the [backlog](https://github.com/no-chris/chord-symbol/projects/2) for upcoming features; feel free to [submit ideas or report any bug](https://github.com/no-chris/chord-symbol/issues).
 

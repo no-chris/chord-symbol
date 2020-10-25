@@ -1,7 +1,5 @@
 import _uniq from 'lodash/uniq';
 
-import chain from '../../helpers/chain';
-
 import m from '../../dictionaries/modifiers';
 import { allSymbols, allVariants } from '../../dictionaries/modifiers';
 import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
@@ -15,15 +13,11 @@ import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 export default function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
 
-	if (chord.input.descriptor) {
-		chord.input.parsableDescriptor = getParsableDescriptor(
-			chord.input.descriptor
-		);
-
+	if (chord.input.parsableDescriptor) {
 		allModifiers = getModifiers(chord.input.parsableDescriptor);
-
-		if (!allModifiers) return null;
 	}
+
+	if (!allModifiers) return null;
 
 	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
 	chord.normalized.semitones = getSemitones(chord.normalized.intervals);
@@ -60,68 +54,6 @@ function getModifiers(parsableDescriptor) {
 		return null;
 	}
 	return modifiers;
-}
-
-function getParsableDescriptor(descriptor) {
-	const allFilters = [
-		toLowerCaseExceptMajorM,
-		removeSpaces,
-		addDisambiguators,
-		addMissingVerbs,
-	];
-
-	return chain(allFilters, descriptor);
-}
-
-function toLowerCaseExceptMajorM(descriptor) {
-	return descriptor
-		.replace(/[A-LN-Za-z]+/g, (match) => match.toLowerCase())
-		.replace('oMit', 'omit')
-		.replace('diM', 'dim')
-		.replace('augMented', 'augmented');
-}
-
-function removeSpaces(descriptor) {
-	return descriptor.replace(/ /g, '');
-}
-
-function addDisambiguators(descriptor) {
-	return descriptor
-		.replace(/(7?dim)(alt|add)/g, '$1 $2')
-		.replace(/([m|M])(alt|add)/g, '$1 $2')
-		.replace(/i(no[35])/g, 'i $1')
-		.replace(/([b♭#♯]9)6/g, '$1 6')
-		.replace(/(9\/?6)/g, ' $1');
-}
-
-function addMissingVerbs(descriptor) {
-	let allTokensWithVerbs;
-	let currentVerb;
-	let hasVerb;
-
-	return descriptor.replace(/\((.*?)\)/g, (match, parenthesis) => {
-		allTokensWithVerbs = [];
-		currentVerb = '';
-
-		parenthesis.split(',').forEach((token) => {
-			hasVerb = true;
-			if (token.startsWith('add')) {
-				currentVerb = 'add';
-			} else if (token.startsWith('omit')) {
-				currentVerb = 'omit';
-			} else if (token.startsWith('no')) {
-				currentVerb = 'no';
-			} else {
-				hasVerb = false;
-			}
-			if (hasVerb) {
-				allTokensWithVerbs.push(token);
-			} else {
-				allTokensWithVerbs.push(currentVerb + token);
-			}
-		});
-		return ' ' + allTokensWithVerbs.join(' ') + ' ';
-	});
 }
 
 function getIntervals(allModifiers, altIntervals) {
