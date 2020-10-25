@@ -1,5 +1,5 @@
 import chain from '../helpers/chain';
-import checkUserFilters from '../helpers/checkUserFilters';
+import checkCustomFilters from '../helpers/checkCustomFilters';
 
 import {
 	englishVariants,
@@ -45,7 +45,7 @@ function chordParserFactory({
 		altIntervals
 	);
 
-	checkUserFilters(customFilters);
+	checkCustomFilters(customFilters);
 
 	return parseChord;
 

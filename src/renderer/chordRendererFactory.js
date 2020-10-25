@@ -1,7 +1,7 @@
 import _cloneDeep from 'lodash/cloneDeep';
 
 import chain from '../helpers/chain';
-import checkUserFilters from '../helpers/checkUserFilters';
+import checkCustomFilters from '../helpers/checkCustomFilters';
 
 import shortenNormalized from './filters/shortenNormalized';
 import simplifyFilter from './filters/simplify';
@@ -23,7 +23,7 @@ function chordRendererFactory({
 	printer = 'text',
 	customFilters = [],
 } = {}) {
-	checkUserFilters(customFilters);
+	checkCustomFilters(customFilters);
 
 	const allFilters = [];
 

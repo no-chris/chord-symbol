@@ -1,8 +1,8 @@
-import checkUserFilters from '../../src/helpers/checkUserFilters';
+import checkCustomFilters from '../../src/helpers/checkCustomFilters';
 
 describe('module', () => {
 	test('should expose a function', () => {
-		expect(checkUserFilters).toBeInstanceOf(Function);
+		expect(checkCustomFilters).toBeInstanceOf(Function);
 	});
 
 	const myFilter = () => 'filtered';
@@ -12,14 +12,14 @@ describe('module', () => {
 		['1 filter', [myFilter]],
 		['2 filters', [myFilter, myFilter]],
 	])('%s', (title, allUserFilters) => {
-		test('should return true if given valid allUserFilters parameter', () => {
-			expect(checkUserFilters(allUserFilters)).toBe(true);
+		test('should return true if given valid customFilters parameter', () => {
+			expect(checkCustomFilters(allUserFilters)).toBe(true);
 		});
 	});
 
 	describe.each([
-		['not an array: null', null, 'allUserFilters should be given as an array'],
-		['not an array: undefined', undefined, 'allUserFilters should be given as an array'],
+		['not an array: null', null, 'customFilters should be given as an array'],
+		['not an array: undefined', undefined, 'customFilters should be given as an array'],
 		['array, item 0 not a function', ['string'], 'The given filter is not a function'],
 		['array, item 0 not a function', [2], 'The given filter is not a function'],
 		['array, item 0 not a function', [{}], 'The given filter is not a function'],
@@ -27,8 +27,8 @@ describe('module', () => {
 		['array, item 1 not a function', [myFilter, 3], 'The given filter is not a function'],
 		['array, item 1 not a function', [myFilter, {}], 'The given filter is not a function'],
 	])('%s', (title, allUserFilters, errorMsg) => {
-		test('should throw TypeError if allUserFilters is not a valid array', () => {
-			const shouldThrow = () => checkUserFilters(allUserFilters);
+		test('should throw TypeError if customFilters is not a valid array', () => {
+			const shouldThrow = () => checkCustomFilters(allUserFilters);
 
 			expect(shouldThrow).toThrow(TypeError);
 			expect(shouldThrow).toThrow(errorMsg);
