@@ -1,6 +1,7 @@
 import _cloneDeep from 'lodash/cloneDeep';
 
 import chain from '../helpers/chain';
+import checkUserFilters from '../helpers/checkUserFilters';
 
 import shortenNormalized from './filters/shortenNormalized';
 import simplifyFilter from './filters/simplify';
@@ -20,7 +21,10 @@ function chordRendererFactory({
 	harmonizeAccidentals = false,
 	useFlats = false,
 	printer = 'text',
+	customFilters = [],
 } = {}) {
+	checkUserFilters(customFilters);
+
 	const allFilters = [];
 
 	if (['max', 'core'].includes(simplify)) {
@@ -34,6 +38,8 @@ function chordRendererFactory({
 	if (useShortNamings) {
 		allFilters.push(shortenNormalized);
 	}
+
+	allFilters.push(...customFilters);
 
 	return renderChord;
 

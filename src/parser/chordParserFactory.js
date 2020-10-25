@@ -1,12 +1,11 @@
 import chain from '../helpers/chain';
+import checkUserFilters from '../helpers/checkUserFilters';
 
 import {
 	englishVariants,
 	latinVariants,
 	germanVariants,
 } from '../dictionaries/notes';
-
-import checkUserFilters from '../helpers/checkUserFilters';
 
 import initChord from './filters/initChord';
 import parseBase from './filters/parseBase';

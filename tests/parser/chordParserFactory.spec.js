@@ -186,8 +186,8 @@ describe('apply user filters', () => {
 	const myNullFilter = () => null;
 
 	test('should apply user filters', () => {
-		const allUserFilters = [myFilter1, myFilter2, myFilter3];
-		const parseChord = chordParserFactory({ allUserFilters });
+		const customFilters = [myFilter1, myFilter2, myFilter3];
+		const parseChord = chordParserFactory({ customFilters });
 		const parsed = parseChord('Cm7');
 
 		expect(parsed).toHaveProperty('myFilter1');
@@ -199,9 +199,9 @@ describe('apply user filters', () => {
 	});
 
 	test('should apply user filters on the raw chord object', () => {
-		const allUserFilters = [myFilter1, myFilter2, myFilter3];
+		const customFilters = [myFilter1, myFilter2, myFilter3];
 		const parseChordRaw = chordParserFactory();
-		const parseChord = chordParserFactory({ allUserFilters });
+		const parseChord = chordParserFactory({ customFilters });
 
 		const parsedRaw = parseChordRaw('Cm7');
 		const parsed = parseChord('Cm7');
@@ -216,8 +216,8 @@ describe('apply user filters', () => {
 	});
 
 	test('parser function should return null if a user filter returns null', () => {
-		const allUserFilters = [myFilter1, myFilter2, myFilter3, myNullFilter];
-		const parseChord = chordParserFactory({ allUserFilters });
+		const customFilters = [myFilter1, myFilter2, myFilter3, myNullFilter];
+		const parseChord = chordParserFactory({ customFilters });
 		const parsed = parseChord('Cm7');
 
 		expect(parsed).toBeNull();
