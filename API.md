@@ -377,7 +377,7 @@ some level of flexibility when parsing an &quot;alt&quot; chord symbol.
 If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr><tr>
-    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>Array of custom filters applied during parsing</p>
+    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during parsing</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -418,7 +418,7 @@ Configuration of the chord renderer
     <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
 </td>
     </tr><tr>
-    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>Array of custom filters applied during rendering</p>
+    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during rendering</p>
 </td>
     </tr>  </tbody>
 </table>
