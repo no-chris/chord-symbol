@@ -10,9 +10,18 @@ import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor
 import normalizeNotes from '../../../src/parser/filters/normalizeNotes';
 
 import chordParserFactory from '../../../src/parser/chordParserFactory';
+import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
 
 function parseChord(symbol) {
-	const filters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants), parseDescriptor.bind(null, {}), normalizeDescriptor, normalizeNotes, nameIndividualChordNotes];
+	const filters = [
+		initChord.bind(null, {}),
+		parseBase.bind(null, englishVariants),
+		getParsableDescriptor,
+		parseDescriptor.bind(null, {}),
+		normalizeDescriptor,
+		normalizeNotes,
+		nameIndividualChordNotes,
+	];
 	return chain(filters, symbol);
 }
 

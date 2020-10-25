@@ -7,14 +7,15 @@ import {
 	germanVariants,
 } from '../dictionaries/notes';
 
+import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
+import formatSymbolParts from './filters/formatSymbolParts';
+import getParsableDescriptor from './filters/getParsableDescriptor';
 import initChord from './filters/initChord';
-import parseBase from './filters/parseBase';
-import parseDescriptor from './filters/parseDescriptor';
+import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
 import normalizeNotes from './filters/normalizeNotes';
 import normalizeDescriptor from './filters/normalizeDescriptor';
-import formatSymbolParts from './filters/formatSymbolParts';
-import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
-import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
+import parseBase from './filters/parseBase';
+import parseDescriptor from './filters/parseDescriptor';
 
 /**
  * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
@@ -63,6 +64,7 @@ function chordParserFactory({
 			allFilters = [
 				initChord.bind(null, { altIntervals }),
 				parseBase.bind(null, allNotes.shift()),
+				getParsableDescriptor,
 				parseDescriptor.bind(null, allAltIntervals),
 				normalizeNotes,
 				normalizeDescriptor,

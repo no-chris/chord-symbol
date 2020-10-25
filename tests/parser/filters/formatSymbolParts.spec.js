@@ -8,9 +8,10 @@ import parseBase from '../../../src/parser/filters/parseBase';
 import parseDescriptor from '../../../src/parser/filters/parseDescriptor';
 import normalizeNotes from '../../../src/parser/filters/normalizeNotes';
 import normalizeDescriptor from '../../../src/parser/filters/normalizeDescriptor';
+import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
 
 function parseChord(symbol) {
-	const filters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants), parseDescriptor.bind(null, {}), normalizeNotes, normalizeDescriptor];
+	const filters = [initChord.bind(null, {}), parseBase.bind(null, englishVariants), getParsableDescriptor, parseDescriptor.bind(null, {}), normalizeNotes, normalizeDescriptor];
 	return chain(filters, symbol);
 }
 
