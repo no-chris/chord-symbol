@@ -184,6 +184,10 @@ type ParserConfiguration = {
 	 * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
 	 */
 	altIntervals?: AltIntervals;
+	/**
+	 * - custom filters applied during parsing
+	 */
+	customFilters?: customFilter[];
 };
 /**
  * Configuration of the chord renderer
@@ -215,7 +219,16 @@ type RendererConfiguration = {
 	 * - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
 	 */
 	printer?: 'text' | 'raw';
+	/**
+	 * -custom filters applied during rendering
+	 */
+	customFilters?: customFilter[];
 };
+/**
+ * Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
+ * after all built-in filters have been applied.
+ */
+type customFilter = (arg0: Chord) => Chord | null;
 
 /**
  * Create a chord parser function

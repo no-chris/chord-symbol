@@ -80,7 +80,7 @@
  * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
  * some level of flexibility when parsing an "alt" chord symbol.
  * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
- * @property {function(String): Chord|Null} [customFilters=[]] - Array of custom filters applied during parsing
+ * @property {customFilter[]} [customFilters=[]] - custom filters applied during parsing
  */
 
 /**
@@ -95,4 +95,14 @@
  * @property {Boolean} [harmonizeAccidentals=false] - convert accidentals to either sharp or flats
  * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
  * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
+ * @property {customFilter[]} [customFilters=[]] - custom filters applied during rendering
+ */
+
+/**
+ * Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
+ * after all built-in filters have been applied.
+ * @typedef {function(Chord): Chord|Null} customFilter
+ * @type {Function}
+ * @param {Chord} chord - The chord object will be passed to the filter as the only parameter
+ * @returns {Chord|Null} - Either the modified chord object, or Null to cancel the processing and skip the remaining filters.
  */

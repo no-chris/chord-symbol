@@ -55,6 +55,10 @@ Intended to be used as building blocks of a rendered chord</p>
 <dt><a href="#RendererConfiguration">RendererConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord renderer</p>
 </dd>
+<dt><a href="#customFilter">customFilter</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
+<dd><p>Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
+after all built-in filters have been applied.</p>
+</dd>
 </dl>
 
 <a name="chordParserFactory
@@ -372,6 +376,9 @@ Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpr
 some level of flexibility when parsing an &quot;alt&quot; chord symbol.
 If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
+    </tr><tr>
+    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>Array of custom filters applied during parsing</p>
+</td>
     </tr>  </tbody>
 </table>
 
@@ -409,6 +416,30 @@ Configuration of the chord renderer
 </td>
     </tr><tr>
     <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
+</td>
+    </tr><tr>
+    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>Array of custom filters applied during rendering</p>
+</td>
+    </tr>  </tbody>
+</table>
+
+<a name="customFilter"></a>
+
+## customFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
+Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
+after all built-in filters have been applied.
+
+**Kind**: global typedef  
+**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or Null to cancel the processing and skip the remaining filters.  
+<table>
+  <thead>
+    <tr>
+      <th>Param</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>chord</td><td><code><a href="#Chord">Chord</a></code></td><td><p>The chord object will be passed to the filter as the only parameter</p>
 </td>
     </tr>  </tbody>
 </table>
