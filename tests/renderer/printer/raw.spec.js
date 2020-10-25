@@ -48,7 +48,6 @@ describe('raw printer', () => {
 		['Ch(#11,b13)', 2, 'core', false, 'Dmi7(b5)'],
 		['Ch(#11,b13)', 4, 'max', false, 'Emi'],
 		['Ch(#11,b13)', 5, 'max', true, 'Fm'],
-		['Ch(#11,b13)', 5, 'max', true, 'Fm'],
 	])('should reflect the output of all rendering filters, as if the chord had been parsed from scratch as rendered', (input, transposeValue, simplify, useShortNamings, expectedTxt) => {
 		const parseChord = chordParserFactory();
 
