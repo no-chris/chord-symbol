@@ -5,7 +5,7 @@ describe('combineModifiers()', () => {
 		const combined = combineModifiers(
 			['sus', 'sus4'],
 			['M7', 'Maj7'],
-			['2', 'add2'],
+			['2', 'add2']
 		);
 		const expected = [
 			'susM72',
@@ -67,10 +67,7 @@ describe('combineModifiers()', () => {
 	});
 
 	test('should wrap first modifier in parenthesis if it starts with an accidental', () => {
-		const combined = combineModifiers(
-			['b9', '♭9'],
-			['#11', '♯11'],
-		);
+		const combined = combineModifiers(['b9', '♭9'], ['#11', '♯11']);
 		const expected = [
 			'(b9)#11',
 			'(b9)♯11',

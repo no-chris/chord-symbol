@@ -7,11 +7,15 @@ export default function parseBase(noteVariants, chord) {
 	const { symbol } = chord.input;
 	const notesRegex = noteVariants.join('|');
 	const notesAndDescriptorRegex = new RegExp(
-		'^'
-		+ '(' + notesRegex + ')'
-		+ '(.*?)'
-		+ '(/(' + notesRegex + '))?'
-		+ '$'
+		'^' +
+			'(' +
+			notesRegex +
+			')' +
+			'(.*?)' +
+			'(/(' +
+			notesRegex +
+			'))?' +
+			'$'
 	);
 	const result = symbol.match(notesAndDescriptorRegex);
 
@@ -25,7 +29,6 @@ export default function parseBase(noteVariants, chord) {
 			chord.input.bassNote = result[4];
 		}
 		return chord;
-
 	} else {
 		return null;
 	}

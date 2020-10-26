@@ -34,5 +34,4 @@ const minorQualities = [
 	qualities.dim7,
 ];
 
-
 export { qualities, majorQualities, minorQualities };

@@ -7,3 +7,6 @@ lib/report.html
 
 # Macos
 .DS_Store
+
+# typescript temp files
+types-auto

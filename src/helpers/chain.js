@@ -7,6 +7,6 @@
  */
 export default function chain(allFunctions, input) {
 	return allFunctions.reduce((value, fn) => {
-		return (value) ? fn(value) : null;
+		return value ? fn(value) : null;
 	}, input);
 }

@@ -1,4 +1,9 @@
-import { allVariantsToNotes, englishVariants, latinVariants, germanVariants } from '../src/dictionaries/notes';
+import {
+	allVariantsToNotes,
+	englishVariants,
+	latinVariants,
+	germanVariants,
+} from '../src/dictionaries/notes';
 
 import chordParserFactory from '../src/parser/chordParserFactory';
 
@@ -8,23 +13,27 @@ describe('Root and bass notes', () => {
 	const allCases = [];
 	let chordSymbol;
 
-	[englishVariants, latinVariants, germanVariants].forEach(variants => {
-		variants.forEach(rootNote => {
-			if (rootNote !== 'Do') { // edge case, "Do" is "Ddim" in english notation)
+	[englishVariants, latinVariants, germanVariants].forEach((variants) => {
+		variants.forEach((rootNote) => {
+			if (rootNote !== 'Do') {
+				// edge case, "Do" is "Ddim" in english notation)
 				allCases.push([rootNote, allVariantsToNotes[rootNote]]);
 			}
 
 			variants
-				.filter(bassNote => bassNote !== rootNote)
-				.forEach(bassNote => {
+				.filter((bassNote) => bassNote !== rootNote)
+				.forEach((bassNote) => {
 					chordSymbol = rootNote + '/' + bassNote;
 					if (TEST_SUITE !== 'short') {
-						allCases.push([chordSymbol, allVariantsToNotes[rootNote], allVariantsToNotes[bassNote]]);
+						allCases.push([
+							chordSymbol,
+							allVariantsToNotes[rootNote],
+							allVariantsToNotes[bassNote],
+						]);
 					}
 				});
 		});
 	});
-
 
 	let parsed;
 	describe.each(allCases)('%s', (input, rootNote, bassNote) => {
