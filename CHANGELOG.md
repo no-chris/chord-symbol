@@ -1,3 +1,56 @@
+### 1.1.0 (2020-10-26)
+
+##### Build System / Dependencies
+
+*  update travis node dependency ([9893a56c](https://github.com/no-chris/chord-symbol/commit/9893a56c5326e9f7880ece48475f54e4457717df))
+*  lower size-limit threshold ([51380b49](https://github.com/no-chris/chord-symbol/commit/51380b49ad9a86fafc5873ec97ea125f5041f31d))
+*  update dependencies ([53a76923](https://github.com/no-chris/chord-symbol/commit/53a7692354b677abb7efb4d85d018dcabb1e7260))
+*  update node dependency ([736a04b3](https://github.com/no-chris/chord-symbol/commit/736a04b3b080caaef28a171b62d150046e8c838b))
+* **deps-dev:**
+  *  bump rollup from 2.31.0 to 2.32.0 ([e714ca7a](https://github.com/no-chris/chord-symbol/commit/e714ca7a7fa1f318d06c3aee03915da4498c4114))
+  *  bump @babel/core from 7.12.1 to 7.12.3 ([37236ec7](https://github.com/no-chris/chord-symbol/commit/37236ec7354b9bd54253aa0cfa24f8099992fe00))
+
+##### Chores
+
+*  bundle ([8e03c1e0](https://github.com/no-chris/chord-symbol/commit/8e03c1e05cbd3cfd851cc4086d0736e9c73217b2))
+*  update bundle ([33d359c9](https://github.com/no-chris/chord-symbol/commit/33d359c95e272d48958db07e7a4a04af6b9800ff))
+*  remove todo ([1418b894](https://github.com/no-chris/chord-symbol/commit/1418b8948ca6afc53effbd430d4f4f86023af238))
+
+##### Documentation Changes
+
+*  Document the custom Filters functionality ([341cc96d](https://github.com/no-chris/chord-symbol/commit/341cc96deba30a70575c0071f369775781785f6c))
+*  update API doc ([d232aaed](https://github.com/no-chris/chord-symbol/commit/d232aaedae423cbd5bee9d9c370be622dd7ecc06))
+*  Fix Jsdoc declaration and move type definitions to own file ([002680b8](https://github.com/no-chris/chord-symbol/commit/002680b8b93ce63347cca5813eea24f3049a1eca))
+
+##### New Features
+
+* **renderer:**  Apply user filters during rendering ([415582b6](https://github.com/no-chris/chord-symbol/commit/415582b6633914173a0d49622b3bbecd8407876e))
+* **parser:**  Apply user filters during parsing ([09aee727](https://github.com/no-chris/chord-symbol/commit/09aee7277c2135add27daba4af179ed7de792bda))
+*  apply prettier rules to all files ([61839e4e](https://github.com/no-chris/chord-symbol/commit/61839e4e17c876ce491a4e711f35dca5e2f3bcc4))
+*  add prettier and prettier config ([a9a258cc](https://github.com/no-chris/chord-symbol/commit/a9a258cc8c50a595ba128f244449caebd94cfd2b))
+*  add default values and fix types definition errors ([58b03529](https://github.com/no-chris/chord-symbol/commit/58b03529f931f9a334458f39aa4f1b253372140e))
+*  add explicit type exports to type definition file ([1f7a7bfa](https://github.com/no-chris/chord-symbol/commit/1f7a7bfafe1e14313986bd2b1998f0bbd6827a4a))
+*  Replace auto-generated typescript files with a handcrafted one, remove typescript stage from the build ([00028677](https://github.com/no-chris/chord-symbol/commit/0002867749ccb5af75720de0087d2c9469771a4d))
+*  rebuild project with types ([95f8c4da](https://github.com/no-chris/chord-symbol/commit/95f8c4da248c8c88ac0571ca6a2269270ae6f4ce))
+*  Add typescript to dev dependencies ([61de068d](https://github.com/no-chris/chord-symbol/commit/61de068d75bacea1e2e26d88e28a44c3cd690ae1))
+
+##### Bug Fixes
+
+*  typo ([4a755208](https://github.com/no-chris/chord-symbol/commit/4a755208963b78db9e1ee518ffd35c65e0cd7cec))
+* **parser:**
+  *  C4 modifier now yields a Csus4 chord ([95f458e9](https://github.com/no-chris/chord-symbol/commit/95f458e967505594e138153e74cdf4bd989b216b))
+  *  Add11 does not yield anymore a suspended chord ([20cfbe8e](https://github.com/no-chris/chord-symbol/commit/20cfbe8e9772bf8e5c0438a8091c4283845970af))
+* **renderer:**  Fix 11th simplification without other simplified modifiers ([edc3714c](https://github.com/no-chris/chord-symbol/commit/edc3714c2cc51418f9f9bf7115e574950e892c0d))
+
+##### Refactors
+
+*  rename userFilters to customFilters ([869a3614](https://github.com/no-chris/chord-symbol/commit/869a3614263d31d5241939a9c52b22fdd43ee0cd))
+* **parser:**  Extract getParsableDescriptor to own filter ([912c94ca](https://github.com/no-chris/chord-symbol/commit/912c94cac10f6e861537f030ced86559fc6a4acf))
+
+##### Code Style Changes
+
+*  reduce line length in tests ([5a4feb2b](https://github.com/no-chris/chord-symbol/commit/5a4feb2b2dc5408b69daf37d42691e3ea34615ea))
+
 ## 1.0.0 (2020-10-16)
 
 ##### Build System / Dependencies
