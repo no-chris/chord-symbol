@@ -6,7 +6,7 @@
 
 `ChordSymbol` is the definitive chord symbol parser and renderer for Javascript/NodeJS.
 
-While most chord parsing libraries expect you to write chord symbols in a specific way, `ChordSymbol` can handle whatever chord syntax you throw at him, or almost. Currently, the unit test suite contains more than 33 300 distinct chords symbols!
+While most chord parsing libraries expect you to write chord symbols in a specific way, `ChordSymbol` can handle whatever chord syntax you throw at him, or almost. Currently, the unit test suite contains more than 37 000 distinct chords symbols!
 
 `ChordSymbol` will transform a string representing a chord (`Cm7`, for example) into a suite of intervals (`1, b3, 5, b7`) and individual notes (`C, Eb, G, Bb`). It will also normalize the chord symbol, such as it doesn't matter if the original input was `Cm7`, `CMINOR7`, `C7min`, or `C7mi`: `ChordSymbol` will consistently render it as `Cmi7`. And if you prefer a different kind of normalization, `ChordSymbol` allows you to configure the rendering to your taste.
 
@@ -48,7 +48,7 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 -   normalize the chord naming (two options: `academic` and `short`)
 -   simplify chord
 -   transpose chord
--   recognize a vast number of chords (unit test suite contains more than 33 000 variations!)
+-   recognize a vast number of chords (unit test suite contains more than 37 000 variations!)
 -   basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
 -   "pipe-and-filters" architecture: customize the parsing and the rendering with your own processing filters!
 -   typescript types
@@ -133,7 +133,7 @@ const chord = parseChord('C9sus');
 
 ## Unit tests
 
-`ChordSymbol` has a **massive** unit test suite of ~104 000 tests!
+`ChordSymbol` has a **massive** unit test suite of ~117 000 tests!
 
 ```shell
 npm test
@@ -183,7 +183,7 @@ Chord symbols also leave a lot of room for interpretation. Depending on who you 
 
 For all those reasons, any library for chord parsing and rendering is by design opinionated.
 
-The following explains the rationale behind the choices that have been made in the writing of `chord-symbols`. Of course, they are all questionable, and I'm happy to discuss those to improve this lib.
+The following explains the rationale behind the choices that have been made in the writing of `ChordSymbol`. Of course, they are all questionable, and I'm happy to discuss those to improve this lib.
 
 #### Chords definition
 
@@ -195,11 +195,12 @@ The goal has been for set `ChordSymbol` to be able to recognize correctly:
 
 -   all the chords symbols present in Mark Harrison's `Contemporary Music Theory` books series
 -   all the chords symbols present in `The New Real Book` series (`p.6` of `Volume 1`, for example)
+-   all the chords symbols present in the `iReal Pro` format
 
-That's already close to 200 distinct chord symbols.
+That's already close to 280 distinct chord symbols.
 If you know any other good references that could be added to this list, feel free to suggest them. This goal has been reached and is enforced by the extensive unit test suite.
 
-To support a broader range of use-cases, `ChordSymbol` also has built-in support for a myriad of variations in chord namings. `Cma7` could as well be written `CM7`, `C7M`, `C7major`, `Cmajor7`, `CMa7`, `CMAJOR7`, `CM7`, `C7Δ`, `C^7`, `C7^`... just to name a few of the possible variations. The unit test suite automatically generates all chords variants for a given set of modifiers, bringing the number of recognized chords to over 33 000!
+To support a broader range of use-cases, `ChordSymbol` also has built-in support for a myriad of variations in chord namings. `Cma7` could as well be written `CM7`, `C7M`, `C7major`, `Cmajor7`, `CMa7`, `CMAJOR7`, `CM7`, `C7Δ`, `C^7`, `C7^`... just to name a few of the possible variations. The unit test suite automatically generates all chords variants for a given set of modifiers, bringing the number of recognized chords to over 37 000!
 
 More than 100 different modifiers are available for you to use as chord descriptors. Among those: `M`, `Maj`, `m`, `minor`, `Δ`, `^`, `b5`, `o`, `-`, `ø`, `#9`, `b13`, `+`, `dim`, `69`, `add11`, `omit3`, etc.  
 You can check [the full list](https://github.com/no-chris/chord-symbol/blob/master/src/dictionaries/modifiers.js). Hopefully, this should allow `ChordSymbol` to work out-of-the-box with most available chord charts.
