@@ -265,7 +265,10 @@ function getAddsAndAlterations(chordIntervals, baseIntervals, quality) {
 		adds.push('3');
 	}
 
-	return { adds, alterations };
+	return {
+		adds: sortIntervals(adds),
+		alterations: sortIntervals(alterations),
+	};
 }
 
 function isAlteration(quality, interval) {
@@ -290,4 +293,12 @@ function isAlteration(quality, interval) {
 
 function hasAdd3(allIntervals) {
 	return hasAll(allIntervals, ['3', '4']);
+}
+
+function sortIntervals(intervals) {
+	return intervals.sort((a, b) => {
+		const sortableA = Number.parseInt(a.replace(/[b#]/, ''));
+		const sortableB = Number.parseInt(b.replace(/[b#]/, ''));
+		return sortableA - sortableB;
+	});
 }
