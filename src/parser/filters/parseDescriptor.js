@@ -19,6 +19,7 @@ export default function parseDescriptor(altIntervals, chord) {
 
 	if (!allModifiers) return null;
 
+	chord.input.modifiers = allModifiers;
 	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
 	chord.normalized.semitones = getSemitones(chord.normalized.intervals);
 	chord.normalized.intents = getIntents(allModifiers);
