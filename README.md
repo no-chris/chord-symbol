@@ -139,7 +139,7 @@ const chord = parseChord('C9sus');
 npm test
 ```
 
-It also has a "light" suite, much faster, which does not generate all chords variations (>1300 tests "only"):
+It also has a "light" suite, much faster, which does not generate all chords variations (~1600 tests "only"):
 
 ```shell
 npm run-script test-short
