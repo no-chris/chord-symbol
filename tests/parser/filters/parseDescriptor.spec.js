@@ -21,6 +21,7 @@ describe('Intervals & semitones', () => {
 	describe.each([
 		['A', ['1', '3', '5'], { major: true, eleventh: false, alt: false }],
 		['A6', ['1', '3', '5', '6'], { major: true, eleventh: false, alt: false }],
+		['A(b6)', ['1', '3', '5', 'b6'], { major: true, eleventh: false, alt: false }],
 		['A69', ['1', '3', '5', '6', '9'], { major: true, eleventh: false, alt: false }],
 		['AM7', ['1', '3', '5', '7'], { major: true, eleventh: false, alt: false }],
 		['AM9', ['1', '3', '5', '7', '9'], { major: true, eleventh: false, alt: false }],
@@ -33,6 +34,7 @@ describe('Intervals & semitones', () => {
 		['A13', ['1', '3', '5', 'b7', '9', '13'], { major: true, eleventh: false, alt: false }],
 
 		['Am', ['1', 'b3', '5'], { major: false, eleventh: false, alt: false }],
+		['Amb6', ['1', 'b3', '5', 'b6'], { major: false, eleventh: false, alt: false }],
 		['Am6', ['1', 'b3', '5', '6'], { major: false, eleventh: false, alt: false }],
 		['Am69', ['1', 'b3', '5', '6', '9'], { major: false, eleventh: false, alt: false }],
 		['Am7', ['1', 'b3', '5', 'b7'], { major: false, eleventh: false, alt: false }],

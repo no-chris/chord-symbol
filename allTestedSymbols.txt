@@ -12097,6 +12097,7 @@ C(b3)addb1311b5
 C(b3)addb1311♭5
 C(b3)addb13b511
 C(b3)addb13♭511
+C(b3)addb6
 C(b3)addma7
 C(b3)addma713M
 C(b3)addma713Ma
@@ -12246,6 +12247,7 @@ C(b3)b5omit311
 C(b3)b5♭1311
 C(b3)b5♯511
 C(b3)b5♯57
+C(b3)b6
 C(b3)ma11
 C(b3)ma13
 C(b3)ma13M7
@@ -14616,6 +14618,15 @@ C(b5)♯9♭137
 C(b5)♯9♭913
 C(b5)♯9♭97
 C(b5)♯9♯57
+C(b6)-
+C(b6)Mi
+C(b6)Min
+C(b6)Minor
+C(b6)b3
+C(b6)m
+C(b6)mi
+C(b6)min
+C(b6)minor
 C(b9)#11#57
 C(b9)#11#913
 C(b9)#11#97
@@ -20244,6 +20255,7 @@ C-addb1311b5
 C-addb1311♭5
 C-addb13b511
 C-addb13♭511
+C-addb6
 C-addma7
 C-addmaj7
 C-addmajor7
@@ -20281,6 +20293,7 @@ C-b5omit311
 C-b5♭1311
 C-b5♯511
 C-b5♯57
+C-b6
 C-ma11
 C-ma13
 C-ma7
@@ -31291,6 +31304,7 @@ CMiaddMa7
 CMiaddMaj7
 CMiaddMajor7
 CMiadd^7
+CMiaddb6
 CMiaddma7
 CMiaddmaj7
 CMiaddmajor7
@@ -31312,6 +31326,7 @@ CMib5no311
 CMib5omit311
 CMib5♯511
 CMib5♯57
+CMib6
 CMima11
 CMima13
 CMima7
@@ -31487,6 +31502,7 @@ CMinaddMa7
 CMinaddMaj7
 CMinaddMajor7
 CMinadd^7
+CMinaddb6
 CMinaddma7
 CMinaddmaj7
 CMinaddmajor7
@@ -31508,6 +31524,7 @@ CMinb5no311
 CMinb5omit311
 CMinb5♯511
 CMinb5♯57
+CMinb6
 CMinma11
 CMinma13
 CMinma7
@@ -31658,6 +31675,7 @@ CMinoraddMa7
 CMinoraddMaj7
 CMinoraddMajor7
 CMinoradd^7
+CMinoraddb6
 CMinoraddma7
 CMinoraddmaj7
 CMinoraddmajor7
@@ -31679,6 +31697,7 @@ CMinorb5no311
 CMinorb5omit311
 CMinorb5♯511
 CMinorb5♯57
+CMinorb6
 CMinorma11
 CMinorma13
 CMinorma7
@@ -33601,6 +33620,15 @@ Caddb13♯97b5
 Caddb13♯97♭5
 Caddb13♯9b57
 Caddb13♯9♭57
+Caddb6-
+Caddb6Mi
+Caddb6Min
+Caddb6Minor
+Caddb6b3
+Caddb6m
+Caddb6mi
+Caddb6min
+Caddb6minor
 Caddb9#11#57
 Caddb9#1113
 Caddb9#117
@@ -35552,6 +35580,7 @@ CmaddMa7
 CmaddMaj7
 CmaddMajor7
 Cmadd^7
+Cmaddb6
 Cmaddma7
 Cmaddmaj7
 Cmaddmajor7
@@ -36095,6 +36124,7 @@ Cmb59
 Cmb5add117
 Cmb5no311
 Cmb5omit311
+Cmb6
 Cmi
 Cmi add9
 Cmi#5
@@ -36208,6 +36238,7 @@ CmiaddMa7
 CmiaddMaj7
 CmiaddMajor7
 Cmiadd^7
+Cmiaddb6
 Cmiaddma7
 Cmiaddmaj7
 Cmiaddmajor7
@@ -36221,6 +36252,7 @@ Cmib59
 Cmib5add117
 Cmib5no311
 Cmib5omit311
+Cmib6
 Cmima11
 Cmima13
 Cmima7
@@ -36330,6 +36362,7 @@ CminaddMa7
 CminaddMaj7
 CminaddMajor7
 Cminadd^7
+Cminaddb6
 Cminaddma7
 Cminaddmaj7
 Cminaddmajor7
@@ -36343,6 +36376,7 @@ Cminb59
 Cminb5add117
 Cminb5no311
 Cminb5omit311
+Cminb6
 Cminma11
 Cminma13
 Cminma7
@@ -36467,6 +36501,7 @@ CminoraddMa7
 CminoraddMaj7
 CminoraddMajor7
 Cminoradd^7
+Cminoraddb6
 Cminoraddma7
 Cminoraddmaj7
 Cminoraddmajor7
@@ -36480,6 +36515,7 @@ Cminorb59
 Cminorb5add117
 Cminorb5no311
 Cminorb5omit311
+Cminorb6
 Cminorma11
 Cminorma13
 Cminorma7

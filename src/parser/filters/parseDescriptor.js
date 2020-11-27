@@ -135,6 +135,9 @@ function getFifths(allModifiers, altIntervals) {
 
 function getSixth(allModifiers) {
 	const sixth = [];
+	if (hasOneOf(allModifiers, [m.addb6])) {
+		sixth.push('b6');
+	}
 	if (
 		hasOneOf(allModifiers, [m.add6, m.add69]) &&
 		!isExtended(allModifiers)

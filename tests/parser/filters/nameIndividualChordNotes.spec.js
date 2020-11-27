@@ -34,6 +34,7 @@ describe('nameIndividualChordNotes', () => {
 		['C11', ['C', 'G', 'Bb', 'D', 'F']],
 		['C13', ['C', 'E', 'G', 'Bb', 'D', 'A']],
 		['Cm', ['C', 'Eb', 'G']],
+		['Cmb6', ['C', 'Eb', 'G', 'Ab']],
 		['Cm7', ['C', 'Eb', 'G', 'Bb']],
 		['Cm9', ['C', 'Eb', 'G', 'Bb', 'D']],
 		['Cm11', ['C', 'Eb', 'G', 'Bb', 'D', 'F']],
