@@ -48,8 +48,8 @@ const allModifiers = {
  */
 
 const major = {
-	'^': allModifiers.ma,
-	Δ: allModifiers.ma,
+	'^': [allModifiers.ma, allModifiers.add7],
+	Δ: [allModifiers.ma, allModifiers.add7],
 	M: allModifiers.ma,
 	Ma: allModifiers.ma,
 	Maj: allModifiers.ma,
