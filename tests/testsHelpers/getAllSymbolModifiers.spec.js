@@ -9,4 +9,19 @@ describe('getAllSymbolModifiers()', () => {
 
 		expect(symbols).toEqual(expected);
 	});
+
+	test('should skip arrays to avoid building false variations', () => {
+		const symbols = getAllSymbolModifiers(allModifiers.ma).sort();
+		const expected = [
+			'M',
+			'Ma',
+			'Maj',
+			'Major',
+			'ma',
+			'maj',
+			'major',
+		].sort();
+
+		expect(symbols).toEqual(expected);
+	});
 });

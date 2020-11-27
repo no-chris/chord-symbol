@@ -37,17 +37,24 @@ function getModifiers(parsableDescriptor) {
 	const descriptorMatches = parsableDescriptor.match(descriptorRegex);
 
 	let remainingChars = parsableDescriptor;
-	let modifierId;
+	let allModifiersId;
 
 	if (descriptorMatches) {
 		descriptorMatches.forEach((match) => {
-			modifierId = allSymbols[match];
-			if (modifiers.includes(modifierId)) {
-				return null;
-			}
-			modifiers.push(modifierId);
+			allModifiersId = allSymbols[match];
 
-			remainingChars = remainingChars.replace(match, '');
+			if (!Array.isArray(allModifiersId)) {
+				allModifiersId = [allModifiersId];
+			}
+
+			allModifiersId.forEach((modifierId) => {
+				if (modifiers.includes(modifierId)) {
+					return null;
+				}
+				modifiers.push(modifierId);
+
+				remainingChars = remainingChars.replace(match, '');
+			});
 		});
 	}
 
