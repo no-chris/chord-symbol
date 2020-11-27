@@ -19,6 +19,7 @@
  * @property {String} descriptor - the string between the root note and the bass note. Ex: `m7b5`
  * @property {String} parsableDescriptor - the modified descriptor such as parsing is possible.
  * Ex: `m add9` for `Cmadd9`, a space is added for disambiguation between `m + add` and `ma + dd`.
+ * @property {String} modifiers - the detected modifiers during parsing
  */
 
 /**
