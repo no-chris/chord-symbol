@@ -27,6 +27,7 @@ const allModifiers = {
 	// added
 	add3: 'add3',
 	add4: 'add4',
+	addb6: 'addb6',
 	add6: 'add6',
 	add69: 'add69',
 	add7: 'add7',
@@ -48,8 +49,8 @@ const allModifiers = {
  */
 
 const major = {
-	'^': allModifiers.ma,
-	Δ: allModifiers.ma,
+	'^': [allModifiers.ma, allModifiers.add7],
+	Δ: [allModifiers.ma, allModifiers.add7],
 	M: allModifiers.ma,
 	Ma: allModifiers.ma,
 	Maj: allModifiers.ma,
@@ -146,6 +147,8 @@ const allSymbols = {
 	add2: allModifiers.add9,
 	add3: allModifiers.add3,
 	add4: allModifiers.add4,
+	addb6: allModifiers.addb6,
+	b6: allModifiers.addb6,
 	6: allModifiers.add6,
 	add6: allModifiers.add6,
 	'6/9': allModifiers.add69,

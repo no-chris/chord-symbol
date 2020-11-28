@@ -19,6 +19,7 @@ export default function parseDescriptor(altIntervals, chord) {
 
 	if (!allModifiers) return null;
 
+	chord.input.modifiers = allModifiers;
 	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
 	chord.normalized.semitones = getSemitones(chord.normalized.intervals);
 	chord.normalized.intents = getIntents(allModifiers);
@@ -36,17 +37,24 @@ function getModifiers(parsableDescriptor) {
 	const descriptorMatches = parsableDescriptor.match(descriptorRegex);
 
 	let remainingChars = parsableDescriptor;
-	let modifierId;
+	let allModifiersId;
 
 	if (descriptorMatches) {
 		descriptorMatches.forEach((match) => {
-			modifierId = allSymbols[match];
-			if (modifiers.includes(modifierId)) {
-				return null;
-			}
-			modifiers.push(modifierId);
+			allModifiersId = allSymbols[match];
 
-			remainingChars = remainingChars.replace(match, '');
+			if (!Array.isArray(allModifiersId)) {
+				allModifiersId = [allModifiersId];
+			}
+
+			allModifiersId.forEach((modifierId) => {
+				if (modifiers.includes(modifierId)) {
+					return null;
+				}
+				modifiers.push(modifierId);
+
+				remainingChars = remainingChars.replace(match, '');
+			});
 		});
 	}
 
@@ -127,6 +135,9 @@ function getFifths(allModifiers, altIntervals) {
 
 function getSixth(allModifiers) {
 	const sixth = [];
+	if (hasOneOf(allModifiers, [m.addb6])) {
+		sixth.push('b6');
+	}
 	if (
 		hasOneOf(allModifiers, [m.add6, m.add69]) &&
 		!isExtended(allModifiers)

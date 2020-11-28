@@ -21,6 +21,7 @@ describe('Intervals & semitones', () => {
 	describe.each([
 		['A', ['1', '3', '5'], { major: true, eleventh: false, alt: false }],
 		['A6', ['1', '3', '5', '6'], { major: true, eleventh: false, alt: false }],
+		['A(b6)', ['1', '3', '5', 'b6'], { major: true, eleventh: false, alt: false }],
 		['A69', ['1', '3', '5', '6', '9'], { major: true, eleventh: false, alt: false }],
 		['AM7', ['1', '3', '5', '7'], { major: true, eleventh: false, alt: false }],
 		['AM9', ['1', '3', '5', '7', '9'], { major: true, eleventh: false, alt: false }],
@@ -33,6 +34,7 @@ describe('Intervals & semitones', () => {
 		['A13', ['1', '3', '5', 'b7', '9', '13'], { major: true, eleventh: false, alt: false }],
 
 		['Am', ['1', 'b3', '5'], { major: false, eleventh: false, alt: false }],
+		['Amb6', ['1', 'b3', '5', 'b6'], { major: false, eleventh: false, alt: false }],
 		['Am6', ['1', 'b3', '5', '6'], { major: false, eleventh: false, alt: false }],
 		['Am69', ['1', 'b3', '5', '6', '9'], { major: false, eleventh: false, alt: false }],
 		['Am7', ['1', 'b3', '5', 'b7'], { major: false, eleventh: false, alt: false }],
@@ -80,6 +82,73 @@ describe('Intervals & semitones', () => {
 			expect(parsed.normalized.intervals).toEqual(intervals);
 			expect(parsed.normalized.semitones).toEqual(semitones);
 			expect(parsed.normalized.intents).toEqual(intents);
+		});
+	});
+});
+
+describe('modifiers', () => {
+	// prettier-ignore
+	describe.each([
+		['A', []],
+		['A6', ['add6']],
+		['A69', ['add69']],
+		['AM7', ['add7']],
+		['AM9', ['ma', 'ninth']],
+		['AM11', ['ma', 'eleventh']],
+		['AM13', ['ma', 'thirteenth']],
+
+		['A7', ['seventh']],
+		['A9', ['ninth']],
+		['A11', ['eleventh']],
+		['A13', ['thirteenth']],
+
+		['Am', ['mi']],
+		['Am6', ['mi', 'add6']],
+		['Am69', ['mi', 'add69']],
+		['Am7', ['mi', 'seventh']],
+		['Am9', ['mi', 'ninth']],
+		['Am11', ['mi', 'eleventh']],
+		['Am13', ['mi', 'thirteenth']],
+		['Am67', ['mi', 'add6', 'seventh']],
+		['Am6/97', ['mi', 'add69', 'seventh']],
+
+		['Csus', ['sus']],
+		['Csus(add3)', ['sus', 'add3']],
+		['AM7sus', ['add7', 'sus']],
+		['AM9sus', ['ma', 'ninth', 'sus']],
+		['AM11sus', ['ma', 'eleventh', 'sus']],
+		['AM13sus', ['ma', 'thirteenth', 'sus']],
+		['A7sus', ['seventh', 'sus']],
+		['A9sus', ['ninth', 'sus']],
+		['A11sus', ['eleventh', 'sus']],
+		['A13sus', ['thirteenth', 'sus']],
+
+		['Adim', ['dim']],
+		['Ah', ['halfDim']],
+		['Adim7', ['dim', 'seventh']],
+		['Adim(ma7)', ['dim', 'add7']],
+		['Ao7(ma7)', ['dim', 'seventh', 'add7']],
+		['Ao7(add ma7)', ['dim', 'seventh', 'add7']],
+		['A+', ['aug']],
+		['A+7', ['aug', 'seventh']],
+
+		['A(bass)', ['bass']],
+		['A5', ['power']],
+
+		['Aomit3omit5', ['omit3', 'omit5']],
+
+		['C4', ['sus']],
+		['Cadd4', ['add4']],
+		['C4(add3)', ['sus', 'add3']],
+		['Cadd11', ['add11']],
+		['Cadd13', ['add13']],
+
+	])('%s', (symbol, modifiers) => {
+		test('has the following modifiers: ' + modifiers.join(','), () => {
+			const chord = parseChord(symbol);
+			const parsed = parseDescriptor({}, chord);
+
+			expect(parsed.input.modifiers).toEqual(modifiers);
 		});
 	});
 });

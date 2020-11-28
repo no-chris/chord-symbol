@@ -57,6 +57,10 @@ type ChordInput = {
 	 * Ex: `m add9` for `Cmadd9`, a space is added for disambiguation between `m + add` and `ma + dd`.
 	 */
 	parsableDescriptor: string;
+	/**
+	 * - the detected modifiers during parsing
+	 */
+	modifiers: string;
 };
 /**
  * Abstract representation of the chord based on its intervals
