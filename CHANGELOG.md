@@ -1,3 +1,42 @@
+### 1.2.0 (2020-11-28)
+
+##### Build System / Dependencies
+
+* **deps-dev:**
+  *  bump webpack-bundle-analyzer from 3.9.0 to 4.1.0 ([634d625c](https://github.com/no-chris/chord-symbol/commit/634d625c8a4695cc53a635e95623b931c1a98729))
+  *  bump eslint from 7.12.1 to 7.13.0 ([cef9d35b](https://github.com/no-chris/chord-symbol/commit/cef9d35b62cb42d2161b329d904883d8d0337199))
+  *  bump webpack-cli from 4.1.0 to 4.2.0 ([6d0af42b](https://github.com/no-chris/chord-symbol/commit/6d0af42b66dabdd2661b6a2acf6bd63b7392c792))
+  *  bump webpack from 5.2.0 to 5.4.0 ([50c539d2](https://github.com/no-chris/chord-symbol/commit/50c539d2cf07fa0a8a316d3a18f022dfe9e08bf5))
+  *  bump babel-jest from 26.6.1 to 26.6.3 ([2c2ddf15](https://github.com/no-chris/chord-symbol/commit/2c2ddf1570a9211e4145d8bdd0fc59d04eda8d07))
+  *  bump @rollup/plugin-commonjs from 15.1.0 to 16.0.0 ([8636d099](https://github.com/no-chris/chord-symbol/commit/8636d0991a4e9720e1ac08eaa2ff5b3fc83738c4))
+  *  bump jest from 26.6.1 to 26.6.3 ([f2034fee](https://github.com/no-chris/chord-symbol/commit/f2034fee785d42b989aa7e36e167cf6a4bd5fcfa))
+  *  bump rollup from 2.32.1 to 2.33.1 ([fa48b17b](https://github.com/no-chris/chord-symbol/commit/fa48b17b99be2ef9ac61b1bbc4fe155a6b04b307))
+  *  bump @rollup/plugin-node-resolve from 9.0.0 to 10.0.0 ([4de1c845](https://github.com/no-chris/chord-symbol/commit/4de1c845a5979ef90874ec9d2fe352afa30f9930))
+  *  bump eslint from 7.12.0 to 7.12.1 ([8a917dd0](https://github.com/no-chris/chord-symbol/commit/8a917dd0eba0a5bff0dccefc6f5daa8337d44efa))
+  *  bump typescript from 4.0.3 to 4.0.5 ([9dd3edfa](https://github.com/no-chris/chord-symbol/commit/9dd3edfa7fbb8a2bbae1e6d12d07f3a0bb053c30))
+
+##### Documentation Changes
+
+*  fix short unit test suite test count ([c17e78ae](https://github.com/no-chris/chord-symbol/commit/c17e78aefdd59e155afb893ebac1ce408f521dac))
+*  Add iReal Pro reference in Readme ([9e0ba8b7](https://github.com/no-chris/chord-symbol/commit/9e0ba8b762538d531116e0a9d441a1163591262c))
+
+##### New Features
+
+* **parser:**
+  *  Recognize b6 modifier ([e75e733d](https://github.com/no-chris/chord-symbol/commit/e75e733d78727e8c7356dc613c83e325eb5127a4))
+  *  Add the detected modifiers to "input" object ([b410c5e0](https://github.com/no-chris/chord-symbol/commit/b410c5e0cf3faddf2d197d2d0746836864b10b01))
+
+##### Bug Fixes
+
+* **parser:**
+  *  sort added intervals ([a9a07534](https://github.com/no-chris/chord-symbol/commit/a9a075342fce39e86236cd54fb62de5d44675f5a))
+  *  ^ and Δ now yields a Maj7 chord instead of a Maj chord ([4a3b978c](https://github.com/no-chris/chord-symbol/commit/4a3b978c325cd64503ace426907c981368bb7ae6))
+
+##### Tests
+
+*  adapt test cases to the new syntax ([25befd97](https://github.com/no-chris/chord-symbol/commit/25befd9755ccdd95a35be610a4298e6fb3188f27))
+*  add iReal Pro chords symbols to the unit test suite ([70b74114](https://github.com/no-chris/chord-symbol/commit/70b741145ec1d6e7de5360aedb6c2606b44ca009))
+
 #### 1.1.1 (2020-10-26)
 
 ### 1.1.0 (2020-10-26)
