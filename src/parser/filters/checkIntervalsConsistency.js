@@ -21,6 +21,8 @@ const allForbiddenCombos = [
 ];
 
 /**
+ * Check parsed interval list to detect potential inconsistencies
+ *
  * @param {Chord} chord
  * @returns {Chord|Null}
  */

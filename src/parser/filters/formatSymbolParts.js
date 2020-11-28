@@ -32,6 +32,8 @@ const chordChangesDescriptors = {
 };
 
 /**
+ * Pre-render the chord by formatting all his components: root and bass notes, descriptor and changes
+ *
  * @param {Chord} chord
  * @returns {Chord}
  */

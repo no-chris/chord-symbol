@@ -1,5 +1,8 @@
 /**
- * @param {String[]} noteVariants
+ * Split symbol in root/bass note and descriptor.
+ * Returns null if the given string does not seems to be a chord.
+ *
+ * @param {String[]} noteVariants - all notes within a given notation system (English, Latin, German...)
  * @param {Chord} chord
  * @returns {Chord|null}
  */

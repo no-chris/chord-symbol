@@ -15,6 +15,8 @@ import {
 import { qualities } from '../../dictionaries/qualities';
 
 /**
+ * Detect chord quality and changes (extensions, alterations, adds and omits)
+ *
  * @param {Chord} chord
  * @returns {Chord|Null}
  */

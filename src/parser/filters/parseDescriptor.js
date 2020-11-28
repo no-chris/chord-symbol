@@ -6,6 +6,8 @@ import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
 import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 
 /**
+ * Convert the descriptor into a suite of intervals, semitones and intents
+ *
  * @param {AltIntervals} altIntervals
  * @param {Chord} chord
  * @returns {Chord|Null}

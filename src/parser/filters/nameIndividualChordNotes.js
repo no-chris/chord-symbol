@@ -52,6 +52,8 @@ const rootNoteToScaleAccidentals = {
 };
 
 /**
+ * Convert intervals in actual notes.
+ *
  * @param {Chord} chord
  * @returns {Chord}
  */
