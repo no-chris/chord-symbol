@@ -66,10 +66,10 @@ function chordParserFactory({
 				parseBase.bind(null, allNotes.shift()),
 				getParsableDescriptor,
 				parseDescriptor.bind(null, allAltIntervals),
+				checkIntervalsConsistency,
 				normalizeNotes,
 				normalizeDescriptor,
 				formatSymbolParts,
-				checkIntervalsConsistency,
 				nameIndividualChordNotes,
 				...customFilters,
 			];
