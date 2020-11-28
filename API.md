@@ -215,6 +215,9 @@ The source from which the chord structure has been built
     <td>parsableDescriptor</td><td><code>String</code></td><td><p>the modified descriptor such as parsing is possible.
 Ex: <code>m add9</code> for <code>Cmadd9</code>, a space is added for disambiguation between <code>m + add</code> and <code>ma + dd</code>.</p>
 </td>
+    </tr><tr>
+    <td>modifiers</td><td><code>String</code></td><td><p>the detected modifiers during parsing</p>
+</td>
     </tr>  </tbody>
 </table>
 

@@ -416,8 +416,16 @@ describe.each(allCases)('%s', (title, symbol, rootNote, printed, intervals) => {
 });
 
 afterAll(() => {
-	fs.writeFileSync(
-		path.resolve(__dirname + '/../allTestedSymbols.txt'),
-		allTestedSymbols.sort().join('\n')
-	);
+	const filename = path.resolve(__dirname + '/../allTestedSymbols.txt');
+	const file = fs.createWriteStream(filename);
+
+	file.on('error', (err) => {
+		console.error(err);
+	});
+
+	allTestedSymbols.sort().forEach((v) => {
+		file.write(v + '\n');
+	});
+
+	file.end();
 });
