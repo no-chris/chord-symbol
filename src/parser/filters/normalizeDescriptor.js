@@ -18,7 +18,7 @@ import { qualities } from '../../dictionaries/qualities';
  * Detect chord quality and changes (extensions, alterations, adds and omits)
  *
  * @param {Chord} chord
- * @returns {Chord|Null}
+ * @returns {Chord}
  */
 export default function normalizeDescriptor(chord) {
 	let chordIntervals = _clone(chord.normalized.intervals);
