@@ -1,4 +1,5 @@
 import { hasAll } from '../../helpers/hasElement';
+import { InvalidIntervalsError } from '../../helpers/ChordParsingError';
 
 const allForbiddenCombos = [
 	['2', '3'],
@@ -29,9 +30,18 @@ const allForbiddenCombos = [
 export default function checkIntervalsConsistency(chord) {
 	const intervals = chord.normalized.intervals;
 
-	const hasForbiddenCombo = allForbiddenCombos.some((combo) =>
+	const forbiddenCombo = allForbiddenCombos.find((combo) =>
 		hasAll(intervals, combo)
 	);
 
-	return hasForbiddenCombo ? null : chord;
+	if (forbiddenCombo) {
+		const errorMsg =
+			chord.input.symbol +
+			'describes a chord with an invalid intervals combo: ' +
+			forbiddenCombo.join(' and ');
+
+		throw new InvalidIntervalsError(errorMsg, chord);
+	}
+
+	return chord;
 }

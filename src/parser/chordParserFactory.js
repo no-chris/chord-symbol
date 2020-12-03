@@ -56,6 +56,7 @@ function chordParserFactory({
 	 */
 	function parseChord(symbol) {
 		const allNotes = [englishVariants, latinVariants, germanVariants];
+		//const allErrors = [];
 
 		let chord;
 		let allFilters;
@@ -74,11 +75,36 @@ function chordParserFactory({
 				...customFilters,
 			];
 
-			chord = chain(allFilters, symbol);
+			try {
+				chord = chain(allFilters, symbol);
+			} catch (e) {
+				chord = {};
+				chord.error = [];
+				chord.error.push({
+					type: e.name,
+					chord: e.chord,
+					message: e.message,
+					//noteVariants: Object.keys({})
+				});
+			}
 		}
+
+		/*
+		if (!chord) {
+			chord = {};
+			chord.error = formatErrors(allErrors);
+		}
+		 */
+
 		return chord;
 	}
 }
+
+/*
+const formatErrors = (allErrors) => {
+	return allErrors;
+};
+ */
 
 /**
  * @module chordParserFactory

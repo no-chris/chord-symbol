@@ -51,7 +51,7 @@ describe('ambiguous rootNote', () => {
 	});
 });
 
-describe('invalid chords', () => {
+describe('strings that do not describe a symbol', () => {
 	describe.each([
 		// wrong notes or descriptors
 		['I'],
@@ -74,7 +74,17 @@ describe('invalid chords', () => {
 		['A7/mb5/G'],
 		['A,b97'],
 		['A7,mb5/G'],
+	])('%s', (symbol) => {
+		test('should return null', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+			expect(parsed).toBeNull();
+		});
+	});
+});
 
+describe('invalid chords', () => {
+	describe.each([
 		// Invalid intervals combos
 		['Cm(add3)'],
 		['C11sus4'],
@@ -84,10 +94,16 @@ describe('invalid chords', () => {
 		['C(#11)(add11)'],
 		['C(b13)(add13)'],
 	])('%s', (symbol) => {
-		test('should return null', () => {
+		test('symbols yielding invalid intervals combos should produce an InvalidIntervalsError', () => {
 			const parseChord = chordParserFactory();
 			const parsed = parseChord(symbol);
-			expect(parsed).toBeNull();
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(1);
+			expect(parsed.error[0].type).toBe('InvalidIntervalsError');
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
 		});
 	});
 });
