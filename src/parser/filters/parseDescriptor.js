@@ -1,7 +1,7 @@
 import _uniq from 'lodash/uniq';
 import {
 	InvalidModifierError,
-	NoSymbolFound,
+	NoSymbolFoundError,
 } from '../../helpers/ChordParsingError';
 
 import m from '../../dictionaries/modifiers';
@@ -54,7 +54,7 @@ function getModifiers(chord) {
 
 			allModifiersId.forEach((modifierId) => {
 				if (modifiers.includes(modifierId)) {
-					return null;
+					return;
 				}
 				modifiers.push(modifierId);
 
@@ -65,7 +65,7 @@ function getModifiers(chord) {
 
 	if (modifiers.length === 0) {
 		const errorMsg = `${symbol} does not seems to be a chord`;
-		throw new NoSymbolFound(errorMsg, chord);
+		throw new NoSymbolFoundError(errorMsg, chord);
 	}
 	if (remainingChars.trim().length > 0) {
 		const errorMsg = `The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`;

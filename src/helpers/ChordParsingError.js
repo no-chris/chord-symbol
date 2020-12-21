@@ -6,7 +6,7 @@ class ChordSymbolError extends Error {
 	}
 }
 
-class NoSymbolFound extends ChordSymbolError {
+class NoSymbolFoundError extends ChordSymbolError {
 	constructor(message, chord) {
 		super(message, chord, 'NoSymbolFoundError');
 	}
@@ -24,4 +24,4 @@ class InvalidIntervalsError extends ChordSymbolError {
 	}
 }
 
-export { InvalidModifierError, InvalidIntervalsError, NoSymbolFound };
+export { InvalidModifierError, InvalidIntervalsError, NoSymbolFoundError };

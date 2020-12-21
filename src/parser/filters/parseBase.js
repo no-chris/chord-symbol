@@ -1,4 +1,4 @@
-import { NoSymbolFound } from '../../helpers/ChordParsingError';
+import { NoSymbolFoundError } from '../../helpers/ChordParsingError';
 
 /**
  * Split symbol in root/bass note and descriptor.
@@ -35,7 +35,7 @@ export default function parseBase(noteVariants, chord) {
 		}
 		return chord;
 	} else {
-		throw new NoSymbolFound(
+		throw new NoSymbolFoundError(
 			`${symbol} does not seems to be a chord`,
 			chord
 		);
