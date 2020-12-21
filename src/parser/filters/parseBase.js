@@ -1,3 +1,5 @@
+import { NoSymbolFound } from '../../helpers/ChordParsingError';
+
 /**
  * Split symbol in root/bass note and descriptor.
  * Returns null if the given string does not seems to be a chord.
@@ -33,6 +35,9 @@ export default function parseBase(noteVariants, chord) {
 		}
 		return chord;
 	} else {
-		return null;
+		throw new NoSymbolFound(
+			`${symbol} does not seems to be a chord`,
+			chord
+		);
 	}
 }
