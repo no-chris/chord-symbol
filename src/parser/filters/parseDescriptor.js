@@ -1,4 +1,8 @@
 import _uniq from 'lodash/uniq';
+import {
+	InvalidModifierError,
+	NoSymbolFound,
+} from '../../helpers/ChordParsingError';
 
 import m from '../../dictionaries/modifiers';
 import { allSymbols, allVariants } from '../../dictionaries/modifiers';
@@ -16,10 +20,8 @@ export default function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
 
 	if (chord.input.parsableDescriptor) {
-		allModifiers = getModifiers(chord.input.parsableDescriptor);
+		allModifiers = getModifiers(chord);
 	}
-
-	if (!allModifiers) return null;
 
 	chord.input.modifiers = allModifiers;
 	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
@@ -29,7 +31,8 @@ export default function parseDescriptor(altIntervals, chord) {
 	return chord;
 }
 
-function getModifiers(parsableDescriptor) {
+function getModifiers(chord) {
+	const { parsableDescriptor, descriptor, symbol } = chord.input;
 	const modifiers = [];
 
 	const descriptorRegex = new RegExp(
@@ -60,9 +63,15 @@ function getModifiers(parsableDescriptor) {
 		});
 	}
 
-	if (modifiers.length === 0 || remainingChars.trim().length > 0) {
-		return null;
+	if (modifiers.length === 0) {
+		const errorMsg = `${symbol} does not seems to be a chord`;
+		throw new NoSymbolFound(errorMsg, chord);
 	}
+	if (remainingChars.trim().length > 0) {
+		const errorMsg = `The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`;
+		throw new InvalidModifierError(errorMsg, chord);
+	}
+
 	return modifiers;
 }
 

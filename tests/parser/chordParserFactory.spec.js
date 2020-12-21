@@ -51,8 +51,6 @@ describe('ambiguous rootNote', () => {
 	});
 });
 
-describe('strings that do not describe a symbol', () => {});
-
 describe('parsing errors', () => {
 	describe.each([
 		['I'],
@@ -60,25 +58,8 @@ describe('parsing errors', () => {
 		['Im'],
 		['Loop'],
 		['Weird'],
-		/*
-		['A6/Z'],
-		['Ame'],
-		['Amad7'],
-		['America'],
-		['A('],
-		['A(('],
-		['A()('],
-		['A/'],
-		['A(,,)'],
-		['A,,'],
-		['A..'],
-		['Am..'],
-		['A..m'],
-		['A7.mb5'],
-		['A7/mb5/G'],
-		['A,b97'],
-		['A7,mb5/G'],
-		 */
+		['Shine'],
+		['Puppet'],
 	])('%s', (symbol) => {
 		test('strings that cannot be confused with a chord should produce a NoSymbolFoundError', () => {
 			const parseChord = chordParserFactory();
@@ -86,8 +67,69 @@ describe('parsing errors', () => {
 
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
-			//expect(parsed.error.length).toBe(3); //fixme: fix the count of errors
-			expect(parsed.error[0].type).toBe('NoSymbolFoundError'); //fixme: add details on message
+			expect(parsed.error.length).toBe(3);
+			expect(parsed.error[0].type).toBe('NoSymbolFoundError');
+			expect(parsed.error[0].message).toBe(
+				`${symbol} does not seems to be a chord`
+			);
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
+		});
+	});
+
+	describe.each([
+		['A('],
+		['A(('],
+		['A()('],
+		['A/'],
+		['A(,,)'],
+		['A,,'],
+		['A..'],
+		['All'],
+		['Art'],
+		['Aperture'],
+	])('%s', (symbol) => {
+		test('strings that could be a chord but have NO SINGLE known modifiers should produce NoSymbolFoundError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			//expect(parsed.error.length).toBe(3); //fixme
+			expect(parsed.error[0].message).toBe(
+				`${symbol} does not seems to be a chord`
+			);
+			expect(parsed.error[0].type).toBe('NoSymbolFoundError');
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
+		});
+	});
+
+	describe.each([
+		['A6/Z', '6/Z', '/z'],
+		['Ame', 'me', 'e'],
+		['Amm', 'mm', 'm'],
+		['A77', '77', '7'],
+		['Amad7', 'mad7', 'd'],
+		['AMERICA', 'MERICA', 'erica'],
+		['Am..', 'm..', '..'],
+		['A..m', '..m', '..'],
+		['A7.mb5', '7.mb5', '.'],
+		['A7/mb5/G', '7/mb5', '/'],
+		['A,b97', ',b97', ','],
+		['A7,mb5/G', '7,mb5', ','],
+	])('%s', (symbol, descriptor, remainingChars) => {
+		test('strings that could be a chord but have SOME unknown modifiers should produce ChordParsingError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			//expect(parsed.error.length).toBe(3);
+			expect(parsed.error[0].type).toBe('ChordParsingError');
+			expect(parsed.error[0].message).toBe(
+				`The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`
+			);
 			expect(parsed.error[0].chord).toBeDefined();
 			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
 		});
