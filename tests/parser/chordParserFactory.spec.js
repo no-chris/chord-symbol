@@ -52,7 +52,72 @@ describe('ambiguous rootNote', () => {
 });
 
 describe('parsing errors', () => {
-	describe.each([['undefined']])('%s', (title, symbol) => {
+	describe.each([
+		[
+			'Amis',
+			'InvalidModifierError',
+			'InvalidModifierError',
+			'NoSymbolFoundError',
+		],
+		[
+			'Lamis',
+			'NoSymbolFoundError',
+			'NoSymbolFoundError',
+			'InvalidModifierError',
+		],
+		[
+			'NotAChord',
+			'NoSymbolFoundError',
+			'NoSymbolFoundError',
+			'NoSymbolFoundError',
+		],
+		[
+			'B6b6',
+			'InvalidIntervalsError',
+			'NoSymbolFoundError',
+			'NoSymbolFoundError',
+		],
+		[
+			'H6b6',
+			'NoSymbolFoundError',
+			'InvalidIntervalsError',
+			'NoSymbolFoundError',
+		],
+		[
+			'Si6b6',
+			'NoSymbolFoundError',
+			'NoSymbolFoundError',
+			'InvalidIntervalsError',
+		],
+	])('%s', (symbol, englishError, germanError, latinError) => {
+		test('should return a distinct error for each naming variant', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+
+			expect(parsed.error.length).toBe(3);
+
+			expect(parsed.error[0].notationSystem).toBe('english');
+			expect(parsed.error[0].type).toBe(englishError);
+
+			expect(parsed.error[1].notationSystem).toBe('german');
+			expect(parsed.error[1].type).toBe(germanError);
+
+			expect(parsed.error[2].notationSystem).toBe('latin');
+			expect(parsed.error[2].type).toBe(latinError);
+		});
+	});
+
+	describe.each([
+		['undefined'],
+		['null', null],
+		['integer', 2],
+		['decimal', 6.9],
+		['NaN', NaN],
+		['object', {}],
+	])('%s', (title, symbol) => {
 		test('invalid symbol input should produce a InvalidInputError', () => {
 			const parseChord = chordParserFactory();
 			const parsed = parseChord(symbol);
@@ -151,19 +216,14 @@ describe('parsing errors', () => {
 	});
 
 	describe.each([
-		['Cm(add3)'],
-		['C11sus4'],
-		['C7M7'],
-		['C(b9)(add9)'],
-		['C(#9)(add9)'],
-		['C(#11)(add11)'],
-		['C(b13)(add13)'],
-
-		//fixme
-		//['Sol7M7'],
-		//['Mi(#9)(add9)'],
-		//['Ré(b13)(add13)'],
-	])('%s', (symbol) => {
+		['Cm(add3)', '3 and b3'],
+		['C11sus4', '4 and 11'],
+		['C7M7', '7 and b7'],
+		['C(b9)(add9)', '9 and b9'],
+		['C(#9)(add9)', '9 and #9'],
+		['C(#11)(add11)', '11 and #11'],
+		['C(b13)(add13)', '13 and b13'],
+	])('%s', (symbol, intervals) => {
 		test('symbols yielding invalid intervals combos should produce an InvalidIntervalsError', () => {
 			const parseChord = chordParserFactory();
 			const parsed = parseChord(symbol);
@@ -171,7 +231,10 @@ describe('parsing errors', () => {
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
 			//expect(parsed.error.length).toBe(3); //fixme: fix the count of errors
-			expect(parsed.error[0].type).toBe('InvalidIntervalsError'); //fixme: add details on message
+			expect(parsed.error[0].type).toBe('InvalidIntervalsError');
+			expect(parsed.error[0].message).toBe(
+				`"${symbol}" describes a chord with an invalid intervals combo: ${intervals}`
+			);
 			expect(parsed.error[0].chord).toBeDefined();
 			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
 			// fixme: more assertions on the tests
