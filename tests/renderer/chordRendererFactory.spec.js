@@ -161,9 +161,21 @@ describe('invalid options values', () => {
 });
 
 describe('invalid parsed chord', () => {
-	test('should return null if given chord is null', () => {
-		const renderChord = chordRendererFactory({ printer: 'raw' });
-		expect(renderChord(null)).toBeNull();
+	const parseChord = chordParserFactory();
+	const invalidChord = parseChord('Amis');
+
+	describe.each([
+		['undefined'],
+		['null', null],
+		['string', 'myChord'],
+		['number', 0],
+		['object', { test: 'test' }],
+		['invalidChord', invalidChord],
+	])('%s', (title, parsedChord) => {
+		test('should return null if given chord is invalid', () => {
+			const renderChord = chordRendererFactory({ printer: 'raw' });
+			expect(renderChord(parsedChord)).toBeNull();
+		});
 	});
 });
 

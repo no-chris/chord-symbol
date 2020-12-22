@@ -49,7 +49,7 @@ function chordRendererFactory({
 	 * @returns {String|Chord} output depends on the selected printer: string for text printer (default), Chord for raw printer
 	 */
 	function renderChord(chord) {
-		if (!chord) {
+		if (!isValidChord(chord)) {
 			return null;
 		}
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
@@ -59,6 +59,10 @@ function chordRendererFactory({
 			: textPrinter(filteredChord);
 	}
 }
+
+const isValidChord = (chord) => {
+	return chord && typeof chord === 'object' && !chord.error && chord.input;
+};
 
 /**
  * @module chordRendererFactory
