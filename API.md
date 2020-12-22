@@ -52,12 +52,22 @@ Intended to be used as building blocks of a rendered chord</p>
 <dt><a href="#ParserConfiguration">ParserConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord parser</p>
 </dd>
+<dt><a href="#ChordSymbolError">ChordSymbolError</a> : <code>Object</code></dt>
+<dd><p>Description of an error that occurred during the parsing.</p>
+</dd>
 <dt><a href="#RendererConfiguration">RendererConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord renderer</p>
 </dd>
 <dt><a href="#customFilter">customFilter</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
 <dd><p>Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.</p>
+<ul>
+<li>To fail the parsing, throw an exception and it will use the Error API.
+If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+<a href="https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js">custom error types</a></li>
+<li>To fail the rendering, simply return <code>null</code>.
+Warning: if you throw an exception in a rendering filter, <code>ChordSymbol</code> will not catch it and you will need to handle it yourself.</li>
+</ul>
 </dd>
 </dl>
 
@@ -169,17 +179,20 @@ A data object representing a chord. It is the result of the parsing operation an
   </thead>
   <tbody>
 <tr>
-    <td>input</td><td><code><a href="#ChordInput">ChordInput</a></code></td><td><p>information derived from the symbol given as an input.
+    <td>[input]</td><td><code><a href="#ChordInput">ChordInput</a></code></td><td><p>information derived from the symbol given as an input.
 If you need to trace what has generated a given chord, you&#39;ll find it here.</p>
 </td>
     </tr><tr>
-    <td>normalized</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
+    <td>[normalized]</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
 </td>
     </tr><tr>
-    <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
+    <td>[formatted]</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
 </td>
     </tr><tr>
-    <td>parserConfiguration</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
+    <td>[parserConfiguration]</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
+</td>
+    </tr><tr>
+    <td>[error]</td><td><code><a href="#ChordSymbolError">Array.&lt;ChordSymbolError&gt;</a></code></td><td><p>if defined, then the parsing failed and this array will contain the reason(s) why</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -385,6 +398,37 @@ If you would like &quot;alt&quot; to consistently yield a specific set of interv
     </tr>  </tbody>
 </table>
 
+<a name="ChordSymbolError"></a>
+
+## ChordSymbolError : <code>Object</code>
+Description of an error that occurred during the parsing.
+
+**Kind**: global typedef  
+**Properties**
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>type</td><td><code>&#x27;InvalidIntervals&#x27;</code> | <code>&#x27;InvalidInput&#x27;</code> | <code>&#x27;InvalidModifier&#x27;</code> | <code>&#x27;NoSymbolFound&#x27;</code> | <code>&#x27;UnexpectedError&#x27;</code></td><td><p>error code,
+or exception type in custom filters</p>
+</td>
+    </tr><tr>
+    <td>message</td><td><code>String</code></td><td><p>error description, or the exception message in custom filters</p>
+</td>
+    </tr><tr>
+    <td>[chord]</td><td><code><a href="#Chord">Chord</a></code></td><td><p>the chord object, in the state that it was when the error occurred</p>
+</td>
+    </tr><tr>
+    <td>[notationSystem]</td><td><code>&#x27;english&#x27;</code> | <code>&#x27;german&#x27;</code> | <code>&#x27;latin&#x27;</code></td><td><p>the notation system context in which the error occurred</p>
+</td>
+    </tr>  </tbody>
+</table>
+
 <a name="RendererConfiguration"></a>
 
 ## RendererConfiguration : <code>Object</code>
@@ -431,9 +475,14 @@ Configuration of the chord renderer
 ## customFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
 Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.
+- To fail the parsing, throw an exception and it will use the Error API.
+If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+[custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
+- To fail the rendering, simply return `null`.
+Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and you will need to handle it yourself.
 
 **Kind**: global typedef  
-**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or Null to cancel the processing and skip the remaining filters.  
+**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.  
 <table>
   <thead>
     <tr>

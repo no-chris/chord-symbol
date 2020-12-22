@@ -35,7 +35,7 @@ const defaultAltIntervals = {
 /**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
- * @returns {function(String): Chord|Null}
+ * @returns {function(String): Chord}
  */
 function chordParserFactory({
 	altIntervals = defaultAltIntervals,

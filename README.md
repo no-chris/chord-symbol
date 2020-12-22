@@ -19,10 +19,13 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 -   [Usage](#usage)
 -   [Migration guides](#migration-guides)
     -   [From v0.5.1 to v1.0.0](#from-v051-to-v100)
-        -   [BREAKING - Intervals consistency](#breaking---intervals-consistency)
-        -   [BREAKING - API change](#breaking---api-change)
+        -   [Intervals consistency](#intervals-consistency)
+        -   [API change](#api-change)
+    -   [From v1.2.0 to v2.0.0](#from-v120-to-v200)
+        -   [API change](#api-change-1)
 -   [Unit tests](#unit-tests)
 -   [API Documentation](#api-documentation)
+-   [Error handling](#error-handling)
 -   [Background information](#background-information)
     -   [Why parse chords symbols?](#why-parse-chords-symbols)
     -   [Guiding principles](#guiding-principles)
@@ -30,7 +33,7 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
         -   [Symbol parsing](#symbol-parsing)
         -   [Rendering and normalization](#rendering-and-normalization)
 -   [Limitations](#limitations)
-    -   [Intervals consistency](#intervals-consistency)
+    -   [Intervals consistency](#intervals-consistency-1)
     -   [Support for different notation systems](#support-for-different-notation-systems)
     -   [Musical scope](#musical-scope)
 -   [Lexicon](#lexicon)
@@ -40,18 +43,18 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 ## Features
 
 -   recognize root note and bass note
--   identify chord "vertical quality" (`major`, `major7`, `minor`, `diminished`, `diminished7`...)
+-   identify the chord "vertical quality" (`major`, `major7`, `minor`, `diminished`, `diminished7`...)
 -   recognize extensions, alterations, added and omitted notes
--   detect chord intervals
+-   detect the chord intervals
 -   detect individual chord notes
 -   check intervals consistency to reject invalid chords
 -   normalize the chord naming (two options: `academic` and `short`)
--   simplify chord
--   transpose chord
+-   simplify a chord
+-   transpose a chord
 -   recognize a vast number of chords (unit test suite contains more than 37 000 variations!)
 -   basic support for notes written in `english`, `latin` or `german` notation system (see limitations below)
--   "pipe-and-filters" architecture: customize the parsing and the rendering with your own processing filters!
--   typescript types
+-   "pipe-and-filters" architecture: customize the parsing and the rendering with your own processing filters
+-   Typescript types
 
 Check the [backlog](https://github.com/no-chris/chord-symbol/projects/2) for upcoming features; feel free to [submit ideas or report any bug](https://github.com/no-chris/chord-symbol/issues).
 
@@ -75,7 +78,7 @@ console.log(renderChord(chord));
 // -> CM7
 ```
 
-If you want to use the library directly in the browser, you can proceed as follow:
+If you want to use the library directly in the browser, you can proceed as follows:
 
 ```html
 <html>
@@ -101,15 +104,15 @@ If you want to use the library directly in the browser, you can proceed as follo
 
 ### From v0.5.1 to v1.0.0
 
-This version contains 2 breaking changes:
+`v1.0.0` contains 2 breaking changes:
 
-#### BREAKING - Intervals consistency
+#### Intervals consistency
 
 `ChordSymbol` used to parse any valid combinations of modifiers without considering if the resulting interval list would contain invalid intervals combinations.
 A new filter has been added ([checkIntervalsConsistency](https://github.com/no-chris/chord-symbol/blob/master/src/parser/filters/checkIntervalsConsistency.js)) to spot most basic mistakes and reject obviously invalid symbols, like `Cm(add3)` or `C(b9)add9`.
 As a result, some symbols that would have previously been considered as valid are now rejected and the parser will return `null`.
 
-#### BREAKING - API change
+#### API change
 
 You now need to create a parser by using the `chordParserFactory` instead of importing the parser directly.
 This allows greater flexibility by offering the possibility to configure the parser.
@@ -131,6 +134,39 @@ const parseChord = chordParserFactory();
 const chord = parseChord('C9sus');
 ```
 
+### From v1.2.0 to v2.0.0
+
+`v2.0.0` contains 1 breaking change:
+
+#### API change
+
+The parser function does not return `null` anymore in case of a parsing failure, but an object with an error property.
+You need to test the returned object to know if the parsing succeeded or not.
+
+Instead of:
+
+```javascript
+const chord = parseChord('C7M7');
+if (chord) {
+	const rendered = renderChord(parsed);
+	console.log(rendered);
+} else {
+	console.log('The parsing failed!');
+}
+```
+
+do:
+
+```javascript
+const chord = parseChord('C7M7');
+if (!chord.error) {
+	const rendered = renderChord(parsed);
+	console.log(rendered);
+} else {
+	// Error handling...
+}
+```
+
 ## Unit tests
 
 `ChordSymbol` has a **massive** unit test suite of ~117 000 tests!
@@ -148,6 +184,41 @@ npm run-script test-short
 ## API Documentation
 
 [See this file](https://github.com/no-chris/chord-symbol/blob/master/API.md)
+
+## Error handling
+
+By default, `ChordSymbol` tries to parse a symbol three times, each time with the root and bass notes written in a different notation system:
+`english` first, then `german` and finally `latin`.
+If any of those attempts succeed, then the given string is considered as a valid chord, and the parser returns a `Chord` object.
+If all of them fails, then `ChordSymbol` returns an object with an `error` property.
+
+This `error` property contains an array of all errors that occurred during the parsing.
+Each error is at least described by a `type` and a `message`
+(see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
+When the error appears in the context of a specific notation system, then the given system is specified
+in the `notationSystem` property of each error object.
+
+Here is a description of all the error types:
+
+| Error type         | Reason                                                                                                                                                          | Example              |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `InvalidInput`     | The parser was not given a valid string to parse                                                                                                                | `parseChord(null)`   |
+| `NoSymbolFound`    | The given string cannot be confused with a chord symbol in the current notation system                                                                          | `parseChord('Ape')`  |
+| `InvalidModifier`  | The given string could be a chord symbol, but `ChordSymbol` does not understand its descriptor. It could be either a typo or a word that is simply not a chord. | `parseChord('Amid')` |
+| `InvalidIntervals` | The given string is a chord symbol, but the resulting interval list is not valid                                                                                | `parseChord('A7M7')` |
+| `UnexpectedError`  | This error is very unlikely to happen. If it does, it is probably in the context of a custom filter                                                             | `-`                  |
+
+A given string will yield different errors depending on the notation system used during the parsing attempt.
+For example, `H7M7` will produce:
+
+-   a `NoSymbolFound` error in the `english` notation system;
+-   an `InvalidIntervals` error in the `german` notation system;
+-   a `NoSymbolFound` error in the `latin` notation system.
+
+In that example, the `error` property of the object returned by the parser will be an array with 3 entries.
+
+Regarding the rendering function, any error will produce a `null` value.
+The client code should then thoroughly test the renderer output to avoid throwing errors (especially when using the `raw` printer).
 
 ## Background information
 
