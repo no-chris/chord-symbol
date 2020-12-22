@@ -1,11 +1,8 @@
 import chain from '../helpers/chain';
+import _cloneDeep from 'lodash/cloneDeep';
 import checkCustomFilters from '../helpers/checkCustomFilters';
 
-import {
-	englishVariants,
-	latinVariants,
-	germanVariants,
-} from '../dictionaries/notes';
+import { allVariantsPerGroup } from '../dictionaries/notes';
 
 import { InvalidInputError } from '../helpers/ChordParsingError';
 
@@ -57,7 +54,7 @@ function chordParserFactory({
 	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
 	 */
 	function parseChord(symbol) {
-		const allNotes = [englishVariants, latinVariants, germanVariants];
+		const allNotesPerGroup = _cloneDeep(allVariantsPerGroup);
 		const allErrors = [];
 
 		if (!isInputValid(symbol)) {
@@ -69,12 +66,15 @@ function chordParserFactory({
 
 		let chord;
 		let allFilters;
+		let variants;
 
-		if (allErrors.length === 0) {
-			while (allNotes.length && !chord) {
+		if (!allErrors.length) {
+			while (allNotesPerGroup.length && !chord) {
+				variants = allNotesPerGroup.shift();
+
 				allFilters = [
 					initChord.bind(null, { altIntervals }),
-					parseBase.bind(null, allNotes.shift()),
+					parseBase.bind(null, variants.notes),
 					getParsableDescriptor,
 					parseDescriptor.bind(null, allAltIntervals),
 					checkIntervalsConsistency,
@@ -88,18 +88,12 @@ function chordParserFactory({
 				try {
 					chord = chain(allFilters, symbol);
 				} catch (e) {
-					allErrors.push(formatError(e));
+					allErrors.push(formatError(e, variants.name));
 				}
 			}
 		}
 
-		if (!chord) {
-			chord = {
-				error: allErrors,
-			};
-		}
-
-		return chord;
+		return chord ? chord : { error: allErrors };
 	}
 }
 
@@ -107,11 +101,12 @@ function isInputValid(input) {
 	return typeof input === 'string' && input.length > 0;
 }
 
-function formatError(exceptionError) {
+function formatError(exceptionError, notationSystem) {
 	return {
 		type: exceptionError.name,
 		chord: exceptionError.chord,
 		message: exceptionError.message,
+		notationSystem,
 	};
 }
 
