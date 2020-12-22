@@ -24,7 +24,7 @@ describe('Custom error types', () => {
 		expect(shouldThrow).toThrow(InvalidInputError);
 
 		const error = getErrorObject(shouldThrow);
-		expect(error.name).toBe('InvalidInputError');
+		expect(error.name).toBe('InvalidInput');
 		expect(error.message).toBe('myMessage');
 	});
 
@@ -37,7 +37,7 @@ describe('Custom error types', () => {
 		expect(shouldThrow).toThrow(NoSymbolFoundError);
 
 		const error = getErrorObject(shouldThrow);
-		expect(error.name).toBe('NoSymbolFoundError');
+		expect(error.name).toBe('NoSymbolFound');
 		expect(error.message).toBe('myMessage');
 		expect(error.chord).toBe(chord);
 	});
@@ -51,7 +51,7 @@ describe('Custom error types', () => {
 		expect(shouldThrow).toThrow(InvalidModifierError);
 
 		const error = getErrorObject(shouldThrow);
-		expect(error.name).toBe('InvalidModifierError');
+		expect(error.name).toBe('InvalidModifier');
 		expect(error.message).toBe('myMessage');
 		expect(error.chord).toBe(chord);
 	});
@@ -65,7 +65,7 @@ describe('Custom error types', () => {
 		expect(shouldThrow).toThrow(InvalidIntervalsError);
 
 		const error = getErrorObject(shouldThrow);
-		expect(error.name).toBe('InvalidIntervalsError');
+		expect(error.name).toBe('InvalidIntervals');
 		expect(error.message).toBe('myMessage');
 		expect(error.chord).toBe(chord);
 	});

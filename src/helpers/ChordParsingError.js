@@ -1,7 +1,7 @@
 class InvalidInputError extends Error {
 	constructor(message) {
 		super(message);
-		this.name = 'InvalidInputError';
+		this.name = 'InvalidInput';
 	}
 }
 
@@ -15,19 +15,19 @@ class ChordSymbolError extends Error {
 
 class NoSymbolFoundError extends ChordSymbolError {
 	constructor(message, chord) {
-		super(message, chord, 'NoSymbolFoundError');
+		super(message, chord, 'NoSymbolFound');
 	}
 }
 
 class InvalidModifierError extends ChordSymbolError {
 	constructor(message, chord) {
-		super(message, chord, 'InvalidModifierError');
+		super(message, chord, 'InvalidModifier');
 	}
 }
 
 class InvalidIntervalsError extends ChordSymbolError {
 	constructor(message, chord) {
-		super(message, chord, 'InvalidIntervalsError');
+		super(message, chord, 'InvalidIntervals');
 	}
 }
 

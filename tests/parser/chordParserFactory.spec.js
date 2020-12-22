@@ -53,42 +53,12 @@ describe('ambiguous rootNote', () => {
 
 describe('parsing errors', () => {
 	describe.each([
-		[
-			'Amis',
-			'InvalidModifierError',
-			'InvalidModifierError',
-			'NoSymbolFoundError',
-		],
-		[
-			'Lamis',
-			'NoSymbolFoundError',
-			'NoSymbolFoundError',
-			'InvalidModifierError',
-		],
-		[
-			'NotAChord',
-			'NoSymbolFoundError',
-			'NoSymbolFoundError',
-			'NoSymbolFoundError',
-		],
-		[
-			'B6b6',
-			'InvalidIntervalsError',
-			'NoSymbolFoundError',
-			'NoSymbolFoundError',
-		],
-		[
-			'H6b6',
-			'NoSymbolFoundError',
-			'InvalidIntervalsError',
-			'NoSymbolFoundError',
-		],
-		[
-			'Si6b6',
-			'NoSymbolFoundError',
-			'NoSymbolFoundError',
-			'InvalidIntervalsError',
-		],
+		['Amis', 'InvalidModifier', 'InvalidModifier', 'NoSymbolFound'],
+		['Lamis', 'NoSymbolFound', 'NoSymbolFound', 'InvalidModifier'],
+		['NotAChord', 'NoSymbolFound', 'NoSymbolFound', 'NoSymbolFound'],
+		['B6b6', 'InvalidIntervals', 'NoSymbolFound', 'NoSymbolFound'],
+		['H6b6', 'NoSymbolFound', 'InvalidIntervals', 'NoSymbolFound'],
+		['Si6b6', 'NoSymbolFound', 'NoSymbolFound', 'InvalidIntervals'],
 	])('%s', (symbol, englishError, germanError, latinError) => {
 		test('should return a distinct error for each naming variant', () => {
 			const parseChord = chordParserFactory();
@@ -125,7 +95,7 @@ describe('parsing errors', () => {
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
 			expect(parsed.error.length).toBe(1);
-			expect(parsed.error[0].type).toBe('InvalidInputError');
+			expect(parsed.error[0].type).toBe('InvalidInput');
 			expect(parsed.error[0].message).toBe(
 				`The given symbol is not a valid string`
 			);
@@ -148,7 +118,7 @@ describe('parsing errors', () => {
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
 			expect(parsed.error.length).toBe(3);
-			expect(parsed.error[0].type).toBe('NoSymbolFoundError');
+			expect(parsed.error[0].type).toBe('NoSymbolFound');
 			expect(parsed.error[0].message).toBe(
 				`"${symbol}" does not seems to be a chord`
 			);
@@ -179,7 +149,7 @@ describe('parsing errors', () => {
 			expect(parsed.error[0].message).toBe(
 				`"${symbol}" does not seems to be a chord`
 			);
-			expect(parsed.error[0].type).toBe('NoSymbolFoundError');
+			expect(parsed.error[0].type).toBe('NoSymbolFound');
 			expect(parsed.error[0].chord).toBeDefined();
 			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
 		});
@@ -206,7 +176,7 @@ describe('parsing errors', () => {
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
 			//expect(parsed.error.length).toBe(3);
-			expect(parsed.error[0].type).toBe('InvalidModifierError');
+			expect(parsed.error[0].type).toBe('InvalidModifier');
 			expect(parsed.error[0].message).toBe(
 				`The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`
 			);
@@ -231,7 +201,7 @@ describe('parsing errors', () => {
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
 			//expect(parsed.error.length).toBe(3); //fixme: fix the count of errors
-			expect(parsed.error[0].type).toBe('InvalidIntervalsError');
+			expect(parsed.error[0].type).toBe('InvalidIntervals');
 			expect(parsed.error[0].message).toBe(
 				`"${symbol}" describes a chord with an invalid intervals combo: ${intervals}`
 			);
