@@ -304,7 +304,7 @@ describe('ParserConfiguration', () => {
 	});
 });
 
-describe('apply user filters', () => {
+describe('Custom filters', () => {
 	const myFilter1 = (chord) => {
 		chord.myFilter1 = true;
 		return chord;
@@ -323,7 +323,7 @@ describe('apply user filters', () => {
 		throw new TypeError('User filter error');
 	};
 
-	test('should apply user filters', () => {
+	test('should apply custom filters', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3];
 		const parseChord = chordParserFactory({ customFilters });
 		const parsed = parseChord('Cm7');
@@ -336,7 +336,7 @@ describe('apply user filters', () => {
 		expect(parsed.myFilter3).toEqual('myFilter3 has been applied');
 	});
 
-	test('should apply user filters on the raw chord object', () => {
+	test('should apply custom filters on the raw chord object', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3];
 		const parseChordRaw = chordParserFactory();
 		const parseChord = chordParserFactory({ customFilters });
@@ -353,25 +353,38 @@ describe('apply user filters', () => {
 		expect(parsed).toEqual(expected);
 	});
 
-	test('parser function should produce an UnexpectedError if a user filter returns null', () => {
+	test('parser function should produce an UnexpectedError if a custom filter returns null', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3, myNullFilter];
 		const parseChord = chordParserFactory({ customFilters });
-		const parsed = parseChord('Do');
+		const parsed = parseChord('Do'); // "Do" is the only (?) symbol that is valid in all 3 notation systems
 
 		expect(parsed).toHaveProperty('error');
 		expect(Array.isArray(parsed.error)).toBe(true);
-		expect(parsed.error.length).toBe(1);
+		expect(parsed.error.length).toBe(3);
 
 		expect(parsed.error[0].type).toBe('UnexpectedError');
 		expect(parsed.error[0].message).toBe(
-			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception'
+			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
 		);
+		expect(parsed.error[0].notationSystem).toBe('english');
+
+		expect(parsed.error[1].type).toBe('UnexpectedError');
+		expect(parsed.error[1].message).toBe(
+			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
+		);
+		expect(parsed.error[1].notationSystem).toBe('german');
+
+		expect(parsed.error[2].type).toBe('UnexpectedError');
+		expect(parsed.error[2].message).toBe(
+			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
+		);
+		expect(parsed.error[2].notationSystem).toBe('latin');
 	});
 
-	test('parser function should log a user filter exception in the error object', () => {
+	test('parser function should log a custom filter exception in the error object', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3, myThrowFilter];
 		const parseChord = chordParserFactory({ customFilters });
-		const parsed = parseChord('Do');
+		const parsed = parseChord('Do'); // "Do" is the only (?) symbol that is valid in all 3 notation systems
 
 		expect(parsed).toHaveProperty('error');
 		expect(Array.isArray(parsed.error)).toBe(true);

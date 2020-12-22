@@ -90,28 +90,28 @@ function chordParserFactory({
 
 				try {
 					chord = chain(allFilters, symbol);
+					if (!chord) {
+						allErrors.push(getUnexpectedError(variants.name));
+					}
 				} catch (e) {
 					allErrors.push(formatError(e, variants.name));
 				}
 			}
 		}
 
-		if (!chord) {
-			if (!allErrors.length) {
-				const e = new UnexpectedError(
-					'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception'
-				);
-				allErrors.push(formatError(e));
-			}
-			chord = { error: allErrors };
-		}
-
-		return chord;
+		return chord ? chord : { error: allErrors };
 	}
 }
 
 function isInputValid(input) {
 	return typeof input === 'string' && input.length > 0;
+}
+
+function getUnexpectedError(notationSystem) {
+	const error = new UnexpectedError(
+		'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
+	);
+	return formatError(error, notationSystem);
 }
 
 function formatError(exceptionError, notationSystem) {
