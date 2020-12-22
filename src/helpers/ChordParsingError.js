@@ -1,3 +1,10 @@
+class InvalidInputError extends Error {
+	constructor(message) {
+		super(message);
+		this.name = 'InvalidInputError';
+	}
+}
+
 class ChordSymbolError extends Error {
 	constructor(message, chord, errorName) {
 		super(message);
@@ -24,4 +31,9 @@ class InvalidIntervalsError extends ChordSymbolError {
 	}
 }
 
-export { InvalidModifierError, InvalidIntervalsError, NoSymbolFoundError };
+export {
+	InvalidModifierError,
+	InvalidInputError,
+	InvalidIntervalsError,
+	NoSymbolFoundError,
+};

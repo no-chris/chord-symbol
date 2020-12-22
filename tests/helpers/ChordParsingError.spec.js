@@ -2,6 +2,7 @@ import {
 	NoSymbolFoundError,
 	InvalidModifierError,
 	InvalidIntervalsError,
+	InvalidInputError,
 } from '../../src/helpers/ChordParsingError';
 
 const getErrorObject = (shouldThrow) => {
@@ -15,6 +16,18 @@ const getErrorObject = (shouldThrow) => {
 };
 
 describe('Custom error types', () => {
+	test('InvalidInputError', () => {
+		const shouldThrow = () => {
+			throw new InvalidInputError('myMessage');
+		};
+		expect(shouldThrow).toThrow('myMessage');
+		expect(shouldThrow).toThrow(InvalidInputError);
+
+		const error = getErrorObject(shouldThrow);
+		expect(error.name).toBe('InvalidInputError');
+		expect(error.message).toBe('myMessage');
+	});
+
 	test('NoSymbolFoundError', () => {
 		const chord = { my: 'chord' };
 		const shouldThrow = () => {

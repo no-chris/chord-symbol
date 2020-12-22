@@ -7,6 +7,8 @@ import {
 	germanVariants,
 } from '../dictionaries/notes';
 
+import { InvalidInputError } from '../helpers/ChordParsingError';
+
 import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
 import formatSymbolParts from './filters/formatSymbolParts';
 import getParsableDescriptor from './filters/getParsableDescriptor';
@@ -58,48 +60,60 @@ function chordParserFactory({
 		const allNotes = [englishVariants, latinVariants, germanVariants];
 		const allErrors = [];
 
+		if (!isInputValid(symbol)) {
+			const e = new InvalidInputError(
+				'The given symbol is not a valid string'
+			);
+			allErrors.push(formatError(e));
+		}
+
 		let chord;
 		let allFilters;
 
-		while (allNotes.length && !chord) {
-			allFilters = [
-				initChord.bind(null, { altIntervals }),
-				parseBase.bind(null, allNotes.shift()),
-				getParsableDescriptor,
-				parseDescriptor.bind(null, allAltIntervals),
-				checkIntervalsConsistency,
-				normalizeNotes,
-				normalizeDescriptor,
-				formatSymbolParts,
-				nameIndividualChordNotes,
-				...customFilters,
-			];
+		if (allErrors.length === 0) {
+			while (allNotes.length && !chord) {
+				allFilters = [
+					initChord.bind(null, { altIntervals }),
+					parseBase.bind(null, allNotes.shift()),
+					getParsableDescriptor,
+					parseDescriptor.bind(null, allAltIntervals),
+					checkIntervalsConsistency,
+					normalizeNotes,
+					normalizeDescriptor,
+					formatSymbolParts,
+					nameIndividualChordNotes,
+					...customFilters,
+				];
 
-			try {
-				chord = chain(allFilters, symbol);
-			} catch (e) {
-				allErrors.push({
-					type: e.name,
-					chord: e.chord, // fixme: this might not exist
-					message: e.message,
-					//fixme: noteVariants: Object.keys({})
-				});
+				try {
+					chord = chain(allFilters, symbol);
+				} catch (e) {
+					allErrors.push(formatError(e));
+				}
 			}
 		}
 
 		if (!chord) {
-			chord = {};
-			chord.error = formatErrors(allErrors);
+			chord = {
+				error: allErrors,
+			};
 		}
 
 		return chord;
 	}
 }
 
-const formatErrors = (allErrors) => {
-	//fixme: dedupe or remove?
-	return allErrors;
-};
+function isInputValid(input) {
+	return typeof input === 'string' && input.length > 0;
+}
+
+function formatError(exceptionError) {
+	return {
+		type: exceptionError.name,
+		chord: exceptionError.chord,
+		message: exceptionError.message,
+	};
+}
 
 /**
  * @module chordParserFactory

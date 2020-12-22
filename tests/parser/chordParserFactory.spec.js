@@ -52,6 +52,21 @@ describe('ambiguous rootNote', () => {
 });
 
 describe('parsing errors', () => {
+	describe.each([['undefined']])('%s', (title, symbol) => {
+		test('invalid symbol input should produce a InvalidInputError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(1);
+			expect(parsed.error[0].type).toBe('InvalidInputError');
+			expect(parsed.error[0].message).toBe(
+				`The given symbol is not a valid string`
+			);
+		});
+	});
+
 	describe.each([
 		['I'],
 		['I/A'],
