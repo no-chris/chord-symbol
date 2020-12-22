@@ -64,7 +64,7 @@ function getModifiers(chord) {
 	}
 
 	if (modifiers.length === 0) {
-		const errorMsg = `${symbol} does not seems to be a chord`;
+		const errorMsg = `"${symbol}" does not seems to be a chord`;
 		throw new NoSymbolFoundError(errorMsg, chord);
 	}
 	if (remainingChars.trim().length > 0) {

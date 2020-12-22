@@ -160,7 +160,7 @@ describe('modifiers', () => {
 describe('invalid chords', () => {
 	//prettier-ignore
 	describe.each([
-		['Modifier does not exist', 'Az', NoSymbolFoundError, 'Az does not seems to be a chord'],
+		['Modifier does not exist', 'Az', NoSymbolFoundError, '"Az" does not seems to be a chord'],
 		['Modifier is applied multiple times, 1', 'Aminm', InvalidModifierError, 'The chord descriptor "minm" contains unknown or duplicated modifiers: "m"'],
 		['Modifier is applied multiple times, 2', 'C°dim', InvalidModifierError, 'The chord descriptor "°dim" contains unknown or duplicated modifiers: "dim"'],
 	])('%s', (title, symbol, errorType, errorMsg) => {

@@ -36,8 +36,7 @@ export default function checkIntervalsConsistency(chord) {
 
 	if (forbiddenCombo) {
 		const errorMsg =
-			chord.input.symbol +
-			'describes a chord with an invalid intervals combo: ' +
+			`"${chord.input.symbol}" describes a chord with an invalid intervals combo: ` +
 			forbiddenCombo.join(' and ');
 
 		throw new InvalidIntervalsError(errorMsg, chord);

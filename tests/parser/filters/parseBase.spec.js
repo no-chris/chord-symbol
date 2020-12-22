@@ -42,7 +42,7 @@ describe('invalid chords', () => {
 			expect(shouldThrow).toThrowError();
 			expect(shouldThrow).toThrow(NoSymbolFoundError);
 			expect(shouldThrow).toThrow(
-				`${symbol} does not seems to be a chord`
+				`"${symbol}" does not seems to be a chord`
 			);
 		});
 	});

@@ -70,7 +70,7 @@ describe('parsing errors', () => {
 			expect(parsed.error.length).toBe(3);
 			expect(parsed.error[0].type).toBe('NoSymbolFoundError');
 			expect(parsed.error[0].message).toBe(
-				`${symbol} does not seems to be a chord`
+				`"${symbol}" does not seems to be a chord`
 			);
 			expect(parsed.error[0].chord).toBeDefined();
 			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
@@ -97,7 +97,7 @@ describe('parsing errors', () => {
 			expect(Array.isArray(parsed.error)).toBe(true);
 			//expect(parsed.error.length).toBe(3); //fixme
 			expect(parsed.error[0].message).toBe(
-				`${symbol} does not seems to be a chord`
+				`"${symbol}" does not seems to be a chord`
 			);
 			expect(parsed.error[0].type).toBe('NoSymbolFoundError');
 			expect(parsed.error[0].chord).toBeDefined();
@@ -126,7 +126,7 @@ describe('parsing errors', () => {
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
 			//expect(parsed.error.length).toBe(3);
-			expect(parsed.error[0].type).toBe('ChordParsingError');
+			expect(parsed.error[0].type).toBe('InvalidModifierError');
 			expect(parsed.error[0].message).toBe(
 				`The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`
 			);
