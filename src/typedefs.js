@@ -118,7 +118,8 @@
  * If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
  * [custom error types]{@link https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js}
  * - To fail the rendering, simply return `null`.
- * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and you will need to handle it yourself.
+ * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+ * Don't do that!
  * @typedef {function(Chord): Chord} customFilter
  * @type {Function}
  * @param {Chord} chord - The chord object will be passed to the filter as the only parameter

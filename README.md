@@ -14,29 +14,29 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 
 <!-- toc -->
 
--   [Features](#features)
--   [Installation](#installation)
--   [Usage](#usage)
--   [Migration guides](#migration-guides)
-    -   [From v0.5.1 to v1.0.0](#from-v051-to-v100)
-        -   [Intervals consistency](#intervals-consistency)
-        -   [API change](#api-change)
-    -   [From v1.2.0 to v2.0.0](#from-v120-to-v200)
-        -   [API change](#api-change-1)
--   [Unit tests](#unit-tests)
--   [API Documentation](#api-documentation)
--   [Error handling](#error-handling)
--   [Background information](#background-information)
-    -   [Why parse chords symbols?](#why-parse-chords-symbols)
-    -   [Guiding principles](#guiding-principles)
-        -   [Chords definition](#chords-definition)
-        -   [Symbol parsing](#symbol-parsing)
-        -   [Rendering and normalization](#rendering-and-normalization)
--   [Limitations](#limitations)
-    -   [Intervals consistency](#intervals-consistency-1)
-    -   [Support for different notation systems](#support-for-different-notation-systems)
-    -   [Musical scope](#musical-scope)
--   [Lexicon](#lexicon)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Migration guides](#migration-guides)
+  * [From v0.5.1 to v1.0.0](#from-v051-to-v100)
+    + [Intervals consistency](#intervals-consistency)
+    + [API change](#api-change)
+  * [From v1.2.0 to v2.0.0](#from-v120-to-v200)
+    + [API change](#api-change-1)
+- [Unit tests](#unit-tests)
+- [API Documentation](#api-documentation)
+- [Error handling](#error-handling)
+- [Background information](#background-information)
+  * [Why parse chords symbols?](#why-parse-chords-symbols)
+  * [Guiding principles](#guiding-principles)
+    + [Chords definition](#chords-definition)
+    + [Symbol parsing](#symbol-parsing)
+    + [Rendering and normalization](#rendering-and-normalization)
+- [Limitations](#limitations)
+  * [Intervals consistency](#intervals-consistency-1)
+  * [Support for different notation systems](#support-for-different-notation-systems)
+  * [Musical scope](#musical-scope)
+- [Lexicon](#lexicon)
 
 <!-- tocstop -->
 
@@ -148,7 +148,7 @@ Instead of:
 ```javascript
 const chord = parseChord('C7M7');
 if (chord) {
-	const rendered = renderChord(parsed);
+	const rendered = renderChord(chord);
 	console.log(rendered);
 } else {
 	console.log('The parsing failed!');
@@ -160,7 +160,7 @@ do:
 ```javascript
 const chord = parseChord('C7M7');
 if (!chord.error) {
-	const rendered = renderChord(parsed);
+	const rendered = renderChord(chord);
 	console.log(rendered);
 } else {
 	// Error handling...
@@ -200,13 +200,13 @@ in the `notationSystem` property of each error object.
 
 Here is a description of all the error types:
 
-| Error type         | Reason                                                                                                                                                          | Example              |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `InvalidInput`     | The parser was not given a valid string to parse                                                                                                                | `parseChord(null)`   |
-| `NoSymbolFound`    | The given string cannot be confused with a chord symbol in the current notation system                                                                          | `parseChord('Ape')`  |
-| `InvalidModifier`  | The given string could be a chord symbol, but `ChordSymbol` does not understand its descriptor. It could be either a typo or a word that is simply not a chord. | `parseChord('Amid')` |
-| `InvalidIntervals` | The given string is a chord symbol, but the resulting interval list is not valid                                                                                | `parseChord('A7M7')` |
-| `UnexpectedError`  | This error is very unlikely to happen. If it does, it is probably in the context of a custom filter                                                             | `-`                  |
+| Error type         | Reason                                                                                                                                                                                | Example              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `InvalidInput`     | The parser was not given a valid string to parse                                                                                                                                      | `parseChord(null)`   |
+| `NoSymbolFound`    | The given string cannot be confused with a chord symbol in the current notation system                                                                                                | `parseChord('Ape')`  |
+| `InvalidModifier`  | The given string looks like a chord symbol, but `ChordSymbol` does not understand its descriptor. It can be either because of a typo, or because the given word is just not a symbol. | `parseChord('Amid')` |
+| `InvalidIntervals` | The given string is a chord symbol, but the resulting interval list is not valid                                                                                                      | `parseChord('A7M7')` |
+| `UnexpectedError`  | This error is very unlikely to happen. If it does, it is probably in the context of a custom filter that returns `null` instead of throwing an exception.                             | `-`                  |
 
 A given string will yield different errors depending on the notation system used during the parsing attempt.
 For example, `H7M7` will produce:

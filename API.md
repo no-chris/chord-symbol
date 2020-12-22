@@ -66,7 +66,8 @@ after all built-in filters have been applied.</p>
 If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
 <a href="https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js">custom error types</a></li>
 <li>To fail the rendering, simply return <code>null</code>.
-Warning: if you throw an exception in a rendering filter, <code>ChordSymbol</code> will not catch it and you will need to handle it yourself.</li>
+Warning: if you throw an exception in a rendering filter, <code>ChordSymbol</code> will not catch it and the client code will need to handle it.
+Don&#39;t do that!</li>
 </ul>
 </dd>
 </dl>
@@ -479,7 +480,8 @@ after all built-in filters have been applied.
 If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
 [custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
 - To fail the rendering, simply return `null`.
-Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and you will need to handle it yourself.
+Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+Don't do that!
 
 **Kind**: global typedef  
 **Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.  
