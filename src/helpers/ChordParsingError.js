@@ -1,5 +1,5 @@
 class ChordSymbolError extends Error {
-	constructor(message, chord, errorName = 'ChordSymbolError') {
+	constructor(message, chord, errorName) {
 		super(message);
 		this.name = errorName;
 		this.chord = chord;
@@ -14,7 +14,7 @@ class NoSymbolFoundError extends ChordSymbolError {
 
 class InvalidModifierError extends ChordSymbolError {
 	constructor(message, chord) {
-		super(message, chord, 'ChordParsingError');
+		super(message, chord, 'InvalidModifierError');
 	}
 }
 
