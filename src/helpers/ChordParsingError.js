@@ -5,6 +5,13 @@ class InvalidInputError extends Error {
 	}
 }
 
+class UnexpectedError extends Error {
+	constructor(message) {
+		super(message);
+		this.name = 'UnexpectedError';
+	}
+}
+
 class ChordSymbolError extends Error {
 	constructor(message, chord, errorName) {
 		super(message);
@@ -36,4 +43,5 @@ export {
 	InvalidInputError,
 	InvalidIntervalsError,
 	NoSymbolFoundError,
+	UnexpectedError,
 };

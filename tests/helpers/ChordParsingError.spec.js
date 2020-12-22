@@ -3,6 +3,7 @@ import {
 	InvalidModifierError,
 	InvalidIntervalsError,
 	InvalidInputError,
+	UnexpectedError,
 } from '../../src/helpers/ChordParsingError';
 
 const getErrorObject = (shouldThrow) => {
@@ -16,6 +17,18 @@ const getErrorObject = (shouldThrow) => {
 };
 
 describe('Custom error types', () => {
+	test('UnexpectedError', () => {
+		const shouldThrow = () => {
+			throw new UnexpectedError('myMessage');
+		};
+		expect(shouldThrow).toThrow('myMessage');
+		expect(shouldThrow).toThrow(UnexpectedError);
+
+		const error = getErrorObject(shouldThrow);
+		expect(error.name).toBe('UnexpectedError');
+		expect(error.message).toBe('myMessage');
+	});
+
 	test('InvalidInputError', () => {
 		const shouldThrow = () => {
 			throw new InvalidInputError('myMessage');

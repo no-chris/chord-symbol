@@ -4,7 +4,10 @@ import checkCustomFilters from '../helpers/checkCustomFilters';
 
 import { allVariantsPerGroup } from '../dictionaries/notes';
 
-import { InvalidInputError } from '../helpers/ChordParsingError';
+import {
+	InvalidInputError,
+	UnexpectedError,
+} from '../helpers/ChordParsingError';
 
 import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
 import formatSymbolParts from './filters/formatSymbolParts';
@@ -54,7 +57,7 @@ function chordParserFactory({
 	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
 	 */
 	function parseChord(symbol) {
-		const allNotesPerGroup = _cloneDeep(allVariantsPerGroup);
+		const allVariantsPerGroupCopy = _cloneDeep(allVariantsPerGroup);
 		const allErrors = [];
 
 		if (!isInputValid(symbol)) {
@@ -69,8 +72,8 @@ function chordParserFactory({
 		let variants;
 
 		if (!allErrors.length) {
-			while (allNotesPerGroup.length && !chord) {
-				variants = allNotesPerGroup.shift();
+			while (allVariantsPerGroupCopy.length && !chord) {
+				variants = allVariantsPerGroupCopy.shift();
 
 				allFilters = [
 					initChord.bind(null, { altIntervals }),
@@ -93,7 +96,17 @@ function chordParserFactory({
 			}
 		}
 
-		return chord ? chord : { error: allErrors };
+		if (!chord) {
+			if (!allErrors.length) {
+				const e = new UnexpectedError(
+					'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception'
+				);
+				allErrors.push(formatError(e));
+			}
+			chord = { error: allErrors };
+		}
+
+		return chord;
 	}
 }
 
