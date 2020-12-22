@@ -151,7 +151,8 @@ function getSixth(allModifiers) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.add6, m.add69]) &&
-		!isExtended(allModifiers)
+		!isExtended(allModifiers) &&
+		!hasOneOf(allModifiers, [m.halfDim])
 	) {
 		sixth.push('6');
 	}
@@ -233,7 +234,10 @@ function getThirteenths(allModifiers, altIntervals) {
 	const thirteenths = [];
 	if (
 		hasOneOf(allModifiers, [m.add13, m.thirteenth]) ||
-		(hasOneOf(allModifiers, [m.add6, m.add69]) && isExtended(allModifiers))
+		(hasOneOf(allModifiers, [m.add6, m.add69]) &&
+			isExtended(allModifiers)) ||
+		(hasOneOf(allModifiers, [m.add6, m.add69]) &&
+			hasOneOf(allModifiers, [m.halfDim]))
 	) {
 		thirteenths.push('13');
 	}

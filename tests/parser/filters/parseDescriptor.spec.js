@@ -75,6 +75,9 @@ describe('Intervals & semitones', () => {
 
 		['C4', ['1', '4', '5'], { major: true, eleventh: false, alt: false }],
 		['Cadd4', ['1', '3', '4', '5'], { major: true, eleventh: false, alt: false }],
+
+		['Cmi7(b5)6', ['1', 'b3', 'b5', 'b7', '13'], { major: false, eleventh: false, alt: false }],
+		['Ch6', ['1', 'b3', 'b5', 'b7', '13'], { major: false, eleventh: false, alt: false }],
 	])('%s', (symbol, intervals, intents) => {
 		test('is parsed: ' + intervals.join('-'), () => {
 			const chord = parseChord(symbol);
