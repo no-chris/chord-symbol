@@ -61,9 +61,7 @@ function chordParserFactory({
 		const allErrors = [];
 
 		if (!isInputValid(symbol)) {
-			const e = new InvalidInputError(
-				'The given symbol is not a valid string'
-			);
+			const e = new InvalidInputError();
 			allErrors.push(formatError(e));
 		}
 
@@ -108,9 +106,7 @@ function isInputValid(input) {
 }
 
 function getUnexpectedError(notationSystem) {
-	const error = new UnexpectedError(
-		'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
-	);
+	const error = new UnexpectedError();
 	return formatError(error, notationSystem);
 }
 

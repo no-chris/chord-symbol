@@ -35,9 +35,6 @@ export default function parseBase(noteVariants, chord) {
 		}
 		return chord;
 	} else {
-		throw new NoSymbolFoundError(
-			`"${symbol}" does not seems to be a chord`,
-			chord
-		);
+		throw new NoSymbolFoundError(chord);
 	}
 }

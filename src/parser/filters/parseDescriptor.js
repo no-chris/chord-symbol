@@ -32,7 +32,7 @@ export default function parseDescriptor(altIntervals, chord) {
 }
 
 function getModifiers(chord) {
-	const { parsableDescriptor, descriptor, symbol } = chord.input;
+	const { parsableDescriptor } = chord.input;
 	const modifiers = [];
 
 	const descriptorRegex = new RegExp(
@@ -64,12 +64,10 @@ function getModifiers(chord) {
 	}
 
 	if (modifiers.length === 0) {
-		const errorMsg = `"${symbol}" does not seems to be a chord`;
-		throw new NoSymbolFoundError(errorMsg, chord);
+		throw new NoSymbolFoundError(chord);
 	}
 	if (remainingChars.trim().length > 0) {
-		const errorMsg = `The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`;
-		throw new InvalidModifierError(errorMsg, chord);
+		throw new InvalidModifierError(chord, remainingChars);
 	}
 
 	return modifiers;
