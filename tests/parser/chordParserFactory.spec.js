@@ -145,7 +145,7 @@ describe('parsing errors', () => {
 
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
-			//expect(parsed.error.length).toBe(3); //fixme
+			expect(parsed.error.length).toBe(3);
 			expect(parsed.error[0].message).toBe(
 				`"${symbol}" does not seems to be a chord`
 			);
@@ -200,14 +200,13 @@ describe('parsing errors', () => {
 
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
-			//expect(parsed.error.length).toBe(3); //fixme: fix the count of errors
+			expect(parsed.error.length).toBe(3);
 			expect(parsed.error[0].type).toBe('InvalidIntervals');
 			expect(parsed.error[0].message).toBe(
 				`"${symbol}" describes a chord with an invalid intervals combo: ${intervals}`
 			);
 			expect(parsed.error[0].chord).toBeDefined();
 			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
-			// fixme: more assertions on the tests
 		});
 	});
 });
