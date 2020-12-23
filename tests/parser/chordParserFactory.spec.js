@@ -87,6 +87,7 @@ describe('parsing errors', () => {
 		['decimal', 6.9],
 		['NaN', NaN],
 		['object', {}],
+		['empty string', ''],
 	])('%s', (title, symbol) => {
 		test('invalid symbol input should produce a InvalidInputError', () => {
 			const parseChord = chordParserFactory();
@@ -175,7 +176,7 @@ describe('parsing errors', () => {
 
 			expect(parsed.error).toBeDefined();
 			expect(Array.isArray(parsed.error)).toBe(true);
-			//expect(parsed.error.length).toBe(3);
+			expect(parsed.error.length).toBe(3);
 			expect(parsed.error[0].type).toBe('InvalidModifier');
 			expect(parsed.error[0].message).toBe(
 				`The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`
