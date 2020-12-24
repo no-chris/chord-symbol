@@ -51,16 +51,84 @@ describe('ambiguous rootNote', () => {
 	});
 });
 
-describe('invalid chords', () => {
+describe('parsing errors', () => {
 	describe.each([
-		// wrong notes or descriptors
+		['Amis', 'InvalidModifier', 'InvalidModifier', 'NoSymbolFound'],
+		['Lamis', 'NoSymbolFound', 'NoSymbolFound', 'InvalidModifier'],
+		['NotAChord', 'NoSymbolFound', 'NoSymbolFound', 'NoSymbolFound'],
+		['B6b6', 'InvalidIntervals', 'NoSymbolFound', 'NoSymbolFound'],
+		['H6b6', 'NoSymbolFound', 'InvalidIntervals', 'NoSymbolFound'],
+		['Si6b6', 'NoSymbolFound', 'NoSymbolFound', 'InvalidIntervals'],
+	])('%s', (symbol, englishError, germanError, latinError) => {
+		test('should return a distinct error for each naming variant', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+
+			expect(parsed.error.length).toBe(3);
+
+			expect(parsed.error[0].notationSystem).toBe('english');
+			expect(parsed.error[0].type).toBe(englishError);
+
+			expect(parsed.error[1].notationSystem).toBe('german');
+			expect(parsed.error[1].type).toBe(germanError);
+
+			expect(parsed.error[2].notationSystem).toBe('latin');
+			expect(parsed.error[2].type).toBe(latinError);
+		});
+	});
+
+	describe.each([
+		['undefined'],
+		['null', null],
+		['integer', 2],
+		['decimal', 6.9],
+		['NaN', NaN],
+		['object', {}],
+		['empty string', ''],
+	])('%s', (title, symbol) => {
+		test('invalid symbol input should produce a InvalidInputError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(1);
+			expect(parsed.error[0].type).toBe('InvalidInput');
+			expect(parsed.error[0].message).toBe(
+				`The given symbol is not a valid string`
+			);
+		});
+	});
+
+	describe.each([
 		['I'],
 		['I/A'],
 		['Im'],
-		['A6/Z'],
-		['Ame'],
-		['Amad7'],
-		['America'],
+		['Loop'],
+		['Weird'],
+		['Shine'],
+		['Puppet'],
+	])('%s', (symbol) => {
+		test('strings that cannot be confused with a chord should produce a NoSymbolFoundError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(3);
+			expect(parsed.error[0].type).toBe('NoSymbolFound');
+			expect(parsed.error[0].message).toBe(
+				`"${symbol}" does not seems to be a chord`
+			);
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
+		});
+	});
+
+	describe.each([
 		['A('],
 		['A(('],
 		['A()('],
@@ -68,26 +136,78 @@ describe('invalid chords', () => {
 		['A(,,)'],
 		['A,,'],
 		['A..'],
-		['Am..'],
-		['A..m'],
-		['A7.mb5'],
-		['A7/mb5/G'],
-		['A,b97'],
-		['A7,mb5/G'],
-
-		// Invalid intervals combos
-		['Cm(add3)'],
-		['C11sus4'],
-		['C7M7'],
-		['C(b9)(add9)'],
-		['C(#9)(add9)'],
-		['C(#11)(add11)'],
-		['C(b13)(add13)'],
+		['All'],
+		['Art'],
+		['Aperture'],
 	])('%s', (symbol) => {
-		test('should return null', () => {
+		test('strings that could be a chord but have NO SINGLE known modifiers should produce NoSymbolFoundError', () => {
 			const parseChord = chordParserFactory();
 			const parsed = parseChord(symbol);
-			expect(parsed).toBeNull();
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(3);
+			expect(parsed.error[0].message).toBe(
+				`"${symbol}" does not seems to be a chord`
+			);
+			expect(parsed.error[0].type).toBe('NoSymbolFound');
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
+		});
+	});
+
+	describe.each([
+		['A6/Z', '6/Z', '/z'],
+		['Ame', 'me', 'e'],
+		['Amm', 'mm', 'm'],
+		['A77', '77', '7'],
+		['Amad7', 'mad7', 'd'],
+		['AMERICA', 'MERICA', 'erica'],
+		['Am..', 'm..', '..'],
+		['A..m', '..m', '..'],
+		['A7.mb5', '7.mb5', '.'],
+		['A7/mb5/G', '7/mb5', '/'],
+		['A,b97', ',b97', ','],
+		['A7,mb5/G', '7,mb5', ','],
+	])('%s', (symbol, descriptor, remainingChars) => {
+		test('strings that could be a chord but have SOME unknown modifiers should produce ChordParsingError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(3);
+			expect(parsed.error[0].type).toBe('InvalidModifier');
+			expect(parsed.error[0].message).toBe(
+				`The chord descriptor "${descriptor}" contains unknown or duplicated modifiers: "${remainingChars}"`
+			);
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
+		});
+	});
+
+	describe.each([
+		['Cm(add3)', '3 and b3'],
+		['C11sus4', '4 and 11'],
+		['C7M7', '7 and b7'],
+		['C(b9)(add9)', '9 and b9'],
+		['C(#9)(add9)', '9 and #9'],
+		['C(#11)(add11)', '11 and #11'],
+		['C(b13)(add13)', '13 and b13'],
+	])('%s', (symbol, intervals) => {
+		test('symbols yielding invalid intervals combos should produce an InvalidIntervalsError', () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(symbol);
+
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(3);
+			expect(parsed.error[0].type).toBe('InvalidIntervals');
+			expect(parsed.error[0].message).toBe(
+				`"${symbol}" describes a chord with an invalid intervals combo: ${intervals}`
+			);
+			expect(parsed.error[0].chord).toBeDefined();
+			expect(parsed.error[0].chord.input.symbol).toBe(symbol);
 		});
 	});
 });
@@ -184,7 +304,7 @@ describe('ParserConfiguration', () => {
 	});
 });
 
-describe('apply user filters', () => {
+describe('Custom filters', () => {
 	const myFilter1 = (chord) => {
 		chord.myFilter1 = true;
 		return chord;
@@ -199,7 +319,11 @@ describe('apply user filters', () => {
 	};
 	const myNullFilter = () => null;
 
-	test('should apply user filters', () => {
+	const myThrowFilter = () => {
+		throw new TypeError('User filter error');
+	};
+
+	test('should apply custom filters', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3];
 		const parseChord = chordParserFactory({ customFilters });
 		const parsed = parseChord('Cm7');
@@ -212,7 +336,7 @@ describe('apply user filters', () => {
 		expect(parsed.myFilter3).toEqual('myFilter3 has been applied');
 	});
 
-	test('should apply user filters on the raw chord object', () => {
+	test('should apply custom filters on the raw chord object', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3];
 		const parseChordRaw = chordParserFactory();
 		const parseChord = chordParserFactory({ customFilters });
@@ -229,11 +353,53 @@ describe('apply user filters', () => {
 		expect(parsed).toEqual(expected);
 	});
 
-	test('parser function should return null if a user filter returns null', () => {
+	test('parser function should produce an UnexpectedError if a custom filter returns null', () => {
 		const customFilters = [myFilter1, myFilter2, myFilter3, myNullFilter];
 		const parseChord = chordParserFactory({ customFilters });
-		const parsed = parseChord('Cm7');
+		const parsed = parseChord('Do'); // "Do" is the only (?) symbol that is valid in all 3 notation systems
 
-		expect(parsed).toBeNull();
+		expect(parsed).toHaveProperty('error');
+		expect(Array.isArray(parsed.error)).toBe(true);
+		expect(parsed.error.length).toBe(3);
+
+		expect(parsed.error[0].type).toBe('UnexpectedError');
+		expect(parsed.error[0].message).toBe(
+			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
+		);
+		expect(parsed.error[0].notationSystem).toBe('english');
+
+		expect(parsed.error[1].type).toBe('UnexpectedError');
+		expect(parsed.error[1].message).toBe(
+			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
+		);
+		expect(parsed.error[1].notationSystem).toBe('german');
+
+		expect(parsed.error[2].type).toBe('UnexpectedError');
+		expect(parsed.error[2].message).toBe(
+			'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?'
+		);
+		expect(parsed.error[2].notationSystem).toBe('latin');
+	});
+
+	test('parser function should log a custom filter exception in the error object', () => {
+		const customFilters = [myFilter1, myFilter2, myFilter3, myThrowFilter];
+		const parseChord = chordParserFactory({ customFilters });
+		const parsed = parseChord('Do'); // "Do" is the only (?) symbol that is valid in all 3 notation systems
+
+		expect(parsed).toHaveProperty('error');
+		expect(Array.isArray(parsed.error)).toBe(true);
+		expect(parsed.error.length).toBe(3);
+
+		expect(parsed.error[0].type).toBe('TypeError');
+		expect(parsed.error[0].message).toBe('User filter error');
+		expect(parsed.error[0].notationSystem).toBe('english');
+
+		expect(parsed.error[1].type).toBe('TypeError');
+		expect(parsed.error[1].message).toBe('User filter error');
+		expect(parsed.error[1].notationSystem).toBe('german');
+
+		expect(parsed.error[2].type).toBe('TypeError');
+		expect(parsed.error[2].message).toBe('User filter error');
+		expect(parsed.error[2].notationSystem).toBe('latin');
 	});
 });

@@ -1,6 +1,7 @@
 import { hasAll } from '../../../src/helpers/hasElement';
 import chain from '../../../src/helpers/chain';
 import { englishVariants } from '../../../src/dictionaries/notes';
+import { InvalidIntervalsError } from '../../../src/helpers/ChordParsingError';
 
 import checkIntervalsConsistency from '../../../src/parser/filters/checkIntervalsConsistency';
 
@@ -47,8 +48,12 @@ describe('checkIntervalsConsistency', () => {
 				true
 			);
 
-			const checked = checkIntervalsConsistency(chord);
-			expect(checked).toBeNull();
+			const shouldThrow = () => {
+				checkIntervalsConsistency(chord);
+			};
+			expect(shouldThrow).toThrowError();
+			expect(shouldThrow).toThrow(InvalidIntervalsError);
+			expect(shouldThrow).toThrow(forbiddenCombo.join(' and '));
 		});
 	});
 });

@@ -1,4 +1,8 @@
 import _uniq from 'lodash/uniq';
+import {
+	InvalidModifierError,
+	NoSymbolFoundError,
+} from '../../helpers/ChordParsingError';
 
 import m from '../../dictionaries/modifiers';
 import { allSymbols, allVariants } from '../../dictionaries/modifiers';
@@ -6,6 +10,8 @@ import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
 import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 
 /**
+ * Convert the descriptor into a suite of intervals, semitones and intents
+ *
  * @param {AltIntervals} altIntervals
  * @param {Chord} chord
  * @returns {Chord|Null}
@@ -14,10 +20,8 @@ export default function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
 
 	if (chord.input.parsableDescriptor) {
-		allModifiers = getModifiers(chord.input.parsableDescriptor);
+		allModifiers = getModifiers(chord);
 	}
-
-	if (!allModifiers) return null;
 
 	chord.input.modifiers = allModifiers;
 	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
@@ -27,7 +31,8 @@ export default function parseDescriptor(altIntervals, chord) {
 	return chord;
 }
 
-function getModifiers(parsableDescriptor) {
+function getModifiers(chord) {
+	const { parsableDescriptor } = chord.input;
 	const modifiers = [];
 
 	const descriptorRegex = new RegExp(
@@ -49,7 +54,7 @@ function getModifiers(parsableDescriptor) {
 
 			allModifiersId.forEach((modifierId) => {
 				if (modifiers.includes(modifierId)) {
-					return null;
+					return;
 				}
 				modifiers.push(modifierId);
 
@@ -58,9 +63,13 @@ function getModifiers(parsableDescriptor) {
 		});
 	}
 
-	if (modifiers.length === 0 || remainingChars.trim().length > 0) {
-		return null;
+	if (modifiers.length === 0) {
+		throw new NoSymbolFoundError(chord);
 	}
+	if (remainingChars.trim().length > 0) {
+		throw new InvalidModifierError(chord, remainingChars);
+	}
+
 	return modifiers;
 }
 
@@ -140,7 +149,8 @@ function getSixth(allModifiers) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.add6, m.add69]) &&
-		!isExtended(allModifiers)
+		!isExtended(allModifiers) &&
+		!hasOneOf(allModifiers, [m.halfDim])
 	) {
 		sixth.push('6');
 	}
@@ -222,7 +232,10 @@ function getThirteenths(allModifiers, altIntervals) {
 	const thirteenths = [];
 	if (
 		hasOneOf(allModifiers, [m.add13, m.thirteenth]) ||
-		(hasOneOf(allModifiers, [m.add6, m.add69]) && isExtended(allModifiers))
+		(hasOneOf(allModifiers, [m.add6, m.add69]) &&
+			isExtended(allModifiers)) ||
+		(hasOneOf(allModifiers, [m.add6, m.add69]) &&
+			hasOneOf(allModifiers, [m.halfDim]))
 	) {
 		thirteenths.push('13');
 	}

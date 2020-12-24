@@ -140,9 +140,16 @@ const germanVariants = Object.keys(germanVariantsToNotes).sort(
 	(a, b) => b.length - a.length
 );
 
+const allVariantsPerGroup = [
+	{ name: 'english', notes: englishVariants },
+	{ name: 'german', notes: germanVariants },
+	{ name: 'latin', notes: latinVariants },
+];
+
 export {
 	notes,
 	allVariants,
+	allVariantsPerGroup,
 	englishVariants,
 	latinVariants,
 	germanVariants,

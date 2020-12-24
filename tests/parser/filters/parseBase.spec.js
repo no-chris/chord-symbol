@@ -2,6 +2,7 @@ import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 
 import { englishVariants } from '../../../src/dictionaries/notes';
+import { NoSymbolFoundError } from '../../../src/helpers/ChordParsingError';
 
 describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 	describe.each([
@@ -31,11 +32,18 @@ describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 
 describe('invalid chords', () => {
 	describe.each([['I'], ['I/A'], ['Im']])('%s', (symbol) => {
-		test('should return null', () => {
+		test('should throw a NoSymbolFoundError ', () => {
 			const chord = initChord({}, symbol);
-			const parsed = parseBase(englishVariants, chord);
 
-			expect(parsed).toBeNull();
+			const shouldThrow = () => {
+				parseBase(englishVariants, chord);
+			};
+
+			expect(shouldThrow).toThrowError();
+			expect(shouldThrow).toThrow(NoSymbolFoundError);
+			expect(shouldThrow).toThrow(
+				`"${symbol}" does not seems to be a chord`
+			);
 		});
 	});
 });

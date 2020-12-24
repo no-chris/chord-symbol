@@ -1,11 +1,13 @@
 import chain from '../helpers/chain';
+import _cloneDeep from 'lodash/cloneDeep';
 import checkCustomFilters from '../helpers/checkCustomFilters';
 
+import { allVariantsPerGroup } from '../dictionaries/notes';
+
 import {
-	englishVariants,
-	latinVariants,
-	germanVariants,
-} from '../dictionaries/notes';
+	InvalidInputError,
+	UnexpectedError,
+} from '../helpers/ChordParsingError';
 
 import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
 import formatSymbolParts from './filters/formatSymbolParts';
@@ -33,7 +35,7 @@ const defaultAltIntervals = {
 /**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
- * @returns {function(String): Chord|Null}
+ * @returns {function(String): Chord}
  */
 function chordParserFactory({
 	altIntervals = defaultAltIntervals,
@@ -55,29 +57,66 @@ function chordParserFactory({
 	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
 	 */
 	function parseChord(symbol) {
-		const allNotes = [englishVariants, latinVariants, germanVariants];
+		const allVariantsPerGroupCopy = _cloneDeep(allVariantsPerGroup);
+		const allErrors = [];
+
+		if (!isInputValid(symbol)) {
+			const e = new InvalidInputError();
+			allErrors.push(formatError(e));
+		}
 
 		let chord;
 		let allFilters;
+		let variants;
 
-		while (allNotes.length && !chord) {
-			allFilters = [
-				initChord.bind(null, { altIntervals }),
-				parseBase.bind(null, allNotes.shift()),
-				getParsableDescriptor,
-				parseDescriptor.bind(null, allAltIntervals),
-				normalizeNotes,
-				normalizeDescriptor,
-				formatSymbolParts,
-				checkIntervalsConsistency,
-				nameIndividualChordNotes,
-				...customFilters,
-			];
+		if (!allErrors.length) {
+			while (allVariantsPerGroupCopy.length && !chord) {
+				variants = allVariantsPerGroupCopy.shift();
 
-			chord = chain(allFilters, symbol);
+				allFilters = [
+					initChord.bind(null, { altIntervals }),
+					parseBase.bind(null, variants.notes),
+					getParsableDescriptor,
+					parseDescriptor.bind(null, allAltIntervals),
+					checkIntervalsConsistency,
+					normalizeNotes,
+					normalizeDescriptor,
+					formatSymbolParts,
+					nameIndividualChordNotes,
+					...customFilters,
+				];
+
+				try {
+					chord = chain(allFilters, symbol);
+					if (!chord) {
+						allErrors.push(getUnexpectedError(variants.name));
+					}
+				} catch (e) {
+					allErrors.push(formatError(e, variants.name));
+				}
+			}
 		}
-		return chord;
+
+		return chord ? chord : { error: allErrors };
 	}
+}
+
+function isInputValid(input) {
+	return typeof input === 'string' && input.length > 0;
+}
+
+function getUnexpectedError(notationSystem) {
+	const error = new UnexpectedError();
+	return formatError(error, notationSystem);
+}
+
+function formatError(exceptionError, notationSystem) {
+	return {
+		type: exceptionError.name,
+		chord: exceptionError.chord,
+		message: exceptionError.message,
+		notationSystem,
+	};
 }
 
 /**

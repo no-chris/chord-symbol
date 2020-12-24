@@ -2,11 +2,12 @@
  * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
  * @typedef {Object} Chord
  * @type {Object}
- * @property {ChordInput} input - information derived from the symbol given as an input.
+ * @property {ChordInput} [input] - information derived from the symbol given as an input.
  * If you need to trace what has generated a given chord, you'll find it here.
- * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
- * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
- * @property {ParserConfiguration} parserConfiguration - configuration passed to the parser on chord creation.
+ * @property {NormalizedChord} [normalized] - abstract representation of the chord based on its intervals.
+ * @property {FormattedChord} [formatted] - pre-rendering of the normalized chord.
+ * @property {ParserConfiguration} [parserConfiguration] - configuration passed to the parser on chord creation.
+ * @property {ChordSymbolError[]} [error] - if defined, then the parsing failed and this array will contain the reason(s) why
  */
 
 /**
@@ -85,6 +86,17 @@
  */
 
 /**
+ * Description of an error that occurred during the parsing.
+ * @typedef {Object} ChordSymbolError
+ * @type {Object}
+ * @property {('InvalidIntervals'|'InvalidInput'|'InvalidModifier'|'NoSymbolFound'|'UnexpectedError')} type - error code,
+ * or exception type in custom filters
+ * @property {String} message - error description, or the exception message in custom filters
+ * @property {Chord} [chord] - the chord object, in the state that it was when the error occurred
+ * @property {('english'|'german'|'latin')} [notationSystem] - the notation system context in which the error occurred
+ */
+
+/**
  * Configuration of the chord renderer
  * @typedef {Object} RendererConfiguration
  * @type {Object}
@@ -102,8 +114,14 @@
 /**
  * Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
  * after all built-in filters have been applied.
- * @typedef {function(Chord): Chord|Null} customFilter
+ * - To fail the parsing, throw an exception and it will use the Error API.
+ * If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+ * [custom error types]{@link https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js}
+ * - To fail the rendering, simply return `null`.
+ * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+ * Don't do that!
+ * @typedef {function(Chord): Chord} customFilter
  * @type {Function}
  * @param {Chord} chord - The chord object will be passed to the filter as the only parameter
- * @returns {Chord|Null} - Either the modified chord object, or Null to cancel the processing and skip the remaining filters.
+ * @returns {Chord|Null} - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
  */
