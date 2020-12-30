@@ -103,7 +103,9 @@ function chordParserFactory(parserConfiguration = {}) {
 
 				try {
 					chord = chain(allFilters, symbol);
-					if (!chord) {
+					if (chord) {
+						chord.input.notationSystem = variants.name;
+					} else {
 						allErrors.push(getUnexpectedError(variants.name));
 					}
 				} catch (e) {

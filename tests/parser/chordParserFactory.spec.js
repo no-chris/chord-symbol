@@ -480,3 +480,23 @@ describe('parserConfiguration: custom filters', () => {
 		expect(parsed.error[2].notationSystem).toBe('latin');
 	});
 });
+
+describe('Save the notation system in the `input` property of the parsed chord', () => {
+	describe.each([
+		['C', 'C', undefined, 'english'],
+		['H', 'B', undefined, 'german'],
+		['Fa', 'F', undefined, 'latin'],
+		['Do', 'C', ['latin'], 'latin'],
+		['C', 'C', ['german'], 'german'],
+	])(
+		'%s',
+		(symbol, expectedSymbol, notationSystems, expectedNotationSystem) => {
+			const parseChord = chordParserFactory({ notationSystems });
+			const renderChord = chordRendererFactory();
+			const parsed = parseChord(symbol);
+
+			expect(renderChord(parsed)).toBe(expectedSymbol);
+			expect(parsed.input.notationSystem).toBe(expectedNotationSystem);
+		}
+	);
+});

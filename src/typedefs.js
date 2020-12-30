@@ -21,6 +21,7 @@
  * @property {String} parsableDescriptor - the modified descriptor such as parsing is possible.
  * Ex: `m add9` for `Cmadd9`, a space is added for disambiguation between `m + add` and `ma + dd`.
  * @property {String} modifiers - the detected modifiers during parsing
+ * @property {('english'|'german'|'latin')} notationSystem - notation system in which the symbol was parsed
  */
 
 /**
