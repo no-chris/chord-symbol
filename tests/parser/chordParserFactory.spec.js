@@ -486,6 +486,8 @@ describe('Save the notation system in the `input` property of the parsed chord',
 		['C', 'C', undefined, 'english'],
 		['H', 'B', undefined, 'german'],
 		['Fa', 'F', undefined, 'latin'],
+		['Do', 'Ddim', undefined, 'english'],
+		['Do', 'Ddim', ['german', 'latin'], 'german'],
 		['Do', 'C', ['latin'], 'latin'],
 		['C', 'C', ['german'], 'german'],
 	])(
