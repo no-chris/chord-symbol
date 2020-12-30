@@ -78,6 +78,7 @@
  * Configuration of the chord parser
  * @typedef {Object} ParserConfiguration
  * @type {Object}
+ * @property {('english'|'german'|'latin')[]} [notationSystems] - Notation systems that should be used to try parsing a symbol. All by default.
  * @property {AltIntervals} [altIntervals=defaultAltIntervals] - user selection of intervals affected by the "alt" modifier (all by default).
  * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
  * some level of flexibility when parsing an "alt" chord symbol.

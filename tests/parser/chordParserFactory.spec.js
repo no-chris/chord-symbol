@@ -212,7 +212,67 @@ describe('parsing errors', () => {
 	});
 });
 
-describe('custom alt intervals', () => {
+describe('parserConfiguration: notationSystems', () => {
+	describe.each([
+		['Do', 'C', ['latin']],
+		['Do', 'Ddim', ['english']],
+		['Do', 'Ddim', ['german']],
+		['Ré', 'D', ['latin']],
+		['His', 'C', ['german']],
+		['As', 'Ab', ['german']],
+	])('%s', (symbol, rendered, notationSystems) => {
+		test('should be correctly parsed in ' + notationSystems[0], () => {
+			expect(notationSystems.length).toBe(1);
+
+			const parseChord = chordParserFactory({
+				notationSystems,
+			});
+			const parsed = parseChord(symbol);
+			expect(parsed.error).not.toBeDefined();
+
+			const renderChord = chordRendererFactory();
+			expect(renderChord(parsed)).toBe(rendered);
+		});
+	});
+
+	describe.each([
+		['Bb', 1, ['german']],
+		['Bb', 1, ['latin']],
+		['Bb', 2, ['german', 'latin']],
+		['His', 1, ['english']],
+		['His', 1, ['latin']],
+		['His', 2, ['english', 'latin']],
+		['La', 1, ['english']],
+		['La', 1, ['german']],
+		['La', 2, ['english', 'german']],
+	])('%s', (symbol, numOfErrors, notationSystems) => {
+		test('should not be parsed in ' + notationSystems.join(', '), () => {
+			const parseChord = chordParserFactory({
+				notationSystems,
+			});
+			const parsed = parseChord(symbol);
+			expect(parsed.error).toBeDefined();
+			expect(Array.isArray(parsed.error)).toBe(true);
+			expect(parsed.error.length).toBe(numOfErrors);
+		});
+	});
+
+	test('should return a ConfigurationError if no notation system is selected', () => {
+		const parseChord = chordParserFactory({
+			notationSystems: [],
+		});
+		const parsed = parseChord('Ab');
+		expect(parsed.error).toBeDefined();
+		expect(Array.isArray(parsed.error)).toBe(true);
+		expect(parsed.error.length).toBe(1);
+		expect(parsed.error[0].type).toBe('ParserConfigurationError');
+		expect(parsed.error[0].message).toBe(
+			'You need to select at least one notation system for the parser'
+		);
+	});
+});
+
+describe('parserConfiguration: altIntervals', () => {
 	describe.each([
 		['b5', { fifthFlat: true }, ['1', '3', 'b5', 'b7']],
 		['#5', { fifthSharp: true }, ['1', '3', '#5', 'b7']],
@@ -220,7 +280,6 @@ describe('custom alt intervals', () => {
 		['#9', { ninthSharp: true }, ['1', '3', '5', 'b7', '#9']],
 		['#11', { eleventhSharp: true }, ['1', '3', '5', 'b7', '#11']],
 		['b13', { thirteenthFlat: true }, ['1', '3', '5', 'b7', 'b13']],
-
 		[
 			'all',
 			{
@@ -257,21 +316,21 @@ describe('custom alt intervals', () => {
 			expect(parsed.normalized.intents.alt).toEqual(true);
 		});
 	});
-});
 
-describe('rendering of alt modifier should short-circuit other modifiers', () => {
-	describe.each([
-		['Chalt', 'C7alt'],
-		['C7#9alt', 'C7alt'],
-		['C7b13alt', 'C7alt'],
-		['Cm7alt', 'C7alt'],
-	])('%s', (chord, rendered) => {
-		test(chord + ' => ' + rendered, () => {
-			const parseChord = chordParserFactory();
-			const renderChord = chordRendererFactory();
-			const parsed = parseChord(chord);
+	describe('rendering of alt modifier should short-circuit other modifiers', () => {
+		describe.each([
+			['Chalt', 'C7alt'],
+			['C7#9alt', 'C7alt'],
+			['C7b13alt', 'C7alt'],
+			['Cm7alt', 'C7alt'],
+		])('%s', (chord, rendered) => {
+			test(chord + ' => ' + rendered, () => {
+				const parseChord = chordParserFactory();
+				const renderChord = chordRendererFactory();
+				const parsed = parseChord(chord);
 
-			expect(renderChord(parsed)).toEqual(rendered);
+				expect(renderChord(parsed)).toEqual(rendered);
+			});
 		});
 	});
 });
@@ -283,6 +342,7 @@ describe('ParserConfiguration', () => {
 				ninthFlat: true,
 				eleventhSharp: true,
 			},
+			notationSystems: ['english', 'latin'],
 		});
 		const parsed = parseChord('C');
 
@@ -291,6 +351,7 @@ describe('ParserConfiguration', () => {
 				ninthFlat: true,
 				eleventhSharp: true,
 			},
+			notationSystems: ['english', 'latin'],
 		};
 
 		expect(parsed.parserConfiguration).toEqual(expected);
@@ -304,7 +365,7 @@ describe('ParserConfiguration', () => {
 	});
 });
 
-describe('Custom filters', () => {
+describe('parserConfiguration: custom filters', () => {
 	const myFilter1 = (chord) => {
 		chord.myFilter1 = true;
 		return chord;
@@ -349,6 +410,9 @@ describe('Custom filters', () => {
 			myFilter1: true,
 			myFilter2: { applied: true },
 			myFilter3: 'myFilter3 has been applied',
+			parserConfiguration: {
+				customFilters,
+			},
 		};
 		expect(parsed).toEqual(expected);
 	});

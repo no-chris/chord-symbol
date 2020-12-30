@@ -5,6 +5,7 @@ import checkCustomFilters from '../helpers/checkCustomFilters';
 import { allVariantsPerGroup } from '../dictionaries/notes';
 
 import {
+	ParserConfigurationError,
 	InvalidInputError,
 	UnexpectedError,
 } from '../helpers/ChordParsingError';
@@ -33,14 +34,23 @@ const defaultAltIntervals = {
 };
 
 /**
+ * Default notation systems that should be used to try parsing a symbol
+ * @type String[]
+ */
+const defaultNotationSystems = ['english', 'german', 'latin'];
+
+/**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord}
  */
-function chordParserFactory({
-	altIntervals = defaultAltIntervals,
-	customFilters = [],
-} = {}) {
+function chordParserFactory(parserConfiguration = {}) {
+	const {
+		notationSystems = defaultNotationSystems,
+		altIntervals = defaultAltIntervals,
+		customFilters = [],
+	} = parserConfiguration;
+
 	const allAltIntervals = Object.assign(
 		{},
 		defaultAltIntervals,
@@ -57,11 +67,23 @@ function chordParserFactory({
 	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
 	 */
 	function parseChord(symbol) {
-		const allVariantsPerGroupCopy = _cloneDeep(allVariantsPerGroup);
 		const allErrors = [];
 
 		if (!isInputValid(symbol)) {
 			const e = new InvalidInputError();
+			allErrors.push(formatError(e));
+		}
+
+		const allVariantsPerGroupCopy = _cloneDeep(
+			allVariantsPerGroup
+		).filter((variantsGroup) =>
+			notationSystems.includes(variantsGroup.name)
+		);
+
+		if (!allVariantsPerGroupCopy.length) {
+			const e = new ParserConfigurationError(
+				'You need to select at least one notation system for the parser'
+			);
 			allErrors.push(formatError(e));
 		}
 
@@ -74,7 +96,7 @@ function chordParserFactory({
 				variants = allVariantsPerGroupCopy.shift();
 
 				allFilters = [
-					initChord.bind(null, { altIntervals }),
+					initChord.bind(null, parserConfiguration),
 					parseBase.bind(null, variants.notes),
 					getParsableDescriptor,
 					parseDescriptor.bind(null, allAltIntervals),

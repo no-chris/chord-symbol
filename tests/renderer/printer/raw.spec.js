@@ -14,32 +14,34 @@ describe('raw printer', () => {
 	});
 
 	test('should re-parse the chord with the same parserConfiguration (at filter level)', () => {
-		const altIntervals = {
+		const parserConfiguration = {
 			altIntervals: {
 				ninthFlat: true,
 				thirteenthFlat: true,
 			},
+			notationSystems: ['english', 'german'],
 		};
-		const parseChord = chordParserFactory({ altIntervals });
+		const parseChord = chordParserFactory(parserConfiguration);
 		const parsed = parseChord('Calt');
 		const printed = rawPrinter(parsed);
 
-		expect(printed.parserConfiguration).toEqual({ altIntervals });
+		expect(printed.parserConfiguration).toEqual(parserConfiguration);
 	});
 
 	test('should re-parse the chord with the same parserConfiguration (at renderer level)', () => {
-		const altIntervals = {
+		const parserConfiguration = {
 			altIntervals: {
 				ninthFlat: true,
 				thirteenthFlat: true,
 			},
+			notationSystems: ['english', 'german'],
 		};
-		const parseChord = chordParserFactory({ altIntervals });
+		const parseChord = chordParserFactory(parserConfiguration);
 		const parsed = parseChord('Calt');
 		const renderChord = chordRendererFactory({ printer: 'raw' });
 		const printed = renderChord(parsed);
 
-		expect(printed.parserConfiguration).toEqual({ altIntervals });
+		expect(printed.parserConfiguration).toEqual(parserConfiguration);
 	});
 
 	describe.each([
@@ -73,7 +75,7 @@ describe('raw printer', () => {
 				const parsedRendered = parseChord(inputRenderedTxt);
 
 				// hu?! correct the descriptor in case of shortNamings are used
-				// in that case the fommatted descriptor, at parsing time, always contains le academic naming
+				// in that case the formatted descriptor, at parsing time, always contains le academic naming
 				// so we kind of hack the parsed chord
 				parsedRendered.formatted.descriptor =
 					inputRenderedRaw.formatted.descriptor;
