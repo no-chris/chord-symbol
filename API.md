@@ -17,6 +17,9 @@ Expose the chordRendererFactory() function</a></dt>
 <dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
 <dd><p>Default alterations triggered by the use of the alt modifier, eg all possible alterations.</p>
 </dd>
+<dt><a href="#allNotationSystems">allNotationSystems</a> : <code>Array.&lt;String&gt;</code></dt>
+<dd><p>Default notation systems that should be used to try parsing a symbol</p>
+</dd>
 </dl>
 
 ## Functions
@@ -86,6 +89,12 @@ Expose the chordRendererFactory() function
 
 ## defaultAltIntervals : [<code>AltIntervals</code>](#AltIntervals)
 Default alterations triggered by the use of the alt modifier, eg all possible alterations.
+
+**Kind**: global constant  
+<a name="allNotationSystems"></a>
+
+## allNotationSystems : <code>Array.&lt;String&gt;</code>
+Default notation systems that should be used to try parsing a symbol
 
 **Kind**: global constant  
 <a name="chordParserFactory"></a>
@@ -388,10 +397,13 @@ Configuration of the chord parser
   </thead>
   <tbody>
 <tr>
-    <td>[altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><code>defaultAltIntervals</code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
-Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
-some level of flexibility when parsing an &quot;alt&quot; chord symbol.
-If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
+    <td>[notationSystems]</td><td><code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></td><td><code>[&#x27;english&#x27;,&#x27;german&#x27;,&#x27;latin&#x27;</code></td><td><p>Notation systems that should be used to try parsing a symbol. All by default.</p>
+</td>
+    </tr><tr>
+    <td>[altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><code>defaultAltIntervals</code></td><td><p>user selection of intervals affected by the <code>alt</code> modifier (all by default).
+Since using the <code>C7alt</code> symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
+some level of flexibility when parsing an <code>alt</code> chord symbol.
+If you would like <code>alt</code> to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr><tr>
     <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during parsing</p>
@@ -463,7 +475,7 @@ Configuration of the chord renderer
     <td>[useFlats]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>prefer flats for transposition/harmonization</p>
 </td>
     </tr><tr>
-    <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
+    <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. <code>text</code> returns a string, <code>raw</code> the processed chord object.</p>
 </td>
     </tr><tr>
     <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during rendering</p>

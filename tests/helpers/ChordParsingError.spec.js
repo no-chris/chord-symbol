@@ -3,7 +3,6 @@ import {
 	InvalidInputError,
 	InvalidIntervalsError,
 	NoSymbolFoundError,
-	ParserConfigurationError,
 	UnexpectedError,
 } from '../../src/helpers/ChordParsingError';
 
@@ -44,18 +43,6 @@ describe('Custom error types', () => {
 		const error = getErrorObject(shouldThrow);
 		expect(error.name).toBe('InvalidInput');
 		expect(error.message).toBe('The given symbol is not a valid string');
-	});
-
-	test('ConfigurationError', () => {
-		const shouldThrow = () => {
-			throw new ParserConfigurationError('myMessage');
-		};
-		expect(shouldThrow).toThrow('myMessage');
-		expect(shouldThrow).toThrow(ParserConfigurationError);
-
-		const error = getErrorObject(shouldThrow);
-		expect(error.name).toBe('ParserConfigurationError');
-		expect(error.message).toBe('myMessage');
 	});
 
 	test('NoSymbolFoundError', () => {

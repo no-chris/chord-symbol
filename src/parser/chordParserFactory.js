@@ -5,7 +5,6 @@ import checkCustomFilters from '../helpers/checkCustomFilters';
 import { allVariantsPerGroup } from '../dictionaries/notes';
 
 import {
-	ParserConfigurationError,
 	InvalidInputError,
 	UnexpectedError,
 } from '../helpers/ChordParsingError';
@@ -37,7 +36,7 @@ const defaultAltIntervals = {
  * Default notation systems that should be used to try parsing a symbol
  * @type String[]
  */
-const defaultNotationSystems = ['english', 'german', 'latin'];
+const allNotationSystems = ['english', 'german', 'latin'];
 
 /**
  * Create a chord parser function
@@ -46,7 +45,7 @@ const defaultNotationSystems = ['english', 'german', 'latin'];
  */
 function chordParserFactory(parserConfiguration = {}) {
 	const {
-		notationSystems = defaultNotationSystems,
+		notationSystems = _cloneDeep(allNotationSystems),
 		altIntervals = defaultAltIntervals,
 		customFilters = [],
 	} = parserConfiguration;
@@ -57,6 +56,7 @@ function chordParserFactory(parserConfiguration = {}) {
 		altIntervals
 	);
 
+	checkNotationSystems(notationSystems);
 	checkCustomFilters(customFilters);
 
 	return parseChord;
@@ -79,13 +79,6 @@ function chordParserFactory(parserConfiguration = {}) {
 		).filter((variantsGroup) =>
 			notationSystems.includes(variantsGroup.name)
 		);
-
-		if (!allVariantsPerGroupCopy.length) {
-			const e = new ParserConfigurationError(
-				'You need to select at least one notation system for the parser'
-			);
-			allErrors.push(formatError(e));
-		}
 
 		let chord;
 		let allFilters;
@@ -121,6 +114,22 @@ function chordParserFactory(parserConfiguration = {}) {
 
 		return chord ? chord : { error: allErrors };
 	}
+}
+
+function checkNotationSystems(notationSystems) {
+	if (!Array.isArray(notationSystems)) {
+		throw new TypeError("'notationSystems' should be an array");
+	}
+	if (notationSystems.length === 0) {
+		throw new TypeError(
+			'You need to select at least one notation system for the parser'
+		);
+	}
+	notationSystems.forEach((system) => {
+		if (!allNotationSystems.includes(system)) {
+			throw new TypeError(`'${system}' is not a valid notation system`);
+		}
+	});
 }
 
 function isInputValid(input) {

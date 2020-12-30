@@ -9,17 +9,6 @@ class InvalidInputError extends Error {
 	}
 }
 
-class ParserConfigurationError extends Error {
-	/**
-	 * This error will occur if the configuration given to the parser is incorrect.
-	 * Since it's a generic error, the message will be set by the client code
-	 */
-	constructor(message) {
-		super(message);
-		this.name = 'ParserConfigurationError';
-	}
-}
-
 class UnexpectedError extends Error {
 	/**
 	 * This error is very unlikely to happen.
@@ -87,6 +76,5 @@ export {
 	InvalidIntervalsError,
 	InvalidModifierError,
 	NoSymbolFoundError,
-	ParserConfigurationError,
 	UnexpectedError,
 };

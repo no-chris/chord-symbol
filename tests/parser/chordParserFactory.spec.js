@@ -257,18 +257,31 @@ describe('parserConfiguration: notationSystems', () => {
 		});
 	});
 
-	test('should return a ConfigurationError if no notation system is selected', () => {
-		const parseChord = chordParserFactory({
-			notationSystems: [],
+	describe.each([
+		['null', null, "'notationSystems' should be an array"],
+		['string', 'string', "'notationSystems' should be an array"],
+		['number', 0, "'notationSystems' should be an array"],
+		['object', {}, "'notationSystems' should be an array"],
+		[
+			'empty array',
+			[],
+			'You need to select at least one notation system for the parser',
+		],
+		[
+			'unknown system',
+			['japanese'],
+			"'japanese' is not a valid notation system",
+		],
+	])('%s', (title, notationSystems, errorMsg) => {
+		test('factory should throw an error', () => {
+			const shouldThrow = () => {
+				chordParserFactory({
+					notationSystems,
+				});
+			};
+			expect(shouldThrow).toThrow(TypeError);
+			expect(shouldThrow).toThrow(errorMsg);
 		});
-		const parsed = parseChord('Ab');
-		expect(parsed.error).toBeDefined();
-		expect(Array.isArray(parsed.error)).toBe(true);
-		expect(parsed.error.length).toBe(1);
-		expect(parsed.error[0].type).toBe('ParserConfigurationError');
-		expect(parsed.error[0].message).toBe(
-			'You need to select at least one notation system for the parser'
-		);
 	});
 });
 
