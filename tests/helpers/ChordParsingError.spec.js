@@ -1,8 +1,8 @@
 import {
-	NoSymbolFoundError,
 	InvalidModifierError,
-	InvalidIntervalsError,
 	InvalidInputError,
+	InvalidIntervalsError,
+	NoSymbolFoundError,
 	UnexpectedError,
 } from '../../src/helpers/ChordParsingError';
 

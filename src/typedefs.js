@@ -21,6 +21,7 @@
  * @property {String} parsableDescriptor - the modified descriptor such as parsing is possible.
  * Ex: `m add9` for `Cmadd9`, a space is added for disambiguation between `m + add` and `ma + dd`.
  * @property {String} modifiers - the detected modifiers during parsing
+ * @property {('english'|'german'|'latin')} notationSystem - notation system in which the symbol was parsed
  */
 
 /**
@@ -78,10 +79,12 @@
  * Configuration of the chord parser
  * @typedef {Object} ParserConfiguration
  * @type {Object}
- * @property {AltIntervals} [altIntervals=defaultAltIntervals] - user selection of intervals affected by the "alt" modifier (all by default).
- * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
- * some level of flexibility when parsing an "alt" chord symbol.
- * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
+ * @property {Array<('english'|'german'|'latin')>=} notationSystems=['english','german','latin'] -
+ * 	Notation systems that should be used to try parsing a symbol. All by default.
+ * @property {AltIntervals} [altIntervals=defaultAltIntervals] - user selection of intervals affected by the `alt` modifier (all by default).
+ * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
+ * some level of flexibility when parsing an `alt` chord symbol.
+ * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during parsing
  */
 
@@ -107,7 +110,7 @@
  * @property {Number} [transposeValue=0] - positive or negative semitones value
  * @property {Boolean} [harmonizeAccidentals=false] - convert accidentals to either sharp or flats
  * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
- * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
+ * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. `text` returns a string, `raw` the processed chord object.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during rendering
  */
 

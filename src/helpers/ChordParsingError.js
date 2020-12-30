@@ -72,9 +72,9 @@ class InvalidIntervalsError extends ChordSymbolError {
 }
 
 export {
-	InvalidModifierError,
 	InvalidInputError,
 	InvalidIntervalsError,
+	InvalidModifierError,
 	NoSymbolFoundError,
 	UnexpectedError,
 };

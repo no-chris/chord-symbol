@@ -33,20 +33,30 @@ const defaultAltIntervals = {
 };
 
 /**
+ * Default notation systems that should be used to try parsing a symbol
+ * @type Array<('english'|'german'|'latin')>
+ */
+const allNotationSystems = ['english', 'german', 'latin'];
+
+/**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord}
  */
-function chordParserFactory({
-	altIntervals = defaultAltIntervals,
-	customFilters = [],
-} = {}) {
+function chordParserFactory(parserConfiguration = {}) {
+	const {
+		notationSystems = _cloneDeep(allNotationSystems),
+		altIntervals = defaultAltIntervals,
+		customFilters = [],
+	} = parserConfiguration;
+
 	const allAltIntervals = Object.assign(
 		{},
 		defaultAltIntervals,
 		altIntervals
 	);
 
+	checkNotationSystems(notationSystems);
 	checkCustomFilters(customFilters);
 
 	return parseChord;
@@ -57,13 +67,18 @@ function chordParserFactory({
 	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
 	 */
 	function parseChord(symbol) {
-		const allVariantsPerGroupCopy = _cloneDeep(allVariantsPerGroup);
 		const allErrors = [];
 
 		if (!isInputValid(symbol)) {
 			const e = new InvalidInputError();
 			allErrors.push(formatError(e));
 		}
+
+		const allVariantsPerGroupCopy = _cloneDeep(
+			allVariantsPerGroup
+		).filter((variantsGroup) =>
+			notationSystems.includes(variantsGroup.name)
+		);
 
 		let chord;
 		let allFilters;
@@ -74,7 +89,7 @@ function chordParserFactory({
 				variants = allVariantsPerGroupCopy.shift();
 
 				allFilters = [
-					initChord.bind(null, { altIntervals }),
+					initChord.bind(null, parserConfiguration),
 					parseBase.bind(null, variants.notes),
 					getParsableDescriptor,
 					parseDescriptor.bind(null, allAltIntervals),
@@ -88,7 +103,9 @@ function chordParserFactory({
 
 				try {
 					chord = chain(allFilters, symbol);
-					if (!chord) {
+					if (chord) {
+						chord.input.notationSystem = variants.name;
+					} else {
 						allErrors.push(getUnexpectedError(variants.name));
 					}
 				} catch (e) {
@@ -99,6 +116,22 @@ function chordParserFactory({
 
 		return chord ? chord : { error: allErrors };
 	}
+}
+
+function checkNotationSystems(notationSystems) {
+	if (!Array.isArray(notationSystems)) {
+		throw new TypeError("'notationSystems' should be an array");
+	}
+	if (notationSystems.length === 0) {
+		throw new TypeError(
+			'You need to select at least one notation system for the parser'
+		);
+	}
+	notationSystems.forEach((system) => {
+		if (!allNotationSystems.includes(system)) {
+			throw new TypeError(`'${system}' is not a valid notation system`);
+		}
+	});
 }
 
 function isInputValid(input) {

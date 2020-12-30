@@ -188,7 +188,8 @@ npm run-script test-short
 ## Error handling
 
 By default, `ChordSymbol` tries to parse a symbol three times, each time with the root and bass notes written in a different notation system:
-`english` first, then `german` and finally `latin`.
+`english` first, then `german` and finally `latin`. You can fine-tune this behavior by configuring the parser to use only selected notation systems
+(see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
 If any of those attempts succeed, then the given string is considered as a valid chord, and the parser returns a `Chord` object.
 If all of them fails, then `ChordSymbol` returns an object with an `error` property.
 
@@ -305,11 +306,14 @@ The enforced rules are very basic, though, so there is no absolute guarantee tha
 
 ### Support for different notation systems
 
-`ChordSymbol` can recognize notes written in `english`, `latin` and `german` system with the following limits:
+`ChordSymbol` can recognize notes written in `english`, `latin` and `german` systems.
+By default, `ChordSymbol` will try all the notation systems one after the other until he properly detects a chord (or not).
+This works well in the vast majority of cases, with a notable exception:
 
 -   the Latin `Do` (`C`) conflict with the English `D` and the `o` modifier, which is widely used in some popular software to describe a diminished chord. Given the prevalence of this modifier, priority has been given to it.
-    Thus, it is not possible to use the `Do` symbol to describe a `C` chord.
--   because of the way disambiguation is achieved for this type of conflict, notation systems cannot be mixed in the same symbol. As far as `ChordSymbol` is concerned (and most sane people too, btw), `Sol/B` is not a valid chord, and neither is `Hes/Re`.
+    Thus, by default, it is not possible to use the `Do` symbol to describe a `C` chord.
+-   if you know for sure the chords that you want to parse are written in the `latin` notation system, you can disable `english` and `german` when configuring the parser (see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
+    This will allows you to parse a `Do` (`C`) chord.
 
 ### Musical scope
 
