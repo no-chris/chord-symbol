@@ -17,7 +17,7 @@ Expose the chordRendererFactory() function</a></dt>
 <dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
 <dd><p>Default alterations triggered by the use of the alt modifier, eg all possible alterations.</p>
 </dd>
-<dt><a href="#allNotationSystems">allNotationSystems</a> : <code>Array.&lt;String&gt;</code></dt>
+<dt><a href="#allNotationSystems">allNotationSystems</a> : <code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></dt>
 <dd><p>Default notation systems that should be used to try parsing a symbol</p>
 </dd>
 </dl>
@@ -93,7 +93,7 @@ Default alterations triggered by the use of the alt modifier, eg all possible al
 **Kind**: global constant  
 <a name="allNotationSystems"></a>
 
-## allNotationSystems : <code>Array.&lt;String&gt;</code>
+## allNotationSystems : <code>Array.&lt;(&#x27;english&#x27;\|&#x27;german&#x27;\|&#x27;latin&#x27;)&gt;</code>
 Default notation systems that should be used to try parsing a symbol
 
 **Kind**: global constant  

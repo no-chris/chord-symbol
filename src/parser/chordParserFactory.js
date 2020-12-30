@@ -34,7 +34,7 @@ const defaultAltIntervals = {
 
 /**
  * Default notation systems that should be used to try parsing a symbol
- * @type String[]
+ * @type Array<('english'|'german'|'latin')>
  */
 const allNotationSystems = ['english', 'german', 'latin'];
 

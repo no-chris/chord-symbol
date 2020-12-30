@@ -14,29 +14,29 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/)!
 
 <!-- toc -->
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Migration guides](#migration-guides)
-  * [From v0.5.1 to v1.0.0](#from-v051-to-v100)
-    + [Intervals consistency](#intervals-consistency)
-    + [API change](#api-change)
-  * [From v1.2.0 to v2.0.0](#from-v120-to-v200)
-    + [API change](#api-change-1)
-- [Unit tests](#unit-tests)
-- [API Documentation](#api-documentation)
-- [Error handling](#error-handling)
-- [Background information](#background-information)
-  * [Why parse chords symbols?](#why-parse-chords-symbols)
-  * [Guiding principles](#guiding-principles)
-    + [Chords definition](#chords-definition)
-    + [Symbol parsing](#symbol-parsing)
-    + [Rendering and normalization](#rendering-and-normalization)
-- [Limitations](#limitations)
-  * [Intervals consistency](#intervals-consistency-1)
-  * [Support for different notation systems](#support-for-different-notation-systems)
-  * [Musical scope](#musical-scope)
-- [Lexicon](#lexicon)
+-   [Features](#features)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Migration guides](#migration-guides)
+    -   [From v0.5.1 to v1.0.0](#from-v051-to-v100)
+        -   [Intervals consistency](#intervals-consistency)
+        -   [API change](#api-change)
+    -   [From v1.2.0 to v2.0.0](#from-v120-to-v200)
+        -   [API change](#api-change-1)
+-   [Unit tests](#unit-tests)
+-   [API Documentation](#api-documentation)
+-   [Error handling](#error-handling)
+-   [Background information](#background-information)
+    -   [Why parse chords symbols?](#why-parse-chords-symbols)
+    -   [Guiding principles](#guiding-principles)
+        -   [Chords definition](#chords-definition)
+        -   [Symbol parsing](#symbol-parsing)
+        -   [Rendering and normalization](#rendering-and-normalization)
+-   [Limitations](#limitations)
+    -   [Intervals consistency](#intervals-consistency-1)
+    -   [Support for different notation systems](#support-for-different-notation-systems)
+    -   [Musical scope](#musical-scope)
+-   [Lexicon](#lexicon)
 
 <!-- tocstop -->
 
@@ -188,7 +188,7 @@ npm run-script test-short
 ## Error handling
 
 By default, `ChordSymbol` tries to parse a symbol three times, each time with the root and bass notes written in a different notation system:
-`english` first, then `german` and finally `latin`. You can fine-tune this behavior by configuring the parser to omit given notation systems
+`english` first, then `german` and finally `latin`. You can fine-tune this behavior by configuring the parser to use only selected notation systems
 (see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
 If any of those attempts succeed, then the given string is considered as a valid chord, and the parser returns a `Chord` object.
 If all of them fails, then `ChordSymbol` returns an object with an `error` property.
