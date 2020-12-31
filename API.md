@@ -241,6 +241,9 @@ Ex: <code>m add9</code> for <code>Cmadd9</code>, a space is added for disambigua
     </tr><tr>
     <td>modifiers</td><td><code>String</code></td><td><p>the detected modifiers during parsing</p>
 </td>
+    </tr><tr>
+    <td>notationSystem</td><td><code>&#x27;english&#x27;</code> | <code>&#x27;german&#x27;</code> | <code>&#x27;latin&#x27;</code></td><td><p>notation system in which the symbol was parsed</p>
+</td>
     </tr>  </tbody>
 </table>
 
@@ -476,6 +479,10 @@ Configuration of the chord renderer
 </td>
     </tr><tr>
     <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. <code>text</code> returns a string, <code>raw</code> the processed chord object.</p>
+</td>
+    </tr><tr>
+    <td>[notationSystem]</td><td><code>&#x27;auto&#x27;</code> | <code>&#x27;english&#x27;</code> | <code>&#x27;german&#x27;</code> | <code>&#x27;latin&#x27;</code></td><td><code>&#x27;english&#x27;</code></td><td><p>the notation system to use when rendering the chord.
+    <code>auto</code> will use the same system in which the symbol was originally parsed.</p>
 </td>
     </tr><tr>
     <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during rendering</p>
