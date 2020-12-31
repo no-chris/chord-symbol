@@ -111,6 +111,8 @@
  * @property {Boolean} [harmonizeAccidentals=false] - convert accidentals to either sharp or flats
  * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
  * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. `text` returns a string, `raw` the processed chord object.
+ * @property {('auto'|'english'|'german'|'latin')} [notationSystem='english'] - the notation system to use when rendering the chord.
+ * 	`auto` will use the same system in which the symbol was originally parsed.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during rendering
  */
 
