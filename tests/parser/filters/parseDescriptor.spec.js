@@ -183,27 +183,21 @@ describe('invalid chords', () => {
 
 describe('altered chords', () => {
 	describe.each([
-		['b5', { fifthFlat: true }, ['1', '3', 'b5', 'b7']],
-		['#5', { fifthSharp: true }, ['1', '3', '#5', 'b7']],
-		['b9', { ninthFlat: true }, ['1', '3', '5', 'b7', 'b9']],
-		['#9', { ninthSharp: true }, ['1', '3', '5', 'b7', '#9']],
-		['#11', { eleventhSharp: true }, ['1', '3', '5', 'b7', '#11']],
-		['#11', { thirteenthFlat: true }, ['1', '3', '5', 'b7', 'b13']],
-
+		['b5', ['b5'], ['1', '3', 'b5', 'b7']],
+		['#5', ['#5'], ['1', '3', '#5', 'b7']],
+		['b9', ['b9'], ['1', '3', '5', 'b7', 'b9']],
+		['#9', ['#9'], ['1', '3', '5', 'b7', '#9']],
+		['#11', ['#11'], ['1', '3', '5', 'b7', '#11']],
+		['b13', ['b13'], ['1', '3', '5', 'b7', 'b13']],
+		['all b', ['b5', 'b9', 'b13'], ['1', '3', 'b5', 'b7', 'b9', 'b13']],
+		['all #', ['#5', '#9', '#11'], ['1', '3', '#5', 'b7', '#9', '#11']],
 		[
 			'all',
-			{
-				fifthFlat: true,
-				fifthSharp: true,
-				ninthFlat: true,
-				ninthSharp: true,
-				eleventhSharp: true,
-				thirteenthFlat: true,
-			},
+			['b5', '#5', 'b9', '#9', '#11', 'b13'],
 			['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],
 		],
 	])('%s', (title, altIntervals, intervals) => {
-		test('alt should yield intervals ' + intervals.join(' '), () => {
+		test('alt should yield intervals ' + altIntervals.join(' '), () => {
 			const chord = parseChord('Calt');
 			const parsed = parseDescriptor(altIntervals, chord);
 

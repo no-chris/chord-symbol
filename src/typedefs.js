@@ -64,26 +64,14 @@
  */
 
 /**
- * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
- * @typedef {Object} AltIntervals
- * @type {Object}
- * @property {Boolean} [fifthFlat] - if the alt modifier should yield a flat fifth
- * @property {Boolean} [fifthSharp] - if the alt modifier should yield a sharp fifth
- * @property {Boolean} [ninthFlat] - if the alt modifier should yield a flat ninth
- * @property {Boolean} [ninthSharp] - if the alt modifier should yield a sharp ninth
- * @property {Boolean} [eleventhSharp] - if the alt modifier should sharpen the eleventh
- * @property {Boolean} [thirteenthFlat] - if the alt modifier should flatten the thirteenth
- */
-
-/**
  * Configuration of the chord parser
  * @typedef {Object} ParserConfiguration
  * @type {Object}
  * @property {Array<('english'|'german'|'latin')>=} notationSystems=['english','german','latin'] -
  * 	Notation systems that should be used to try parsing a symbol. All by default.
- * @property {AltIntervals} [altIntervals=defaultAltIntervals] - user selection of intervals affected by the `alt` modifier (all by default).
- * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
- * some level of flexibility when parsing an `alt` chord symbol.
+ * @property {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals=['b5','#5','b9','#9','#11','b13'] - user selection of intervals affected by the `alt` modifier (all by default).
+ * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
+ * the intervals that the `alt` modifier should yield
  * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during parsing
  */

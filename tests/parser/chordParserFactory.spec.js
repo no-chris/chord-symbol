@@ -262,15 +262,11 @@ describe('parserConfiguration: notationSystems', () => {
 		['string', 'string', "'notationSystems' should be an array"],
 		['number', 0, "'notationSystems' should be an array"],
 		['object', {}, "'notationSystems' should be an array"],
-		[
-			'empty array',
-			[],
-			'You need to select at least one notation system for the parser',
-		],
+		['empty array', [], "'notationSystems' cannot be empty"],
 		[
 			'unknown system',
 			['japanese'],
-			"'japanese' is not a valid notation system",
+			"'japanese' is not a valid value for notationSystems",
 		],
 	])('%s', (title, notationSystems, errorMsg) => {
 		test('factory should throw an error', () => {
@@ -287,41 +283,29 @@ describe('parserConfiguration: notationSystems', () => {
 
 describe('parserConfiguration: altIntervals', () => {
 	describe.each([
-		['b5', { fifthFlat: true }, ['1', '3', 'b5', 'b7']],
-		['#5', { fifthSharp: true }, ['1', '3', '#5', 'b7']],
-		['b9', { ninthFlat: true }, ['1', '3', '5', 'b7', 'b9']],
-		['#9', { ninthSharp: true }, ['1', '3', '5', 'b7', '#9']],
-		['#11', { eleventhSharp: true }, ['1', '3', '5', 'b7', '#11']],
-		['b13', { thirteenthFlat: true }, ['1', '3', '5', 'b7', 'b13']],
+		['none', [], ['1', '3', '5', 'b7']],
+		['b5', ['b5'], ['1', '3', 'b5', 'b7']],
+		['#5', ['#5'], ['1', '3', '#5', 'b7']],
+		['b9', ['b9'], ['1', '3', '5', 'b7', 'b9']],
+		['#9', ['#9'], ['1', '3', '5', 'b7', '#9']],
+		['#11', ['#11'], ['1', '3', '5', 'b7', '#11']],
+		['b13', ['b13'], ['1', '3', '5', 'b7', 'b13']],
+		['all b', ['b5', 'b9', 'b13'], ['1', '3', 'b5', 'b7', 'b9', 'b13']],
+		['all #', ['#5', '#9', '#11'], ['1', '3', '#5', 'b7', '#9', '#11']],
 		[
 			'all',
-			{
-				fifthFlat: true,
-				fifthSharp: true,
-				ninthFlat: true,
-				ninthSharp: true,
-				eleventhSharp: true,
-				thirteenthFlat: true,
-			},
+			['b5', '#5', 'b9', '#9', '#11', 'b13'],
+			['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],
+		],
+		[
+			'all by default',
+			undefined,
 			['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],
 		],
 	])('%s', (title, altIntervals, intervals) => {
 		test('alt should yield ' + intervals.join(' '), () => {
-			const noAltIntervals = {
-				fifthFlat: false,
-				fifthSharp: false,
-				ninthFlat: false,
-				ninthSharp: false,
-				eleventhSharp: false,
-				thirteenthFlat: false,
-			};
-			const allAltIntervals = Object.assign(
-				{},
-				noAltIntervals,
-				altIntervals
-			);
 			const parseChord = chordParserFactory({
-				altIntervals: allAltIntervals,
+				altIntervals,
 			});
 			const parsed = parseChord('Calt');
 
@@ -346,24 +330,40 @@ describe('parserConfiguration: altIntervals', () => {
 			});
 		});
 	});
+
+	describe.each([
+		['null', null, "'altIntervals' should be an array"],
+		['string', 'string', "'altIntervals' should be an array"],
+		['number', 0, "'altIntervals' should be an array"],
+		['object', {}, "'altIntervals' should be an array"],
+		[
+			'unknown interval',
+			['b7'],
+			"'b7' is not a valid value for altIntervals",
+		],
+	])('%s', (title, altIntervals, errorMsg) => {
+		test('factory should throw an error', () => {
+			const shouldThrow = () => {
+				chordParserFactory({
+					altIntervals,
+				});
+			};
+			expect(shouldThrow).toThrow(TypeError);
+			expect(shouldThrow).toThrow(errorMsg);
+		});
+	});
 });
 
 describe('ParserConfiguration', () => {
 	test('Should save parser configuration in chord definition', () => {
 		const parseChord = chordParserFactory({
-			altIntervals: {
-				ninthFlat: true,
-				eleventhSharp: true,
-			},
+			altIntervals: ['b5', '#9'],
 			notationSystems: ['english', 'latin'],
 		});
 		const parsed = parseChord('C');
 
 		const expected = {
-			altIntervals: {
-				ninthFlat: true,
-				eleventhSharp: true,
-			},
+			altIntervals: ['b5', '#9'],
 			notationSystems: ['english', 'latin'],
 		};
 

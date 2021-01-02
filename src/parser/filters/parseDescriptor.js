@@ -12,7 +12,7 @@ import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 /**
  * Convert the descriptor into a suite of intervals, semitones and intents
  *
- * @param {AltIntervals} altIntervals
+ * @param {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals
  * @param {Chord} chord
  * @returns {Chord|Null}
  */
@@ -126,13 +126,13 @@ function getFifths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.dim, m.halfDim, m.fifthFlat]) ||
-		shouldAlter(allModifiers, altIntervals.fifthFlat)
+		shouldAlter(allModifiers, altIntervals, 'b5')
 	) {
 		fifths.push('b5');
 	}
 	if (
 		hasOneOf(allModifiers, [m.aug, m.fifthSharp]) ||
-		shouldAlter(allModifiers, altIntervals.fifthSharp)
+		shouldAlter(allModifiers, altIntervals, '#5')
 	) {
 		fifths.push('#5');
 	}
@@ -196,13 +196,13 @@ function getNinths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.ninthFlat]) ||
-		shouldAlter(allModifiers, altIntervals.ninthFlat)
+		shouldAlter(allModifiers, altIntervals, 'b9')
 	) {
 		ninth.push('b9');
 	}
 	if (
 		hasOneOf(allModifiers, [m.ninthSharp]) ||
-		shouldAlter(allModifiers, altIntervals.ninthSharp)
+		shouldAlter(allModifiers, altIntervals, '#9')
 	) {
 		ninth.push('#9');
 	}
@@ -221,7 +221,7 @@ function getElevenths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.eleventhSharp]) ||
-		shouldAlter(allModifiers, altIntervals.eleventhSharp)
+		shouldAlter(allModifiers, altIntervals, '#11')
 	) {
 		elevenths.push('#11');
 	}
@@ -241,15 +241,15 @@ function getThirteenths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.thirteenthFlat]) ||
-		shouldAlter(allModifiers, altIntervals.thirteenthFlat)
+		shouldAlter(allModifiers, altIntervals, 'b13')
 	) {
 		thirteenths.push('b13');
 	}
 	return thirteenths;
 }
 
-function shouldAlter(allModifiers, isDegreeAlterated) {
-	return allModifiers.includes(m.alt) && isDegreeAlterated;
+function shouldAlter(allModifiers, altIntervals, interval) {
+	return allModifiers.includes(m.alt) && altIntervals.includes(interval);
 }
 
 function hasMajorIntent(allModifiers) {
