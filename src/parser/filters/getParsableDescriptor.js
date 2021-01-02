@@ -1,6 +1,8 @@
 import chain from '../../helpers/chain';
 
 /**
+ * Prepare whatever string has been identified as a descriptor so it is parsable by the next filter
+ *
  * @param {Chord} chord
  * @returns {Chord}
  */

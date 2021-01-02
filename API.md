@@ -11,14 +11,6 @@ Expose the chordRendererFactory() function</a></dt>
 <dd></dd>
 </dl>
 
-## Constants
-
-<dl>
-<dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
-<dd><p>Default alterations triggered by the use of the alt modifier, eg all possible alterations.</p>
-</dd>
-</dl>
-
 ## Functions
 
 <dl>
@@ -46,11 +38,11 @@ Expose the chordRendererFactory() function</a></dt>
 <dd><p>Pre-rendered version of the chord with the main &quot;vertical quality&quot; and the chord changes.
 Intended to be used as building blocks of a rendered chord</p>
 </dd>
-<dt><a href="#AltIntervals">AltIntervals</a> : <code>Object</code></dt>
-<dd><p>Intervals affected by the Alt modifier when parsing an altered chord written &quot;C7alt&quot;, for example.</p>
-</dd>
 <dt><a href="#ParserConfiguration">ParserConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord parser</p>
+</dd>
+<dt><a href="#ChordSymbolError">ChordSymbolError</a> : <code>Object</code></dt>
+<dd><p>Description of an error that occurred during the parsing.</p>
 </dd>
 <dt><a href="#RendererConfiguration">RendererConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord renderer</p>
@@ -58,6 +50,14 @@ Intended to be used as building blocks of a rendered chord</p>
 <dt><a href="#customFilter">customFilter</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
 <dd><p>Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.</p>
+<ul>
+<li>To fail the parsing, throw an exception and it will use the Error API.
+If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+<a href="https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js">custom error types</a></li>
+<li>To fail the rendering, simply return <code>null</code>.
+Warning: if you throw an exception in a rendering filter, <code>ChordSymbol</code> will not catch it and the client code will need to handle it.
+Don&#39;t do that!</li>
+</ul>
 </dd>
 </dl>
 
@@ -71,12 +71,6 @@ Expose the chordRendererFactory_new functionmodule_"></a>
 
 ## chordRendererFactory
 Expose the chordRendererFactory() function
-<a name="defaultAltIntervals"></a>
-
-## defaultAltIntervals : [<code>AltIntervals</code>](#AltIntervals)
-Default alterations triggered by the use of the alt modifier, eg all possible alterations.
-
-**Kind**: global constant  
 <a name="chordParserFactory"></a>
 
 ## chordParserFactory([parserConfiguration]) ⇒ <code>function</code>
@@ -169,17 +163,20 @@ A data object representing a chord. It is the result of the parsing operation an
   </thead>
   <tbody>
 <tr>
-    <td>input</td><td><code><a href="#ChordInput">ChordInput</a></code></td><td><p>information derived from the symbol given as an input.
+    <td>[input]</td><td><code><a href="#ChordInput">ChordInput</a></code></td><td><p>information derived from the symbol given as an input.
 If you need to trace what has generated a given chord, you&#39;ll find it here.</p>
 </td>
     </tr><tr>
-    <td>normalized</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
+    <td>[normalized]</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
 </td>
     </tr><tr>
-    <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
+    <td>[formatted]</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
 </td>
     </tr><tr>
-    <td>parserConfiguration</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
+    <td>[parserConfiguration]</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
+</td>
+    </tr><tr>
+    <td>[error]</td><td><code><a href="#ChordSymbolError">Array.&lt;ChordSymbolError&gt;</a></code></td><td><p>if defined, then the parsing failed and this array will contain the reason(s) why</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -217,6 +214,9 @@ Ex: <code>m add9</code> for <code>Cmadd9</code>, a space is added for disambigua
 </td>
     </tr><tr>
     <td>modifiers</td><td><code>String</code></td><td><p>the detected modifiers during parsing</p>
+</td>
+    </tr><tr>
+    <td>notationSystem</td><td><code>&#x27;english&#x27;</code> | <code>&#x27;german&#x27;</code> | <code>&#x27;latin&#x27;</code></td><td><p>notation system in which the symbol was parsed</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -322,42 +322,6 @@ If multiple added/omits are present, the <code>add/omit</code> symbol is only pr
     </tr>  </tbody>
 </table>
 
-<a name="AltIntervals"></a>
-
-## AltIntervals : <code>Object</code>
-Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
-
-**Kind**: global typedef  
-**Properties**
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th><th>Type</th><th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>[fifthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat fifth</p>
-</td>
-    </tr><tr>
-    <td>[fifthSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp fifth</p>
-</td>
-    </tr><tr>
-    <td>[ninthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat ninth</p>
-</td>
-    </tr><tr>
-    <td>[ninthSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp ninth</p>
-</td>
-    </tr><tr>
-    <td>[eleventhSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the eleventh</p>
-</td>
-    </tr><tr>
-    <td>[thirteenthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the thirteenth</p>
-</td>
-    </tr>  </tbody>
-</table>
-
 <a name="ParserConfiguration"></a>
 
 ## ParserConfiguration : <code>Object</code>
@@ -374,13 +338,47 @@ Configuration of the chord parser
   </thead>
   <tbody>
 <tr>
-    <td>[altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><code>defaultAltIntervals</code></td><td><p>user selection of intervals affected by the &quot;alt&quot; modifier (all by default).
-Since using the &quot;C7alt&quot; symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
-some level of flexibility when parsing an &quot;alt&quot; chord symbol.
-If you would like &quot;alt&quot; to consistently yield a specific set of intervals, you can specify those here.</p>
+    <td>[notationSystems]</td><td><code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></td><td><code>[&#x27;english&#x27;,&#x27;german&#x27;,&#x27;latin&#x27;</code></td><td><p>Notation systems that should be used to try parsing a symbol. All by default.</p>
+</td>
+    </tr><tr>
+    <td>altIntervals</td><td><code>Array.&lt;(&#x27;b5&#x27;|&#x27;#5&#x27;|&#x27;b9&#x27;|&#x27;#9&#x27;|&#x27;#11&#x27;|&#x27;b13&#x27;)&gt;</code></td><td><code>[&#x27;b5&#x27;,&#x27;#5&#x27;,&#x27;b9&#x27;,&#x27;#9&#x27;,&#x27;#11&#x27;,&#x27;b13&#x27;</code></td><td><p>user selection of intervals affected by the <code>alt</code> modifier (all by default).
+Since using the <code>C7alt</code> symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
+the intervals that the <code>alt</code> modifier should yield
+If you would like <code>alt</code> to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr><tr>
     <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during parsing</p>
+</td>
+    </tr>  </tbody>
+</table>
+
+<a name="ChordSymbolError"></a>
+
+## ChordSymbolError : <code>Object</code>
+Description of an error that occurred during the parsing.
+
+**Kind**: global typedef  
+**Properties**
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>type</td><td><code>&#x27;InvalidIntervals&#x27;</code> | <code>&#x27;InvalidInput&#x27;</code> | <code>&#x27;InvalidModifier&#x27;</code> | <code>&#x27;NoSymbolFound&#x27;</code> | <code>&#x27;UnexpectedError&#x27;</code></td><td><p>error code,
+or exception type in custom filters</p>
+</td>
+    </tr><tr>
+    <td>message</td><td><code>String</code></td><td><p>error description, or the exception message in custom filters</p>
+</td>
+    </tr><tr>
+    <td>[chord]</td><td><code><a href="#Chord">Chord</a></code></td><td><p>the chord object, in the state that it was when the error occurred</p>
+</td>
+    </tr><tr>
+    <td>[notationSystem]</td><td><code>&#x27;english&#x27;</code> | <code>&#x27;german&#x27;</code> | <code>&#x27;latin&#x27;</code></td><td><p>the notation system context in which the error occurred</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -418,7 +416,11 @@ Configuration of the chord renderer
     <td>[useFlats]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>prefer flats for transposition/harmonization</p>
 </td>
     </tr><tr>
-    <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. &#39;text&#39; returns a string, &#39;raw&#39; the processed chord object.</p>
+    <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. <code>text</code> returns a string, <code>raw</code> the processed chord object.</p>
+</td>
+    </tr><tr>
+    <td>[notationSystem]</td><td><code>&#x27;auto&#x27;</code> | <code>&#x27;english&#x27;</code> | <code>&#x27;german&#x27;</code> | <code>&#x27;latin&#x27;</code></td><td><code>&#x27;english&#x27;</code></td><td><p>the notation system to use when rendering the chord.
+    <code>auto</code> will use the same system in which the symbol was originally parsed.</p>
 </td>
     </tr><tr>
     <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during rendering</p>
@@ -431,9 +433,15 @@ Configuration of the chord renderer
 ## customFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
 Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.
+- To fail the parsing, throw an exception and it will use the Error API.
+If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+[custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
+- To fail the rendering, simply return `null`.
+Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+Don't do that!
 
 **Kind**: global typedef  
-**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or Null to cancel the processing and skip the remaining filters.  
+**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.  
 <table>
   <thead>
     <tr>

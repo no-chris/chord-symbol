@@ -46,15 +46,16 @@ describe('No filter', () => {
 });
 
 describe('all filters', () => {
-	describe.each([['Cm11', 'Abm']])('%s', (input, expected) => {
+	describe.each([['C#m11/G', 'Labm']])('%s', (input, expected) => {
 		test('is rendered: ' + expected, () => {
 			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({
 				useShortNamings: true,
-				transposeValue: 8,
+				transposeValue: 7,
 				harmonizeAccidentals: true,
 				useFlats: true,
 				simplify: 'max',
+				notationSystem: 'latin',
 			});
 			const chord = Object.freeze(parseChord(input));
 			expect(renderChord(chord)).toBe(expected);
@@ -131,13 +132,67 @@ describe('Printers', () => {
 	describe.each([
 		['text printer', 'text', 'C'],
 		['raw printer', 'raw', chordC],
-		['unknown printer', 'idontexist', 'C'],
+		['unknown printer, defaults to text', 'idontexist', 'C'],
 	])('%s', (title, printer, expected) => {
 		test(title, () => {
 			const renderChord = chordRendererFactory({ printer });
 			const rendered = renderChord(chordC);
 			expect(rendered).toEqual(expected);
 		});
+	});
+});
+
+describe('Notation system', () => {
+	describe.each([
+		['default to english', undefined, 'C', 'C'],
+		['default to english', undefined, 'H', 'B'],
+		['default to english', undefined, 'La', 'A'],
+		['convert', 'german', 'B', 'H'],
+		['convert', 'latin', 'A', 'La'],
+		['convert to input system', 'auto', 'H', 'H'],
+		['convert to input system', 'auto', 'La', 'La'],
+		['Harmonized acc. / sharp', 'english', 'La#/Reb', 'A#/C#', true],
+		['Harmonized acc. / sharp', 'german', 'La#/Reb', 'Ais/Cis', true],
+		['Harmonized acc. / sharp', 'latin', 'La#/Reb', 'La#/Do#', true],
+		['Harmonized acc. / sharp', 'auto', 'La#/Reb', 'La#/Do#', true],
+		['Harmonized acc. / flats', 'english', 'La#/Reb', 'Bb/Db', true, true],
+		['Harmonized acc. / flats', 'german', 'La#/Reb', 'Hes/Des', true, true],
+		['Harmonized acc. / flats', 'latin', 'La#/Reb', 'Sib/Reb', true, true],
+		['Harmonized acc. / flats', 'auto', 'La#/Reb', 'Sib/Reb', true, true],
+	])(
+		'%s (%s): %s',
+		(
+			title,
+			notationSystem,
+			input,
+			output,
+			harmonizeAccidentals,
+			useFlats
+		) => {
+			test(`should be converted to ${output}`, () => {
+				const parseChord = chordParserFactory();
+				const parsed = parseChord(input);
+
+				const renderChord = chordRendererFactory({
+					notationSystem,
+					harmonizeAccidentals,
+					useFlats,
+				});
+				const rendered = renderChord(parsed);
+				expect(rendered).toEqual(output);
+			});
+		}
+	);
+
+	test(`returns null with an invalid notation system`, () => {
+		const parseChord = chordParserFactory();
+		const parsed = parseChord('C');
+
+		const renderChord = chordRendererFactory({
+			notationSystem: 'japanese',
+		});
+		const rendered = renderChord(parsed);
+		expect(rendered).toBeNull();
 	});
 });
 
@@ -161,9 +216,21 @@ describe('invalid options values', () => {
 });
 
 describe('invalid parsed chord', () => {
-	test('should return null if given chord is null', () => {
-		const renderChord = chordRendererFactory({ printer: 'raw' });
-		expect(renderChord(null)).toBeNull();
+	const parseChord = chordParserFactory();
+	const invalidChord = parseChord('Amis');
+
+	describe.each([
+		['undefined'],
+		['null', null],
+		['string', 'myChord'],
+		['number', 0],
+		['object', { test: 'test' }],
+		['invalidChord', invalidChord],
+	])('%s', (title, parsedChord) => {
+		test('should return null if given chord is invalid', () => {
+			const renderChord = chordRendererFactory({ printer: 'raw' });
+			expect(renderChord(parsedChord)).toBeNull();
+		});
 	});
 });
 

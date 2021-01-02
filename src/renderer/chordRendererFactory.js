@@ -6,6 +6,7 @@ import checkCustomFilters from '../helpers/checkCustomFilters';
 import shortenNormalized from './filters/shortenNormalized';
 import simplifyFilter from './filters/simplify';
 import transpose from './filters/transpose';
+import convertNotationSystem from './filters/convertNotationSystem';
 import textPrinter from './printer/text';
 import rawPrinter from './printer/raw';
 
@@ -21,6 +22,7 @@ function chordRendererFactory({
 	harmonizeAccidentals = false,
 	useFlats = false,
 	printer = 'text',
+	notationSystem = 'english',
 	customFilters = [],
 } = {}) {
 	checkCustomFilters(customFilters);
@@ -39,6 +41,7 @@ function chordRendererFactory({
 		allFilters.push(shortenNormalized);
 	}
 
+	allFilters.push(convertNotationSystem.bind(null, notationSystem));
 	allFilters.push(...customFilters);
 
 	return renderChord;
@@ -49,7 +52,7 @@ function chordRendererFactory({
 	 * @returns {String|Chord} output depends on the selected printer: string for text printer (default), Chord for raw printer
 	 */
 	function renderChord(chord) {
-		if (!chord) {
+		if (!isValidChord(chord)) {
 			return null;
 		}
 		const filteredChord = chain(allFilters, _cloneDeep(chord));
@@ -59,6 +62,10 @@ function chordRendererFactory({
 			: textPrinter(filteredChord);
 	}
 }
+
+const isValidChord = (chord) => {
+	return chord && typeof chord === 'object' && !chord.error && chord.input;
+};
 
 /**
  * @module chordRendererFactory

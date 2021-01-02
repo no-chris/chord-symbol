@@ -1,6 +1,8 @@
 import { allVariantsToNotes } from '../../dictionaries/notes';
 
 /**
+ * Convert root/bass notes to English names
+ *
  * @param {Chord} chord
  * @returns {Chord}
  */

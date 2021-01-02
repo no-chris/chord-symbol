@@ -6,6 +6,10 @@ import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 import intervalsToSemitones from '../../../src/dictionaries/intervalsToSemitones';
 import getParsableDescriptor from '../../../src/parser/filters/getParsableDescriptor';
+import {
+	InvalidModifierError,
+	NoSymbolFoundError,
+} from '../../../src/helpers/ChordParsingError';
 
 function parseChord(symbol) {
 	const allFilters = [
@@ -71,6 +75,9 @@ describe('Intervals & semitones', () => {
 
 		['C4', ['1', '4', '5'], { major: true, eleventh: false, alt: false }],
 		['Cadd4', ['1', '3', '4', '5'], { major: true, eleventh: false, alt: false }],
+
+		['Cmi7(b5)6', ['1', 'b3', 'b5', 'b7', '13'], { major: false, eleventh: false, alt: false }],
+		['Ch6', ['1', 'b3', 'b5', 'b7', '13'], { major: false, eleventh: false, alt: false }],
 	])('%s', (symbol, intervals, intents) => {
 		test('is parsed: ' + intervals.join('-'), () => {
 			const chord = parseChord(symbol);
@@ -154,43 +161,43 @@ describe('modifiers', () => {
 });
 
 describe('invalid chords', () => {
+	//prettier-ignore
 	describe.each([
-		['Modifier does not exist', 'Az'],
-		['Modifier is applied multiple times, 1', 'Aminm'],
-		['Modifier is applied multiple times, 2', 'C°dim'],
-	])('%s', (title, symbol) => {
-		test(symbol + ': should return null', () => {
+		['Modifier does not exist', 'Az', NoSymbolFoundError, '"Az" does not seems to be a chord'],
+		['Modifier is applied multiple times, 1', 'Aminm', InvalidModifierError, 'The chord descriptor "minm" contains unknown or duplicated modifiers: "m"'],
+		['Modifier is applied multiple times, 2', 'C°dim', InvalidModifierError, 'The chord descriptor "°dim" contains unknown or duplicated modifiers: "dim"'],
+	])('%s', (title, symbol, errorType, errorMsg) => {
+		test(symbol + ': should throw Error', () => {
 			const chord = parseChord(symbol);
-			const parsed = parseDescriptor({}, chord);
 
-			expect(parsed).toBeNull();
+			const shouldThrow = () => {
+				parseDescriptor({}, chord);
+			};
+
+			expect(shouldThrow).toThrowError();
+			expect(shouldThrow).toThrow(errorType);
+			expect(shouldThrow).toThrow(errorMsg);
 		});
 	});
 });
 
 describe('altered chords', () => {
 	describe.each([
-		['b5', { fifthFlat: true }, ['1', '3', 'b5', 'b7']],
-		['#5', { fifthSharp: true }, ['1', '3', '#5', 'b7']],
-		['b9', { ninthFlat: true }, ['1', '3', '5', 'b7', 'b9']],
-		['#9', { ninthSharp: true }, ['1', '3', '5', 'b7', '#9']],
-		['#11', { eleventhSharp: true }, ['1', '3', '5', 'b7', '#11']],
-		['#11', { thirteenthFlat: true }, ['1', '3', '5', 'b7', 'b13']],
-
+		['b5', ['b5'], ['1', '3', 'b5', 'b7']],
+		['#5', ['#5'], ['1', '3', '#5', 'b7']],
+		['b9', ['b9'], ['1', '3', '5', 'b7', 'b9']],
+		['#9', ['#9'], ['1', '3', '5', 'b7', '#9']],
+		['#11', ['#11'], ['1', '3', '5', 'b7', '#11']],
+		['b13', ['b13'], ['1', '3', '5', 'b7', 'b13']],
+		['all b', ['b5', 'b9', 'b13'], ['1', '3', 'b5', 'b7', 'b9', 'b13']],
+		['all #', ['#5', '#9', '#11'], ['1', '3', '#5', 'b7', '#9', '#11']],
 		[
 			'all',
-			{
-				fifthFlat: true,
-				fifthSharp: true,
-				ninthFlat: true,
-				ninthSharp: true,
-				eleventhSharp: true,
-				thirteenthFlat: true,
-			},
+			['b5', '#5', 'b9', '#9', '#11', 'b13'],
 			['1', '3', 'b5', '#5', 'b7', 'b9', '#9', '#11', 'b13'],
 		],
 	])('%s', (title, altIntervals, intervals) => {
-		test('alt should yield intervals ' + intervals.join(' '), () => {
+		test('alt should yield intervals ' + altIntervals.join(' '), () => {
 			const chord = parseChord('Calt');
 			const parsed = parseDescriptor(altIntervals, chord);
 

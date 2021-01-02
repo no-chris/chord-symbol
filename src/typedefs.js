@@ -2,11 +2,12 @@
  * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
  * @typedef {Object} Chord
  * @type {Object}
- * @property {ChordInput} input - information derived from the symbol given as an input.
+ * @property {ChordInput} [input] - information derived from the symbol given as an input.
  * If you need to trace what has generated a given chord, you'll find it here.
- * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
- * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
- * @property {ParserConfiguration} parserConfiguration - configuration passed to the parser on chord creation.
+ * @property {NormalizedChord} [normalized] - abstract representation of the chord based on its intervals.
+ * @property {FormattedChord} [formatted] - pre-rendering of the normalized chord.
+ * @property {ParserConfiguration} [parserConfiguration] - configuration passed to the parser on chord creation.
+ * @property {ChordSymbolError[]} [error] - if defined, then the parsing failed and this array will contain the reason(s) why
  */
 
 /**
@@ -20,6 +21,7 @@
  * @property {String} parsableDescriptor - the modified descriptor such as parsing is possible.
  * Ex: `m add9` for `Cmadd9`, a space is added for disambiguation between `m + add` and `ma + dd`.
  * @property {String} modifiers - the detected modifiers during parsing
+ * @property {('english'|'german'|'latin')} notationSystem - notation system in which the symbol was parsed
  */
 
 /**
@@ -62,26 +64,28 @@
  */
 
 /**
- * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
- * @typedef {Object} AltIntervals
- * @type {Object}
- * @property {Boolean} [fifthFlat] - if the alt modifier should yield a flat fifth
- * @property {Boolean} [fifthSharp] - if the alt modifier should yield a sharp fifth
- * @property {Boolean} [ninthFlat] - if the alt modifier should yield a flat ninth
- * @property {Boolean} [ninthSharp] - if the alt modifier should yield a sharp ninth
- * @property {Boolean} [eleventhSharp] - if the alt modifier should sharpen the eleventh
- * @property {Boolean} [thirteenthFlat] - if the alt modifier should flatten the thirteenth
- */
-
-/**
  * Configuration of the chord parser
  * @typedef {Object} ParserConfiguration
  * @type {Object}
- * @property {AltIntervals} [altIntervals=defaultAltIntervals] - user selection of intervals affected by the "alt" modifier (all by default).
- * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
- * some level of flexibility when parsing an "alt" chord symbol.
- * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
+ * @property {Array<('english'|'german'|'latin')>=} notationSystems=['english','german','latin'] -
+ * 	Notation systems that should be used to try parsing a symbol. All by default.
+ * @property {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals=['b5','#5','b9','#9','#11','b13'] -
+ * user selection of intervals affected by the `alt` modifier (all by default).
+ * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
+ * the intervals that the `alt` modifier should yield
+ * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during parsing
+ */
+
+/**
+ * Description of an error that occurred during the parsing.
+ * @typedef {Object} ChordSymbolError
+ * @type {Object}
+ * @property {('InvalidIntervals'|'InvalidInput'|'InvalidModifier'|'NoSymbolFound'|'UnexpectedError')} type - error code,
+ * or exception type in custom filters
+ * @property {String} message - error description, or the exception message in custom filters
+ * @property {Chord} [chord] - the chord object, in the state that it was when the error occurred
+ * @property {('english'|'german'|'latin')} [notationSystem] - the notation system context in which the error occurred
  */
 
 /**
@@ -95,15 +99,23 @@
  * @property {Number} [transposeValue=0] - positive or negative semitones value
  * @property {Boolean} [harmonizeAccidentals=false] - convert accidentals to either sharp or flats
  * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
- * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
+ * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. `text` returns a string, `raw` the processed chord object.
+ * @property {('auto'|'english'|'german'|'latin')} [notationSystem='english'] - the notation system to use when rendering the chord.
+ * 	`auto` will use the same system in which the symbol was originally parsed.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during rendering
  */
 
 /**
  * Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
  * after all built-in filters have been applied.
- * @typedef {function(Chord): Chord|Null} customFilter
+ * - To fail the parsing, throw an exception and it will use the Error API.
+ * If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+ * [custom error types]{@link https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js}
+ * - To fail the rendering, simply return `null`.
+ * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+ * Don't do that!
+ * @typedef {function(Chord): Chord} customFilter
  * @type {Function}
  * @param {Chord} chord - The chord object will be passed to the filter as the only parameter
- * @returns {Chord|Null} - Either the modified chord object, or Null to cancel the processing and skip the remaining filters.
+ * @returns {Chord|Null} - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
  */

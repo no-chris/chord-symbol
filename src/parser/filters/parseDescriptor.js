@@ -1,4 +1,8 @@
 import _uniq from 'lodash/uniq';
+import {
+	InvalidModifierError,
+	NoSymbolFoundError,
+} from '../../helpers/ChordParsingError';
 
 import m from '../../dictionaries/modifiers';
 import { allSymbols, allVariants } from '../../dictionaries/modifiers';
@@ -6,7 +10,9 @@ import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
 import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
 
 /**
- * @param {AltIntervals} altIntervals
+ * Convert the descriptor into a suite of intervals, semitones and intents
+ *
+ * @param {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals
  * @param {Chord} chord
  * @returns {Chord|Null}
  */
@@ -14,10 +20,8 @@ export default function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
 
 	if (chord.input.parsableDescriptor) {
-		allModifiers = getModifiers(chord.input.parsableDescriptor);
+		allModifiers = getModifiers(chord);
 	}
-
-	if (!allModifiers) return null;
 
 	chord.input.modifiers = allModifiers;
 	chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
@@ -27,7 +31,8 @@ export default function parseDescriptor(altIntervals, chord) {
 	return chord;
 }
 
-function getModifiers(parsableDescriptor) {
+function getModifiers(chord) {
+	const { parsableDescriptor } = chord.input;
 	const modifiers = [];
 
 	const descriptorRegex = new RegExp(
@@ -49,7 +54,7 @@ function getModifiers(parsableDescriptor) {
 
 			allModifiersId.forEach((modifierId) => {
 				if (modifiers.includes(modifierId)) {
-					return null;
+					return;
 				}
 				modifiers.push(modifierId);
 
@@ -58,9 +63,13 @@ function getModifiers(parsableDescriptor) {
 		});
 	}
 
-	if (modifiers.length === 0 || remainingChars.trim().length > 0) {
-		return null;
+	if (modifiers.length === 0) {
+		throw new NoSymbolFoundError(chord);
 	}
+	if (remainingChars.trim().length > 0) {
+		throw new InvalidModifierError(chord, remainingChars);
+	}
+
 	return modifiers;
 }
 
@@ -117,13 +126,13 @@ function getFifths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.dim, m.halfDim, m.fifthFlat]) ||
-		shouldAlter(allModifiers, altIntervals.fifthFlat)
+		shouldAlter(allModifiers, altIntervals, 'b5')
 	) {
 		fifths.push('b5');
 	}
 	if (
 		hasOneOf(allModifiers, [m.aug, m.fifthSharp]) ||
-		shouldAlter(allModifiers, altIntervals.fifthSharp)
+		shouldAlter(allModifiers, altIntervals, '#5')
 	) {
 		fifths.push('#5');
 	}
@@ -140,7 +149,8 @@ function getSixth(allModifiers) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.add6, m.add69]) &&
-		!isExtended(allModifiers)
+		!isExtended(allModifiers) &&
+		!hasOneOf(allModifiers, [m.halfDim])
 	) {
 		sixth.push('6');
 	}
@@ -186,13 +196,13 @@ function getNinths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.ninthFlat]) ||
-		shouldAlter(allModifiers, altIntervals.ninthFlat)
+		shouldAlter(allModifiers, altIntervals, 'b9')
 	) {
 		ninth.push('b9');
 	}
 	if (
 		hasOneOf(allModifiers, [m.ninthSharp]) ||
-		shouldAlter(allModifiers, altIntervals.ninthSharp)
+		shouldAlter(allModifiers, altIntervals, '#9')
 	) {
 		ninth.push('#9');
 	}
@@ -211,7 +221,7 @@ function getElevenths(allModifiers, altIntervals) {
 	}
 	if (
 		hasOneOf(allModifiers, [m.eleventhSharp]) ||
-		shouldAlter(allModifiers, altIntervals.eleventhSharp)
+		shouldAlter(allModifiers, altIntervals, '#11')
 	) {
 		elevenths.push('#11');
 	}
@@ -222,21 +232,24 @@ function getThirteenths(allModifiers, altIntervals) {
 	const thirteenths = [];
 	if (
 		hasOneOf(allModifiers, [m.add13, m.thirteenth]) ||
-		(hasOneOf(allModifiers, [m.add6, m.add69]) && isExtended(allModifiers))
+		(hasOneOf(allModifiers, [m.add6, m.add69]) &&
+			isExtended(allModifiers)) ||
+		(hasOneOf(allModifiers, [m.add6, m.add69]) &&
+			hasOneOf(allModifiers, [m.halfDim]))
 	) {
 		thirteenths.push('13');
 	}
 	if (
 		hasOneOf(allModifiers, [m.thirteenthFlat]) ||
-		shouldAlter(allModifiers, altIntervals.thirteenthFlat)
+		shouldAlter(allModifiers, altIntervals, 'b13')
 	) {
 		thirteenths.push('b13');
 	}
 	return thirteenths;
 }
 
-function shouldAlter(allModifiers, isDegreeAlterated) {
-	return allModifiers.includes(m.alt) && isDegreeAlterated;
+function shouldAlter(allModifiers, altIntervals, interval) {
+	return allModifiers.includes(m.alt) && altIntervals.includes(interval);
 }
 
 function hasMajorIntent(allModifiers) {
