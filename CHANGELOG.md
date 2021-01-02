@@ -1,5 +1,24 @@
 # Changelog
 
+## v2.0.0 (02/01/2021)
+
+#### Enhancements:
+
+- BREAKING: change altIntervals configuration API [#369](https://github.com/no-chris/chord-symbol/pull/369)
+- Render to specified notation system [#367](https://github.com/no-chris/chord-symbol/pull/367)
+- Configure the notation systems to be used by the parser [#366](https://github.com/no-chris/chord-symbol/pull/366)
+- BREAKING: return an error property with an explanation on why the parsing failed [#360](https://github.com/no-chris/chord-symbol/pull/360)
+
+#### Documentation:
+
+- Generate CHANGELOG.md with gren [#361](https://github.com/no-chris/chord-symbol/pull/361)
+
+#### Bug Fixes:
+
+- Correct "input" property in raw printer with specific notation systems selected during parsing [#368](https://github.com/no-chris/chord-symbol/pull/368)
+
+---
+
 ## v1.2.0 (28/11/2020)
 
 #### Enhancements:
