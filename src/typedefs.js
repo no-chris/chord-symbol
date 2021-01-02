@@ -69,7 +69,8 @@
  * @type {Object}
  * @property {Array<('english'|'german'|'latin')>=} notationSystems=['english','german','latin'] -
  * 	Notation systems that should be used to try parsing a symbol. All by default.
- * @property {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals=['b5','#5','b9','#9','#11','b13'] - user selection of intervals affected by the `alt` modifier (all by default).
+ * @property {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals=['b5','#5','b9','#9','#11','b13'] -
+ * user selection of intervals affected by the `alt` modifier (all by default).
  * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
  * the intervals that the `alt` modifier should yield
  * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
