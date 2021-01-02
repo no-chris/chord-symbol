@@ -112,7 +112,7 @@ If you want to use the library directly in the browser, you can proceed as follo
 A new filter has been added ([checkIntervalsConsistency](https://github.com/no-chris/chord-symbol/blob/master/src/parser/filters/checkIntervalsConsistency.js)) to spot most basic mistakes and reject obviously invalid symbols, like `Cm(add3)` or `C(b9)add9`.
 As a result, some symbols that would have previously been considered as valid are now rejected and the parser will return `null`.
 
-#### API change
+#### Parser API change
 
 You now need to create a parser by using the `chordParserFactory` instead of importing the parser directly.
 This allows greater flexibility by offering the possibility to configure the parser.
@@ -138,7 +138,7 @@ const chord = parseChord('C9sus');
 
 `v2.0.0` contains 1 breaking change:
 
-#### API change
+#### Error handling (API change)
 
 The parser function does not return `null` anymore in case of a parsing failure, but an object with an error property.
 You need to test the returned object to know if the parsing succeeded or not.
@@ -165,6 +165,33 @@ if (!chord.error) {
 } else {
 	// Error handling...
 }
+```
+
+#### altIntervals configuration (API change)
+
+`altIntervals` configuration was a bit cumbersome and verbose. It has been simplified for consistency with the `notationSystem` configuration:
+to declare the list of intervals that the `alt` modifier should use, just pass an array with those intervals (for ex: `['b5', '#5]`).
+An empty array (`[]`) will disable everything, while not specifying anything will result in all possible intervals to be affected, as before.
+
+Instead of:
+
+```javascript
+const parseChord = chordParserConfiguration({
+	altIntervals: {
+		ninthFlat: false,
+		ninthSharp: false,
+		eleventhSharp: false,
+		thirteenthFlat: false,
+	},
+});
+```
+
+do:
+
+```javascript
+const parseChord = chordParserConfiguration({
+	altIntervals: ['b5', '#5'],
+});
 ```
 
 ## Unit tests

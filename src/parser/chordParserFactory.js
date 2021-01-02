@@ -20,43 +20,22 @@ import parseBase from './filters/parseBase';
 import parseDescriptor from './filters/parseDescriptor';
 
 /**
- * Default alterations triggered by the use of the alt modifier, eg all possible alterations.
- * @type AltIntervals
- */
-const defaultAltIntervals = {
-	fifthFlat: true,
-	fifthSharp: true,
-	ninthFlat: true,
-	ninthSharp: true,
-	eleventhSharp: true,
-	thirteenthFlat: true,
-};
-
-/**
- * Default notation systems that should be used to try parsing a symbol
- * @type Array<('english'|'german'|'latin')>
- */
-const allNotationSystems = ['english', 'german', 'latin'];
-
-/**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord}
  */
 function chordParserFactory(parserConfiguration = {}) {
+	const allAltIntervals = ['b5', '#5', 'b9', '#9', '#11', 'b13'];
+	const allNotationSystems = ['english', 'german', 'latin'];
+
 	const {
 		notationSystems = _cloneDeep(allNotationSystems),
-		altIntervals = defaultAltIntervals,
+		altIntervals = _cloneDeep(allAltIntervals),
 		customFilters = [],
 	} = parserConfiguration;
 
-	const allAltIntervals = Object.assign(
-		{},
-		defaultAltIntervals,
-		altIntervals
-	);
-
-	checkNotationSystems(notationSystems);
+	checkAltIntervals(altIntervals, allAltIntervals);
+	checkNotationSystems(notationSystems, allNotationSystems);
 	checkCustomFilters(customFilters);
 
 	return parseChord;
@@ -92,7 +71,7 @@ function chordParserFactory(parserConfiguration = {}) {
 					initChord.bind(null, parserConfiguration),
 					parseBase.bind(null, variants.notes),
 					getParsableDescriptor,
-					parseDescriptor.bind(null, allAltIntervals),
+					parseDescriptor.bind(null, altIntervals),
 					checkIntervalsConsistency,
 					normalizeNotes,
 					normalizeDescriptor,
@@ -118,18 +97,26 @@ function chordParserFactory(parserConfiguration = {}) {
 	}
 }
 
-function checkNotationSystems(notationSystems) {
-	if (!Array.isArray(notationSystems)) {
-		throw new TypeError("'notationSystems' should be an array");
+function checkAltIntervals(altIntervals, allAltIntervals) {
+	checkArray('altIntervals', altIntervals, allAltIntervals, true);
+}
+
+function checkNotationSystems(notationSystems, allNotationSystems) {
+	checkArray('notationSystems', notationSystems, allNotationSystems);
+}
+
+function checkArray(arrayName, arrayToTest, allowedValues, allowEmpty) {
+	if (!Array.isArray(arrayToTest)) {
+		throw new TypeError(`'${arrayName}' should be an array`);
 	}
-	if (notationSystems.length === 0) {
-		throw new TypeError(
-			'You need to select at least one notation system for the parser'
-		);
+	if (!allowEmpty && arrayToTest.length === 0) {
+		throw new TypeError(`'${arrayName}' cannot be empty`);
 	}
-	notationSystems.forEach((system) => {
-		if (!allNotationSystems.includes(system)) {
-			throw new TypeError(`'${system}' is not a valid notation system`);
+	arrayToTest.forEach((system) => {
+		if (!allowedValues.includes(system)) {
+			throw new TypeError(
+				`'${system}' is not a valid value for ${arrayName}`
+			);
 		}
 	});
 }

@@ -15,7 +15,7 @@ function parseChord(symbol) {
 		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
 		getParsableDescriptor,
-		parseDescriptor.bind(null, {}),
+		parseDescriptor.bind(null, []),
 	];
 	return chain(filters, symbol);
 }

@@ -15,17 +15,11 @@ describe('raw printer', () => {
 
 	test('should re-parse the chord with the same parserConfiguration (at filter level)', () => {
 		const parserConfiguration = {
-			altIntervals: {
-				ninthFlat: true,
-				thirteenthFlat: true,
-			},
+			altIntervals: ['b9', 'b13'],
 			notationSystems: ['english', 'german'],
 		};
 		const expectedParserConfiguration = {
-			altIntervals: {
-				ninthFlat: true,
-				thirteenthFlat: true,
-			},
+			altIntervals: ['b9', 'b13'],
 			// notationSystems are removed because they do not make sense if the chord was parsed in english,
 			// but rendered in latin, for ex
 		};
@@ -40,17 +34,11 @@ describe('raw printer', () => {
 
 	test('should re-parse the chord with the same parserConfiguration (at renderer level)', () => {
 		const parserConfiguration = {
-			altIntervals: {
-				ninthFlat: true,
-				thirteenthFlat: true,
-			},
+			altIntervals: ['b9', 'b13'],
 			notationSystems: ['english', 'german'],
 		};
 		const expectedParserConfiguration = {
-			altIntervals: {
-				ninthFlat: true,
-				thirteenthFlat: true,
-			},
+			altIntervals: ['b9', 'b13'],
 			// notationSystems are removed (see above)
 		};
 		const parseChord = chordParserFactory(parserConfiguration);

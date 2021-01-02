@@ -11,17 +11,6 @@ Expose the chordRendererFactory() function</a></dt>
 <dd></dd>
 </dl>
 
-## Constants
-
-<dl>
-<dt><a href="#defaultAltIntervals">defaultAltIntervals</a> : <code><a href="#AltIntervals">AltIntervals</a></code></dt>
-<dd><p>Default alterations triggered by the use of the alt modifier, eg all possible alterations.</p>
-</dd>
-<dt><a href="#allNotationSystems">allNotationSystems</a> : <code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></dt>
-<dd><p>Default notation systems that should be used to try parsing a symbol</p>
-</dd>
-</dl>
-
 ## Functions
 
 <dl>
@@ -48,9 +37,6 @@ Expose the chordRendererFactory() function</a></dt>
 <dt><a href="#FormattedChord">FormattedChord</a> : <code>Object</code></dt>
 <dd><p>Pre-rendered version of the chord with the main &quot;vertical quality&quot; and the chord changes.
 Intended to be used as building blocks of a rendered chord</p>
-</dd>
-<dt><a href="#AltIntervals">AltIntervals</a> : <code>Object</code></dt>
-<dd><p>Intervals affected by the Alt modifier when parsing an altered chord written &quot;C7alt&quot;, for example.</p>
 </dd>
 <dt><a href="#ParserConfiguration">ParserConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord parser</p>
@@ -85,18 +71,6 @@ Expose the chordRendererFactory_new functionmodule_"></a>
 
 ## chordRendererFactory
 Expose the chordRendererFactory() function
-<a name="defaultAltIntervals"></a>
-
-## defaultAltIntervals : [<code>AltIntervals</code>](#AltIntervals)
-Default alterations triggered by the use of the alt modifier, eg all possible alterations.
-
-**Kind**: global constant  
-<a name="allNotationSystems"></a>
-
-## allNotationSystems : <code>Array.&lt;(&#x27;english&#x27;\|&#x27;german&#x27;\|&#x27;latin&#x27;)&gt;</code>
-Default notation systems that should be used to try parsing a symbol
-
-**Kind**: global constant  
 <a name="chordParserFactory"></a>
 
 ## chordParserFactory([parserConfiguration]) ⇒ <code>function</code>
@@ -348,42 +322,6 @@ If multiple added/omits are present, the <code>add/omit</code> symbol is only pr
     </tr>  </tbody>
 </table>
 
-<a name="AltIntervals"></a>
-
-## AltIntervals : <code>Object</code>
-Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
-
-**Kind**: global typedef  
-**Properties**
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th><th>Type</th><th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>[fifthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat fifth</p>
-</td>
-    </tr><tr>
-    <td>[fifthSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp fifth</p>
-</td>
-    </tr><tr>
-    <td>[ninthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a flat ninth</p>
-</td>
-    </tr><tr>
-    <td>[ninthSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should yield a sharp ninth</p>
-</td>
-    </tr><tr>
-    <td>[eleventhSharp]</td><td><code>Boolean</code></td><td><p>if the alt modifier should sharpen the eleventh</p>
-</td>
-    </tr><tr>
-    <td>[thirteenthFlat]</td><td><code>Boolean</code></td><td><p>if the alt modifier should flatten the thirteenth</p>
-</td>
-    </tr>  </tbody>
-</table>
-
 <a name="ParserConfiguration"></a>
 
 ## ParserConfiguration : <code>Object</code>
@@ -403,9 +341,9 @@ Configuration of the chord parser
     <td>[notationSystems]</td><td><code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></td><td><code>[&#x27;english&#x27;,&#x27;german&#x27;,&#x27;latin&#x27;</code></td><td><p>Notation systems that should be used to try parsing a symbol. All by default.</p>
 </td>
     </tr><tr>
-    <td>[altIntervals]</td><td><code><a href="#AltIntervals">AltIntervals</a></code></td><td><code>defaultAltIntervals</code></td><td><p>user selection of intervals affected by the <code>alt</code> modifier (all by default).
-Since using the <code>C7alt</code> symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
-some level of flexibility when parsing an <code>alt</code> chord symbol.
+    <td>altIntervals</td><td><code>Array.&lt;(&#x27;b5&#x27;|&#x27;#5&#x27;|&#x27;b9&#x27;|&#x27;#9&#x27;|&#x27;#11&#x27;|&#x27;b13&#x27;)&gt;</code></td><td><code>[&#x27;b5&#x27;,&#x27;#5&#x27;,&#x27;b9&#x27;,&#x27;#9&#x27;,&#x27;#11&#x27;,&#x27;b13&#x27;</code></td><td><p>user selection of intervals affected by the <code>alt</code> modifier (all by default).
+Since using the <code>C7alt</code> symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
+the intervals that the <code>alt</code> modifier should yield
 If you would like <code>alt</code> to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr><tr>
