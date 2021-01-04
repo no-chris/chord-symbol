@@ -41,7 +41,7 @@
     "webpack-cli": "^4.3.1"
   },
   "dependencies": {
-    "core-js": "^3.8.1",
+    "core-js": "^3.8.2",
     "lodash": "^4.17.20"
   },
   "scripts": {
