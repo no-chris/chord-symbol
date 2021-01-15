@@ -275,15 +275,15 @@ function getAddsAndAlterations(chordIntervals, baseIntervals, quality) {
 
 function isAlteration(quality, interval) {
 	const qualityAlterations = {
-		[qualities.ma]: ['b5', '#5', '#11'],
-		[qualities.ma6]: ['b5', '#5', '#11'],
-		[qualities.ma7]: ['b5', '#5', '#11'],
+		[qualities.ma]: ['b5', '#5', '#11', 'b13'],
+		[qualities.ma6]: ['b5', '#5', '#11', 'b13'],
+		[qualities.ma7]: ['b5', '#5', '#11', 'b13'],
 		[qualities.dom7]: ['b5', '#5', 'b9', '#9', '#11', 'b13'],
 
-		[qualities.mi]: ['b5', '#5', 'b13'],
-		[qualities.mi6]: ['b5', '#5', 'b13'],
-		[qualities.mi7]: ['b5', '#5', 'b13'],
-		[qualities.miMa7]: ['b5', '#5', 'b13'],
+		[qualities.mi]: ['b5', '#5', '#11', 'b13'],
+		[qualities.mi6]: ['b5', '#5', '#11', 'b13'],
+		[qualities.mi7]: ['b5', '#5', '#11', 'b13'],
+		[qualities.miMa7]: ['b5', '#5', '#11', 'b13'],
 
 		[qualities.aug]: [],
 		[qualities.dim]: [],
