@@ -1,5 +1,3 @@
-import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
-
 import { qualities } from '../../dictionaries/qualities';
 import { hasNoneOf } from '../../helpers/hasElement';
 
@@ -82,7 +80,8 @@ function getChordChanges(chord) {
 	);
 
 	return [
-		...sortAddsAndAlterations(formattedAdds, chord.normalized.alterations),
+		...chord.normalized.alterations,
+		...formattedAdds,
 		...formattedOmits,
 	];
 }
@@ -105,17 +104,6 @@ function formatAdds(quality, adds) {
 			formatted += add === '7' ? chordChangesDescriptors.add7 : add;
 			return formatted;
 		});
-}
-
-function sortAddsAndAlterations(adds, alterations) {
-	return [...alterations, ...adds].sort((a, b) => {
-		return getSortableInterval(a) - getSortableInterval(b);
-	});
-}
-
-function getSortableInterval(interval) {
-	let sortable = interval.replace(/[^0-9b#]/g, '');
-	return intervalsToSemitones[sortable];
 }
 
 function formatOmits(omits) {
