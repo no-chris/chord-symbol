@@ -70,7 +70,7 @@ function getHighestExtension(chord) {
 function getChordChanges(chord) {
 	const formattedOmits = formatOmits(chord.normalized.omits);
 
-	if (chord.normalized.intents.alt) {
+	if (isAltered(chord)) {
 		return formattedOmits;
 	}
 
@@ -84,6 +84,13 @@ function getChordChanges(chord) {
 		...formattedAdds,
 		...formattedOmits,
 	];
+}
+
+function isAltered(chord) {
+	return (
+		chord.normalized.intents.alt &&
+		chord.normalized.quality === qualities.dom7
+	);
 }
 
 function formatAdds(quality, adds) {
