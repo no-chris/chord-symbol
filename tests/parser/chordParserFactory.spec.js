@@ -316,10 +316,10 @@ describe('parserConfiguration: altIntervals', () => {
 
 	describe('rendering of alt modifier should short-circuit other modifiers', () => {
 		describe.each([
-			['Chalt', 'C7alt'],
+			['C7b9alt', 'C7alt'],
 			['C7#9alt', 'C7alt'],
+			['C7#11alt', 'C7alt'],
 			['C7b13alt', 'C7alt'],
-			['Cm7alt', 'C7alt'],
 		])('%s', (chord, rendered) => {
 			test(chord + ' => ' + rendered, () => {
 				const parseChord = chordParserFactory();
