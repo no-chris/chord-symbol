@@ -36,9 +36,6 @@ export default function normalizeDescriptor(chord) {
 		normalized.quality = qualities.power;
 	} else if (isBass(chordIntervals)) {
 		normalized.quality = qualities.bass;
-	} else if (isAlteredChord(chord.normalized.intents)) {
-		normalized.quality = qualities.dom7;
-		normalized.alterations = ['alt'];
 	} else {
 		const omits = getOmits(chordIntervals, chord.normalized.intents.major);
 
@@ -93,10 +90,6 @@ function isPowerChord(intervals) {
 
 function isBass(intervals) {
 	return hasExactly(intervals, ['1']);
-}
-
-function isAlteredChord(intents) {
-	return intents.alt;
 }
 
 function getIsSuspended(intervals, hasMajorIntent) {
@@ -163,6 +156,7 @@ function getIntervalsForQualityDetection(
 	const allFilters = [
 		undoOmit3.bind(null, omits),
 		undoSuspension.bind(null, isSuspended, chord.normalized.intents.major),
+		undoAlt5.bind(null, chord.normalized.intents.alt),
 		_uniq,
 	];
 
@@ -185,6 +179,15 @@ function undoSuspension(isSuspended, hasMajorIntent, allIntervals) {
 		const unSuspended = _without(allIntervals, '4');
 		unSuspended.push(hasMajorIntent ? '3' : 'b3');
 		return unSuspended;
+	}
+	return allIntervals;
+}
+
+function undoAlt5(isAlt, allIntervals) {
+	if (isAlt) {
+		const unaltered = _without(allIntervals, 'b5', '#5');
+		unaltered.push('5');
+		return unaltered;
 	}
 	return allIntervals;
 }

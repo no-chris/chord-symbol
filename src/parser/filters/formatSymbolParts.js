@@ -8,7 +8,8 @@ const qualityToDescriptor = {
 	[qualities.ma6]: (chord) =>
 		chord.normalized.intervals.includes('9') ? '69' : '6',
 	[qualities.ma7]: (chord) => 'ma' + getHighestExtension(chord),
-	[qualities.dom7]: (chord) => getHighestExtension(chord),
+	[qualities.dom7]: (chord) =>
+		chord.normalized.intents.alt ? '7alt' : getHighestExtension(chord),
 
 	[qualities.mi]: () => 'mi',
 	[qualities.mi6]: (chord) =>
@@ -70,6 +71,11 @@ function getHighestExtension(chord) {
 
 function getChordChanges(chord) {
 	const formattedOmits = formatOmits(chord.normalized.omits);
+
+	if (chord.normalized.intents.alt) {
+		return formattedOmits;
+	}
+
 	const formattedAdds = formatAdds(
 		chord.normalized.quality,
 		chord.normalized.adds

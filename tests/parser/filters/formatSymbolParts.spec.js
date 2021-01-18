@@ -15,7 +15,7 @@ function parseChord(symbol) {
 		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
 		getParsableDescriptor,
-		parseDescriptor.bind(null, {}),
+		parseDescriptor.bind(null, ['b5', '#5', 'b9', '#9']),
 		normalizeNotes,
 		normalizeDescriptor,
 	];
@@ -52,6 +52,8 @@ describe('normalizeDescriptor', () => {
 		['dominant11 + sus', 'C11sus', '9sus', []],
 		['dominant13', 'C13', '13', []],
 		['dominant13 + sus', 'C13sus', '13sus', []],
+
+		['altered', 'Calt', '7alt', []],
 
 		['minor', 'Cm', 'mi', []],
 		['minor + sus', 'Cmsus', 'misus', []],

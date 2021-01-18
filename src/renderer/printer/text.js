@@ -17,9 +17,7 @@ export default function textPrinter(chord) {
 			printed += descriptor;
 		}
 		if (chordChanges && chordChanges.length) {
-			printed += chordChanges.includes('alt')
-				? 'alt'
-				: '(' + chordChanges.join(',') + ')';
+			printed += '(' + chordChanges.join(',') + ')';
 		}
 		if (bassNote) {
 			printed += '/' + bassNote;
