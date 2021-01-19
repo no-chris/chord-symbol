@@ -15,7 +15,7 @@ function parseChord(symbol) {
 		initChord.bind(null, {}),
 		parseBase.bind(null, englishVariants),
 		getParsableDescriptor,
-		parseDescriptor.bind(null, {}),
+		parseDescriptor.bind(null, ['b5', '#5', 'b9', '#9']),
 		normalizeNotes,
 		normalizeDescriptor,
 	];
@@ -52,6 +52,8 @@ describe('normalizeDescriptor', () => {
 		['dominant11 + sus', 'C11sus', '9sus', []],
 		['dominant13', 'C13', '13', []],
 		['dominant13 + sus', 'C13sus', '13sus', []],
+
+		['altered', 'Calt', '7alt', []],
 
 		['minor', 'Cm', 'mi', []],
 		['minor + sus', 'Cmsus', 'misus', []],
@@ -90,13 +92,15 @@ describe('normalizeDescriptor', () => {
 		['add4', 'Cadd4', 'sus', ['add3']],
 
 		['sort alt>add', 'C7b5(add13)', '7', ['b5', 'add13']],
+		['sort alt>add', 'C(b13,add9)', '', ['b13', 'add9']],
+		['sort alt>add', 'C(b6,#11)', '', ['#11', 'add b6']],
 		['sort alt>omit', 'C7b5(add13)', '7', ['b5', 'add13']],
 		['sort alt b>#', 'C7(#11,#9,b9,#5,b5)', '7', ['b5', '#5', 'b9', '#9', '#11']],
 
 		['add b9 with space', 'C(b9)', '', ['add b9']],
 		['add #9 with space', 'C(#9)', '', ['add #9']],
-		['add #11 with space', 'Cm(#11)', 'mi', ['add #11']],
-		['add b13 with space', 'C(b13)', '', ['add b13']],
+		['add #11 with space', 'Cdim(#11)', 'dim', ['add #11']],
+		['add b13 with space', 'Cdim(b13)', 'dim', ['add b13']],
 
 		['do not repeat add', 'C(add9,add13)', '', ['add9', '13']],
 		['do not repeat omit', 'C7(omit3,omit5)', '7', ['omit3', '5']],
@@ -109,10 +113,10 @@ describe('normalizeDescriptor', () => {
 		['#5 always alt (dom)', 'C7(#5)', '7', ['#5']],
 		['#5 always alt (mi7)', 'Cm7(#5)', 'mi7', ['#5']],
 		['#5 always alt (ma7)', 'CM7(#5)', 'ma7', ['#5']],
-		['#11 alt if major', 'C(#11)', '', ['#11']],
-		['#11 added if minor', 'Cm(#11)', 'mi', ['add #11']],
-		['b13 added if major', 'C(b13)', '', ['add b13']],
-		['b13 alt if minor', 'Cm(b13)', 'mi', ['b13']],
+		['#11 always alt (ma)', 'C(#11)', '', ['#11']],
+		['#11 always alt (mi)', 'Cm(#11)', 'mi', ['#11']],
+		['b13 always alt (ma)', 'C(b13)', '', ['b13']],
+		['b13 always alt (mi)', 'Cm(b13)', 'mi', ['b13']],
 		['dim b5', 'C°(b5)', 'dim', []], // has already b5
 		['dim #5 add', 'C°(#5)', 'dim', ['add #5']],
 		['dim b9 add', 'C°(b9)', 'dim', ['add b9']],

@@ -174,7 +174,7 @@ const allSrcSymbols = [
 	['CMA7(add 13)', 'C', ['1', '3', '5', '7', '13'], 'Cma7(add13)'],
 	['CMA13', 'C', ['1', '3', '5', '7', '9', '13'], 'Cma13'],
 	['CMA13(#11)', 'C', ['1', '3', '5', '7', '9', '#11', '13'], 'Cma13(#11)'],
-	['Bb(add 9,add b13)', 'Bb', ['1', '3', '9', 'b13'], 'Bb(add9,b13)'],
+	['Bb(add 9,add b13)', 'Bb', ['1', '3', '9', 'b13'], 'Bb(b13,add9)'], // b13 is considered an alteration and not an added
 	['A+(add b9,add #9)', 'A', ['1', '3', '#5', 'b9', '#9'], 'A+(add b9,#9)'],
 	['CMI7', 'C', ['1', 'b3', '5', 'b7'], 'Cmi7'],
 	['CMI7(omit 5)', 'C', ['1', 'b3', 'b7'], 'Cmi7(omit5)'],
