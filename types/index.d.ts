@@ -1,7 +1,6 @@
 export {
 	chordParserFactory,
 	chordRendererFactory,
-	AltIntervals,
 	Chord,
 	ChordInput,
 	FormattedChord,
