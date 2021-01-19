@@ -18,19 +18,23 @@ type Chord = {
 	 * - information derived from the symbol given as an input.
 	 * If you need to trace what has generated a given chord, you'll find it here.
 	 */
-	input: ChordInput;
+	input?: ChordInput;
 	/**
 	 * - abstract representation of the chord based on its intervals.
 	 */
-	normalized: NormalizedChord;
+	normalized?: NormalizedChord;
 	/**
 	 * - pre-rendering of the normalized chord.
 	 */
-	formatted: FormattedChord;
+	formatted?: FormattedChord;
 	/**
 	 * - configuration passed to the parser on chord creation.
 	 */
-	parserConfiguration: ParserConfiguration;
+	parserConfiguration?: ParserConfiguration;
+	/**
+	 * - if defined, then the parsing failed and this array will contain the reason(s) why
+	 */
+	error?: ChordSymbolError[];
 };
 /**
  * The source from which the chord structure has been built
@@ -61,6 +65,10 @@ type ChordInput = {
 	 * - the detected modifiers during parsing
 	 */
 	modifiers: string;
+	/**
+	 * - notation system in which the symbol was parsed
+	 */
+	notationSystem: 'english' | 'german' | 'latin';
 };
 /**
  * Abstract representation of the chord based on its intervals
@@ -149,53 +157,53 @@ type FormattedChord = {
 	chordChanges: string[];
 };
 /**
- * Intervals affected by the Alt modifier when parsing an altered chord written "C7alt", for example.
- */
-type AltIntervals = {
-	/**
-	 * - if the alt modifier should yield a flat fifth
-	 */
-	fifthFlat?: boolean;
-	/**
-	 * - if the alt modifier should yield a sharp fifth
-	 */
-	fifthSharp?: boolean;
-	/**
-	 * - if the alt modifier should yield a flat ninth
-	 */
-	ninthFlat?: boolean;
-	/**
-	 * - if the alt modifier should yield a sharp ninth
-	 */
-	ninthSharp?: boolean;
-	/**
-	 * - if the alt modifier should sharpen the eleventh
-	 */
-	eleventhSharp?: boolean;
-	/**
-	 * - if the alt modifier should flatten the thirteenth
-	 */
-	thirteenthFlat?: boolean;
-};
-/**
  * Configuration of the chord parser
  */
 type ParserConfiguration = {
 	/**
-	 * - Notation systems that should be used to try parsing a symbol. All by default.
+	 * =['english','german','latin'] -
+	 * Notation systems that should be used to try parsing a symbol. All by default.
 	 */
-	notationSystems?: Array<'english' | 'german' | 'latin'>;
+	notationSystems?: Array<'english' | 'german' | 'latin'> | undefined;
 	/**
-	 * - user selection of intervals affected by the "alt" modifier (all by default).
-	 * Since using the "C7alt" symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility
-	 * some level of flexibility when parsing an "alt" chord symbol.
-	 * If you would like "alt" to consistently yield a specific set of intervals, you can specify those here.
+	 * =['b5','#5','b9','#9','#11','b13'] -
+	 * user selection of intervals affected by the `alt` modifier (all by default).
+	 * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
+	 * the intervals that the `alt` modifier should yield
+	 * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
 	 */
-	altIntervals?: AltIntervals;
+	altIntervals: Array<'b5' | '#5' | 'b9' | '#9' | '#11' | 'b13'>;
 	/**
 	 * - custom filters applied during parsing
 	 */
 	customFilters?: customFilter[];
+};
+/**
+ * Description of an error that occurred during the parsing.
+ */
+type ChordSymbolError = {
+	/**
+	 * - error code,
+	 * or exception type in custom filters
+	 */
+	type:
+		| 'InvalidIntervals'
+		| 'InvalidInput'
+		| 'InvalidModifier'
+		| 'NoSymbolFound'
+		| 'UnexpectedError';
+	/**
+	 * - error description, or the exception message in custom filters
+	 */
+	message: string;
+	/**
+	 * - the chord object, in the state that it was when the error occurred
+	 */
+	chord?: Chord;
+	/**
+	 * - the notation system context in which the error occurred
+	 */
+	notationSystem?: 'english' | 'german' | 'latin';
 };
 /**
  * Configuration of the chord renderer
@@ -224,19 +232,30 @@ type RendererConfiguration = {
 	 */
 	useFlats?: boolean;
 	/**
-	 * - the printer to use for the rendering. 'text' returns a string, 'raw' the processed chord object.
+	 * - the printer to use for the rendering. `text` returns a string, `raw` the processed chord object.
 	 */
 	printer?: 'text' | 'raw';
 	/**
-	 * -custom filters applied during rendering
+	 * - the notation system to use when rendering the chord.
+	 * `auto` will use the same system in which the symbol was originally parsed.
+	 */
+	notationSystem?: 'auto' | 'english' | 'german' | 'latin';
+	/**
+	 * - custom filters applied during rendering
 	 */
 	customFilters?: customFilter[];
 };
 /**
  * Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
  * after all built-in filters have been applied.
+ * - To fail the parsing, throw an exception and it will use the Error API.
+ * If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+ * [custom error types]{@link https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js}
+ * - To fail the rendering, simply return `null`.
+ * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+ * Don't do that!
  */
-type customFilter = (arg0: Chord) => Chord | null;
+type customFilter = (arg0: Chord) => Chord;
 
 /**
  * Create a chord parser function
