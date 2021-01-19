@@ -2,8 +2,8 @@ Source code:
 
 ---------- Result ------------
 
-            Physical :  2209
-              Source :  1646
+            Physical :  2211
+              Source :  1648
              Comment :  290
  Single-line comment :  27
        Block comment :  263
@@ -20,14 +20,14 @@ Tests:
 
 ---------- Result ------------
 
-            Physical :  3021
-              Source :  2276
+            Physical :  3054
+              Source :  2307
              Comment :  405
- Single-line comment :  29
-       Block comment :  376
-               Mixed :  4
+ Single-line comment :  28
+       Block comment :  377
+               Mixed :  5
  Empty block comment :  13
-               Empty :  357
+               Empty :  360
                To Do :  0
 
 Number of files read :  26
@@ -38,14 +38,14 @@ Total:
 
 ---------- Result ------------
 
-            Physical :  5230
-              Source :  3922
+            Physical :  5265
+              Source :  3955
              Comment :  695
- Single-line comment :  56
-       Block comment :  639
-               Mixed :  4
+ Single-line comment :  55
+       Block comment :  640
+               Mixed :  5
  Empty block comment :  13
-               Empty :  630
+               Empty :  633
                To Do :  0
 
 Number of files read :  53

@@ -52,9 +52,9 @@ describe('raw printer', () => {
 	});
 
 	describe.each([
-		['Ch(#11,b13)', 0, 'none', false, 'Cmi7(b5,add #11,b13)'],
-		['Ch(#11,b13)', 2, 'none', true, 'Dm7(b5,add #11,b13)'],
-		['Ch(#11,b13)', 2, 'none', false, 'Dmi7(b5,add #11,b13)'],
+		['Ch(#11,b13)', 0, 'none', false, 'Cmi7(b5,#11,b13)'],
+		['Ch(#11,b13)', 2, 'none', true, 'Dm7(b5,#11,b13)'],
+		['Ch(#11,b13)', 2, 'none', false, 'Dmi7(b5,#11,b13)'],
 		['Ch(#11,b13)', 2, 'core', false, 'Dmi7(b5)'],
 		['Ch(#11,b13)', 4, 'max', false, 'Emi'],
 		['Ch(#11,b13)', 5, 'max', true, 'Fm'],

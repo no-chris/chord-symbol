@@ -1,5 +1,3 @@
-import intervalsToSemitones from '../../dictionaries/intervalsToSemitones';
-
 import { qualities } from '../../dictionaries/qualities';
 import { hasNoneOf } from '../../helpers/hasElement';
 
@@ -8,7 +6,8 @@ const qualityToDescriptor = {
 	[qualities.ma6]: (chord) =>
 		chord.normalized.intervals.includes('9') ? '69' : '6',
 	[qualities.ma7]: (chord) => 'ma' + getHighestExtension(chord),
-	[qualities.dom7]: (chord) => getHighestExtension(chord),
+	[qualities.dom7]: (chord) =>
+		chord.normalized.intents.alt ? '7alt' : getHighestExtension(chord),
 
 	[qualities.mi]: () => 'mi',
 	[qualities.mi6]: (chord) =>
@@ -70,15 +69,28 @@ function getHighestExtension(chord) {
 
 function getChordChanges(chord) {
 	const formattedOmits = formatOmits(chord.normalized.omits);
+
+	if (isAltered(chord)) {
+		return formattedOmits;
+	}
+
 	const formattedAdds = formatAdds(
 		chord.normalized.quality,
 		chord.normalized.adds
 	);
 
 	return [
-		...sortAddsAndAlterations(formattedAdds, chord.normalized.alterations),
+		...chord.normalized.alterations,
+		...formattedAdds,
 		...formattedOmits,
 	];
+}
+
+function isAltered(chord) {
+	return (
+		chord.normalized.intents.alt &&
+		chord.normalized.quality === qualities.dom7
+	);
 }
 
 function formatAdds(quality, adds) {
@@ -99,17 +111,6 @@ function formatAdds(quality, adds) {
 			formatted += add === '7' ? chordChangesDescriptors.add7 : add;
 			return formatted;
 		});
-}
-
-function sortAddsAndAlterations(adds, alterations) {
-	return [...alterations, ...adds].sort((a, b) => {
-		return getSortableInterval(a) - getSortableInterval(b);
-	});
-}
-
-function getSortableInterval(interval) {
-	let sortable = interval.replace(/[^0-9b#]/g, '');
-	return intervalsToSemitones[sortable];
 }
 
 function formatOmits(omits) {
