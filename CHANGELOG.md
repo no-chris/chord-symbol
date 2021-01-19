@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.1.0 (19/01/2021)
+
+#### Enhancements:
+
+- Detail alterations yielded by the "alt" modifier in the `normalized.alterations` array [#392](https://github.com/no-chris/chord-symbol/pull/392)
+
+#### Bug Fixes:
+
+- Update types to reflect 2.0.0 changes [#393](https://github.com/no-chris/chord-symbol/pull/393)
+- Always consider #11 and b13 as alterations [#387](https://github.com/no-chris/chord-symbol/pull/387)
+
+---
+
 ## v2.0.0 (02/01/2021)
 
 #### Enhancements:
