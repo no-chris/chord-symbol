@@ -24,7 +24,6 @@
     "babel-loader": "^8.2.2",
     "cartesian": "^1.0.1",
     "clean-webpack-plugin": "^3.0.0",
-    "coveralls": "^3.1.0",
     "eslint": "^7.19.0",
     "get-permutations": "^1.0.0",
     "jest": "^26.6.3",
@@ -53,8 +52,7 @@
     "sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
     "doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
     "build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run size && npm run doc && npm run format",
-    "typescript": "rm -rf ./types-auto && npx typescript",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "typescript": "rm -rf ./types-auto && npx typescript"
   },
   "size-limit": [
     {

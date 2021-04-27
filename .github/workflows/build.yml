@@ -20,7 +20,7 @@ jobs:
 
       # Install & build & test:
       - run: npm install
-      - run: npm run-script test-short
+      - run: npm run-script test
       
       # Coverage report
       - name: Coveralls GitHub Action
