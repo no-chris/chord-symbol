@@ -1,5 +1,11 @@
 name: build
-on: push
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
   build:
     name: Build & test
@@ -14,4 +20,11 @@ jobs:
 
       # Install & build & test:
       - run: npm install
-      - run: npm test
+      - run: npm run-script test-short
+      
+      # Coverage report
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
