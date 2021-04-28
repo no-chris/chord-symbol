@@ -1,0 +1,41 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 10
+  assignees:
+  - no-chris
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+  - dependency-name: "@babel/cli"
+    versions:
+    - 7.13.0
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.13.8
+  - dependency-name: rollup
+    versions:
+    - 2.40.0
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.8
+  - dependency-name: core-js
+    versions:
+    - 3.9.1
+  - dependency-name: eslint
+    versions:
+    - 7.21.0
+  - dependency-name: jsdoc-to-markdown
+    versions:
+    - 7.0.0
+  - dependency-name: "@rollup/plugin-node-resolve"
+    versions:
+    - 11.2.0
+  - dependency-name: html-webpack-plugin
+    versions:
+    - 4.5.2
