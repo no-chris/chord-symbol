@@ -68,7 +68,7 @@ npm install --save chord-symbol
 ## Usage
 
 ```javascript
-import { chordPaserFactory, chordRendererFactory } from 'chord-symbol';
+import { chordParserFactory, chordRendererFactory } from 'chord-symbol';
 
 const parseChord = chordParserFactory();
 const renderChord = chordRendererFactory({ useShortNamings: true });
