@@ -20,7 +20,7 @@ jobs:
 
       # Install & build & test:
       - run: npm install
-      - run: npm audit
+      - run: npm audit --production
       - run: npm run-script test
       
       # Coverage report
