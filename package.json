@@ -30,7 +30,7 @@
     "jsdoc-to-markdown": "^7.0.1",
     "markdown-toc": "^1.2.0",
     "prettier": "^2.3.2",
-    "rollup": "^2.52.7",
+    "rollup": "^2.55.1",
     "size-limit": "^5.0.1",
     "sloc": "^0.2.1",
     "typescript": "^4.3.5",
