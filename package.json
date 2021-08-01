@@ -18,7 +18,7 @@
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
     "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@size-limit/preset-small-lib": "^5.0.1",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
