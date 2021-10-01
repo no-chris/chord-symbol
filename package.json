@@ -29,7 +29,7 @@
     "jest": "^27.1.0",
     "jsdoc-to-markdown": "^7.0.1",
     "markdown-toc": "^1.2.0",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.1",
     "rollup": "^2.56.3",
     "size-limit": "^5.0.3",
     "sloc": "^0.2.1",
