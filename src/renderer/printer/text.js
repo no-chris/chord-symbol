@@ -4,12 +4,8 @@
  */
 export default function textPrinter(chord) {
 	if (chord) {
-		const {
-			rootNote,
-			bassNote,
-			descriptor,
-			chordChanges,
-		} = chord.formatted;
+		const { rootNote, bassNote, descriptor, chordChanges } =
+			chord.formatted;
 
 		let printed = rootNote;
 

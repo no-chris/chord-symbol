@@ -53,10 +53,8 @@ function chordParserFactory(parserConfiguration = {}) {
 			allErrors.push(formatError(e));
 		}
 
-		const allVariantsPerGroupCopy = _cloneDeep(
-			allVariantsPerGroup
-		).filter((variantsGroup) =>
-			notationSystems.includes(variantsGroup.name)
+		const allVariantsPerGroupCopy = _cloneDeep(allVariantsPerGroup).filter(
+			(variantsGroup) => notationSystems.includes(variantsGroup.name)
 		);
 
 		let chord;
