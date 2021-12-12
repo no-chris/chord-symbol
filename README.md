@@ -10,7 +10,7 @@ While most chord parsing libraries expect you to write chord symbols in a specif
 
 `ChordSymbol` will transform a string representing a chord (`Cm7`, for example) into a suite of intervals (`1, b3, 5, b7`) and individual notes (`C, Eb, G, Bb`). It will also normalize the chord symbol, such as it doesn't matter if the original input was `Cm7`, `CMINOR7`, `C7min`, or `C7mi`: `ChordSymbol` will consistently render it as `Cmi7`. And if you prefer a different kind of normalization, `ChordSymbol` allows you to configure the rendering to your taste.
 
-See it in action on the [demo site](https://chord-symbol.netlify.app/)!
+See it in action on the [demo site](https://chord-symbol.netlify.app/) or in [ChordMark](https://chordmark.netlify.app), the newest chord charts format!
 
 <!-- toc -->
 
@@ -269,7 +269,7 @@ Those first goals require that the parser gets only a basic understanding of the
 
 This library aims to make all this possible by converting chord symbols into a suite of intervals, which can then be named, printed, or passed as an input of other libraries.
 
-A widespread use case of this library would be to use it to render [Chords Charts](https://en.wikipedia.org/wiki/Chord_chart). I wrote it first because I could not find any suitable library for ChordMark, a new way of writing Chords Charts that aims to solve several issues with currents formats.
+A widespread use case of this library would be to use it to render [Chords Charts](https://en.wikipedia.org/wiki/Chord_chart). I wrote it first because I could not find any suitable library for [ChordMark](https://chordmark.netlify.app), a new way of writing Chords Charts that aims to solve several issues with currents formats.
 
 ### Guiding principles
 
