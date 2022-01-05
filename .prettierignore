@@ -1,1 +1,3 @@
 coverage
+packages/**/lib/*.js
+node_modules
