@@ -1,0 +1,13 @@
+{
+	"packages": ["packages/*"],
+	"version": "2.1.0",
+	"npmClient": "yarn",
+	"preid": "beta",
+	"changelog": {
+		"labels": {
+			"enhancement": "Enhancements",
+			"bug": "Bug Fixes",
+			"breaking": "Breaking changes"
+		}
+	}
+}

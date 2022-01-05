@@ -56,5 +56,8 @@
 		"src",
 		"types"
 	],
-	"types": "types/index.d.ts"
+	"types": "types/index.d.ts",
+	"dependencies": {
+		"lerna-changelog": "^2.2.0"
+	}
 }
