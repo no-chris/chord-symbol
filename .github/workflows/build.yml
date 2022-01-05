@@ -22,7 +22,7 @@ jobs:
       - run: npm install
       - run: npm audit --production
       - run: lerna bootstrap
-      - run: yarn exec jest
+      - run: lerna run build
       
       # Coverage report
       - name: Coveralls GitHub Action
