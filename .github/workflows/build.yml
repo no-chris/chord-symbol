@@ -13,15 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Install Node 14
+      # Install Node 16
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
 
       # Install & build & test:
       - run: npm install
       - run: npm audit --production
-      - run: npm run-script test
+      - run: lerna bootstrap
+      - run: yarn exec jest
       
       # Coverage report
       - name: Coveralls GitHub Action
