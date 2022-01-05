@@ -9,4 +9,6 @@ lib/report.html
 .DS_Store
 
 # typescript temp files
-types-auto
+packages/chord-symbol/types-auto
+
+lerna-debug.log

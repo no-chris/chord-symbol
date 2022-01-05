@@ -1,0 +1,59 @@
+{
+	"name": "chord-symbol",
+	"version": "2.1.0",
+	"description": "Chord symbol parser and renderer",
+	"main": "lib/chord-symbol.js",
+	"author": "Christophe Noël",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/no-chris/chord-symbol.git"
+	},
+	"bugs": {
+		"url": "https://github.com/no-chris/chord-symbol/issues"
+	},
+	"homepage": "https://github.com/no-chris/chord-symbol#readme",
+	"devDependencies": {
+		"get-permutations": "^1.0.0"
+	},
+	"dependencies": {
+		"core-js": "^3.12.1",
+		"lodash": "^4.17.21"
+	},
+	"scripts": {
+		"lint": "eslint src tests",
+		"format": "prettier --write \"**/*.{js,jsx,json,ts,md}\"",
+		"test-short": "TEST_SUITE=short jest",
+		"test": "jest",
+		"bundle": "webpack && npx rollup -c rollup.config.js",
+		"size": "size-limit",
+		"sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
+		"doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
+		"build": "npm run lint && npm run test && npm run bundle && npm run sloc && npm run size && npm run doc && npm run format",
+		"typescript": "rm -rf ./types-auto && npx typescript"
+	},
+	"size-limit": [
+		{
+			"path": "./lib/chord-symbol.js",
+			"limit": "84 KB"
+		}
+	],
+	"keywords": [
+		"chord",
+		"chords",
+		"chord-parsing",
+		"guitar",
+		"guitar-chords",
+		"music",
+		"music-theory",
+		"parser",
+		"piano",
+		"ukulele"
+	],
+	"files": [
+		"lib",
+		"src",
+		"types"
+	],
+	"types": "types/index.d.ts"
+}
