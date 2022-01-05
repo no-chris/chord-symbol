@@ -1,14 +1,10 @@
 node_modules
 coverage
-lib/report.html
 
 # IDE files
 .idea/**/workspace.xml
 
 # Macos
 .DS_Store
-
-# typescript temp files
-packages/chord-symbol/types-auto
 
 lerna-debug.log
