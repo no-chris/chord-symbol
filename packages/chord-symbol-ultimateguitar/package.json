@@ -8,7 +8,7 @@
 	"main": "lib/chord-symbol-ultimateguitar.js",
 	"directories": {
 		"lib": "lib",
-		"test": "__tests__"
+		"test": "src"
 	},
 	"files": [
 		"lib"
@@ -18,7 +18,7 @@
 		"url": "git+https://github.com/no-chris/chord-symbol.git"
 	},
 	"scripts": {
-		"test": "echo \"Error: run tests from root\" && exit 1"
+		"build": "webpack"
 	},
 	"bugs": {
 		"url": "https://github.com/no-chris/chord-symbol/issues"
