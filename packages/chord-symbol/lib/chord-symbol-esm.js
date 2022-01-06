@@ -3678,6 +3678,32 @@ function checkIntervalsConsistency(chord) {
 	return chord;
 }
 
+/**
+ * Render the chord by assembling all its components
+ *
+ * @param {Chord} chord
+ * @returns {Chord}
+ */
+function formatSymbol(chord) {
+	const { rootNote, bassNote, descriptor, chordChanges } = chord.formatted;
+
+	let symbol = rootNote;
+
+	if (descriptor) {
+		symbol += descriptor;
+	}
+	if (chordChanges && chordChanges.length) {
+		symbol += '(' + chordChanges.join(',') + ')';
+	}
+	if (bassNote) {
+		symbol += '/' + bassNote;
+	}
+
+	chord.formatted.symbol = symbol;
+
+	return chord;
+}
+
 const qualities = {
 	ma: 'major',
 	ma6: 'major6',
@@ -6595,6 +6621,7 @@ function chordParserFactory(parserConfiguration = {}) {
 					normalizeNotes,
 					normalizeDescriptor,
 					formatSymbolParts,
+					formatSymbol,
 					nameIndividualChordNotes,
 					...customFilters,
 				];
@@ -7157,25 +7184,9 @@ function convertNotationSystem(
  * @returns {String}
  */
 function textPrinter(chord) {
-	if (chord) {
-		const { rootNote, bassNote, descriptor, chordChanges } =
-			chord.formatted;
-
-		let printed = rootNote;
-
-		if (descriptor) {
-			printed += descriptor;
-		}
-		if (chordChanges && chordChanges.length) {
-			printed += '(' + chordChanges.join(',') + ')';
-		}
-		if (bassNote) {
-			printed += '/' + bassNote;
-		}
-
-		return printed;
-	}
-	return null;
+	return chord && chord.formatted && chord.formatted.symbol
+		? chord.formatted.symbol
+		: null;
 }
 
 /**
@@ -7234,8 +7245,11 @@ function chordRendererFactory({
 		allFilters.push(shortenNormalized);
 	}
 
-	allFilters.push(convertNotationSystem.bind(null, notationSystem));
-	allFilters.push(...customFilters);
+	allFilters.push(
+		convertNotationSystem.bind(null, notationSystem),
+		formatSymbol,
+		...customFilters
+	);
 
 	return renderChord;
 

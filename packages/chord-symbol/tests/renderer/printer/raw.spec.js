@@ -89,6 +89,8 @@ describe('raw printer', () => {
 				// so we kind of hack the parsed chord
 				parsedRendered.formatted.descriptor =
 					inputRenderedRaw.formatted.descriptor;
+				parsedRendered.formatted.symbol =
+					inputRenderedRaw.formatted.symbol;
 
 				expect(inputRenderedTxt).toEqual(expectedTxt);
 				expect(inputRenderedRaw).toEqual(parsedRendered);

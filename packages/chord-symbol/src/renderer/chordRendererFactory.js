@@ -7,6 +7,7 @@ import shortenNormalized from './filters/shortenNormalized';
 import simplifyFilter from './filters/simplify';
 import transpose from './filters/transpose';
 import convertNotationSystem from './filters/convertNotationSystem';
+import formatSymbol from '../parser/filters/formatSymbol';
 import textPrinter from './printer/text';
 import rawPrinter from './printer/raw';
 
@@ -41,8 +42,11 @@ function chordRendererFactory({
 		allFilters.push(shortenNormalized);
 	}
 
-	allFilters.push(convertNotationSystem.bind(null, notationSystem));
-	allFilters.push(...customFilters);
+	allFilters.push(
+		convertNotationSystem.bind(null, notationSystem),
+		formatSymbol,
+		...customFilters
+	);
 
 	return renderChord;
 

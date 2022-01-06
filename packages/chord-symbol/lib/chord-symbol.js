@@ -12924,6 +12924,38 @@ function checkIntervalsConsistency(chord) {
 
   return chord;
 }
+;// CONCATENATED MODULE: ./src/parser/filters/formatSymbol.js
+
+
+/**
+ * Render the chord by assembling all its components
+ *
+ * @param {Chord} chord
+ * @returns {Chord}
+ */
+function formatSymbol(chord) {
+  var _chord$formatted = chord.formatted,
+      rootNote = _chord$formatted.rootNote,
+      bassNote = _chord$formatted.bassNote,
+      descriptor = _chord$formatted.descriptor,
+      chordChanges = _chord$formatted.chordChanges;
+  var symbol = rootNote;
+
+  if (descriptor) {
+    symbol += descriptor;
+  }
+
+  if (chordChanges && chordChanges.length) {
+    symbol += '(' + chordChanges.join(',') + ')';
+  }
+
+  if (bassNote) {
+    symbol += '/' + bassNote;
+  }
+
+  chord.formatted.symbol = symbol;
+  return chord;
+}
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
 var es_array_map = __webpack_require__(1249);
 ;// CONCATENATED MODULE: ./src/dictionaries/qualities.js
@@ -14220,6 +14252,7 @@ function chordParserFactory_arrayLikeToArray(arr, len) { if (len == null || len 
 
 
 
+
 /**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
@@ -14265,7 +14298,7 @@ function chordParserFactory() {
     if (!allErrors.length) {
       while (allVariantsPerGroupCopy.length && !chord) {
         variants = allVariantsPerGroupCopy.shift();
-        allFilters = [initChord.bind(null, parserConfiguration), parseBase.bind(null, variants.notes), getParsableDescriptor, parseDescriptor.bind(null, altIntervals), checkIntervalsConsistency, normalizeNotes, normalizeDescriptor, formatSymbolParts, nameIndividualChordNotes].concat(chordParserFactory_toConsumableArray(customFilters));
+        allFilters = [initChord.bind(null, parserConfiguration), parseBase.bind(null, variants.notes), getParsableDescriptor, parseDescriptor.bind(null, altIntervals), checkIntervalsConsistency, normalizeNotes, normalizeDescriptor, formatSymbolParts, formatSymbol, nameIndividualChordNotes].concat(chordParserFactory_toConsumableArray(customFilters));
 
         try {
           chord = chain(allFilters, symbol);
@@ -14582,37 +14615,12 @@ function convertNotationSystem() {
   return chord;
 }
 ;// CONCATENATED MODULE: ./src/renderer/printer/text.js
-
-
 /**
  * @param {Chord} chord
  * @returns {String}
  */
 function textPrinter(chord) {
-  if (chord) {
-    var _chord$formatted = chord.formatted,
-        rootNote = _chord$formatted.rootNote,
-        bassNote = _chord$formatted.bassNote,
-        descriptor = _chord$formatted.descriptor,
-        chordChanges = _chord$formatted.chordChanges;
-    var printed = rootNote;
-
-    if (descriptor) {
-      printed += descriptor;
-    }
-
-    if (chordChanges && chordChanges.length) {
-      printed += '(' + chordChanges.join(',') + ')';
-    }
-
-    if (bassNote) {
-      printed += '/' + bassNote;
-    }
-
-    return printed;
-  }
-
-  return null;
+  return chord && chord.formatted && chord.formatted.symbol ? chord.formatted.symbol : null;
 }
 ;// CONCATENATED MODULE: ./src/renderer/printer/raw.js
 
@@ -14678,6 +14686,8 @@ function chordRendererFactory_arrayLikeToArray(arr, len) { if (len == null || le
 
 
 
+
+
 /**
  * Create a pre-configured chord rendering function
  * @param {RendererConfiguration} [rendererConfiguration]
@@ -14718,8 +14728,7 @@ function chordRendererFactory() {
     allFilters.push(shortenNormalized);
   }
 
-  allFilters.push(convertNotationSystem.bind(null, notationSystem));
-  allFilters.push.apply(allFilters, chordRendererFactory_toConsumableArray(customFilters));
+  allFilters.push.apply(allFilters, [convertNotationSystem.bind(null, notationSystem), formatSymbol].concat(chordRendererFactory_toConsumableArray(customFilters)));
   return renderChord;
   /**
    * Render a chord structure
