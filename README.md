@@ -8,6 +8,7 @@
 
 ## Available packages
 
-| Package name                                                                               | Desription                                               |
-| ------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
-| [chord-symbol](https://github.com/no-chris/chord-symbol/tree/master/packages/chord-symbol) | The core library for parsing and rendering chord symbols |
+| Package name                                                                                                             | Desription                                               |
+| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| [chord-symbol](https://github.com/no-chris/chord-symbol/tree/master/packages/chord-symbol)                               | The core library for parsing and rendering chord symbols |
+| [chord-symbol-ultimateguitar](https://github.com/no-chris/chord-symbol/tree/master/packages/chord-symbol-ultimateguitar) | Generate Ultimate Guitar-friendly chord symbols          |
