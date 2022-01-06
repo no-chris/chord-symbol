@@ -10,6 +10,7 @@ import {
 } from '../helpers/ChordParsingError';
 
 import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
+import formatSymbol from './filters/formatSymbol';
 import formatSymbolParts from './filters/formatSymbolParts';
 import getParsableDescriptor from './filters/getParsableDescriptor';
 import initChord from './filters/initChord';
@@ -74,6 +75,7 @@ function chordParserFactory(parserConfiguration = {}) {
 					normalizeNotes,
 					normalizeDescriptor,
 					formatSymbolParts,
+					formatSymbol,
 					nameIndividualChordNotes,
 					...customFilters,
 				];

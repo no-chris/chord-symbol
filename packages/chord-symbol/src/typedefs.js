@@ -53,8 +53,10 @@
 /**
  * Pre-rendered version of the chord with the main "vertical quality" and the chord changes.
  * Intended to be used as building blocks of a rendered chord
+ * The `symbol` property contains the default assembled rendering
  * @typedef {Object} FormattedChord
  * @type {Object}
+ * @property {String} symbol - full rendering of the chord
  * @property {String} rootNote - formatted root note
  * @property {String} bassNote - formatted bass note
  * @property {String} descriptor - the descriptor, gives the vertical quality of the chords and its extensions
