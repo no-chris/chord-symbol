@@ -76,18 +76,22 @@ Don&#39;t do that!</li>
 Expose the chordParserFactory_new functionmodule_"></a>
 
 ## chordParserFactory
+
 Expose the chordParserFactory() function
 <a name="chordRendererFactory
 Expose the chordRendererFactory_new functionmodule_"></a>
 
 ## chordRendererFactory
+
 Expose the chordRendererFactory() function
 <a name="chordParserFactory"></a>
 
 ## chordParserFactory([parserConfiguration]) ⇒ <code>function</code>
+
 Create a chord parser function
 
-**Kind**: global function  
+**Kind**: global function
+
 <table>
   <thead>
     <tr>
@@ -103,10 +107,12 @@ Create a chord parser function
 <a name="chordParserFactory..parseChord"></a>
 
 ### chordParserFactory~parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
+
 Convert an input string into an abstract chord structure
 
 **Kind**: inner method of [<code>chordParserFactory</code>](#chordParserFactory)  
-**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - A chord object if the given string is successfully parsed. Null otherwise.  
+**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - A chord object if the given string is successfully parsed. Null otherwise.
+
 <table>
   <thead>
     <tr>
@@ -123,9 +129,11 @@ Convert an input string into an abstract chord structure
 <a name="chordRendererFactory"></a>
 
 ## chordRendererFactory([rendererConfiguration]) ⇒ <code>function</code>
+
 Create a pre-configured chord rendering function
 
-**Kind**: global function  
+**Kind**: global function
+
 <table>
   <thead>
     <tr>
@@ -141,10 +149,12 @@ Create a pre-configured chord rendering function
 <a name="chordRendererFactory..renderChord"></a>
 
 ### chordRendererFactory~renderChord(chord) ⇒ <code>String</code> \| [<code>Chord</code>](#Chord)
+
 Render a chord structure
 
 **Kind**: inner method of [<code>chordRendererFactory</code>](#chordRendererFactory)  
-**Returns**: <code>String</code> \| [<code>Chord</code>](#Chord) - output depends on the selected printer: string for text printer (default), Chord for raw printer  
+**Returns**: <code>String</code> \| [<code>Chord</code>](#Chord) - output depends on the selected printer: string for text printer (default), Chord for raw printer
+
 <table>
   <thead>
     <tr>
@@ -161,6 +171,7 @@ Render a chord structure
 <a name="Chord"></a>
 
 ## Chord : <code>Object</code>
+
 A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
 
 **Kind**: global typedef  
@@ -195,6 +206,7 @@ If you need to trace what has generated a given chord, you&#39;ll find it here.<
 <a name="ChordInput"></a>
 
 ## ChordInput : <code>Object</code>
+
 The source from which the chord structure has been built
 
 **Kind**: global typedef  
@@ -235,6 +247,7 @@ Ex: <code>m add9</code> for <code>Cmadd9</code>, a space is added for disambigua
 <a name="NormalizedChord"></a>
 
 ## NormalizedChord : <code>Object</code>
+
 Abstract representation of the chord based on its intervals
 
 **Kind**: global typedef  
@@ -303,6 +316,7 @@ Ex: <code>[&#39;3&#39;]</code> for <code>C(add9,omit3)</code></p>
 <a name="FormattedChord"></a>
 
 ## FormattedChord : <code>Object</code>
+
 Pre-rendered version of the chord with the main "vertical quality" and the chord changes.
 Intended to be used as building blocks of a rendered chord
 The `symbol` property contains the default assembled rendering
@@ -340,6 +354,7 @@ If multiple added/omits are present, the <code>add/omit</code> symbol is only pr
 <a name="ParserConfiguration"></a>
 
 ## ParserConfiguration : <code>Object</code>
+
 Configuration of the chord parser
 
 **Kind**: global typedef  
@@ -370,6 +385,7 @@ If you would like <code>alt</code> to consistently yield a specific set of inter
 <a name="ChordSymbolError"></a>
 
 ## ChordSymbolError : <code>Object</code>
+
 Description of an error that occurred during the parsing.
 
 **Kind**: global typedef  
@@ -401,6 +417,7 @@ or exception type in custom filters</p>
 <a name="RendererConfiguration"></a>
 
 ## RendererConfiguration : <code>Object</code>
+
 Configuration of the chord renderer
 
 **Kind**: global typedef  
@@ -446,27 +463,31 @@ Configuration of the chord renderer
 <a name="customFilter"></a>
 
 ## customFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
+
 Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.
 
 **Parsing filters**
-- We recommend that you do not delete any property of the Chord object, because some rendering filters might rely on them.
-For maximum compatibility, your best bet is to always rely on the existing chord object structure.
-- To fail the parsing, throw an exception and it will use the Error API.
-If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
-[custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
+
+-   We recommend that you do not delete any property of the Chord object, because some rendering filters might rely on them.
+    For maximum compatibility, your best bet is to always rely on the existing chord object structure.
+-   To fail the parsing, throw an exception and it will use the Error API.
+    If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
+    [custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
 
 **Rendering filter**
-- If the purpose of your rendering filter is to change the text output of `ChordSymbol`,
-then use the `text` printer and override the `.formatted.symbol` property.
-- If the purpose is to enrich the chord symbol object with some new information or data structure,
-then use the `raw` printer and modify the `Chord` object accordingly.
-- To fail the rendering, simply return `null`.
-Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
-Don't do that!
+
+-   If the purpose of your rendering filter is to change the text output of `ChordSymbol`,
+    then use the `text` printer and override the `.formatted.symbol` property.
+-   If the purpose is to enrich the chord symbol object with some new information or data structure,
+    then use the `raw` printer and modify the `Chord` object accordingly.
+-   To fail the rendering, simply return `null`.
+    Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
+    Don't do that!
 
 **Kind**: global typedef  
-**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.  
+**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
+
 <table>
   <thead>
     <tr>
@@ -479,4 +500,3 @@ Don't do that!
 </td>
     </tr>  </tbody>
 </table>
-

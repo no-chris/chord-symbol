@@ -2,13 +2,13 @@
 
 <!-- toc -->
 
-- [From v2.x.x to v3.0.0](#from-v2xx-to-v300)
-- [From v1.x.x to v2.0.0](#from-v1xx-to-v200)
-  * [Error handling (API change)](#error-handling-api-change)
-  * [altIntervals configuration (API change)](#altintervals-configuration-api-change)
-- [From v0.5.1 to v1.0.0](#from-v051-to-v100)
-  * [Intervals consistency](#intervals-consistency)
-  * [Parser API change](#parser-api-change)
+-   [From v2.x.x to v3.0.0](#from-v2xx-to-v300)
+-   [From v1.x.x to v2.0.0](#from-v1xx-to-v200)
+    -   [Error handling (API change)](#error-handling-api-change)
+    -   [altIntervals configuration (API change)](#altintervals-configuration-api-change)
+-   [From v0.5.1 to v1.0.0](#from-v051-to-v100)
+    -   [Intervals consistency](#intervals-consistency)
+    -   [Parser API change](#parser-api-change)
 
 <!-- tocstop -->
 
