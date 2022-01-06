@@ -21,12 +21,13 @@
 		"lodash": "^4.17.21"
 	},
 	"scripts": {
-		"test-short": "TEST_SUITE=short jest",
 		"bundle": "webpack && npx rollup -c rollup.config.js",
+		"build": "npm run bundle && npm run sloc && npm run size && npm run doc && npm run toc",
+		"doc": "npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
 		"size": "size-limit",
 		"sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
-		"doc": "npx markdown-toc -i --maxdepth 4 README.md && npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
-		"build": "npm run bundle && npm run sloc && npm run size && npm run doc",
+		"test-short": "TEST_SUITE=short jest",
+		"toc": "npx markdown-toc -i --maxdepth 4 README.md && npx markdown-toc -i --maxdepth 4 MIGRATION.md",
 		"typescript": "rm -rf ./types-auto && npx typescript"
 	},
 	"size-limit": [
