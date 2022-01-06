@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-core-js@^3.12.1:
-  version "3.20.2"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.2.tgz#46468d8601eafc8b266bd2dd6bf9dee622779581"
-  integrity sha512-nuqhq11DcOAbFBV4zCbKeGbKQsUDRqTX0oqx7AttUBuqe3h20ixsE039QHelbL6P4h+9kytVqyEtyZ6gsiwEYw==
-
 get-permutations@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/get-permutations/-/get-permutations-1.0.0.tgz#1e17fc17be89d2fcd740f4cbbb27e8e3e81b1f3c"
