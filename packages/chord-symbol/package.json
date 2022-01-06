@@ -32,7 +32,7 @@
 	"size-limit": [
 		{
 			"path": "./lib/chord-symbol.js",
-			"limit": "45 KB"
+			"limit": "25 KB"
 		}
 	],
 	"keywords": [
