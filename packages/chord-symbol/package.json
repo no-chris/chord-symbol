@@ -12,7 +12,7 @@
 	"bugs": {
 		"url": "https://github.com/no-chris/chord-symbol/issues"
 	},
-	"homepage": "https://github.com/no-chris/chord-symbol#readme",
+	"homepage": "https://github.com/no-chris/chord-symbol/tree/main/packages/chord-symbol#readme",
 	"devDependencies": {
 		"get-permutations": "^1.0.0"
 	},
