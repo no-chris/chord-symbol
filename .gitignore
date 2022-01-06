@@ -1,6 +1,5 @@
 node_modules
 coverage
-lib/report.html
 
 # IDE files
 .idea/**/workspace.xml
@@ -8,5 +7,4 @@ lib/report.html
 # Macos
 .DS_Store
 
-# typescript temp files
-types-auto
+lerna-debug.log

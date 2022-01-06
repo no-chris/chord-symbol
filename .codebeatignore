@@ -1,2 +1,1 @@
-lib/chord-symbol.js
-lib/chord-symbol-esm.js
+packages/chord-symbol/lib/**
