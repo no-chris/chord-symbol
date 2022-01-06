@@ -36,7 +36,8 @@ Expose the chordRendererFactory() function</a></dt>
 </dd>
 <dt><a href="#FormattedChord">FormattedChord</a> : <code>Object</code></dt>
 <dd><p>Pre-rendered version of the chord with the main &quot;vertical quality&quot; and the chord changes.
-Intended to be used as building blocks of a rendered chord</p>
+Intended to be used as building blocks of a rendered chord
+The <code>symbol</code> property contains the default assembled rendering</p>
 </dd>
 <dt><a href="#ParserConfiguration">ParserConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord parser</p>
@@ -50,10 +51,20 @@ Intended to be used as building blocks of a rendered chord</p>
 <dt><a href="#customFilter">customFilter</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
 <dd><p>Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.</p>
+<p><strong>Parsing filters</strong></p>
 <ul>
+<li>We recommend that you do not delete any property of the Chord object, because some rendering filters might rely on them.
+For maximum compatibility, your best bet is to always rely on the existing chord object structure.</li>
 <li>To fail the parsing, throw an exception and it will use the Error API.
 If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
 <a href="https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js">custom error types</a></li>
+</ul>
+<p><strong>Rendering filter</strong></p>
+<ul>
+<li>If the purpose of your rendering filter is to change the text output of <code>ChordSymbol</code>,
+then use the <code>text</code> printer and override the <code>.formatted.symbol</code> property.</li>
+<li>If the purpose is to enrich the chord symbol object with some new information or data structure,
+then use the <code>raw</code> printer and modify the <code>Chord</code> object accordingly.</li>
 <li>To fail the rendering, simply return <code>null</code>.
 Warning: if you throw an exception in a rendering filter, <code>ChordSymbol</code> will not catch it and the client code will need to handle it.
 Don&#39;t do that!</li>
@@ -294,6 +305,7 @@ Ex: <code>[&#39;3&#39;]</code> for <code>C(add9,omit3)</code></p>
 ## FormattedChord : <code>Object</code>
 Pre-rendered version of the chord with the main "vertical quality" and the chord changes.
 Intended to be used as building blocks of a rendered chord
+The `symbol` property contains the default assembled rendering
 
 **Kind**: global typedef  
 **Properties**
@@ -306,6 +318,9 @@ Intended to be used as building blocks of a rendered chord
   </thead>
   <tbody>
 <tr>
+    <td>symbol</td><td><code>String</code></td><td><p>full rendering of the chord</p>
+</td>
+    </tr><tr>
     <td>rootNote</td><td><code>String</code></td><td><p>formatted root note</p>
 </td>
     </tr><tr>
@@ -433,9 +448,19 @@ Configuration of the chord renderer
 ## customFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
 Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.
+
+**Parsing filters**
+- We recommend that you do not delete any property of the Chord object, because some rendering filters might rely on them.
+For maximum compatibility, your best bet is to always rely on the existing chord object structure.
 - To fail the parsing, throw an exception and it will use the Error API.
 If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
 [custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
+
+**Rendering filter**
+- If the purpose of your rendering filter is to change the text output of `ChordSymbol`,
+then use the `text` printer and override the `.formatted.symbol` property.
+- If the purpose is to enrich the chord symbol object with some new information or data structure,
+then use the `raw` printer and modify the `Chord` object accordingly.
 - To fail the rendering, simply return `null`.
 Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
 Don't do that!
