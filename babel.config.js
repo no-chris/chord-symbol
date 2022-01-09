@@ -4,7 +4,7 @@ const presets = [
 		'@babel/preset-env',
 		{
 			targets: {
-				browsers: 'defaults',
+				browsers: 'last 2 versions',
 			},
 		},
 	],
