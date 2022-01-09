@@ -1,7 +1,7 @@
 const chordSymbolUltimateGuitar = () => {
 	return (chord) => {
 		chord.formatted.symbol = chord.formatted.symbol
-			.replace(/[()]/g, '')
+			.replace(/[ ()]/g, '')
 			.replace('°', 'dim')
 			.replace('mM', 'mMa');
 
