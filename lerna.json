@@ -1,6 +1,8 @@
 {
-	"packages": ["packages/*"],
-	"version": "2.1.0",
+	"packages": [
+		"packages/*"
+	],
+	"version": "3.0.0-beta.0",
 	"npmClient": "yarn",
 	"preid": "beta",
 	"changelog": {
