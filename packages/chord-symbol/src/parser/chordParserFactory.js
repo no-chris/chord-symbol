@@ -44,7 +44,7 @@ function chordParserFactory(parserConfiguration = {}) {
 	/**
 	 * Convert an input string into an abstract chord structure
 	 * @param {String} symbol - the chord symbol candidate
-	 * @returns {Chord|Null} A chord object if the given string is successfully parsed. Null otherwise.
+	 * @returns {Chord|Object} A chord object if the given string is successfully parsed. An object with an `error` property otherwise.
 	 */
 	function parseChord(symbol) {
 		const allErrors = [];
