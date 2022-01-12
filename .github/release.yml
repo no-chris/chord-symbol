@@ -1,7 +1,8 @@
 changelog:
   exclude:
     labels:
-      - ignore
+      - dependencies
+      - irgnore
     authors:
       - dependabot
       - dependabot-preview
