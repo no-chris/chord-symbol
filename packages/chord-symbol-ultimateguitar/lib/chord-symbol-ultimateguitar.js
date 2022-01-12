@@ -50,7 +50,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var chordSymbolUltimateGuitar = function chordSymbolUltimateGuitar() {
   return function (chord) {
-    chord.formatted.symbol = chord.formatted.symbol.replace(/[()]/g, '').replace('°', 'dim').replace('mM', 'mMa');
+    chord.formatted.symbol = chord.formatted.symbol.replace(/[() ]/g, '').replace('mM', 'mMaj').replace('°', 'dim');
     return chord;
   };
 };
