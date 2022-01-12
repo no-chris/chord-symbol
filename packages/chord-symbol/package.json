@@ -1,6 +1,6 @@
 {
 	"name": "chord-symbol",
-	"version": "2.1.0",
+	"version": "3.0.0-beta.0",
 	"description": "Chord symbol parser and renderer",
 	"main": "lib/chord-symbol.js",
 	"author": "Christophe Noël",
@@ -12,12 +12,11 @@
 	"bugs": {
 		"url": "https://github.com/no-chris/chord-symbol/issues"
 	},
-	"homepage": "https://github.com/no-chris/chord-symbol#readme",
+	"homepage": "https://github.com/no-chris/chord-symbol/tree/main/packages/chord-symbol#readme",
 	"devDependencies": {
 		"get-permutations": "^1.0.0"
 	},
 	"dependencies": {
-		"core-js": "^3.12.1",
 		"lodash": "^4.17.21"
 	},
 	"scripts": {
@@ -33,7 +32,7 @@
 	"size-limit": [
 		{
 			"path": "./lib/chord-symbol.js",
-			"limit": "45 KB"
+			"limit": "25 KB"
 		}
 	],
 	"keywords": [

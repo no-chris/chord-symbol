@@ -1,0 +1,41 @@
+{
+	"name": "chord-symbol-ultimateguitar",
+	"version": "3.0.0-beta.2",
+	"description": "Format chord symbols in an Ultimate Guitar-friendly way",
+	"author": "Christophe Noël",
+	"homepage": "https://github.com/no-chris/chord-symbol/tree/main/packages/chord-symbol-ultimateguitar#readme",
+	"license": "MIT",
+	"main": "lib/chord-symbol-ultimateguitar.js",
+	"directories": {
+		"lib": "lib",
+		"test": "src"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/no-chris/chord-symbol.git"
+	},
+	"scripts": {
+		"build": "webpack"
+	},
+	"bugs": {
+		"url": "https://github.com/no-chris/chord-symbol/issues"
+	},
+	"keywords": [
+		"chord",
+		"chords",
+		"chord-parsing",
+		"guitar",
+		"guitar-chords",
+		"music",
+		"music-theory",
+		"parser",
+		"piano",
+		"ukulele"
+	],
+	"dependencies": {
+		"chord-symbol": "^3.0.0-beta.0"
+	}
+}

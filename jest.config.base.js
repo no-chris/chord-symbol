@@ -16,4 +16,12 @@ module.exports = {
 			statements: 100,
 		},
 	},
+
+	// whitelisting local modules in the node_modules folder
+	transformIgnorePatterns: [
+		'<rootDir>.*(node_modules)(?!.*chord-symbol.*).*$',
+	],
+	moduleNameMapper: {
+		'chord-symbol': '<rootDir>/packages/chord-symbol/src/index.js',
+	},
 };
