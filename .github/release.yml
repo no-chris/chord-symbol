@@ -4,6 +4,7 @@ changelog:
       - ignore
     authors:
       - dependabot
+      - dependabot-preview
   categories:
     - title: Breaking Changes
       labels:
