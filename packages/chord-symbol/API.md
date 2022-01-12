@@ -102,11 +102,11 @@ Create a chord parser function
 
 <a name="chordParserFactory..parseChord"></a>
 
-### chordParserFactory~parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
+### chordParserFactory~parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Object</code>
 Convert an input string into an abstract chord structure
 
 **Kind**: inner method of [<code>chordParserFactory</code>](#chordParserFactory)  
-**Returns**: [<code>Chord</code>](#Chord) \| <code>Null</code> - A chord object if the given string is successfully parsed. Null otherwise.  
+**Returns**: [<code>Chord</code>](#Chord) \| <code>Object</code> - A chord object if the given string is successfully parsed. An object with an `error` property otherwise.  
 <table>
   <thead>
     <tr>
