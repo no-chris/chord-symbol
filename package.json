@@ -42,7 +42,7 @@
 		"lint": "eslint packages",
 		"format": "prettier --write \"**/*.{js,jsx,json,ts,md,scss,css}\"",
 		"test": "jest",
-		"up": "yarn upgrade && lerna exec yarn upgrade"
+		"up": "yarn install && lerna exec yarn install && yarn upgrade && lerna exec yarn upgrade"
 	},
 	"keywords": [
 		"chord",
