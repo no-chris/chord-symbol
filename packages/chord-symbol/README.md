@@ -95,7 +95,7 @@ If you want to use the library directly in the browser, you can proceed as follo
 
 ## Migration guides
 
-[See this file](https://github.com/no-chris/chord-symbol/packages/chord-symbol/blob/master/MIGRATION.md)
+[See this file](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/MIGRATION.md)
 
 ## Unit tests
 
@@ -113,7 +113,7 @@ npm run-script test-short
 
 ## API Documentation
 
-[See this file](https://github.com/no-chris/chord-symbol/packages/chord-symbol/blob/master/API.md)
+[See this file](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/API.md)
 
 ## Error handling
 
