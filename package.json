@@ -23,7 +23,7 @@
 		"babel-loader": "^8.2.2",
 		"cartesian": "^1.0.1",
 		"clean-webpack-plugin": "^4.0.0",
-		"eslint": "^8.1.0",
+		"eslint": "^8.10.0",
 		"jest": "^27.3.1",
 		"jsdoc-to-markdown": "^7.0.1",
 		"lerna": "^4.0.0",
