@@ -7,7 +7,7 @@
 		exports["chord-symbol"] = factory();
 	else
 		root["chord-symbol"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(typeof self !== 'undefined' ? self : this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 

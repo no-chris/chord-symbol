@@ -7,7 +7,7 @@
 		exports["chord-symbol-ultimateguitar"] = factory();
 	else
 		root["chord-symbol-ultimateguitar"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(typeof self !== 'undefined' ? self : this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	// The require scope
