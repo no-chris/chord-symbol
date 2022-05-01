@@ -13,7 +13,7 @@
 	},
 	"homepage": "https://github.com/no-chris/chord-symbol#readme",
 	"devDependencies": {
-		"@babel/cli": "^7.12.10",
+		"@babel/cli": "^7.17.10",
 		"@babel/core": "^7.14.2",
 		"@babel/preset-env": "^7.14.2",
 		"@rollup/plugin-commonjs": "^21.0.1",
