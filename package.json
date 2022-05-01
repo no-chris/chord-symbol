@@ -16,7 +16,7 @@
 		"@babel/cli": "^7.12.10",
 		"@babel/core": "^7.14.2",
 		"@babel/preset-env": "^7.14.2",
-		"@rollup/plugin-commonjs": "^21.0.1",
+		"@rollup/plugin-commonjs": "^22.0.0",
 		"@rollup/plugin-node-resolve": "^13.0.0",
 		"@size-limit/preset-small-lib": "^7.0.3",
 		"babel-jest": "^27.3.1",
