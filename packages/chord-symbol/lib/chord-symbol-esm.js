@@ -1305,45 +1305,45 @@ function stubFalse() {
 var stubFalse_1 = stubFalse;
 
 (function (module, exports) {
-var root = _root,
-    stubFalse = stubFalse_1;
+	var root = _root,
+	    stubFalse = stubFalse_1;
 
-/** Detect free variable `exports`. */
-var freeExports = exports && !exports.nodeType && exports;
+	/** Detect free variable `exports`. */
+	var freeExports = exports && !exports.nodeType && exports;
 
-/** Detect free variable `module`. */
-var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
 
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
 
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined;
+	/** Built-in value references. */
+	var Buffer = moduleExports ? root.Buffer : undefined;
 
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
 
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse;
+	/**
+	 * Checks if `value` is a buffer.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.3.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+	 * @example
+	 *
+	 * _.isBuffer(new Buffer(2));
+	 * // => true
+	 *
+	 * _.isBuffer(new Uint8Array(2));
+	 * // => false
+	 */
+	var isBuffer = nativeIsBuffer || stubFalse;
 
-module.exports = isBuffer;
-}(isBuffer$3, isBuffer$3.exports));
+	module.exports = isBuffer;
+} (isBuffer$3, isBuffer$3.exports));
 
 /** Used as references for various `Number` constants. */
 
@@ -1489,37 +1489,37 @@ var _baseUnary = baseUnary$4;
 var _nodeUtil = {exports: {}};
 
 (function (module, exports) {
-var freeGlobal = _freeGlobal;
+	var freeGlobal = _freeGlobal;
 
-/** Detect free variable `exports`. */
-var freeExports = exports && !exports.nodeType && exports;
+	/** Detect free variable `exports`. */
+	var freeExports = exports && !exports.nodeType && exports;
 
-/** Detect free variable `module`. */
-var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
 
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
 
-/** Detect free variable `process` from Node.js. */
-var freeProcess = moduleExports && freeGlobal.process;
+	/** Detect free variable `process` from Node.js. */
+	var freeProcess = moduleExports && freeGlobal.process;
 
-/** Used to access faster Node.js helpers. */
-var nodeUtil = (function() {
-  try {
-    // Use `util.types` for Node.js 10+.
-    var types = freeModule && freeModule.require && freeModule.require('util').types;
+	/** Used to access faster Node.js helpers. */
+	var nodeUtil = (function() {
+	  try {
+	    // Use `util.types` for Node.js 10+.
+	    var types = freeModule && freeModule.require && freeModule.require('util').types;
 
-    if (types) {
-      return types;
-    }
+	    if (types) {
+	      return types;
+	    }
 
-    // Legacy `process.binding('util')` for Node.js < 10.
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-  } catch (e) {}
-}());
+	    // Legacy `process.binding('util')` for Node.js < 10.
+	    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+	  } catch (e) {}
+	}());
 
-module.exports = nodeUtil;
-}(_nodeUtil, _nodeUtil.exports));
+	module.exports = nodeUtil;
+} (_nodeUtil, _nodeUtil.exports));
 
 var baseIsTypedArray = _baseIsTypedArray,
     baseUnary$3 = _baseUnary,
@@ -1874,42 +1874,42 @@ var _baseAssignIn = baseAssignIn$1;
 var _cloneBuffer = {exports: {}};
 
 (function (module, exports) {
-var root = _root;
+	var root = _root;
 
-/** Detect free variable `exports`. */
-var freeExports = exports && !exports.nodeType && exports;
+	/** Detect free variable `exports`. */
+	var freeExports = exports && !exports.nodeType && exports;
 
-/** Detect free variable `module`. */
-var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
 
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
 
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined,
-    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
+	/** Built-in value references. */
+	var Buffer = moduleExports ? root.Buffer : undefined,
+	    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
 
-/**
- * Creates a clone of  `buffer`.
- *
- * @private
- * @param {Buffer} buffer The buffer to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Buffer} Returns the cloned buffer.
- */
-function cloneBuffer(buffer, isDeep) {
-  if (isDeep) {
-    return buffer.slice();
-  }
-  var length = buffer.length,
-      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+	/**
+	 * Creates a clone of  `buffer`.
+	 *
+	 * @private
+	 * @param {Buffer} buffer The buffer to clone.
+	 * @param {boolean} [isDeep] Specify a deep clone.
+	 * @returns {Buffer} Returns the cloned buffer.
+	 */
+	function cloneBuffer(buffer, isDeep) {
+	  if (isDeep) {
+	    return buffer.slice();
+	  }
+	  var length = buffer.length,
+	      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
 
-  buffer.copy(result);
-  return result;
-}
+	  buffer.copy(result);
+	  return result;
+	}
 
-module.exports = cloneBuffer;
-}(_cloneBuffer, _cloneBuffer.exports));
+	module.exports = cloneBuffer;
+} (_cloneBuffer, _cloneBuffer.exports));
 
 /**
  * Copies the values of `source` to `array`.
