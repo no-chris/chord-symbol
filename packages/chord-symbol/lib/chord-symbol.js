@@ -6498,24 +6498,18 @@ var checkCustomFilters = function checkCustomFilters(customFilters) {
   if (!Array.isArray(customFilters)) {
     throw new TypeError('customFilters should be given as an array');
   }
-
   if (customFilters.some(function (filter) {
     return typeof filter !== 'function';
   })) {
     throw new TypeError("The given filter is not a function");
   }
-
   return true;
 };
-
 /* harmony default export */ const helpers_checkCustomFilters = (checkCustomFilters);
 ;// CONCATENATED MODULE: ./src/dictionaries/notes.js
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var notes = {
   AFlat: 'Ab',
   A: 'A',
@@ -6607,7 +6601,6 @@ var german = {
   G: notes.G,
   Gis: notes.GSharp
 };
-
 function getAccidentalsVariation(source) {
   var variant;
   return Object.keys(source).reduce(function (acc, curr) {
@@ -6615,19 +6608,13 @@ function getAccidentalsVariation(source) {
       variant = curr.replace('#', '♯').replace('b', '♭');
       acc[variant] = source[curr];
     }
-
     return acc;
   }, {});
 }
-
 var englishVariantsToNotes = _objectSpread(_objectSpread({}, english), getAccidentalsVariation(english));
-
 var latinVariantsToNotes = _objectSpread(_objectSpread({}, latin), getAccidentalsVariation(latin));
-
 var germanVariantsToNotes = _objectSpread({}, german);
-
 var allVariantsToNotes = _objectSpread(_objectSpread(_objectSpread({}, englishVariantsToNotes), latinVariantsToNotes), germanVariantsToNotes);
-
 var allVariants = Object.keys(allVariantsToNotes).sort(function (a, b) {
   return b.length - a.length;
 });
@@ -6653,102 +6640,68 @@ var allVariantsPerGroup = [{
 
 ;// CONCATENATED MODULE: ./src/helpers/ChordParsingError.js
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
-
 function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct.bind(); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 var InvalidInputError = /*#__PURE__*/function (_Error) {
   _inherits(InvalidInputError, _Error);
-
   var _super = _createSuper(InvalidInputError);
-
   /**
    *  The parser was not given a valid string to parse
    *  ex: `parseChord(null)`
    */
   function InvalidInputError() {
     var _this;
-
     _classCallCheck(this, InvalidInputError);
-
     _this = _super.call(this, 'The given symbol is not a valid string');
     _this.name = 'InvalidInput';
     return _this;
   }
-
   return _createClass(InvalidInputError);
 }( /*#__PURE__*/_wrapNativeSuper(Error));
-
 var UnexpectedError = /*#__PURE__*/function (_Error2) {
   _inherits(UnexpectedError, _Error2);
-
   var _super2 = _createSuper(UnexpectedError);
-
   /**
    * This error is very unlikely to happen.
    * If it does, it is probably in the context of a custom filter that returns `null` instead of throwing an exception.
    */
   function UnexpectedError() {
     var _this2;
-
     _classCallCheck(this, UnexpectedError);
-
     var message = 'An unexpected error happened. Maybe a custom filter returned null instead of throwing an exception?';
     _this2 = _super2.call(this, message);
     _this2.name = 'UnexpectedError';
     return _this2;
   }
-
   return _createClass(UnexpectedError);
 }( /*#__PURE__*/_wrapNativeSuper(Error));
-
 var ChordSymbolError = /*#__PURE__*/function (_Error3) {
   _inherits(ChordSymbolError, _Error3);
-
   var _super3 = _createSuper(ChordSymbolError);
-
   function ChordSymbolError(message, chord, errorName) {
     var _this3;
-
     _classCallCheck(this, ChordSymbolError);
-
     _this3 = _super3.call(this, message);
     _this3.name = errorName;
     _this3.chord = chord;
     return _this3;
   }
-
   return _createClass(ChordSymbolError);
 }( /*#__PURE__*/_wrapNativeSuper(Error));
-
 var NoSymbolFoundError = /*#__PURE__*/function (_ChordSymbolError) {
   _inherits(NoSymbolFoundError, _ChordSymbolError);
-
   var _super4 = _createSuper(NoSymbolFoundError);
-
   /**
    * The given string cannot be confused with a chord symbol in the current notation system
    * ex: `parseChord('Ape')`
@@ -6756,19 +6709,14 @@ var NoSymbolFoundError = /*#__PURE__*/function (_ChordSymbolError) {
    */
   function NoSymbolFoundError(chord) {
     _classCallCheck(this, NoSymbolFoundError);
-
     var message = "\"".concat(chord.input.symbol, "\" does not seems to be a chord");
     return _super4.call(this, message, chord, 'NoSymbolFound');
   }
-
   return _createClass(NoSymbolFoundError);
 }(ChordSymbolError);
-
 var InvalidModifierError = /*#__PURE__*/function (_ChordSymbolError2) {
   _inherits(InvalidModifierError, _ChordSymbolError2);
-
   var _super5 = _createSuper(InvalidModifierError);
-
   /**
    * The given string looks like a chord symbol, but `ChordSymbol` does not understand its descriptor.
    * It can be either because of a typo, or just because the given word is not a symbol.
@@ -6778,19 +6726,14 @@ var InvalidModifierError = /*#__PURE__*/function (_ChordSymbolError2) {
    */
   function InvalidModifierError(chord, invalidChars) {
     _classCallCheck(this, InvalidModifierError);
-
     var message = "The chord descriptor \"".concat(chord.input.descriptor, "\" contains unknown or duplicated modifiers: \"").concat(invalidChars, "\"");
     return _super5.call(this, message, chord, 'InvalidModifier');
   }
-
   return _createClass(InvalidModifierError);
 }(ChordSymbolError);
-
 var InvalidIntervalsError = /*#__PURE__*/function (_ChordSymbolError3) {
   _inherits(InvalidIntervalsError, _ChordSymbolError3);
-
   var _super6 = _createSuper(InvalidIntervalsError);
-
   /**
    * The given string is a chord symbol, but the resulting interval list is not valid
    * ex: `parseChord('A7M7')`
@@ -6799,14 +6742,11 @@ var InvalidIntervalsError = /*#__PURE__*/function (_ChordSymbolError3) {
    */
   function InvalidIntervalsError(chord, forbiddenCombo) {
     _classCallCheck(this, InvalidIntervalsError);
-
     var message = "\"".concat(chord.input.symbol, "\" describes a chord with an invalid intervals combo: ") + forbiddenCombo.join(' and ');
     return _super6.call(this, message, chord, 'InvalidIntervals');
   }
-
   return _createClass(InvalidIntervalsError);
 }(ChordSymbolError);
-
 
 // EXTERNAL MODULE: ./node_modules/lodash/isArray.js
 var isArray = __webpack_require__(1469);
@@ -6817,24 +6757,19 @@ var isEqual_default = /*#__PURE__*/__webpack_require__.n(isEqual);
 ;// CONCATENATED MODULE: ./src/helpers/hasElement.js
 
 
-
 function hasExactly(allIntervals, search) {
   var arraySearch = isArray_default()(search) ? search : [search];
   return isEqual_default()(allIntervals, arraySearch);
 }
-
 function hasOneOf(allIntervals, search) {
   return has(allIntervals, search, 'oneOf');
 }
-
 function hasAll(allIntervals, search) {
   return has(allIntervals, search, 'all');
 }
-
 function hasNoneOf(allIntervals, search) {
   return has(allIntervals, search, 'none');
 }
-
 function has(allIntervals, search, require) {
   var arraySearch = isArray_default()(search) ? search : [search];
   var lookupMethod = require === 'oneOf' ? 'some' : 'every';
@@ -6843,29 +6778,27 @@ function has(allIntervals, search, require) {
   });
 }
 
-
 ;// CONCATENATED MODULE: ./src/parser/filters/checkIntervalsConsistency.js
 
 
-var allForbiddenCombos = [['2', '3'], ['2', '9'], ['3', 'b3'], //['3',  '4'], // valid in the Real Book: F#7SUS(add 3)
+var allForbiddenCombos = [['2', '3'], ['2', '9'], ['3', 'b3'],
+//['3',  '4'], // valid in the Real Book: F#7SUS(add 3)
 ['4', '11'], ['5', 'b5'], ['5', '#5'], ['b6', '#5'], ['b6', '6'], ['b6', '13'], ['6', '13'], ['b7', 'bb7'], ['7', 'b7'], ['9', 'b9'], ['9', '#9'], ['11', '#11'], ['13', 'b13']];
+
 /**
  * Check parsed interval list to detect potential inconsistencies
  *
  * @param {Chord} chord
  * @returns {Chord|Null}
  */
-
 function checkIntervalsConsistency(chord) {
   var intervals = chord.normalized.intervals;
   var forbiddenCombo = allForbiddenCombos.find(function (combo) {
     return hasAll(intervals, combo);
   });
-
   if (forbiddenCombo) {
     throw new InvalidIntervalsError(chord, forbiddenCombo);
   }
-
   return chord;
 }
 ;// CONCATENATED MODULE: ./src/parser/filters/formatSymbol.js
@@ -6877,24 +6810,20 @@ function checkIntervalsConsistency(chord) {
  */
 function formatSymbol(chord) {
   var _chord$formatted = chord.formatted,
-      rootNote = _chord$formatted.rootNote,
-      bassNote = _chord$formatted.bassNote,
-      descriptor = _chord$formatted.descriptor,
-      chordChanges = _chord$formatted.chordChanges;
+    rootNote = _chord$formatted.rootNote,
+    bassNote = _chord$formatted.bassNote,
+    descriptor = _chord$formatted.descriptor,
+    chordChanges = _chord$formatted.chordChanges;
   var symbol = rootNote;
-
   if (descriptor) {
     symbol += descriptor;
   }
-
   if (chordChanges && chordChanges.length) {
     symbol += '(' + chordChanges.join(',') + ')';
   }
-
   if (bassNote) {
     symbol += '/' + bassNote;
   }
-
   chord.formatted.symbol = symbol;
   return chord;
 }
@@ -6919,21 +6848,13 @@ var minorQualities = [qualities.mi, qualities.mi6, qualities.mi7, qualities.miMa
 
 ;// CONCATENATED MODULE: ./src/parser/filters/formatSymbolParts.js
 var _qualityToDescriptor;
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function formatSymbolParts_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 var qualityToDescriptor = (_qualityToDescriptor = {}, formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.ma, function () {
@@ -6969,13 +6890,13 @@ var chordChangesDescriptors = {
   omit: 'omit',
   sus: 'sus'
 };
+
 /**
  * Pre-render the chord by formatting all his components: root and bass notes, descriptor and changes
  *
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function formatSymbolParts(chord) {
   chord.formatted = {
     rootNote: chord.normalized.rootNote,
@@ -6985,75 +6906,59 @@ function formatSymbolParts(chord) {
   };
   return chord;
 }
-
 function getDescriptor(chord) {
   var descriptor = qualityToDescriptor[chord.normalized.quality](chord);
-
   if (chord.normalized.isSuspended) {
     descriptor += chordChangesDescriptors.sus;
   }
-
   return descriptor;
 }
-
 function getHighestExtension(chord) {
   var extensions = chord.normalized.extensions;
   var highestExtension = extensions[extensions.length - 1];
-
   if (highestExtension === '11' && chord.normalized.intents.major) {
     highestExtension = hasNoneOf(chord.normalized.alterations, ['b9', '#9']) ? '9' : '7';
   }
-
   return highestExtension || '7';
 }
-
 function getChordChanges(chord) {
   var formattedOmits = formatOmits(chord.normalized.omits);
-
   if (isAltered(chord)) {
     return formattedOmits;
   }
-
   var formattedAdds = formatAdds(chord.normalized.quality, chord.normalized.adds);
   return [].concat(_toConsumableArray(chord.normalized.alterations), _toConsumableArray(formattedAdds), _toConsumableArray(formattedOmits));
 }
-
 function isAltered(chord) {
   return chord.normalized.intents.alt && chord.normalized.quality === qualities.dom7;
 }
-
 function formatAdds(quality, adds) {
   return adds.filter(function (add) {
     return !([qualities.ma6, qualities.mi6].includes(quality) && add === '9');
   }).map(function (add, index) {
     var formatted = '';
-
     if (index === 0) {
       formatted += chordChangesDescriptors.add;
-
       if (['b', '#'].includes(add[0])) {
         formatted += ' ';
       }
     }
-
     formatted += add === '7' ? chordChangesDescriptors.add7 : add;
     return formatted;
   });
 }
-
 function formatOmits(omits) {
   return omits.map(function (omitted, index) {
     var formatted = '';
-
     if (index === 0) {
       formatted += chordChangesDescriptors.omit;
     }
-
     formatted += omitted === 'b3' ? '3' : omitted;
     return formatted;
   });
 }
 ;// CONCATENATED MODULE: ./src/parser/filters/getParsableDescriptor.js
+
 
 /**
  * Prepare whatever string has been identified as a descriptor so it is parsable by the next filter
@@ -7061,31 +6966,24 @@ function formatOmits(omits) {
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function getParsableDescriptor(chord) {
   var allFilters = [toLowerCaseExceptMajorM, removeSpaces, addDisambiguators, addMissingVerbs];
-
   if (chord.input.descriptor) {
     chord.input.parsableDescriptor = chain(allFilters, chord.input.descriptor);
   }
-
   return chord;
 }
-
 function toLowerCaseExceptMajorM(descriptor) {
   return descriptor.replace(/[A-LN-Za-z]+/g, function (match) {
     return match.toLowerCase();
   }).replace('oMit', 'omit').replace('diM', 'dim').replace('augMented', 'augmented');
 }
-
 function removeSpaces(descriptor) {
   return descriptor.replace(/ /g, '');
 }
-
 function addDisambiguators(descriptor) {
   return descriptor.replace(/(7?dim)(alt|add)/g, '$1 $2').replace(/([m|M])(alt|add)/g, '$1 $2').replace(/i(no[35])/g, 'i $1').replace(/([b♭#♯]9)6/g, '$1 6').replace(/(9\/?6)/g, ' $1');
 }
-
 function addMissingVerbs(descriptor) {
   var allTokensWithVerbs;
   var currentVerb;
@@ -7095,7 +6993,6 @@ function addMissingVerbs(descriptor) {
     currentVerb = '';
     parenthesis.split(',').forEach(function (token) {
       hasVerb = true;
-
       if (token.startsWith('add')) {
         currentVerb = 'add';
       } else if (token.startsWith('omit')) {
@@ -7105,7 +7002,6 @@ function addMissingVerbs(descriptor) {
       } else {
         hasVerb = false;
       }
-
       if (hasVerb) {
         allTokensWithVerbs.push(token);
       } else {
@@ -7117,12 +7013,12 @@ function addMissingVerbs(descriptor) {
 }
 ;// CONCATENATED MODULE: ./src/parser/filters/initChord.js
 
+
 /**
  * @param {String} symbol
  * @param {Object} parserConfiguration
  * @returns {Chord}
  */
-
 function initChord() {
   var parserConfiguration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var symbol = arguments.length > 1 ? arguments[1] : undefined;
@@ -7137,21 +7033,13 @@ function initChord() {
 }
 ;// CONCATENATED MODULE: ./src/parser/filters/nameIndividualChordNotes.js
 var _rootNoteToScaleAccid;
-
 function nameIndividualChordNotes_toConsumableArray(arr) { return nameIndividualChordNotes_arrayWithoutHoles(arr) || nameIndividualChordNotes_iterableToArray(arr) || nameIndividualChordNotes_unsupportedIterableToArray(arr) || nameIndividualChordNotes_nonIterableSpread(); }
-
 function nameIndividualChordNotes_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function nameIndividualChordNotes_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return nameIndividualChordNotes_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nameIndividualChordNotes_arrayLikeToArray(o, minLen); }
-
 function nameIndividualChordNotes_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function nameIndividualChordNotes_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return nameIndividualChordNotes_arrayLikeToArray(arr); }
-
 function nameIndividualChordNotes_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function nameIndividualChordNotes_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 var notesSharp = [notes.A, notes.ASharp, notes.B, notes.C, notes.CSharp, notes.D, notes.DSharp, notes.E, notes.F, notes.FSharp, notes.G, notes.GSharp];
@@ -7208,13 +7096,13 @@ var rootNoteToScaleAccidentals = (_rootNoteToScaleAccid = {}, nameIndividualChor
   maj: 'sharp',
   min: 'sharp'
 }), _rootNoteToScaleAccid);
+
 /**
  * Convert intervals in actual notes.
  *
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function nameIndividualChordNotes(chord) {
   var rootNote = chord.normalized.rootNote;
   var semitones = chord.normalized.semitones;
@@ -7231,20 +7119,18 @@ function nameIndividualChordNotes(chord) {
 }
 ;// CONCATENATED MODULE: ./src/parser/filters/normalizeNotes.js
 
+
 /**
  * Convert root/bass notes to English names
  *
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function normalizeNotes(chord) {
   chord.normalized.rootNote = allVariantsToNotes[chord.input.rootNote];
-
   if (chord.input.bassNote) {
     chord.normalized.bassNote = allVariantsToNotes[chord.input.bassNote];
   }
-
   return chord;
 }
 // EXTERNAL MODULE: ./node_modules/lodash/clone.js
@@ -7261,21 +7147,13 @@ var without = __webpack_require__(2569);
 var without_default = /*#__PURE__*/__webpack_require__.n(without);
 ;// CONCATENATED MODULE: ./src/parser/filters/normalizeDescriptor.js
 function normalizeDescriptor_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function normalizeDescriptor_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? normalizeDescriptor_ownKeys(Object(source), !0).forEach(function (key) { normalizeDescriptor_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : normalizeDescriptor_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 function normalizeDescriptor_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function normalizeDescriptor_toConsumableArray(arr) { return normalizeDescriptor_arrayWithoutHoles(arr) || normalizeDescriptor_iterableToArray(arr) || normalizeDescriptor_unsupportedIterableToArray(arr) || normalizeDescriptor_nonIterableSpread(); }
-
 function normalizeDescriptor_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function normalizeDescriptor_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return normalizeDescriptor_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return normalizeDescriptor_arrayLikeToArray(o, minLen); }
-
 function normalizeDescriptor_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function normalizeDescriptor_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return normalizeDescriptor_arrayLikeToArray(arr); }
-
 function normalizeDescriptor_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
@@ -7291,10 +7169,8 @@ function normalizeDescriptor_arrayLikeToArray(arr, len) { if (len == null || len
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function normalizeDescriptor(chord) {
   var chordIntervals = clone_default()(chord.normalized.intervals);
-
   var normalized = {
     quality: '',
     isSuspended: false,
@@ -7303,7 +7179,6 @@ function normalizeDescriptor(chord) {
     adds: [],
     omits: []
   };
-
   if (isPowerChord(chordIntervals)) {
     normalized.quality = qualities.power;
   } else if (isBass(chordIntervals)) {
@@ -7311,21 +7186,18 @@ function normalizeDescriptor(chord) {
   } else {
     var omits = getOmits(chordIntervals, chord.normalized.intents.major);
     var isSuspended = getIsSuspended(chordIntervals, chord.normalized.intents.major);
-
     var _getChordQuality = getChordQuality(chordIntervals, chord, isSuspended, omits),
-        qualityIntervals = _getChordQuality.qualityIntervals,
-        quality = _getChordQuality.quality;
+      qualityIntervals = _getChordQuality.qualityIntervals,
+      quality = _getChordQuality.quality;
+    var extensions = getExtensions(chordIntervals, quality);
 
-    var extensions = getExtensions(chordIntervals, quality); // to be able to detect adds and alterations, we build the "straight" version of the chord,
+    // to be able to detect adds and alterations, we build the "straight" version of the chord,
     // ie. the chord as if no alterations/adds/omits where present.
     // we will compare this to the actual intervals later on
-
     var baseIntervals = ['1'].concat(normalizeDescriptor_toConsumableArray(qualityIntervals), normalizeDescriptor_toConsumableArray(extensions));
-
     var _getAddsAndAlteration = getAddsAndAlterations(chordIntervals, baseIntervals, quality),
-        adds = _getAddsAndAlteration.adds,
-        alterations = _getAddsAndAlteration.alterations;
-
+      adds = _getAddsAndAlteration.adds,
+      alterations = _getAddsAndAlteration.alterations;
     normalized = normalizeDescriptor_objectSpread(normalizeDescriptor_objectSpread({}, normalized), {}, {
       quality: quality,
       isSuspended: isSuspended,
@@ -7335,41 +7207,33 @@ function normalizeDescriptor(chord) {
       omits: omits
     });
   }
-
   return normalizeDescriptor_objectSpread(normalizeDescriptor_objectSpread({}, chord), {}, {
     normalized: normalizeDescriptor_objectSpread(normalizeDescriptor_objectSpread({}, chord.normalized), normalized)
   });
 }
-
 function isPowerChord(intervals) {
   return hasExactly(intervals, ['1', '5']);
 }
-
 function isBass(intervals) {
   return hasExactly(intervals, ['1']);
 }
-
 function getIsSuspended(intervals, hasMajorIntent) {
   return intervals.includes('4') || intervals.includes('11') && hasMajorIntent && !intervals.includes('3');
 }
-
 function getOmits(intervals, hasMajorIntent) {
   var omits = [];
-
   if (hasNoneOf(intervals, ['b3', '3', '4', '11']) || !hasMajorIntent && hasNoneOf(intervals, ['b3', '4'])) {
     omits.push(hasMajorIntent ? '3' : 'b3');
   }
-
   if (hasNoneOf(intervals, ['b5', '5', '#5', 'b13'])) {
     omits.push('5');
   }
-
   return omits;
 }
-
 function getChordQuality(allIntervals, chord, isSuspended, omits) {
   var intervalsForQualityDetection = getIntervalsForQualityDetection(allIntervals, chord, isSuspended, omits);
-  var intervalsToQualities = [// !!! do not change order without a good reason
+  var intervalsToQualities = [
+  // !!! do not change order without a good reason
   {
     qualityIntervals: ['b3'],
     quality: qualities.mi
@@ -7409,52 +7273,41 @@ function getChordQuality(allIntervals, chord, isSuspended, omits) {
   return find_default()(intervalsToQualities, function (o) {
     return hasAll(intervalsForQualityDetection, o.qualityIntervals);
   });
-} // To properly detect the chord quality, we need a "straight" version of the chord,
+}
+
+// To properly detect the chord quality, we need a "straight" version of the chord,
 // meaning with a third interval (= un-suspended, no omit3)
-
-
 function getIntervalsForQualityDetection(allIntervals, chord, isSuspended, omits) {
   var allFilters = [undoOmit3.bind(null, omits), undoSuspension.bind(null, isSuspended, chord.normalized.intents.major), undoAlt5.bind(null, chord.normalized.intents.alt), (uniq_default())];
   return chain(allFilters, clone_default()(allIntervals));
 }
-
 function undoOmit3(omits, allIntervals) {
   var with3rd = clone_default()(allIntervals);
-
   if (omits.includes('3')) {
     with3rd.push('3');
   } else if (omits.includes('b3')) {
     with3rd.push('b3');
   }
-
   return with3rd;
 }
-
 function undoSuspension(isSuspended, hasMajorIntent, allIntervals) {
   if (isSuspended) {
     var unSuspended = without_default()(allIntervals, '4');
-
     unSuspended.push(hasMajorIntent ? '3' : 'b3');
     return unSuspended;
   }
-
   return allIntervals;
 }
-
 function undoAlt5(isAlt, allIntervals) {
   if (isAlt) {
     var unaltered = without_default()(allIntervals, 'b5', '#5');
-
     unaltered.push('5');
     return unaltered;
   }
-
   return allIntervals;
 }
-
 function getExtensions(allIntervals, quality) {
   var extensions = [];
-
   if (canBeExtended(quality)) {
     if (isMinorExtended13th(allIntervals, quality)) {
       extensions.push('9', '11', '13');
@@ -7466,34 +7319,26 @@ function getExtensions(allIntervals, quality) {
       extensions.push('9');
     }
   }
-
   return extensions;
 }
-
 function canBeExtended(quality) {
   return [qualities.ma7, qualities.dom7, qualities.mi7, qualities.miMa7].includes(quality);
 }
-
 function canHave11th(quality) {
   return [qualities.mi7, qualities.miMa7].includes(quality);
 }
-
 function isMinorExtended13th(allIntervals, quality) {
   return canHave11th(quality) && hasOneOf(allIntervals, '13') && hasOneOf(allIntervals, ['11', '#11']) && hasOneOf(allIntervals, ['b9', '9', '#9']);
 }
-
 function isMajorExtended13th(allIntervals, quality) {
   return !canHave11th(quality) && hasOneOf(allIntervals, '13') && hasOneOf(allIntervals, ['b9', '9', '#9']);
 }
-
 function isExtended11th(allIntervals) {
   return hasOneOf(allIntervals, '11') && hasOneOf(allIntervals, ['b9', '9', '#9']);
 }
-
 function isExtended9th(allIntervals) {
   return allIntervals.includes('9');
 }
-
 function getAddsAndAlterations(chordIntervals, baseIntervals, quality) {
   var adds = [];
   var alterations = [];
@@ -7508,28 +7353,22 @@ function getAddsAndAlterations(chordIntervals, baseIntervals, quality) {
       }
     }
   });
-
   if (hasAdd3(chordIntervals)) {
     adds.push('3');
   }
-
   return {
     adds: sortIntervals(adds),
     alterations: sortIntervals(alterations)
   };
 }
-
 function isAlteration(quality, interval) {
   var _qualityAlterations;
-
   var qualityAlterations = (_qualityAlterations = {}, normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma6, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma7, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dom7, ['b5', '#5', 'b9', '#9', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.mi, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.mi6, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.mi7, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.miMa7, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.aug, []), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dim, []), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dim7, []), _qualityAlterations);
   return qualityAlterations[quality].includes(interval);
 }
-
 function hasAdd3(allIntervals) {
   return hasAll(allIntervals, ['3', '4']);
 }
-
 function sortIntervals(intervals) {
   return intervals.sort(function (a, b) {
     var sortableA = Number.parseInt(a.replace(/[b#]/, ''));
@@ -7539,6 +7378,7 @@ function sortIntervals(intervals) {
 }
 ;// CONCATENATED MODULE: ./src/parser/filters/parseBase.js
 
+
 /**
  * Split symbol in root/bass note and descriptor.
  * Returns null if the given string does not seems to be a chord.
@@ -7547,24 +7387,19 @@ function sortIntervals(intervals) {
  * @param {Chord} chord
  * @returns {Chord|null}
  */
-
 function parseBase(noteVariants, chord) {
   var symbol = chord.input.symbol;
   var notesRegex = noteVariants.join('|');
   var notesAndDescriptorRegex = new RegExp('^' + '(' + notesRegex + ')' + '(.*?)' + '(/(' + notesRegex + '))?' + '$');
   var result = symbol.match(notesAndDescriptorRegex);
-
   if (result && result[1]) {
     chord.input.rootNote = result[1];
-
     if (result[2]) {
       chord.input.descriptor = result[2];
     }
-
     if (result[4]) {
       chord.input.bassNote = result[4];
     }
-
     return chord;
   } else {
     throw new NoSymbolFoundError(chord);
@@ -7572,11 +7407,8 @@ function parseBase(noteVariants, chord) {
 }
 ;// CONCATENATED MODULE: ./src/dictionaries/modifiers.js
 function modifiers_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function modifiers_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? modifiers_ownKeys(Object(source), !0).forEach(function (key) { modifiers_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : modifiers_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 function modifiers_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var allModifiers = {
   // base
   ma: 'ma',
@@ -7616,6 +7448,7 @@ var allModifiers = {
   power: 'power',
   alt: 'alt'
 };
+
 /**
  * WARNING: when adding new modifiers symbols, be careful of possible edge cases that might arise with some combinations.
  * For example, without edge case handling, "madd9" would be parsed as "ma" instead of "m"+"add9"
@@ -7638,7 +7471,6 @@ var major7th = getDerivedModifiers(major, allModifiers.add7, function (symbol) {
 var add7 = getDerivedModifiers(major, allModifiers.add7, function (symbol) {
   return 'add' + symbol + '7';
 });
-
 var allSymbols = modifiers_objectSpread(modifiers_objectSpread(modifiers_objectSpread(modifiers_objectSpread({}, major), major7th), {}, {
   // minor
   '-': allModifiers.mi,
@@ -7724,14 +7556,12 @@ var allSymbols = modifiers_objectSpread(modifiers_objectSpread(modifiers_objectS
   'alt.': allModifiers.alt,
   altered: allModifiers.alt
 });
-
 function getDerivedModifiers(source, modifierId, derivedFn) {
   return Object.keys(source).map(derivedFn).reduce(function (acc, curr) {
     acc[curr] = modifierId;
     return acc;
   }, {});
 }
-
 var modifiers_allVariants = Object.keys(allSymbols).sort(function (a, b) {
   return b.length - a.length;
 });
@@ -7762,15 +7592,10 @@ var modifiers_allVariants = Object.keys(allSymbols).sort(function (a, b) {
 });
 ;// CONCATENATED MODULE: ./src/parser/filters/parseDescriptor.js
 function parseDescriptor_toConsumableArray(arr) { return parseDescriptor_arrayWithoutHoles(arr) || parseDescriptor_iterableToArray(arr) || parseDescriptor_unsupportedIterableToArray(arr) || parseDescriptor_nonIterableSpread(); }
-
 function parseDescriptor_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function parseDescriptor_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return parseDescriptor_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return parseDescriptor_arrayLikeToArray(o, minLen); }
-
 function parseDescriptor_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function parseDescriptor_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return parseDescriptor_arrayLikeToArray(arr); }
-
 function parseDescriptor_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
@@ -7786,21 +7611,17 @@ function parseDescriptor_arrayLikeToArray(arr, len) { if (len == null || len > a
  * @param {Chord} chord
  * @returns {Chord|Null}
  */
-
 function parseDescriptor(altIntervals, chord) {
   var allModifiers = [];
-
   if (chord.input.parsableDescriptor) {
     allModifiers = getModifiers(chord);
   }
-
   chord.input.modifiers = allModifiers;
   chord.normalized.intervals = getIntervals(allModifiers, altIntervals);
   chord.normalized.semitones = getSemitones(chord.normalized.intervals);
   chord.normalized.intents = getIntents(allModifiers);
   return chord;
 }
-
 function getModifiers(chord) {
   var parsableDescriptor = chord.input.parsableDescriptor;
   var modifiers = [];
@@ -7808,56 +7629,44 @@ function getModifiers(chord) {
   var descriptorMatches = parsableDescriptor.match(descriptorRegex);
   var remainingChars = parsableDescriptor;
   var allModifiersId;
-
   if (descriptorMatches) {
     descriptorMatches.forEach(function (match) {
       allModifiersId = allSymbols[match];
-
       if (!Array.isArray(allModifiersId)) {
         allModifiersId = [allModifiersId];
       }
-
       allModifiersId.forEach(function (modifierId) {
         if (modifiers.includes(modifierId)) {
           return;
         }
-
         modifiers.push(modifierId);
         remainingChars = remainingChars.replace(match, '');
       });
     });
   }
-
   if (modifiers.length === 0) {
     throw new NoSymbolFoundError(chord);
   }
-
   if (remainingChars.trim().length > 0) {
     throw new InvalidModifierError(chord, remainingChars);
   }
-
   return modifiers;
 }
-
 function getIntervals(allModifiers, altIntervals) {
   if (allModifiers.includes(modifiers.power)) {
     return ['1', '5'];
   } else if (allModifiers.includes(modifiers.bass)) {
     return ['1'];
   }
-
   return uniq_default()(['1'].concat(parseDescriptor_toConsumableArray(getThird(allModifiers)), parseDescriptor_toConsumableArray(getFourth(allModifiers)), parseDescriptor_toConsumableArray(getFifths(allModifiers, altIntervals)), parseDescriptor_toConsumableArray(getSixth(allModifiers)), parseDescriptor_toConsumableArray(getSevenths(allModifiers)), parseDescriptor_toConsumableArray(getNinths(allModifiers, altIntervals)), parseDescriptor_toConsumableArray(getElevenths(allModifiers, altIntervals)), parseDescriptor_toConsumableArray(getThirteenths(allModifiers, altIntervals)))).sort(function (a, b) {
     return intervalsToSemitones[a] - intervalsToSemitones[b];
   });
 }
-
 function getThird(allModifiers) {
   var third = [];
-
   if (allModifiers.includes(modifiers.omit3)) {
     return [];
   }
-
   if (!hasOneOf(allModifiers, [modifiers.sus, modifiers.sus2])) {
     if (!hasMajorIntent(allModifiers)) {
       third.push('b3');
@@ -7865,67 +7674,49 @@ function getThird(allModifiers) {
       third.push('3');
     }
   }
-
   if (allModifiers.includes(modifiers.add3)) {
     third.push('3');
   }
-
   return third;
 }
-
 function getFourth(allModifiers) {
   var fourth = [];
-
   if (hasOneOf(allModifiers, [modifiers.sus, modifiers.add4])) {
     fourth.push('4');
   }
-
   return fourth;
 }
-
 function getFifths(allModifiers, altIntervals) {
   var fifths = [];
-
   if (allModifiers.includes(modifiers.omit5)) {
     return [];
   }
-
   if (hasOneOf(allModifiers, [modifiers.dim, modifiers.halfDim, modifiers.fifthFlat]) || shouldAlter(allModifiers, altIntervals, 'b5')) {
     fifths.push('b5');
   }
-
   if (hasOneOf(allModifiers, [modifiers.aug, modifiers.fifthSharp]) || shouldAlter(allModifiers, altIntervals, '#5')) {
     fifths.push('#5');
   }
-
   if (!fifths.length && !allModifiers.includes(modifiers.thirteenthFlat)) {
     fifths.push('5');
   }
-
   return fifths;
 }
-
 function getSixth(allModifiers) {
   var sixth = [];
-
   if (hasOneOf(allModifiers, [modifiers.addb6])) {
     sixth.push('b6');
   }
-
   if (hasOneOf(allModifiers, [modifiers.add6, modifiers.add69]) && !isExtended(allModifiers) && !hasOneOf(allModifiers, [modifiers.halfDim])) {
     sixth.push('6');
   }
-
   return sixth;
 }
-
 function getSevenths(allModifiers) {
   var sevenths = [];
-
   if (hasOneOf(allModifiers, [modifiers.alt])) {
     sevenths.push('b7');
   }
-
   if (hasOneOf(allModifiers, [modifiers.seventh, modifiers.halfDim])) {
     if (allModifiers.includes(modifiers.dim)) {
       sevenths.push('bb7');
@@ -7937,96 +7728,75 @@ function getSevenths(allModifiers) {
   } else if (hasOneOf(allModifiers, [modifiers.ninth, modifiers.eleventh, modifiers.thirteenth])) {
     sevenths.push(getMinorOrMajorSeventh(allModifiers));
   }
-
   if (allModifiers.includes(modifiers.add7)) {
     sevenths.push('7');
   }
-
   return sevenths;
 }
-
 function getMinorOrMajorSeventh(allModifiers) {
   return allModifiers.includes(modifiers.ma) ? '7' : 'b7';
 }
-
 function getNinths(allModifiers, altIntervals) {
   var ninth = [];
-
   if (hasOneOf(allModifiers, [modifiers.add69, modifiers.ninth, modifiers.eleventh, modifiers.thirteenth]) && hasNoneOf(allModifiers, [modifiers.ninthFlat, modifiers.ninthSharp])) {
     ninth.push('9');
   }
-
   if (hasOneOf(allModifiers, [modifiers.sus2, modifiers.add9])) {
     ninth.push('9');
   }
-
   if (hasOneOf(allModifiers, [modifiers.ninthFlat]) || shouldAlter(allModifiers, altIntervals, 'b9')) {
     ninth.push('b9');
   }
-
   if (hasOneOf(allModifiers, [modifiers.ninthSharp]) || shouldAlter(allModifiers, altIntervals, '#9')) {
     ninth.push('#9');
   }
-
   return ninth;
 }
-
 function getElevenths(allModifiers, altIntervals) {
   var elevenths = [];
-
   if (hasOneOf(allModifiers, [modifiers.thirteenth]) && !hasMajorIntent(allModifiers)) {
     elevenths.push('11');
   } else if (hasOneOf(allModifiers, [modifiers.eleventh, modifiers.add11])) {
     elevenths.push('11');
   }
-
   if (hasOneOf(allModifiers, [modifiers.eleventhSharp]) || shouldAlter(allModifiers, altIntervals, '#11')) {
     elevenths.push('#11');
   }
-
   return elevenths;
 }
-
 function getThirteenths(allModifiers, altIntervals) {
   var thirteenths = [];
-
   if (hasOneOf(allModifiers, [modifiers.add13, modifiers.thirteenth]) || hasOneOf(allModifiers, [modifiers.add6, modifiers.add69]) && isExtended(allModifiers) || hasOneOf(allModifiers, [modifiers.add6, modifiers.add69]) && hasOneOf(allModifiers, [modifiers.halfDim])) {
     thirteenths.push('13');
   }
-
   if (hasOneOf(allModifiers, [modifiers.thirteenthFlat]) || shouldAlter(allModifiers, altIntervals, 'b13')) {
     thirteenths.push('b13');
   }
-
   return thirteenths;
 }
-
 function shouldAlter(allModifiers, altIntervals, interval) {
   return allModifiers.includes(modifiers.alt) && altIntervals.includes(interval);
 }
-
 function hasMajorIntent(allModifiers) {
   return hasNoneOf(allModifiers, [modifiers.mi, modifiers.dim, modifiers.dim7, modifiers.halfDim]);
 }
-
 function isExtended(allModifiers) {
   return hasOneOf(allModifiers, [modifiers.seventh, modifiers.ninth, modifiers.eleventh, modifiers.thirteenth]);
-} // Based on https://stackoverflow.com/a/6969486
+}
 
-
+// Based on https://stackoverflow.com/a/6969486
 function escapeRegex(string) {
   return string.replace(/[.\-*+?^${}()|[\]\\]/g, '\\$&');
 }
-
 function getSemitones(allIntervals) {
   return allIntervals.map(function (interval) {
     return intervalsToSemitones[interval];
   }).sort(function (a, b) {
     return a - b;
   });
-} // intents will be used later at formatting for disambiguation of some potentially confusing cases
+}
 
-
+// intents will be used later at formatting for disambiguation of some potentially confusing cases
 function getIntents(allModifiers) {
   return {
     major: hasMajorIntent(allModifiers),
@@ -8036,15 +7806,10 @@ function getIntents(allModifiers) {
 }
 ;// CONCATENATED MODULE: ./src/parser/chordParserFactory.js
 function chordParserFactory_toConsumableArray(arr) { return chordParserFactory_arrayWithoutHoles(arr) || chordParserFactory_iterableToArray(arr) || chordParserFactory_unsupportedIterableToArray(arr) || chordParserFactory_nonIterableSpread(); }
-
 function chordParserFactory_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function chordParserFactory_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return chordParserFactory_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return chordParserFactory_arrayLikeToArray(o, minLen); }
-
 function chordParserFactory_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function chordParserFactory_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return chordParserFactory_arrayLikeToArray(arr); }
-
 function chordParserFactory_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
@@ -8067,51 +7832,44 @@ function chordParserFactory_arrayLikeToArray(arr, len) { if (len == null || len 
  * @param {ParserConfiguration} [parserConfiguration]
  * @returns {function(String): Chord}
  */
-
 function chordParserFactory() {
   var parserConfiguration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var allAltIntervals = ['b5', '#5', 'b9', '#9', '#11', 'b13'];
   var allNotationSystems = ['english', 'german', 'latin'];
   var _parserConfiguration$ = parserConfiguration.notationSystems,
-      notationSystems = _parserConfiguration$ === void 0 ? cloneDeep_default()(allNotationSystems) : _parserConfiguration$,
-      _parserConfiguration$2 = parserConfiguration.altIntervals,
-      altIntervals = _parserConfiguration$2 === void 0 ? cloneDeep_default()(allAltIntervals) : _parserConfiguration$2,
-      _parserConfiguration$3 = parserConfiguration.customFilters,
-      customFilters = _parserConfiguration$3 === void 0 ? [] : _parserConfiguration$3;
+    notationSystems = _parserConfiguration$ === void 0 ? cloneDeep_default()(allNotationSystems) : _parserConfiguration$,
+    _parserConfiguration$2 = parserConfiguration.altIntervals,
+    altIntervals = _parserConfiguration$2 === void 0 ? cloneDeep_default()(allAltIntervals) : _parserConfiguration$2,
+    _parserConfiguration$3 = parserConfiguration.customFilters,
+    customFilters = _parserConfiguration$3 === void 0 ? [] : _parserConfiguration$3;
   checkAltIntervals(altIntervals, allAltIntervals);
   checkNotationSystems(notationSystems, allNotationSystems);
   helpers_checkCustomFilters(customFilters);
   return parseChord;
+
   /**
    * Convert an input string into an abstract chord structure
    * @param {String} symbol - the chord symbol candidate
    * @returns {Chord|Object} A chord object if the given string is successfully parsed. An object with an `error` property otherwise.
    */
-
   function parseChord(symbol) {
     var allErrors = [];
-
     if (!isInputValid(symbol)) {
       var e = new InvalidInputError();
       allErrors.push(formatError(e));
     }
-
     var allVariantsPerGroupCopy = cloneDeep_default()(allVariantsPerGroup).filter(function (variantsGroup) {
       return notationSystems.includes(variantsGroup.name);
     });
-
     var chord;
     var allFilters;
     var variants;
-
     if (!allErrors.length) {
       while (allVariantsPerGroupCopy.length && !chord) {
         variants = allVariantsPerGroupCopy.shift();
         allFilters = [initChord.bind(null, parserConfiguration), parseBase.bind(null, variants.notes), getParsableDescriptor, parseDescriptor.bind(null, altIntervals), checkIntervalsConsistency, normalizeNotes, normalizeDescriptor, formatSymbolParts, formatSymbol, nameIndividualChordNotes].concat(chordParserFactory_toConsumableArray(customFilters));
-
         try {
           chord = chain(allFilters, symbol);
-
           if (chord) {
             chord.input.notationSystem = variants.name;
           } else {
@@ -8122,46 +7880,37 @@ function chordParserFactory() {
         }
       }
     }
-
     return chord ? chord : {
       error: allErrors
     };
   }
 }
-
 function checkAltIntervals(altIntervals, allAltIntervals) {
   checkArray('altIntervals', altIntervals, allAltIntervals, true);
 }
-
 function checkNotationSystems(notationSystems, allNotationSystems) {
   checkArray('notationSystems', notationSystems, allNotationSystems);
 }
-
 function checkArray(arrayName, arrayToTest, allowedValues, allowEmpty) {
   if (!Array.isArray(arrayToTest)) {
     throw new TypeError("'".concat(arrayName, "' should be an array"));
   }
-
   if (!allowEmpty && arrayToTest.length === 0) {
     throw new TypeError("'".concat(arrayName, "' cannot be empty"));
   }
-
   arrayToTest.forEach(function (system) {
     if (!allowedValues.includes(system)) {
       throw new TypeError("'".concat(system, "' is not a valid value for ").concat(arrayName));
     }
   });
 }
-
 function isInputValid(input) {
   return typeof input === 'string' && input.length > 0;
 }
-
 function getUnexpectedError(notationSystem) {
   var error = new UnexpectedError();
   return formatError(error, notationSystem);
 }
-
 function formatError(exceptionError, notationSystem) {
   return {
     type: exceptionError.name,
@@ -8170,20 +7919,16 @@ function formatError(exceptionError, notationSystem) {
     notationSystem: notationSystem
   };
 }
+
 /**
  * @module chordParserFactory
  * Expose the chordParserFactory() function
  */
-
-
 /* harmony default export */ const parser_chordParserFactory = (chordParserFactory);
 ;// CONCATENATED MODULE: ./src/renderer/filters/shortenNormalized.js
 function shortenNormalized_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function shortenNormalized_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? shortenNormalized_ownKeys(Object(source), !0).forEach(function (key) { shortenNormalized_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : shortenNormalized_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 function shortenNormalized_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 var shortDescriptors = {
   sus2: 'sus2',
@@ -8195,15 +7940,14 @@ var shortDescriptors = {
   aug7: '7+',
   eleventh: '11'
 };
+
 /**
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function shortenNormalized(chord) {
   var descriptor;
   var chordChanges = chord.formatted.chordChanges;
-
   if (isSus2(chord)) {
     descriptor = shortDescriptors.sus2;
     chordChanges = [];
@@ -8215,12 +7959,10 @@ function shortenNormalized(chord) {
     chordChanges = [];
   } else {
     descriptor = chord.formatted.descriptor.replace('mi', shortDescriptors.mi).replace(/[m|M]a/, shortDescriptors.ma).replace('dim', shortDescriptors.dim);
-
     if (isEleventh(chord)) {
       descriptor = descriptor.replace(/7sus|9sus/, shortDescriptors.eleventh);
     }
   }
-
   chordChanges = chordChanges.map(function (change) {
     return change.replace(/[m|M]a/, shortDescriptors.ma).replace('omit', shortDescriptors.omit);
   });
@@ -8231,19 +7973,15 @@ function shortenNormalized(chord) {
     })
   });
 }
-
 function isSus2(chord) {
   return hasExactly(chord.normalized.intervals, ['1', '5', '9']);
 }
-
 function isAdd2(chord) {
   return hasExactly(chord.normalized.intervals, ['1', '3', '5', '9']);
 }
-
 function isAug7(chord) {
   return hasExactly(chord.normalized.intervals, ['1', '3', '#5', 'b7']);
 }
-
 function isEleventh(chord) {
   return chord.normalized.intents.eleventh;
 }
@@ -8258,46 +7996,38 @@ var difference_default = /*#__PURE__*/__webpack_require__.n(difference);
 
 
 
+
 /**
  * @param {Chord} chord
  * @param {('none'|'max'|'core')} level
  * @returns {Chord}
  */
-
 function simplify_simplify() {
   var level = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'none';
   var chord = arguments.length > 1 ? arguments[1] : undefined;
-
   if (level === 'none') {
     return chord;
   }
-
   var intervalsToRemove = {
     max: ['4', 'b5', '#5', '6', 'bb7', 'b7', '7', 'b9', '9', '#9', '11', '#11', 'b13', '13'],
     core: ['4', 'b9', '9', '#9', '11', '#11', 'b13', '13']
   };
-
   var intervals = difference_default()(chord.normalized.intervals, intervalsToRemove[level]);
-
   if (hasNoneOf(intervals, ['b3', '3'])) {
     intervals.push(chord.normalized.intents.major ? '3' : 'b3');
   }
-
   if (hasNoneOf(intervals, ['b5', '5', '#5'])) {
     intervals.push('5');
   }
-
   chord.normalized.intervals = intervals;
   chord.normalized.semitones = intervals.map(function (interval) {
     return intervalsToSemitones[interval];
   });
   chord.normalized.intents.eleventh = false;
   chord.normalized.intents.alt = false;
-
   if (level === 'max') {
     delete chord.normalized.bassNote;
   }
-
   var allFilters = [normalizeDescriptor, formatSymbolParts, nameIndividualChordNotes];
   return chain(allFilters, chord);
 }
@@ -8315,26 +8045,21 @@ var sharpsToFlats = {
   'G#': 'Ab',
   'A#': 'Bb'
 };
-
 var flatsToSharps = invert_default()(sharpsToFlats);
-
 function transpose(transposeValue, useFlats, chord) {
   var _chord$normalized = chord.normalized,
-      rootNote = _chord$normalized.rootNote,
-      bassNote = _chord$normalized.bassNote;
+    rootNote = _chord$normalized.rootNote,
+    bassNote = _chord$normalized.bassNote;
   var rootSharp = convertToSharp(rootNote);
   chord.normalized.rootNote = transposeNote(rootSharp, transposeValue, useFlats);
   chord.formatted.rootNote = chord.normalized.rootNote;
-
   if (bassNote) {
     var bassSharp = convertToSharp(bassNote);
     chord.normalized.bassNote = transposeNote(bassSharp, transposeValue, useFlats);
     chord.formatted.bassNote = chord.normalized.bassNote;
   }
-
   return nameIndividualChordNotes(chord);
 }
-
 function transposeNote(note, value, useFlats) {
   var noteIndex = transpose_notes.indexOf(note);
   var transposedIndex = noteIndex + value;
@@ -8343,7 +8068,6 @@ function transposeNote(note, value, useFlats) {
   var transposed = transpose_notes[correctedTransposedIndex];
   return useFlats ? sharpsToFlats[transposed] || transposed : transposed;
 }
-
 function convertToSharp(note) {
   return flatsToSharps[note] || note;
 }
@@ -8389,12 +8113,12 @@ var translationTables = {
   }
 };
 var allNotationSystems = Object.keys(translationTables);
+
 /**
  * @param {('auto'|'english'|'german'|'latin')} notationSystem
  * @param {Chord} chord
  * @returns {Chord|Null}
  */
-
 function convertNotationSystem() {
   var notationSystem = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'english';
   var chord = arguments.length > 1 ? arguments[1] : undefined;
@@ -8402,11 +8126,9 @@ function convertNotationSystem() {
   if (finalNotationSystem === 'english') return chord;
   if (!allNotationSystems.includes(finalNotationSystem)) return null;
   chord.formatted.rootNote = translationTables[finalNotationSystem][chord.formatted.rootNote];
-
   if (chord.formatted.bassNote) {
     chord.formatted.bassNote = translationTables[finalNotationSystem][chord.formatted.bassNote];
   }
-
   return chord;
 }
 ;// CONCATENATED MODULE: ./src/renderer/printer/text.js
@@ -8421,6 +8143,7 @@ function textPrinter(chord) {
 
 
 
+
 /**
  * This printer returns a `chord` object reflecting the applied rendering filters. This object is very close to what would
  * be obtained by re-parsing the rendered chord.
@@ -8431,14 +8154,12 @@ function textPrinter(chord) {
  * @param {Chord} chord
  * @returns {Chord}
  */
-
 function rawPrinter(chord) {
   // make sure the chord can be re-parsed, whichever notation system was used for the rendering
   delete chord.parserConfiguration.notationSystems;
+  var cloned = cloneDeep_default()(chord);
 
-  var cloned = cloneDeep_default()(chord); // Re-parse the rendered chord to get the 'input' property right
-
-
+  // Re-parse the rendered chord to get the 'input' property right
   var textPrinted = textPrinter(chord);
   var parseChord = parser_chordParserFactory(chord.parserConfiguration);
   var reParsed = parseChord(textPrinted);
@@ -8447,17 +8168,11 @@ function rawPrinter(chord) {
 }
 ;// CONCATENATED MODULE: ./src/renderer/chordRendererFactory.js
 function chordRendererFactory_typeof(obj) { "@babel/helpers - typeof"; return chordRendererFactory_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, chordRendererFactory_typeof(obj); }
-
 function chordRendererFactory_toConsumableArray(arr) { return chordRendererFactory_arrayWithoutHoles(arr) || chordRendererFactory_iterableToArray(arr) || chordRendererFactory_unsupportedIterableToArray(arr) || chordRendererFactory_nonIterableSpread(); }
-
 function chordRendererFactory_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function chordRendererFactory_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return chordRendererFactory_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return chordRendererFactory_arrayLikeToArray(o, minLen); }
-
 function chordRendererFactory_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
 function chordRendererFactory_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return chordRendererFactory_arrayLikeToArray(arr); }
-
 function chordRendererFactory_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
@@ -8475,68 +8190,59 @@ function chordRendererFactory_arrayLikeToArray(arr, len) { if (len == null || le
  * @param {RendererConfiguration} [rendererConfiguration]
  * @returns {function(Chord): String}
  */
-
 function chordRendererFactory() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref$useShortNamings = _ref.useShortNamings,
-      useShortNamings = _ref$useShortNamings === void 0 ? false : _ref$useShortNamings,
-      _ref$simplify = _ref.simplify,
-      simplify = _ref$simplify === void 0 ? 'none' : _ref$simplify,
-      _ref$transposeValue = _ref.transposeValue,
-      transposeValue = _ref$transposeValue === void 0 ? 0 : _ref$transposeValue,
-      _ref$harmonizeAcciden = _ref.harmonizeAccidentals,
-      harmonizeAccidentals = _ref$harmonizeAcciden === void 0 ? false : _ref$harmonizeAcciden,
-      _ref$useFlats = _ref.useFlats,
-      useFlats = _ref$useFlats === void 0 ? false : _ref$useFlats,
-      _ref$printer = _ref.printer,
-      printer = _ref$printer === void 0 ? 'text' : _ref$printer,
-      _ref$notationSystem = _ref.notationSystem,
-      notationSystem = _ref$notationSystem === void 0 ? 'english' : _ref$notationSystem,
-      _ref$customFilters = _ref.customFilters,
-      customFilters = _ref$customFilters === void 0 ? [] : _ref$customFilters;
-
+    _ref$useShortNamings = _ref.useShortNamings,
+    useShortNamings = _ref$useShortNamings === void 0 ? false : _ref$useShortNamings,
+    _ref$simplify = _ref.simplify,
+    simplify = _ref$simplify === void 0 ? 'none' : _ref$simplify,
+    _ref$transposeValue = _ref.transposeValue,
+    transposeValue = _ref$transposeValue === void 0 ? 0 : _ref$transposeValue,
+    _ref$harmonizeAcciden = _ref.harmonizeAccidentals,
+    harmonizeAccidentals = _ref$harmonizeAcciden === void 0 ? false : _ref$harmonizeAcciden,
+    _ref$useFlats = _ref.useFlats,
+    useFlats = _ref$useFlats === void 0 ? false : _ref$useFlats,
+    _ref$printer = _ref.printer,
+    printer = _ref$printer === void 0 ? 'text' : _ref$printer,
+    _ref$notationSystem = _ref.notationSystem,
+    notationSystem = _ref$notationSystem === void 0 ? 'english' : _ref$notationSystem,
+    _ref$customFilters = _ref.customFilters,
+    customFilters = _ref$customFilters === void 0 ? [] : _ref$customFilters;
   helpers_checkCustomFilters(customFilters);
   var allFilters = [];
-
   if (['max', 'core'].includes(simplify)) {
     allFilters.push(simplify_simplify.bind(null, simplify));
   }
-
   if (harmonizeAccidentals || transposeValue !== 0) {
     allFilters.push(transpose.bind(null, transposeValue, useFlats));
   }
-
   if (useShortNamings) {
     allFilters.push(shortenNormalized);
   }
-
   allFilters.push.apply(allFilters, [convertNotationSystem.bind(null, notationSystem), formatSymbol].concat(chordRendererFactory_toConsumableArray(customFilters)));
   return renderChord;
+
   /**
    * Render a chord structure
    * @param {Chord} chord - the chord structure to render
    * @returns {String|Chord} output depends on the selected printer: string for text printer (default), Chord for raw printer
    */
-
   function renderChord(chord) {
     if (!isValidChord(chord)) {
       return null;
     }
-
     var filteredChord = chain(allFilters, cloneDeep_default()(chord));
     return printer === 'raw' ? rawPrinter(filteredChord) : textPrinter(filteredChord);
   }
 }
-
 var isValidChord = function isValidChord(chord) {
   return chord && chordRendererFactory_typeof(chord) === 'object' && !chord.error && chord.input;
 };
+
 /**
  * @module chordRendererFactory
  * Expose the chordRendererFactory() function
  **/
-
-
 /* harmony default export */ const renderer_chordRendererFactory = (chordRendererFactory);
 ;// CONCATENATED MODULE: ./src/index.js
 

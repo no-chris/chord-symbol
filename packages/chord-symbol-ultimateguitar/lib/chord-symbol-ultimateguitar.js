@@ -54,7 +54,6 @@ var chordSymbolUltimateGuitar = function chordSymbolUltimateGuitar() {
     return chord;
   };
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (chordSymbolUltimateGuitar);
 /******/ 	return __webpack_exports__;
 /******/ })()

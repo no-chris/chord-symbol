@@ -1,7 +1,7 @@
 /* eslint-env node */
 // Purpose of rollup is only to create the ESM bundle (chord-symbol.mjs) since as of today,
-// webpack does not seems to support this yet
-const path = require('path');
+// webpack does not seem to support this yet
+import path from 'path';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
@@ -12,6 +12,7 @@ export default {
 	output: {
 		file: path.resolve(process.cwd(), buildDir) + '/chord-symbol-esm.js',
 		format: 'es',
+		esModule: true,
 	},
 	plugins: [resolve(), commonjs()],
 };

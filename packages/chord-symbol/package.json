@@ -20,7 +20,7 @@
 		"lodash": "^4.17.21"
 	},
 	"scripts": {
-		"bundle": "webpack && npx rollup -c rollup.config.js",
+		"bundle": "webpack && npx rollup -c rollup.config.mjs",
 		"build": "npm run bundle && npm run sloc && npm run size && npm run doc && npm run toc",
 		"doc": "npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
 		"size": "size-limit",
