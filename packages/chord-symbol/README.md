@@ -119,13 +119,13 @@ npm run-script test-short
 
 By default, `ChordSymbol` tries to parse a symbol three times, each time with the root and bass notes written in a different notation system:
 `english` first, then `german` and finally `latin`. You can fine-tune this behavior by configuring the parser to use only selected notation systems
-(see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
+(see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/API.md)).
 If any of those attempts succeed, then the given string is considered as a valid chord, and the parser returns a `Chord` object.
 If all of them fails, then `ChordSymbol` returns an object with an `error` property.
 
 This `error` property contains an array of all errors that occurred during the parsing.
 Each error is at least described by a `type` and a `message`
-(see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
+(see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/API.md)).
 When the error appears in the context of a specific notation system, then the given system is specified
 in the `notationSystem` property of each error object.
 
@@ -205,7 +205,7 @@ If you know any other good references that could be added to this list, feel fre
 To support a broader range of use-cases, `ChordSymbol` also has built-in support for a myriad of variations in chord namings. `Cma7` could as well be written `CM7`, `C7M`, `C7major`, `Cmajor7`, `CMa7`, `CMAJOR7`, `CM7`, `C7Δ`, `C^7`, `C7^`... just to name a few of the possible variations. The unit test suite automatically generates all chords variants for a given set of modifiers, bringing the number of recognized chords to over 37 000!
 
 More than 100 different modifiers are available for you to use as chord descriptors. Among those: `M`, `Maj`, `m`, `minor`, `Δ`, `^`, `b5`, `o`, `-`, `ø`, `#9`, `b13`, `+`, `dim`, `69`, `add11`, `omit3`, etc.  
-You can check [the full list](https://github.com/no-chris/chord-symbol/blob/master/src/dictionaries/modifiers.js). Hopefully, this should allow `ChordSymbol` to work out-of-the-box with most available chord charts.
+You can check [the full list](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/src/dictionaries/modifiers.js). Hopefully, this should allow `ChordSymbol` to work out-of-the-box with most available chord charts.
 
 #### Rendering and normalization
 
@@ -242,7 +242,7 @@ This works well in the vast majority of cases, with a notable exception:
 
 -   the Latin `Do` (`C`) conflict with the English `D` and the `o` modifier, which is widely used in some popular software to describe a diminished chord. Given the prevalence of this modifier, priority has been given to it.
     Thus, by default, it is not possible to use the `Do` symbol to describe a `C` chord.
--   if you know for sure the chords that you want to parse are written in the `latin` notation system, you can disable `english` and `german` when configuring the parser (see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/API.md)).
+-   if you know for sure the chords that you want to parse are written in the `latin` notation system, you can disable `english` and `german` when configuring the parser (see the [API documentation](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/API.md)).
     This will allows you to parse a `Do` (`C`) chord.
 
 ### Musical scope
