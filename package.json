@@ -63,7 +63,7 @@
 	],
 	"types": "types/index.d.ts",
 	"dependencies": {
-		"jest-environment-jsdom": "^29.0.1",
+		"jest-environment-jsdom": "^29.3.1",
 		"lerna-changelog": "^2.2.0"
 	}
 }
