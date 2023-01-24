@@ -17,14 +17,13 @@ import rawPrinter from './printer/raw';
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
-	useShortNamings = false,
+	accidentals = 'original',
+	customFilters = [],
+	notationSystem = 'english',
+	printer = 'text',
 	simplify = 'none',
 	transposeValue = 0,
-	harmonizeAccidentals = false,
-	useFlats = false,
-	printer = 'text',
-	notationSystem = 'english',
-	customFilters = [],
+	useShortNamings = false,
 } = {}) {
 	checkCustomFilters(customFilters);
 
@@ -34,8 +33,8 @@ function chordRendererFactory({
 		allFilters.push(simplifyFilter.bind(null, simplify));
 	}
 
-	if (harmonizeAccidentals || transposeValue !== 0) {
-		allFilters.push(transpose.bind(null, transposeValue, useFlats));
+	if (accidentals !== 'original' || transposeValue !== 0) {
+		allFilters.push(transpose.bind(null, transposeValue, accidentals));
 	}
 
 	if (useShortNamings) {
