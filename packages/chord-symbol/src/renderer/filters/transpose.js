@@ -14,14 +14,14 @@ const sharpsToFlats = {
 
 const flatsToSharps = _invert(sharpsToFlats);
 
-export default function transpose(transposeValue, useFlats, chord) {
+export default function transpose(transposeValue, accidentals, chord) {
 	const { rootNote, bassNote } = chord.normalized;
 
 	const rootSharp = convertToSharp(rootNote);
 	chord.normalized.rootNote = transposeNote(
 		rootSharp,
 		transposeValue,
-		useFlats
+		accidentals
 	);
 	chord.formatted.rootNote = chord.normalized.rootNote;
 
@@ -30,7 +30,7 @@ export default function transpose(transposeValue, useFlats, chord) {
 		chord.normalized.bassNote = transposeNote(
 			bassSharp,
 			transposeValue,
-			useFlats
+			accidentals
 		);
 		chord.formatted.bassNote = chord.normalized.bassNote;
 	}
@@ -38,7 +38,7 @@ export default function transpose(transposeValue, useFlats, chord) {
 	return nameIndividualChordNotes(chord);
 }
 
-function transposeNote(note, value, useFlats) {
+function transposeNote(note, value, accidentals) {
 	const noteIndex = notes.indexOf(note);
 	const transposedIndex = noteIndex + value;
 
@@ -47,7 +47,9 @@ function transposeNote(note, value, useFlats) {
 
 	const transposed = notes[correctedTransposedIndex];
 
-	return useFlats ? sharpsToFlats[transposed] || transposed : transposed;
+	return accidentals === 'flat'
+		? sharpsToFlats[transposed] || transposed
+		: transposed;
 }
 
 function convertToSharp(note) {

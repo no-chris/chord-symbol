@@ -99,8 +99,10 @@
  * `max` will basically remove everything but minor 3rd,
  * `core` will try to keep only the chord core characteristics, leaving out suspensions, extensions, alterations, adds and omits.
  * @property {Number} [transposeValue=0] - positive or negative semitones value
- * @property {Boolean} [harmonizeAccidentals=false] - convert accidentals to either sharp or flats
- * @property {Boolean} [useFlats=false] - prefer flats for transposition/harmonization
+ * @property {('original'|'flat'|'sharp')} [accidental='original'] - accidental to use when rendering a chord.
+ * 'original' keeps the current one, if any. If transposeValue !== 0, sharp will be used
+ * 'flat' render with flats
+ * 'sharp' render with sharps
  * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. `text` returns a string, `raw` the processed chord object.
  * @property {('auto'|'english'|'german'|'latin')} [notationSystem='english'] - the notation system to use when rendering the chord.
  * 	`auto` will use the same system in which the symbol was originally parsed.

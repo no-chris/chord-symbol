@@ -425,10 +425,10 @@ Configuration of the chord renderer
     <td>[transposeValue]</td><td><code>Number</code></td><td><code>0</code></td><td><p>positive or negative semitones value</p>
 </td>
     </tr><tr>
-    <td>[harmonizeAccidentals]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>convert accidentals to either sharp or flats</p>
-</td>
-    </tr><tr>
-    <td>[useFlats]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>prefer flats for transposition/harmonization</p>
+    <td>[accidental]</td><td><code>&#x27;original&#x27;</code> | <code>&#x27;flat&#x27;</code> | <code>&#x27;sharp&#x27;</code></td><td><code>&#x27;original&#x27;</code></td><td><p>accidental to use when rendering a chord.
+&#39;original&#39; keeps the current one, if any. If transposeValue !== 0, sharp will be used
+&#39;flat&#39; render with flats
+&#39;sharp&#39; render with sharps</p>
 </td>
     </tr><tr>
     <td>[printer]</td><td><code>&#x27;text&#x27;</code> | <code>&#x27;raw&#x27;</code></td><td><code>&#x27;text&#x27;</code></td><td><p>the printer to use for the rendering. <code>text</code> returns a string, <code>raw</code> the processed chord object.</p>

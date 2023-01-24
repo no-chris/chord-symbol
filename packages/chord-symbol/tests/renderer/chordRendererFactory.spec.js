@@ -52,8 +52,7 @@ describe('all filters', () => {
 			const renderChord = chordRendererFactory({
 				useShortNamings: true,
 				transposeValue: 7,
-				harmonizeAccidentals: true,
-				useFlats: true,
+				accidentals: 'flat',
 				simplify: 'max',
 				notationSystem: 'latin',
 			});
@@ -85,44 +84,33 @@ describe('Transpose', () => {
 	describe.each([
 		// transposeValue !== 0
 
-		['+3', 'C/E', 3, false, false, 'D#/G'],
-		['+3, useFlats', 'C/E', 3, true, false, 'Eb/G'],
-		['-4', 'C/E', -4, false, false, 'G#/C'],
-		['-4, useFlats', 'C/E', -4, true, false, 'Ab/C'],
+		['+3, defaults to sharp', 'C/E', 3, 'original', 'D#/G'],
+		['+3, sharp', 'C/E', 3, 'sharp', 'D#/G'],
+		['+3, flat', 'C/E', 3, 'flat', 'Eb/G'],
+		['-4, defaults to sharp', 'C/E', -4, 'original', 'G#/C'],
+		['-4, sharp', 'C/E', -4, 'sharp', 'G#/C'],
+		['-4, flat', 'C/E', -4, 'flat', 'Ab/C'],
 
 		// transposeValue === 0
 
-		['sharp', 'G#', 0, false, false, 'G#'],
-		['sharp, useFlats', 'G#', 0, true, false, 'G#'],
-		['sharp, useFlats, harmonizeAccidentals', 'G#', 0, true, true, 'Ab'],
-		['sharp, harmonizeAccidentals', 'G#', 0, false, true, 'G#'],
+		['0, sharp input, original', 'G#', 0, 'original', 'G#'],
+		['0, sharp input, sharp', 'G#', 0, 'sharp', 'G#'],
+		['0, sharp input, flat', 'G#', 0, 'flat', 'Ab'],
 
-		['flat', 'Ab', 0, false, false, 'Ab'],
-		['flat, useFlats', 'Ab', 0, true, false, 'Ab'],
-		['flat, useFlats, harmonizeAccidentals', 'Ab', 0, true, true, 'Ab'],
-		['flat, harmonizeAccidentals', 'Ab', 0, false, true, 'G#'],
-	])(
-		'%s',
-		(
-			title,
-			input,
-			transposeValue,
-			useFlats,
-			harmonizeAccidentals,
-			transposed
-		) => {
-			test(input + 'is transposed: ' + transposed, () => {
-				const parseChord = chordParserFactory();
-				const renderChord = chordRendererFactory({
-					transposeValue,
-					useFlats,
-					harmonizeAccidentals,
-				});
-				const chord = parseChord(input);
-				expect(renderChord(chord)).toBe(transposed);
+		['0, flat input, original', 'Ab', 0, 'original', 'Ab'],
+		['0, flat input, sharp', 'Ab', 0, 'sharp', 'G#'],
+		['0, flat input, flat', 'Ab', 0, 'flat', 'Ab'],
+	])('%s', (title, input, transposeValue, accidentals, transposed) => {
+		test(input + 'is transposed: ' + transposed, () => {
+			const parseChord = chordParserFactory();
+			const renderChord = chordRendererFactory({
+				transposeValue,
+				accidentals,
 			});
-		}
-	);
+			const chord = parseChord(input);
+			expect(renderChord(chord)).toBe(transposed);
+		});
+	});
 });
 
 describe('Printers', () => {
@@ -151,38 +139,27 @@ describe('Notation system', () => {
 		['convert', 'latin', 'A', 'La'],
 		['convert to input system', 'auto', 'H', 'H'],
 		['convert to input system', 'auto', 'La', 'La'],
-		['Harmonized acc. / sharp', 'english', 'La#/Reb', 'A#/C#', true],
-		['Harmonized acc. / sharp', 'german', 'La#/Reb', 'Ais/Cis', true],
-		['Harmonized acc. / sharp', 'latin', 'La#/Reb', 'La#/Do#', true],
-		['Harmonized acc. / sharp', 'auto', 'La#/Reb', 'La#/Do#', true],
-		['Harmonized acc. / flats', 'english', 'La#/Reb', 'Bb/Db', true, true],
-		['Harmonized acc. / flats', 'german', 'La#/Reb', 'Hes/Des', true, true],
-		['Harmonized acc. / flats', 'latin', 'La#/Reb', 'Sib/Reb', true, true],
-		['Harmonized acc. / flats', 'auto', 'La#/Reb', 'Sib/Reb', true, true],
-	])(
-		'%s (%s): %s',
-		(
-			title,
-			notationSystem,
-			input,
-			output,
-			harmonizeAccidentals,
-			useFlats
-		) => {
-			test(`should be converted to ${output}`, () => {
-				const parseChord = chordParserFactory();
-				const parsed = parseChord(input);
+		['Harmonized acc. / sharp', 'english', 'La#/Reb', 'A#/C#', 'sharp'],
+		['Harmonized acc. / sharp', 'german', 'La#/Reb', 'Ais/Cis', 'sharp'],
+		['Harmonized acc. / sharp', 'latin', 'La#/Reb', 'La#/Do#', 'sharp'],
+		['Harmonized acc. / sharp', 'auto', 'La#/Reb', 'La#/Do#', 'sharp'],
+		['Harmonized acc. / flats', 'english', 'La#/Reb', 'Bb/Db', 'flat'],
+		['Harmonized acc. / flats', 'german', 'La#/Reb', 'Hes/Des', 'flat'],
+		['Harmonized acc. / flats', 'latin', 'La#/Reb', 'Sib/Reb', 'flat'],
+		['Harmonized acc. / flats', 'auto', 'La#/Reb', 'Sib/Reb', 'flat'],
+	])('%s (%s): %s', (title, notationSystem, input, output, accidentals) => {
+		test(`should be converted to ${output}`, () => {
+			const parseChord = chordParserFactory();
+			const parsed = parseChord(input);
 
-				const renderChord = chordRendererFactory({
-					notationSystem,
-					harmonizeAccidentals,
-					useFlats,
-				});
-				const rendered = renderChord(parsed);
-				expect(rendered).toEqual(output);
+			const renderChord = chordRendererFactory({
+				notationSystem,
+				accidentals,
 			});
-		}
-	);
+			const rendered = renderChord(parsed);
+			expect(rendered).toEqual(output);
+		});
+	});
 
 	test(`returns null with an invalid notation system`, () => {
 		const parseChord = chordParserFactory();
