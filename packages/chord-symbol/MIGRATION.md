@@ -2,15 +2,55 @@
 
 <!-- toc -->
 
-- [From v2.x.x to v3.0.0](#from-v2xx-to-v300)
-- [From v1.x.x to v2.0.0](#from-v1xx-to-v200)
-  * [Error handling (API change)](#error-handling-api-change)
-  * [altIntervals configuration (API change)](#altintervals-configuration-api-change)
-- [From v0.5.1 to v1.0.0](#from-v051-to-v100)
-  * [Intervals consistency](#intervals-consistency)
-  * [Parser API change](#parser-api-change)
+-   [From v3.x.x to v4.0.0](#from-v3xx-to-v400)
+-   [From v2.x.x to v3.0.0](#from-v2xx-to-v300)
+-   [From v1.x.x to v2.0.0](#from-v1xx-to-v200)
+    -   [Error handling (API change)](#error-handling-api-change)
+    -   [altIntervals configuration (API change)](#altintervals-configuration-api-change)
+-   [From v0.5.1 to v1.0.0](#from-v051-to-v100)
+    -   [Intervals consistency](#intervals-consistency)
+    -   [Parser API change](#parser-api-change)
 
 <!-- tocstop -->
+
+## From v3.x.x to v4.0.0
+
+The API to set which accidental to use has been simplified to a single parameter instead of two.
+
+Instead of:
+
+```javascript
+const renderChord = chordRendererFactory({
+	harmonizeAccidentals: false,
+	useFlats: false,
+});
+
+const renderChordWithSharp = chordRendererFactory({
+	harmonizeAccidentals: true,
+	useFlats: false,
+});
+
+const renderChordWithFlat = chordRendererFactory({
+	harmonizeAccidentals: true,
+	useFlats: true,
+});
+```
+
+do:
+
+```javascript
+const renderChord = chordRendererFactory({
+	accidentals: 'original',
+});
+
+const renderChordWithSharp = chordRendererFactory({
+	accidentals: 'sharp',
+});
+
+const renderChordWithFlat = chordRendererFactory({
+	accidentals: 'flat',
+});
+```
 
 ## From v2.x.x to v3.0.0
 
