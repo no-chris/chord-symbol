@@ -8046,27 +8046,27 @@ var sharpsToFlats = {
   'A#': 'Bb'
 };
 var flatsToSharps = invert_default()(sharpsToFlats);
-function transpose(transposeValue, useFlats, chord) {
+function transpose(transposeValue, accidentals, chord) {
   var _chord$normalized = chord.normalized,
     rootNote = _chord$normalized.rootNote,
     bassNote = _chord$normalized.bassNote;
   var rootSharp = convertToSharp(rootNote);
-  chord.normalized.rootNote = transposeNote(rootSharp, transposeValue, useFlats);
+  chord.normalized.rootNote = transposeNote(rootSharp, transposeValue, accidentals);
   chord.formatted.rootNote = chord.normalized.rootNote;
   if (bassNote) {
     var bassSharp = convertToSharp(bassNote);
-    chord.normalized.bassNote = transposeNote(bassSharp, transposeValue, useFlats);
+    chord.normalized.bassNote = transposeNote(bassSharp, transposeValue, accidentals);
     chord.formatted.bassNote = chord.normalized.bassNote;
   }
   return nameIndividualChordNotes(chord);
 }
-function transposeNote(note, value, useFlats) {
+function transposeNote(note, value, accidentals) {
   var noteIndex = transpose_notes.indexOf(note);
   var transposedIndex = noteIndex + value;
   var octaves = Math.floor(transposedIndex / 12);
   var correctedTransposedIndex = transposedIndex - octaves * 12;
   var transposed = transpose_notes[correctedTransposedIndex];
-  return useFlats ? sharpsToFlats[transposed] || transposed : transposed;
+  return accidentals === 'flat' ? sharpsToFlats[transposed] || transposed : transposed;
 }
 function convertToSharp(note) {
   return flatsToSharps[note] || note;
@@ -8192,29 +8192,27 @@ function chordRendererFactory_arrayLikeToArray(arr, len) { if (len == null || le
  */
 function chordRendererFactory() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    _ref$useShortNamings = _ref.useShortNamings,
-    useShortNamings = _ref$useShortNamings === void 0 ? false : _ref$useShortNamings,
+    _ref$accidentals = _ref.accidentals,
+    accidentals = _ref$accidentals === void 0 ? 'original' : _ref$accidentals,
+    _ref$customFilters = _ref.customFilters,
+    customFilters = _ref$customFilters === void 0 ? [] : _ref$customFilters,
+    _ref$notationSystem = _ref.notationSystem,
+    notationSystem = _ref$notationSystem === void 0 ? 'english' : _ref$notationSystem,
+    _ref$printer = _ref.printer,
+    printer = _ref$printer === void 0 ? 'text' : _ref$printer,
     _ref$simplify = _ref.simplify,
     simplify = _ref$simplify === void 0 ? 'none' : _ref$simplify,
     _ref$transposeValue = _ref.transposeValue,
     transposeValue = _ref$transposeValue === void 0 ? 0 : _ref$transposeValue,
-    _ref$harmonizeAcciden = _ref.harmonizeAccidentals,
-    harmonizeAccidentals = _ref$harmonizeAcciden === void 0 ? false : _ref$harmonizeAcciden,
-    _ref$useFlats = _ref.useFlats,
-    useFlats = _ref$useFlats === void 0 ? false : _ref$useFlats,
-    _ref$printer = _ref.printer,
-    printer = _ref$printer === void 0 ? 'text' : _ref$printer,
-    _ref$notationSystem = _ref.notationSystem,
-    notationSystem = _ref$notationSystem === void 0 ? 'english' : _ref$notationSystem,
-    _ref$customFilters = _ref.customFilters,
-    customFilters = _ref$customFilters === void 0 ? [] : _ref$customFilters;
+    _ref$useShortNamings = _ref.useShortNamings,
+    useShortNamings = _ref$useShortNamings === void 0 ? false : _ref$useShortNamings;
   helpers_checkCustomFilters(customFilters);
   var allFilters = [];
   if (['max', 'core'].includes(simplify)) {
     allFilters.push(simplify_simplify.bind(null, simplify));
   }
-  if (harmonizeAccidentals || transposeValue !== 0) {
-    allFilters.push(transpose.bind(null, transposeValue, useFlats));
+  if (accidentals !== 'original' || transposeValue !== 0) {
+    allFilters.push(transpose.bind(null, transposeValue, accidentals));
   }
   if (useShortNamings) {
     allFilters.push(shortenNormalized);

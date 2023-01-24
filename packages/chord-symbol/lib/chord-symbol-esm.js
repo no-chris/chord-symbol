@@ -7072,14 +7072,14 @@ const sharpsToFlats = {
 
 const flatsToSharps = invert_1(sharpsToFlats);
 
-function transpose(transposeValue, useFlats, chord) {
+function transpose(transposeValue, accidentals, chord) {
 	const { rootNote, bassNote } = chord.normalized;
 
 	const rootSharp = convertToSharp(rootNote);
 	chord.normalized.rootNote = transposeNote(
 		rootSharp,
 		transposeValue,
-		useFlats
+		accidentals
 	);
 	chord.formatted.rootNote = chord.normalized.rootNote;
 
@@ -7088,7 +7088,7 @@ function transpose(transposeValue, useFlats, chord) {
 		chord.normalized.bassNote = transposeNote(
 			bassSharp,
 			transposeValue,
-			useFlats
+			accidentals
 		);
 		chord.formatted.bassNote = chord.normalized.bassNote;
 	}
@@ -7096,7 +7096,7 @@ function transpose(transposeValue, useFlats, chord) {
 	return nameIndividualChordNotes(chord);
 }
 
-function transposeNote(note, value, useFlats) {
+function transposeNote(note, value, accidentals) {
 	const noteIndex = notes.indexOf(note);
 	const transposedIndex = noteIndex + value;
 
@@ -7105,7 +7105,9 @@ function transposeNote(note, value, useFlats) {
 
 	const transposed = notes[correctedTransposedIndex];
 
-	return useFlats ? sharpsToFlats[transposed] || transposed : transposed;
+	return accidentals === 'flat'
+		? sharpsToFlats[transposed] || transposed
+		: transposed;
 }
 
 function convertToSharp(note) {
@@ -7220,14 +7222,13 @@ function rawPrinter(chord) {
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
-	useShortNamings = false,
+	accidentals = 'original',
+	customFilters = [],
+	notationSystem = 'english',
+	printer = 'text',
 	simplify: simplify$1 = 'none',
 	transposeValue = 0,
-	harmonizeAccidentals = false,
-	useFlats = false,
-	printer = 'text',
-	notationSystem = 'english',
-	customFilters = [],
+	useShortNamings = false,
 } = {}) {
 	checkCustomFilters(customFilters);
 
@@ -7237,8 +7238,8 @@ function chordRendererFactory({
 		allFilters.push(simplify.bind(null, simplify$1));
 	}
 
-	if (harmonizeAccidentals || transposeValue !== 0) {
-		allFilters.push(transpose.bind(null, transposeValue, useFlats));
+	if (accidentals !== 'original' || transposeValue !== 0) {
+		allFilters.push(transpose.bind(null, transposeValue, accidentals));
 	}
 
 	if (useShortNamings) {

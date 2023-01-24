@@ -2,11 +2,11 @@ Source code:
 
 ---------- Result ------------
 
-            Physical :  2232
-              Source :  1650
-             Comment :  308
+            Physical :  2235
+              Source :  1651
+             Comment :  310
  Single-line comment :  27
-       Block comment :  281
+       Block comment :  283
                Mixed :  0
  Empty block comment :  0
                Empty :  274
@@ -20,8 +20,8 @@ Tests:
 
 ---------- Result ------------
 
-            Physical :  3062
-              Source :  2315
+            Physical :  3043
+              Source :  2296
              Comment :  405
  Single-line comment :  28
        Block comment :  377
@@ -38,11 +38,11 @@ Total:
 
 ---------- Result ------------
 
-            Physical :  5294
-              Source :  3965
-             Comment :  713
+            Physical :  5278
+              Source :  3947
+             Comment :  715
  Single-line comment :  55
-       Block comment :  658
+       Block comment :  660
                Mixed :  5
  Empty block comment :  13
                Empty :  634
