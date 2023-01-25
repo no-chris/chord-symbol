@@ -27,7 +27,7 @@
 		"sloc": "echo \"Source code:\" > SLOC && npx sloc src >> SLOC && echo \"Tests:\" >> SLOC && npx sloc tests >> SLOC && echo \"Total:\" >> SLOC && npx sloc src tests >> SLOC",
 		"test-short": "TEST_SUITE=short jest",
 		"toc": "npx markdown-toc -i --maxdepth 4 README.md && npx markdown-toc -i --maxdepth 4 MIGRATION.md",
-		"typescript": "rm -rf ./types-auto && npx typescript"
+		"typescript": "rm -rf ./types-auto && npx tsc"
 	},
 	"size-limit": [
 		{
