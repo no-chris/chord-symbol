@@ -25,8 +25,14 @@ Expose the chordRendererFactory() function</a></dt>
 ## Typedefs
 
 <dl>
+<dt><a href="#MaybeChord">MaybeChord</a> : <code><a href="#Chord">Chord</a></code> | <code><a href="#ChordParseFailure">ChordParseFailure</a></code></dt>
+<dd><p>An object that may be a chord data object or a chord parsing failure object.</p>
+</dd>
 <dt><a href="#Chord">Chord</a> : <code>Object</code></dt>
-<dd><p>A data object representing a chord. It is the result of the parsing operation and can be used for rendering.</p>
+<dd><p>A data object representing a chord. It is the result of a successful parsing operation and can be used for rendering.</p>
+</dd>
+<dt><a href="#ChordParseFailure">ChordParseFailure</a> : <code>Object</code></dt>
+<dd><p>An error object for a chord that could not be parsed.</p>
 </dd>
 <dt><a href="#ChordInput">ChordInput</a> : <code>Object</code></dt>
 <dd><p>The source from which the chord structure has been built</p>
@@ -102,11 +108,12 @@ Create a chord parser function
 
 <a name="chordParserFactory..parseChord"></a>
 
-### chordParserFactory~parseChord(symbol) ⇒ [<code>Chord</code>](#Chord) \| <code>Object</code>
+### chordParserFactory~parseChord(symbol) ⇒ [<code>MaybeChord</code>](#MaybeChord)
 Convert an input string into an abstract chord structure
 
 **Kind**: inner method of [<code>chordParserFactory</code>](#chordParserFactory)  
-**Returns**: [<code>Chord</code>](#Chord) \| <code>Object</code> - A chord object if the given string is successfully parsed. An object with an `error` property otherwise.  
+**Returns**: [<code>MaybeChord</code>](#MaybeChord) - A chord data object if the given string is successfully parsed.
+  A chord parse failure object with an `error` property otherwise.  
 <table>
   <thead>
     <tr>
@@ -158,10 +165,16 @@ Render a chord structure
     </tr>  </tbody>
 </table>
 
+<a name="MaybeChord"></a>
+
+## MaybeChord : [<code>Chord</code>](#Chord) \| [<code>ChordParseFailure</code>](#ChordParseFailure)
+An object that may be a chord data object or a chord parsing failure object.
+
+**Kind**: global typedef  
 <a name="Chord"></a>
 
 ## Chord : <code>Object</code>
-A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
+A data object representing a chord. It is the result of a successful parsing operation and can be used for rendering.
 
 **Kind**: global typedef  
 **Properties**
@@ -174,20 +187,38 @@ A data object representing a chord. It is the result of the parsing operation an
   </thead>
   <tbody>
 <tr>
-    <td>[input]</td><td><code><a href="#ChordInput">ChordInput</a></code></td><td><p>information derived from the symbol given as an input.
+    <td>input</td><td><code><a href="#ChordInput">ChordInput</a></code></td><td><p>information derived from the symbol given as an input.
 If you need to trace what has generated a given chord, you&#39;ll find it here.</p>
 </td>
     </tr><tr>
-    <td>[normalized]</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
+    <td>normalized</td><td><code><a href="#NormalizedChord">NormalizedChord</a></code></td><td><p>abstract representation of the chord based on its intervals.</p>
 </td>
     </tr><tr>
-    <td>[formatted]</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
+    <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
 </td>
     </tr><tr>
-    <td>[parserConfiguration]</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
+    <td>parserConfiguration</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
 </td>
-    </tr><tr>
-    <td>[error]</td><td><code><a href="#ChordSymbolError">Array.&lt;ChordSymbolError&gt;</a></code></td><td><p>if defined, then the parsing failed and this array will contain the reason(s) why</p>
+    </tr>  </tbody>
+</table>
+
+<a name="ChordParseFailure"></a>
+
+## ChordParseFailure : <code>Object</code>
+An error object for a chord that could not be parsed.
+
+**Kind**: global typedef  
+**Properties**
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>error</td><td><code><a href="#ChordSymbolError">Array.&lt;ChordSymbolError&gt;</a></code></td><td><p>the reason(s) why the parsing failed.</p>
 </td>
     </tr>  </tbody>
 </table>
