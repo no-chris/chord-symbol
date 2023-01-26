@@ -1,12 +1,12 @@
 export {
-	chordParserFactory,
-	chordRendererFactory,
 	Chord,
 	ChordInput,
 	FormattedChord,
 	NormalizedChord,
 	ParserConfiguration,
 	RendererConfiguration,
+	chordParserFactory,
+	chordRendererFactory,
 };
 
 /**
@@ -269,3 +269,17 @@ type RendererConfiguration = {
  * Don't do that!
  */
 type customFilter = (arg0: Chord) => Chord;
+
+/**
+ * Create a chord parser function.
+ */
+declare function chordParserFactory(
+	configuration?: ParserConfiguration
+): (input: string) => Chord;
+
+/**
+ * Create a chord rendering function.
+ */
+declare function chordRendererFactory(
+	configuration?: RendererConfiguration
+): (chord: Chord) => string;
