@@ -87,7 +87,7 @@
  * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
  * the intervals that the `alt` modifier should yield
  * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
- * @property {customFilter[]} [customFilters=[]] - custom filters applied during parsing
+ * @property {CustomFilter[]} [customFilters=[]] - custom filters applied during parsing
  */
 
 /**
@@ -117,7 +117,7 @@
  * @property {('text'|'raw')} [printer='text'] - the printer to use for the rendering. `text` returns a string, `raw` the processed chord object.
  * @property {('auto'|'english'|'german'|'latin')} [notationSystem='english'] - the notation system to use when rendering the chord.
  * 	`auto` will use the same system in which the symbol was originally parsed.
- * @property {customFilter[]} [customFilters=[]] - custom filters applied during rendering
+ * @property {CustomFilter[]} [customFilters=[]] - custom filters applied during rendering
  */
 
 /**
@@ -139,7 +139,7 @@
  * - To fail the rendering, simply return `null`.
  * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
  * Don't do that!
- * @typedef {function(Chord): Chord} customFilter
+ * @typedef {function(Chord): Chord|Null} CustomFilter
  * @type {Function}
  * @param {Chord} chord - The chord object will be passed to the filter as the only parameter
  * @returns {Chord|Null} - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
