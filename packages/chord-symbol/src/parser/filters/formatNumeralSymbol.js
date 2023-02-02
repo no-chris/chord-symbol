@@ -4,16 +4,16 @@ import { minorQualities, qualities } from '../../dictionaries/qualities';
 
 const diatonicChords = {
 	major: ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'],
-	dom7: ['IΔ', 'ii⁷', 'iii⁷', 'IVΔ', 'V⁷', 'vi⁷', 'viiø⁷'],
+	dom7: ['IΔ', 'ii⁷', 'iii⁷', 'IVΔ', 'V⁷', 'vi⁷', 'viiø'],
 	minor: ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII'],
-	minor7: ['i⁷', 'iiø⁷', 'IIIΔ', 'iv⁷', 'v⁷', 'VIΔ', 'VIIΔ'],
+	minor7: ['i⁷', 'iiø', 'IIIΔ', 'iv⁷', 'v⁷', 'VIΔ', 'VIIΔ'],
 };
 
 const borrowedChords = {
 	borrowedFromMinor: ['i', 'ii°', '♭III', 'iv', 'v', '♭VI', '♭VII'],
-	borrowedFromMinor7: ['i⁷', 'iiø⁷', '♭IIIΔ', 'iv⁷', 'v⁷', '♭VIΔ', '♭VIIΔ'],
+	borrowedFromMinor7: ['i⁷', 'iiø', '♭IIIΔ', 'iv⁷', 'v⁷', '♭VIΔ', '♭VIIΔ'],
 	borrowedFromMajor: ['I', 'ii', '♯iii', 'IV', 'V', '♯vi', '♯vii°'],
-	borrowedFromDom7: ['IΔ', 'ii⁷', '♯iii⁷', 'IVΔ', 'V⁷', '♯vi⁷', '♯viiø⁷'],
+	borrowedFromDom7: ['IΔ', 'ii⁷', '♯iii⁷', 'IVΔ', 'V⁷', '♯vi⁷', '♯viiø'],
 };
 
 /**
@@ -32,7 +32,12 @@ export default function formatNumeralSymbol(key = '', chord) {
 	const keyQuality = key.indexOf('m') > -1 ? 'minor' : 'major';
 	degree = getRomanDegree(key, keyQuality, chord);
 
-	const descriptor = qualityToDescriptor[chord.normalized.quality](chord);
+	const inversion = getInversion(chord);
+
+	const descriptor = qualityToDescriptor[chord.normalized.quality](
+		chord,
+		inversion
+	);
 
 	symbol = `${degree}${descriptor}`;
 
@@ -46,7 +51,7 @@ export default function formatNumeralSymbol(key = '', chord) {
 		symbol = `${degree}${descriptor}`;
 	}
 
-	const inversion = '';
+	symbol += inversion;
 
 	chord.numeral = {
 		symbol,
@@ -65,7 +70,7 @@ function getRomanDegree(key, keyQuality, chord) {
 		keyNote,
 		chord.normalized.rootNote
 	);
-	const romanDegree = semitonesToDegree[keyQuality][interval] || '?';
+	const romanDegree = semitonesToDegree[keyQuality][interval];
 
 	const chordQuality = minorQualities.includes(chord.normalized.quality)
 		? 'minor'
@@ -84,17 +89,22 @@ const qualityToDescriptor = {
 	[qualities.ma]: () => '',
 	[qualities.ma6]: () => '',
 	[qualities.ma7]: () => 'Δ',
-	[qualities.dom7]: () => '⁷',
+	[qualities.dom7]: (chord, inversion) => (inversion === '' ? '⁷' : ''),
 
 	[qualities.mi]: () => '',
 	[qualities.mi6]: () => '',
-	[qualities.mi7]: (chord) =>
-		chord.normalized.intervals.includes('b5') ? 'ø⁷' : '⁷',
+	[qualities.mi7]: (chord, inversion) => {
+		if (inversion === '') {
+			return chord.normalized.intervals.includes('b5') ? 'ø' : '⁷';
+		} else {
+			return chord.normalized.intervals.includes('b5') ? 'ø' : '';
+		}
+	},
 	[qualities.miMa7]: () => 'mΔ',
 
 	[qualities.aug]: () => '+',
 	[qualities.dim]: () => '°',
-	[qualities.dim7]: () => '°⁷',
+	[qualities.dim7]: (chord, inversion) => (inversion === '' ? '°⁷' : '°'),
 
 	[qualities.power]: () => '',
 	[qualities.bass]: () => '',
@@ -126,4 +136,61 @@ function isBorrowed(keyQuality, symbol) {
 			borrowedChords.borrowedFromDom7.includes(symbol)
 		);
 	}
+}
+
+function getInversion(chord) {
+	let inversion = '';
+	if (chord.normalized.bassNote) {
+		if (bassIsThird(chord)) {
+			inversion = isSeventh(chord) ? '⁶₅' : '⁶';
+		} else if (bassIsFifth(chord)) {
+			inversion = isSeventh(chord) ? '⁴₃' : '⁶₄';
+		} else if (bassIsSeventh(chord)) {
+			inversion = '²';
+		}
+	}
+	return inversion;
+}
+
+function isSeventh(chord) {
+	return [
+		qualities.ma7,
+		qualities.mi7,
+		qualities.miMa7,
+		qualities.dom7,
+		qualities.dim7,
+	].includes(chord.normalized.quality);
+}
+
+function bassIsThird(chord) {
+	return bassIsIntervalNote(chord, 'b3') || bassIsIntervalNote(chord, '3');
+}
+
+function bassIsFifth(chord) {
+	return (
+		bassIsIntervalNote(chord, 'b5') ||
+		bassIsIntervalNote(chord, '5') ||
+		bassIsIntervalNote(chord, '#5')
+	);
+}
+
+function bassIsSeventh(chord) {
+	return (
+		bassIsIntervalNote(chord, 'bb7') ||
+		bassIsIntervalNote(chord, 'b7') ||
+		bassIsIntervalNote(chord, '7')
+	);
+}
+
+function bassIsIntervalNote(chord, interval) {
+	const intervalNoteIndex = chord.normalized.intervals.indexOf(interval);
+	if (intervalNoteIndex === -1) return false;
+
+	const normalizedBassNote =
+		flatsToSharps[chord.normalized.bassNote] || chord.normalized.bassNote;
+	const normalizedIntervalNote =
+		flatsToSharps[chord.normalized.notes[intervalNoteIndex]] ||
+		chord.normalized.notes[intervalNoteIndex];
+
+	return normalizedBassNote === normalizedIntervalNote;
 }
