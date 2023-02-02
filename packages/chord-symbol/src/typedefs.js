@@ -139,7 +139,7 @@
  * - To fail the rendering, simply return `null`.
  * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
  * Don't do that!
- * @typedef {function(Chord): Chord|Null} CustomFilter
+ * @typedef {function(Chord): (Chord|Null)} CustomFilter
  * @type {Function}
  * @param {Chord} chord - The chord object will be passed to the filter as the only parameter
  * @returns {Chord|Null} - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
