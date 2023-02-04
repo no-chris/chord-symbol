@@ -2,6 +2,7 @@ export {
 	Chord,
 	ChordInput,
 	ChordParseFailure,
+	CustomFilter,
 	FormattedChord,
 	MaybeChord,
 	NormalizedChord,
@@ -233,7 +234,7 @@ type ParserConfiguration = {
 	/**
 	 * - custom filters applied during parsing
 	 */
-	customFilters?: customFilter[];
+	customFilters?: CustomFilter[];
 	/**
 	 * - key on which to base the rendering of the numeral symbol.
 	 * The key needs to be given in english notation with a maximum of 3 characters using non-unicode accidentals.
@@ -306,7 +307,7 @@ type RendererConfiguration = {
 	/**
 	 * - custom filters applied during rendering
 	 */
-	customFilters?: customFilter[];
+	customFilters?: CustomFilter[];
 };
 /**
  * Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
@@ -328,7 +329,7 @@ type RendererConfiguration = {
  * Warning: if you throw an exception in a rendering filter, `ChordSymbol` will not catch it and the client code will need to handle it.
  * Don't do that!
  */
-type customFilter = (arg0: Chord) => Chord;
+type CustomFilter = (chord: Chord) => Chord | null;
 
 /**
  * Create a chord parser function.

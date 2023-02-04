@@ -54,7 +54,7 @@ The <code>symbol</code> property contains the default assembled rendering</p>
 <dt><a href="#RendererConfiguration">RendererConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord renderer</p>
 </dd>
-<dt><a href="#customFilter">customFilter</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
+<dt><a href="#CustomFilter">CustomFilter</a> ⇒ <code><a href="#Chord">Chord</a></code> | <code>Null</code></dt>
 <dd><p>Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.</p>
 <p><strong>Parsing filters</strong></p>
@@ -393,7 +393,7 @@ the intervals that the <code>alt</code> modifier should yield
 If you would like <code>alt</code> to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr><tr>
-    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during parsing</p>
+    <td>[customFilters]</td><td><code><a href="#CustomFilter">Array.&lt;CustomFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during parsing</p>
 </td>
     </tr>  </tbody>
 </table>
@@ -469,14 +469,14 @@ Configuration of the chord renderer
     <code>auto</code> will use the same system in which the symbol was originally parsed.</p>
 </td>
     </tr><tr>
-    <td>[customFilters]</td><td><code><a href="#customFilter">Array.&lt;customFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during rendering</p>
+    <td>[customFilters]</td><td><code><a href="#CustomFilter">Array.&lt;CustomFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during rendering</p>
 </td>
     </tr>  </tbody>
 </table>
 
-<a name="customFilter"></a>
+<a name="CustomFilter"></a>
 
-## customFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
+## CustomFilter ⇒ [<code>Chord</code>](#Chord) \| <code>Null</code>
 Custom filter applied during processing or rendering. Custom filters will be applied at the end of the processing pipe,
 after all built-in filters have been applied.
 
