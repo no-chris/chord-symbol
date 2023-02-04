@@ -1,7 +1,9 @@
 export {
 	Chord,
 	ChordInput,
+	ChordParseFailure,
 	FormattedChord,
+	MaybeChord,
 	NormalizedChord,
 	ParserConfiguration,
 	RendererConfiguration,
@@ -10,30 +12,39 @@ export {
 };
 
 /**
- * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
+ * An object that may be a chord data object or a chord parsing failure object.
+ */
+type MaybeChord = Chord | ChordParseFailure;
+/**
+ * A data object representing a chord. It is the result of a successful parsing operation and can be used for rendering.
  */
 type Chord = {
 	/**
 	 * - information derived from the symbol given as an input.
 	 * If you need to trace what has generated a given chord, you'll find it here.
 	 */
-	input?: ChordInput;
+	input: ChordInput;
 	/**
 	 * - abstract representation of the chord based on its intervals.
 	 */
-	normalized?: NormalizedChord;
+	normalized: NormalizedChord;
 	/**
 	 * - pre-rendering of the normalized chord.
 	 */
-	formatted?: FormattedChord;
+	formatted: FormattedChord;
 	/**
 	 * - configuration passed to the parser on chord creation.
 	 */
-	parserConfiguration?: ParserConfiguration;
+	parserConfiguration: ParserConfiguration;
+};
+/**
+ * An error object for a chord that could not be parsed.
+ */
+type ChordParseFailure = {
 	/**
-	 * - if defined, then the parsing failed and this array will contain the reason(s) why
+	 * - the reason(s) why the parsing failed.
 	 */
-	error?: ChordSymbolError[];
+	error: ChordSymbolError[];
 };
 /**
  * The source from which the chord structure has been built
@@ -275,7 +286,7 @@ type customFilter = (arg0: Chord) => Chord;
  */
 declare function chordParserFactory(
 	configuration?: ParserConfiguration
-): (input: string) => Chord;
+): (input: string) => MaybeChord;
 
 /**
  * Create a chord rendering function.
