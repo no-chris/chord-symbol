@@ -56,9 +56,9 @@ describe('raw printer', () => {
 		['Ch(#11,b13)', 2, 'none', true, 'Dm7(b5,#11,b13)'],
 		['Ch(#11,b13)', 2, 'none', false, 'Dmi7(b5,#11,b13)'],
 		['Ch(#11,b13)', 2, 'core', false, 'Dmi7(b5)'],
-		['Ch(#11,b13)', 4, 'max', false, 'Emi'],
-		['Ch(#11,b13)', 5, 'max', true, 'Fm'],
-		['Ch(#11,b13)', 5, 'max', true, 'Fm'],
+		['Cm(#11,b13)', 4, 'max', false, 'Emi'],
+		['Cm(#11,b13)', 5, 'max', true, 'Fm'],
+		['Cm(#11,b13)', 5, 'max', true, 'Fm'],
 		['DmiMa7', 0, 'none', true, 'DmM7'],
 	])(
 		'should reflect the output of all rendering filters, as if the chord had been parsed from scratch as rendered',
