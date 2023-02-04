@@ -26,7 +26,7 @@ import parseDescriptor from './filters/parseDescriptor';
 /**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
- * @returns {function(String): Chord}
+ * @returns {function(String): MaybeChord}
  */
 function chordParserFactory(parserConfiguration = {}) {
 	const allAltIntervals = ['b5', '#5', 'b9', '#9', '#11', 'b13'];
@@ -49,7 +49,8 @@ function chordParserFactory(parserConfiguration = {}) {
 	/**
 	 * Convert an input string into an abstract chord structure
 	 * @param {String} symbol - the chord symbol candidate
-	 * @returns {Chord|Object} A chord object if the given string is successfully parsed. An object with an `error` property otherwise.
+	 * @returns {MaybeChord} A chord data object if the given string is successfully parsed.
+	 *   A chord parse failure object with an `error` property otherwise.
 	 */
 	function parseChord(symbol) {
 		const allErrors = [];

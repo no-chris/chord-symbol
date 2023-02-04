@@ -1,13 +1,24 @@
 /**
- * A data object representing a chord. It is the result of the parsing operation and can be used for rendering.
+ * An object that may be a chord data object or a chord parsing failure object.
+ * @typedef {(Chord|ChordParseFailure)} MaybeChord
+ */
+
+/**
+ * A data object representing a chord. It is the result of a successful parsing operation and can be used for rendering.
  * @typedef {Object} Chord
  * @type {Object}
- * @property {ChordInput} [input] - information derived from the symbol given as an input.
+ * @property {ChordInput} input - information derived from the symbol given as an input.
  * If you need to trace what has generated a given chord, you'll find it here.
- * @property {NormalizedChord} [normalized] - abstract representation of the chord based on its intervals.
- * @property {FormattedChord} [formatted] - pre-rendering of the normalized chord.
- * @property {ParserConfiguration} [parserConfiguration] - configuration passed to the parser on chord creation.
- * @property {ChordSymbolError[]} [error] - if defined, then the parsing failed and this array will contain the reason(s) why
+ * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
+ * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
+ * @property {ParserConfiguration} parserConfiguration - configuration passed to the parser on chord creation.
+ */
+
+/**
+ * An error object for a chord that could not be parsed.
+ * @typedef {Object} ChordParseFailure
+ * @type {Object}
+ * @property {ChordSymbolError[]} error - the reason(s) why the parsing failed.
  */
 
 /**

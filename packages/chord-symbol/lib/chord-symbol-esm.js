@@ -1282,7 +1282,11 @@ var isArray$a = Array.isArray;
 
 var isArray_1 = isArray$a;
 
-var isBuffer$3 = {exports: {}};
+var isBufferExports = {};
+var isBuffer$3 = {
+  get exports(){ return isBufferExports; },
+  set exports(v){ isBufferExports = v; },
+};
 
 /**
  * This method returns `false`.
@@ -1343,7 +1347,7 @@ var stubFalse_1 = stubFalse;
 	var isBuffer = nativeIsBuffer || stubFalse;
 
 	module.exports = isBuffer;
-} (isBuffer$3, isBuffer$3.exports));
+} (isBuffer$3, isBufferExports));
 
 /** Used as references for various `Number` constants. */
 
@@ -1486,7 +1490,11 @@ function baseUnary$4(func) {
 
 var _baseUnary = baseUnary$4;
 
-var _nodeUtil = {exports: {}};
+var _nodeUtilExports = {};
+var _nodeUtil = {
+  get exports(){ return _nodeUtilExports; },
+  set exports(v){ _nodeUtilExports = v; },
+};
 
 (function (module, exports) {
 	var freeGlobal = _freeGlobal;
@@ -1519,11 +1527,11 @@ var _nodeUtil = {exports: {}};
 	}());
 
 	module.exports = nodeUtil;
-} (_nodeUtil, _nodeUtil.exports));
+} (_nodeUtil, _nodeUtilExports));
 
 var baseIsTypedArray = _baseIsTypedArray,
     baseUnary$3 = _baseUnary,
-    nodeUtil$2 = _nodeUtil.exports;
+    nodeUtil$2 = _nodeUtilExports;
 
 /* Node.js helper references. */
 var nodeIsTypedArray = nodeUtil$2 && nodeUtil$2.isTypedArray;
@@ -1552,7 +1560,7 @@ var isTypedArray_1 = isTypedArray$2;
 var baseTimes = _baseTimes,
     isArguments$2 = isArguments_1,
     isArray$9 = isArray_1,
-    isBuffer$2 = isBuffer$3.exports,
+    isBuffer$2 = isBufferExports,
     isIndex$1 = _isIndex,
     isTypedArray$1 = isTypedArray_1;
 
@@ -1871,7 +1879,11 @@ function baseAssignIn$1(object, source) {
 
 var _baseAssignIn = baseAssignIn$1;
 
-var _cloneBuffer = {exports: {}};
+var _cloneBufferExports = {};
+var _cloneBuffer = {
+  get exports(){ return _cloneBufferExports; },
+  set exports(v){ _cloneBufferExports = v; },
+};
 
 (function (module, exports) {
 	var root = _root;
@@ -1909,7 +1921,7 @@ var _cloneBuffer = {exports: {}};
 	}
 
 	module.exports = cloneBuffer;
-} (_cloneBuffer, _cloneBuffer.exports));
+} (_cloneBuffer, _cloneBufferExports));
 
 /**
  * Copies the values of `source` to `array`.
@@ -2525,7 +2537,7 @@ var _baseIsMap = baseIsMap$1;
 
 var baseIsMap = _baseIsMap,
     baseUnary$2 = _baseUnary,
-    nodeUtil$1 = _nodeUtil.exports;
+    nodeUtil$1 = _nodeUtilExports;
 
 /* Node.js helper references. */
 var nodeIsMap = nodeUtil$1 && nodeUtil$1.isMap;
@@ -2572,7 +2584,7 @@ var _baseIsSet = baseIsSet$1;
 
 var baseIsSet = _baseIsSet,
     baseUnary$1 = _baseUnary,
-    nodeUtil = _nodeUtil.exports;
+    nodeUtil = _nodeUtilExports;
 
 /* Node.js helper references. */
 var nodeIsSet = nodeUtil && nodeUtil.isSet;
@@ -2603,7 +2615,7 @@ var Stack$2 = _Stack,
     assignValue = _assignValue,
     baseAssign = _baseAssign,
     baseAssignIn = _baseAssignIn,
-    cloneBuffer = _cloneBuffer.exports,
+    cloneBuffer = _cloneBufferExports,
     copyArray = _copyArray,
     copySymbols = _copySymbols,
     copySymbolsIn = _copySymbolsIn,
@@ -2614,7 +2626,7 @@ var Stack$2 = _Stack,
     initCloneByTag = _initCloneByTag,
     initCloneObject = _initCloneObject,
     isArray$7 = isArray_1,
-    isBuffer$1 = isBuffer$3.exports,
+    isBuffer$1 = isBufferExports,
     isMap = isMap_1,
     isObject$2 = isObject_1,
     isSet = isSet_1,
@@ -3466,7 +3478,7 @@ var Stack$1 = _Stack,
     equalObjects = _equalObjects,
     getTag = _getTag,
     isArray$6 = isArray_1,
-    isBuffer = isBuffer$3.exports,
+    isBuffer = isBufferExports,
     isTypedArray = isTypedArray_1;
 
 /** Used to compose bitmasks for value comparisons. */
