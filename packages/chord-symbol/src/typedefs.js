@@ -11,6 +11,7 @@
  * If you need to trace what has generated a given chord, you'll find it here.
  * @property {NormalizedChord} normalized - abstract representation of the chord based on its intervals.
  * @property {FormattedChord} formatted - pre-rendering of the normalized chord.
+ * @property {NumeralChord} numeral - chord in the roman numeral notation.
  * @property {ParserConfiguration} parserConfiguration - configuration passed to the parser on chord creation.
  */
 
@@ -77,17 +78,41 @@
  */
 
 /**
+ * Roman numeral symbol of the chord, both rendered in a single string and also decomposed in its sub-parts.
+ * The detection of the degree is based on the key given to the parser configuration.
+ * The used approach is very naive and only based on whether the chord is diatonic to the given key or borrowed to its parallel major/minor scale
+ * As such, it is only suitable for very basic harmonic analysis and a lot of chords will render as "?" because they won't fit
+ * either scenario.
+ * Having the symbol decomposed in its part will allow an external tool to easily override the detected degree
+ * and reconstruct the symbol if needed.
+ * @typedef {Object} NumeralChord
+ * @type {Object}
+ * @property {String} symbol - concatenation of the `degree`, the `descriptor` and the `inversion` properties
+ * @property {String} degree - degree of the chord in the scale, or "?" if it cannot be determined.
+ * If the `key` property is not given to the parser configuration, the degree will be either "I", "i" or "?"
+ * @property {String} descriptor - quality of the chord (e.g. seventh, major seventh, diminished, etc.)
+ * @property {String} inversion - inversion notation in the roman numeral format (e.g. ⁶₄, ⁶₅, etc.)
+ * @property {('minor'|'major')} thirdQuality - quality of the third of the chord, either "minor" or "major"
+ * @property {('diatonic'|'borrowed'|'unknown')} type - Either "diatonic" if the degree is part of the key scale,
+ * "borrowed" if it is part of the parallel minor or major scale, "unknown" otherwise.
+ */
+
+/**
  * Configuration of the chord parser
  * @typedef {Object} ParserConfiguration
  * @type {Object}
- * @property {Array<('english'|'german'|'latin')>=} notationSystems=['english','german','latin'] -
+ * @property {Array<('english'|'german'|'latin')>} [notationSystems=['english','german','latin']] -
  * 	Notation systems that should be used to try parsing a symbol. All by default.
- * @property {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals=['b5','#5','b9','#9','#11','b13'] -
+ * @property {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} [altIntervals=['b5','#5','b9','#9','#11','b13']] -
  * user selection of intervals affected by the `alt` modifier (all by default).
  * Since using the `C7alt` symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
  * the intervals that the `alt` modifier should yield
  * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
  * @property {customFilter[]} [customFilters=[]] - custom filters applied during parsing
+ * @property {String} [key=''] - key on which to base the rendering of the numeral symbol.
+ * The key needs to be given in english notation with a maximum of 3 characters using non-unicode accidentals.
+ * E.g. `C`, `C#m` or `Ab` are all valid keys, while `B♭` and `C7` are not.
+ * If not given, the parser will not be able to detect the degree of the chord.
  */
 
 /**

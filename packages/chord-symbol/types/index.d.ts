@@ -33,6 +33,11 @@ type Chord = {
 	 */
 	formatted: FormattedChord;
 	/**
+	/**
+	 * - chord in the roman numeral notation.
+	 */
+	numeral: NumeralChord;
+	/**
 	 * - configuration passed to the parser on chord creation.
 	 */
 	parserConfiguration: ParserConfiguration;
@@ -172,6 +177,43 @@ type FormattedChord = {
 	chordChanges: string[];
 };
 /**
+ * Roman numeral symbol of the chord, both rendered in a single string and also decomposed in its sub-parts.
+ * The detection of the degree is based on the key given to the parser configuration.
+ * The used approach is very naive and only based on whether the chord is diatonic to the given key or borrowed to its parallel major/minor scale
+ * As such, it is only suitable for very basic harmonic analysis and a lot of chords will render as "?" because they won't fit
+ * either scenario.
+ * Having the symbol decomposed in its part will allow an external tool to easily override the detected degree
+ * and reconstruct the symbol if needed.
+ */
+type NumeralChord = {
+	/**
+	 * - concatenation of the `degree`, the `descriptor` and the `inversion` properties
+	 */
+	symbol: string;
+	/**
+	 * - degree of the chord in the scale, or "?" if it cannot be determined.
+	 * If the `key` property is not given to the parser configuration, the degree will be either "I", "i" or "?"
+	 */
+	degree: string;
+	/**
+	 * - quality of the chord (e.g. seventh, major seventh, diminished, etc.)
+	 */
+	descriptor: string;
+	/**
+	 * - inversion notation in the roman numeral format (e.g. ⁶₄, ⁶₅, etc.)
+	 */
+	inversion: string;
+	/**
+	 * - quality of the third of the chord, either "minor" or "major"
+	 */
+	thirdQuality: 'minor' | 'major';
+	/**
+	 * - Either "diatonic" if the degree is part of the key scale,
+	 * "borrowed" if it is part of the parallel minor or major scale, "unknown" otherwise.
+	 */
+	type: 'diatonic' | 'borrowed' | 'unknown';
+};
+/**
  * Configuration of the chord parser
  */
 type ParserConfiguration = {
@@ -179,7 +221,7 @@ type ParserConfiguration = {
 	 * =['english','german','latin'] -
 	 * Notation systems that should be used to try parsing a symbol. All by default.
 	 */
-	notationSystems?: Array<'english' | 'german' | 'latin'> | undefined;
+	notationSystems?: Array<'english' | 'german' | 'latin'>;
 	/**
 	 * =['b5','#5','b9','#9','#11','b13'] -
 	 * user selection of intervals affected by the `alt` modifier (all by default).
@@ -187,11 +229,18 @@ type ParserConfiguration = {
 	 * the intervals that the `alt` modifier should yield
 	 * If you would like `alt` to consistently yield a specific set of intervals, you can specify those here.
 	 */
-	altIntervals: Array<'b5' | '#5' | 'b9' | '#9' | '#11' | 'b13'>;
+	altIntervals?: Array<'b5' | '#5' | 'b9' | '#9' | '#11' | 'b13'>;
 	/**
 	 * - custom filters applied during parsing
 	 */
 	customFilters?: customFilter[];
+	/**
+	 * - key on which to base the rendering of the numeral symbol.
+	 * The key needs to be given in english notation with a maximum of 3 characters using non-unicode accidentals.
+	 * E.g. `C`, `C#m` or `Ab` are all valid keys, while `B♭` and `C7` are not.
+	 * If not given, the parser will not be able to detect the degree of the chord.
+	 */
+	key?: string;
 };
 /**
  * Description of an error that occurred during the parsing.
