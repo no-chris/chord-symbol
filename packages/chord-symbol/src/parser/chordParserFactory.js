@@ -1,8 +1,10 @@
 import chain from '../helpers/chain';
 import _cloneDeep from 'lodash/cloneDeep';
+import _isString from 'lodash/isString';
 import checkCustomFilters from '../helpers/checkCustomFilters';
 
 import { allVariantsPerGroup } from '../dictionaries/notes';
+import { allKeys } from '../dictionaries/allKeys';
 
 import {
 	InvalidInputError,
@@ -12,6 +14,7 @@ import {
 import checkIntervalsConsistency from './filters/checkIntervalsConsistency';
 import formatSymbol from './filters/formatSymbol';
 import formatSymbolParts from './filters/formatSymbolParts';
+import formatNumeralSymbol from './filters/formatNumeralSymbol';
 import getParsableDescriptor from './filters/getParsableDescriptor';
 import initChord from './filters/initChord';
 import nameIndividualChordNotes from './filters/nameIndividualChordNotes';
@@ -33,11 +36,13 @@ function chordParserFactory(parserConfiguration = {}) {
 		notationSystems = _cloneDeep(allNotationSystems),
 		altIntervals = _cloneDeep(allAltIntervals),
 		customFilters = [],
+		key = '',
 	} = parserConfiguration;
 
 	checkAltIntervals(altIntervals, allAltIntervals);
 	checkNotationSystems(notationSystems, allNotationSystems);
 	checkCustomFilters(customFilters);
+	checkKey(key);
 
 	return parseChord;
 
@@ -77,6 +82,7 @@ function chordParserFactory(parserConfiguration = {}) {
 					formatSymbolParts,
 					formatSymbol,
 					nameIndividualChordNotes,
+					formatNumeralSymbol.bind(null, key),
 					...customFilters,
 				];
 
@@ -119,6 +125,12 @@ function checkArray(arrayName, arrayToTest, allowedValues, allowEmpty) {
 			);
 		}
 	});
+}
+
+function checkKey(key) {
+	if (key !== '' && (!_isString(key) || !allKeys.includes(key))) {
+		throw new TypeError(`'${key}' is not a valid value for key`);
+	}
 }
 
 function isInputValid(input) {

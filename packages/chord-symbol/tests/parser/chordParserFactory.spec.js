@@ -502,3 +502,45 @@ describe('Save the notation system in the `input` property of the parsed chord',
 		}
 	);
 });
+
+describe('Roman numerals', () => {
+	describe.each([
+		['C', 'C', 'I'],
+		['Dm', 'C', 'ii'],
+		['Em/G', 'C', 'iii⁶'],
+		['FM7/E', 'C', 'IVΔ²'],
+		['G7', 'C', 'V⁷'],
+		['C', undefined, 'I'],
+	])('%s in the key of %s => %s', (chord, key, expected) => {
+		test('properly build the roman numeral symbol', () => {
+			const parseChord = chordParserFactory({ key });
+			const parsed = parseChord(chord);
+
+			expect(parsed.numeral.symbol).toBe(expected);
+		});
+	});
+
+	describe.each([
+		[{}],
+		[[]],
+		[NaN],
+		[0],
+		['Sol'],
+		[' C#m'],
+		['Cb'],
+		['Fb'],
+		['C♯m'],
+		['A♭'],
+		['C7'],
+	])('%s', (key) => {
+		test('should throw an error if the key is not valid', () => {
+			const shouldThrow = () => {
+				chordParserFactory({ key });
+			};
+			expect(shouldThrow).toThrow(TypeError);
+			expect(shouldThrow).toThrow(
+				`'${key}' is not a valid value for key`
+			);
+		});
+	});
+});

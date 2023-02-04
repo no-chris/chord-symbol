@@ -17,7 +17,7 @@ const borrowedChords = {
 };
 
 /**
- * xxx
+ * Construct the roman numeral symbol for a chord
  * @param {String} key
  * @param {Chord} chord
  * @returns {Chord}
@@ -30,10 +30,13 @@ export default function formatNumeralSymbol(key = '', chord) {
 	if (!key) key = chord.normalized.rootNote;
 
 	const keyQuality = key.indexOf('m') > -1 ? 'minor' : 'major';
-	degree = getRomanDegree(key, keyQuality, chord);
+	const thirdQuality = minorQualities.includes(chord.normalized.quality)
+		? 'minor'
+		: 'major';
+
+	degree = getRomanDegree(key, keyQuality, chord, thirdQuality);
 
 	const inversion = getInversion(chord);
-
 	const descriptor = qualityToDescriptor[chord.normalized.quality](
 		chord,
 		inversion
@@ -59,11 +62,12 @@ export default function formatNumeralSymbol(key = '', chord) {
 		descriptor,
 		inversion,
 		type,
+		thirdQuality,
 	};
 	return chord;
 }
 
-function getRomanDegree(key, keyQuality, chord) {
+function getRomanDegree(key, keyQuality, chord, thirdQuality) {
 	const keyNote = key.replace('m', '');
 
 	const interval = getIntervalBetweenNotes(
@@ -72,11 +76,7 @@ function getRomanDegree(key, keyQuality, chord) {
 	);
 	const romanDegree = semitonesToDegree[keyQuality][interval];
 
-	const chordQuality = minorQualities.includes(chord.normalized.quality)
-		? 'minor'
-		: 'major';
-
-	return chordQuality === 'minor' ? romanDegree.toLowerCase() : romanDegree;
+	return thirdQuality === 'minor' ? romanDegree.toLowerCase() : romanDegree;
 }
 
 function getIntervalBetweenNotes(note1, note2) {
@@ -94,10 +94,10 @@ const qualityToDescriptor = {
 	[qualities.mi]: () => '',
 	[qualities.mi6]: () => '',
 	[qualities.mi7]: (chord, inversion) => {
-		if (inversion === '') {
-			return chord.normalized.intervals.includes('b5') ? 'ø' : '⁷';
+		if (chord.normalized.intervals.includes('b5')) {
+			return 'ø';
 		} else {
-			return chord.normalized.intervals.includes('b5') ? 'ø' : '';
+			return inversion === '' ? '⁷' : '';
 		}
 	},
 	[qualities.miMa7]: () => 'mΔ',
