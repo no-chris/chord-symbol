@@ -48,6 +48,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/**
+ * Create a renderer filter function that modifies the rendered chord to be closer to the style used by Ultimate Guitar.
+ * @returns {import("../../chord-symbol").CustomFilter} The filter function
+ */
 var chordSymbolUltimateGuitar = function chordSymbolUltimateGuitar() {
   return function (chord) {
     chord.formatted.symbol = chord.formatted.symbol.replace(/[() ]/g, '').replace('mM', 'mMaj').replace('°', 'dim');

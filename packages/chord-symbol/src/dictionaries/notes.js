@@ -1,3 +1,5 @@
+import _invert from 'lodash/invert';
+
 const notes = {
 	AFlat: 'Ab',
 	A: 'A',
@@ -146,8 +148,52 @@ const allVariantsPerGroup = [
 	{ name: 'latin', notes: latinVariants },
 ];
 
+const notesSharp = [
+	notes.A,
+	notes.ASharp,
+	notes.B,
+	notes.C,
+	notes.CSharp,
+	notes.D,
+	notes.DSharp,
+	notes.E,
+	notes.F,
+	notes.FSharp,
+	notes.G,
+	notes.GSharp,
+];
+
+const notesFlat = [
+	notes.A,
+	notes.BFlat,
+	notes.B,
+	notes.C,
+	notes.DFlat,
+	notes.D,
+	notes.EFlat,
+	notes.E,
+	notes.F,
+	notes.GFlat,
+	notes.G,
+	notes.AFlat,
+];
+
+const sharpsToFlats = {
+	[notes.CSharp]: notes.DFlat,
+	[notes.DSharp]: notes.EFlat,
+	[notes.FSharp]: notes.GFlat,
+	[notes.GSharp]: notes.AFlat,
+	[notes.ASharp]: notes.BFlat,
+};
+
+const flatsToSharps = _invert(sharpsToFlats);
+
 export {
 	notes,
+	notesSharp,
+	notesFlat,
+	sharpsToFlats,
+	flatsToSharps,
 	allVariants,
 	allVariantsPerGroup,
 	englishVariants,

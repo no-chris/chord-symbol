@@ -1,55 +1,6 @@
-import { notes } from '../../dictionaries/notes';
-import { majorQualities } from '../../dictionaries/qualities';
-
-const notesSharp = [
-	notes.A,
-	notes.ASharp,
-	notes.B,
-	notes.C,
-	notes.CSharp,
-	notes.D,
-	notes.DSharp,
-	notes.E,
-	notes.F,
-	notes.FSharp,
-	notes.G,
-	notes.GSharp,
-];
-
-const notesFlat = [
-	notes.A,
-	notes.BFlat,
-	notes.B,
-	notes.C,
-	notes.DFlat,
-	notes.D,
-	notes.EFlat,
-	notes.E,
-	notes.F,
-	notes.GFlat,
-	notes.G,
-	notes.AFlat,
-];
-
-const rootNoteToScaleAccidentals = {
-	[notes.C]: { maj: 'flat', min: 'flat' },
-	[notes.CSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes.DFlat]: { maj: 'flat', min: 'flat' },
-	[notes.D]: { maj: 'sharp', min: 'flat' },
-	[notes.DSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes.EFlat]: { maj: 'flat', min: 'flat' },
-	[notes.E]: { maj: 'sharp', min: 'sharp' },
-	[notes.F]: { maj: 'flat', min: 'flat' },
-	[notes.FSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes.GFlat]: { maj: 'flat', min: 'flat' },
-	[notes.G]: { maj: 'sharp', min: 'flat' },
-	[notes.GSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes.AFlat]: { maj: 'flat', min: 'flat' },
-	[notes.A]: { maj: 'sharp', min: 'flat' },
-	[notes.ASharp]: { maj: 'sharp', min: 'sharp' },
-	[notes.BFlat]: { maj: 'flat', min: 'flat' },
-	[notes.B]: { maj: 'sharp', min: 'sharp' },
-};
+import { minorQualities } from '../../dictionaries/qualities';
+import { notesSharp, notesFlat } from '../../dictionaries/notes';
+import { getScaleAccidental } from '../../dictionaries/scales';
 
 /**
  * Convert intervals in actual notes.
@@ -62,11 +13,12 @@ export default function nameIndividualChordNotes(chord) {
 	const semitones = chord.normalized.semitones;
 	const quality = chord.normalized.quality;
 
-	const minMaj = majorQualities.includes(quality) ? 'maj' : 'min';
+	let scale = rootNote;
+	if (minorQualities.includes(quality)) {
+		scale += 'm';
+	}
 	const refNotes =
-		rootNoteToScaleAccidentals[rootNote][minMaj] === 'sharp'
-			? notesSharp
-			: notesFlat;
+		getScaleAccidental(scale) === 'sharp' ? notesSharp : notesFlat;
 
 	const rootNoteIndex = refNotes.indexOf(rootNote);
 	const indexedNotes = [
@@ -77,9 +29,7 @@ export default function nameIndividualChordNotes(chord) {
 		...refNotes.slice(0, rootNoteIndex),
 	];
 
-	const chordNotes = semitones.map((i) => indexedNotes[i]);
-
-	chord.normalized.notes = chordNotes;
+	chord.normalized.notes = semitones.map((i) => indexedNotes[i]);
 
 	return chord;
 }

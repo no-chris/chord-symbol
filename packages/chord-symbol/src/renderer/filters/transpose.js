@@ -1,18 +1,10 @@
-import _invert from 'lodash/invert';
+import {
+	notesSharp,
+	sharpsToFlats,
+	flatsToSharps,
+} from '../../dictionaries/notes';
 
 import nameIndividualChordNotes from '../../parser/filters/nameIndividualChordNotes';
-
-const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-
-const sharpsToFlats = {
-	'C#': 'Db',
-	'D#': 'Eb',
-	'F#': 'Gb',
-	'G#': 'Ab',
-	'A#': 'Bb',
-};
-
-const flatsToSharps = _invert(sharpsToFlats);
 
 export default function transpose(transposeValue, accidentals, chord) {
 	const { rootNote, bassNote } = chord.normalized;
@@ -39,13 +31,13 @@ export default function transpose(transposeValue, accidentals, chord) {
 }
 
 function transposeNote(note, value, accidentals) {
-	const noteIndex = notes.indexOf(note);
+	const noteIndex = notesSharp.indexOf(note);
 	const transposedIndex = noteIndex + value;
 
 	const octaves = Math.floor(transposedIndex / 12);
 	const correctedTransposedIndex = transposedIndex - octaves * 12;
 
-	const transposed = notes[correctedTransposedIndex];
+	const transposed = notesSharp[correctedTransposedIndex];
 
 	return accidentals === 'flat'
 		? sharpsToFlats[transposed] || transposed

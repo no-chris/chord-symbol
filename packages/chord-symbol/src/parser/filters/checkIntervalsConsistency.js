@@ -25,7 +25,7 @@ const allForbiddenCombos = [
  * Check parsed interval list to detect potential inconsistencies
  *
  * @param {Chord} chord
- * @returns {Chord|Null}
+ * @returns {(Chord|Null)}
  */
 export default function checkIntervalsConsistency(chord) {
 	const intervals = chord.normalized.intervals;

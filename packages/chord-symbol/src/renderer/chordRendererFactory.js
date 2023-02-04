@@ -52,7 +52,7 @@ function chordRendererFactory({
 	/**
 	 * Render a chord structure
 	 * @param {Chord} chord - the chord structure to render
-	 * @returns {String|Chord} output depends on the selected printer: string for text printer (default), Chord for raw printer
+	 * @returns {(String|Chord)} output depends on the selected printer: string for text printer (default), Chord for raw printer
 	 */
 	function renderChord(chord) {
 		if (!isValidChord(chord)) {

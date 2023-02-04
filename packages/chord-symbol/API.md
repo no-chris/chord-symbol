@@ -45,6 +45,15 @@ Expose the chordRendererFactory() function</a></dt>
 Intended to be used as building blocks of a rendered chord
 The <code>symbol</code> property contains the default assembled rendering</p>
 </dd>
+<dt><a href="#NumeralChord">NumeralChord</a> : <code>Object</code></dt>
+<dd><p>Roman numeral symbol of the chord, both rendered in a single string and also decomposed in its sub-parts.
+The detection of the degree is based on the key given to the parser configuration.
+The used approach is very naive and only based on whether the chord is diatonic to the given key or borrowed to its parallel major/minor scale
+As such, it is only suitable for very basic harmonic analysis and a lot of chords will render as &quot;?&quot; because they won&#39;t fit
+either scenario.
+Having the symbol decomposed in its part will allow an external tool to easily override the detected degree
+and reconstruct the symbol if needed.</p>
+</dd>
 <dt><a href="#ParserConfiguration">ParserConfiguration</a> : <code>Object</code></dt>
 <dd><p>Configuration of the chord parser</p>
 </dd>
@@ -195,6 +204,9 @@ If you need to trace what has generated a given chord, you&#39;ll find it here.<
 </td>
     </tr><tr>
     <td>formatted</td><td><code><a href="#FormattedChord">FormattedChord</a></code></td><td><p>pre-rendering of the normalized chord.</p>
+</td>
+    </tr><tr>
+    <td>numeral</td><td><code><a href="#NumeralChord">NumeralChord</a></code></td><td><p>chord in the roman numeral notation.</p>
 </td>
     </tr><tr>
     <td>parserConfiguration</td><td><code><a href="#ParserConfiguration">ParserConfiguration</a></code></td><td><p>configuration passed to the parser on chord creation.</p>
@@ -368,6 +380,50 @@ If multiple added/omits are present, the <code>add/omit</code> symbol is only pr
     </tr>  </tbody>
 </table>
 
+<a name="NumeralChord"></a>
+
+## NumeralChord : <code>Object</code>
+Roman numeral symbol of the chord, both rendered in a single string and also decomposed in its sub-parts.
+The detection of the degree is based on the key given to the parser configuration.
+The used approach is very naive and only based on whether the chord is diatonic to the given key or borrowed to its parallel major/minor scale
+As such, it is only suitable for very basic harmonic analysis and a lot of chords will render as "?" because they won't fit
+either scenario.
+Having the symbol decomposed in its part will allow an external tool to easily override the detected degree
+and reconstruct the symbol if needed.
+
+**Kind**: global typedef  
+**Properties**
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Type</th><th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr>
+    <td>symbol</td><td><code>String</code></td><td><p>concatenation of the <code>degree</code>, the <code>descriptor</code> and the <code>inversion</code> properties</p>
+</td>
+    </tr><tr>
+    <td>degree</td><td><code>String</code></td><td><p>degree of the chord in the scale, or &quot;?&quot; if it cannot be determined.
+If the <code>key</code> property is not given to the parser configuration, the degree will be either &quot;I&quot;, &quot;i&quot; or &quot;?&quot;</p>
+</td>
+    </tr><tr>
+    <td>descriptor</td><td><code>String</code></td><td><p>quality of the chord (e.g. seventh, major seventh, diminished, etc.)</p>
+</td>
+    </tr><tr>
+    <td>inversion</td><td><code>String</code></td><td><p>inversion notation in the roman numeral format (e.g. ⁶₄, ⁶₅, etc.)</p>
+</td>
+    </tr><tr>
+    <td>thirdQuality</td><td><code>&#x27;minor&#x27;</code> | <code>&#x27;major&#x27;</code></td><td><p>quality of the third of the chord, either &quot;minor&quot; or &quot;major&quot;</p>
+</td>
+    </tr><tr>
+    <td>type</td><td><code>&#x27;diatonic&#x27;</code> | <code>&#x27;borrowed&#x27;</code> | <code>&#x27;unknown&#x27;</code></td><td><p>Either &quot;diatonic&quot; if the degree is part of the key scale,
+&quot;borrowed&quot; if it is part of the parallel minor or major scale, &quot;unknown&quot; otherwise.</p>
+</td>
+    </tr>  </tbody>
+</table>
+
 <a name="ParserConfiguration"></a>
 
 ## ParserConfiguration : <code>Object</code>
@@ -384,16 +440,22 @@ Configuration of the chord parser
   </thead>
   <tbody>
 <tr>
-    <td>[notationSystems]</td><td><code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></td><td><code>[&#x27;english&#x27;,&#x27;german&#x27;,&#x27;latin&#x27;</code></td><td><p>Notation systems that should be used to try parsing a symbol. All by default.</p>
+    <td>[notationSystems]</td><td><code>Array.&lt;(&#x27;english&#x27;|&#x27;german&#x27;|&#x27;latin&#x27;)&gt;</code></td><td><code>[&#x27;english&#x27;,&#x27;german&#x27;,&#x27;latin&#x27;]</code></td><td><p>Notation systems that should be used to try parsing a symbol. All by default.</p>
 </td>
     </tr><tr>
-    <td>altIntervals</td><td><code>Array.&lt;(&#x27;b5&#x27;|&#x27;#5&#x27;|&#x27;b9&#x27;|&#x27;#9&#x27;|&#x27;#11&#x27;|&#x27;b13&#x27;)&gt;</code></td><td><code>[&#x27;b5&#x27;,&#x27;#5&#x27;,&#x27;b9&#x27;,&#x27;#9&#x27;,&#x27;#11&#x27;,&#x27;b13&#x27;</code></td><td><p>user selection of intervals affected by the <code>alt</code> modifier (all by default).
+    <td>[altIntervals]</td><td><code>Array.&lt;(&#x27;b5&#x27;|&#x27;#5&#x27;|&#x27;b9&#x27;|&#x27;#9&#x27;|&#x27;#11&#x27;|&#x27;b13&#x27;)&gt;</code></td><td><code>[&#x27;b5&#x27;,&#x27;#5&#x27;,&#x27;b9&#x27;,&#x27;#9&#x27;,&#x27;#11&#x27;,&#x27;b13&#x27;]</code></td><td><p>user selection of intervals affected by the <code>alt</code> modifier (all by default).
 Since using the <code>C7alt</code> symbol is a way to leave some room for interpretation by the player, Chord-symbol offer the possibility to declare what are
 the intervals that the <code>alt</code> modifier should yield
 If you would like <code>alt</code> to consistently yield a specific set of intervals, you can specify those here.</p>
 </td>
     </tr><tr>
     <td>[customFilters]</td><td><code><a href="#CustomFilter">Array.&lt;CustomFilter&gt;</a></code></td><td><code>[]</code></td><td><p>custom filters applied during parsing</p>
+</td>
+    </tr><tr>
+    <td>[key]</td><td><code>String</code></td><td><code>&#x27;&#x27;</code></td><td><p>key on which to base the rendering of the numeral symbol.
+The key needs to be given in english notation with a maximum of 3 characters using non-unicode accidentals.
+E.g. <code>C</code>, <code>C#m</code> or <code>Ab</code> are all valid keys, while <code>B♭</code> and <code>C7</code> are not.
+If not given, the parser will not be able to detect the degree of the chord.</p>
 </td>
     </tr>  </tbody>
 </table>

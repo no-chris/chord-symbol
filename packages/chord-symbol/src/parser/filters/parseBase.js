@@ -6,7 +6,7 @@ import { NoSymbolFoundError } from '../../helpers/ChordParsingError';
  *
  * @param {String[]} noteVariants - all notes within a given notation system (English, Latin, German...)
  * @param {Chord} chord
- * @returns {Chord|null}
+ * @returns {(Chord|Null)}
  */
 export default function parseBase(noteVariants, chord) {
 	const { symbol } = chord.input;

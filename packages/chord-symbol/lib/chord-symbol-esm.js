@@ -402,7 +402,7 @@ var symToStringTag = Symbol$4 ? Symbol$4.toStringTag : undefined;
  * @param {*} value The value to query.
  * @returns {string} Returns the `toStringTag`.
  */
-function baseGetTag$5(value) {
+function baseGetTag$6(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
   }
@@ -411,7 +411,7 @@ function baseGetTag$5(value) {
     : objectToString(value);
 }
 
-var _baseGetTag = baseGetTag$5;
+var _baseGetTag = baseGetTag$6;
 
 /**
  * Checks if `value` is the
@@ -446,7 +446,7 @@ function isObject$7(value) {
 
 var isObject_1 = isObject$7;
 
-var baseGetTag$4 = _baseGetTag,
+var baseGetTag$5 = _baseGetTag,
     isObject$6 = isObject_1;
 
 /** `Object#toString` result references. */
@@ -478,7 +478,7 @@ function isFunction$2(value) {
   }
   // The use of `Object#toString` avoids issues with the `typeof` operator
   // in Safari 9 which returns 'object' for typed arrays and other constructors.
-  var tag = baseGetTag$4(value);
+  var tag = baseGetTag$5(value);
   return tag == funcTag$2 || tag == genTag$1 || tag == asyncTag || tag == proxyTag;
 }
 
@@ -1192,14 +1192,14 @@ var _baseTimes = baseTimes$1;
  * // => false
  */
 
-function isObjectLike$8(value) {
+function isObjectLike$9(value) {
   return value != null && typeof value == 'object';
 }
 
-var isObjectLike_1 = isObjectLike$8;
+var isObjectLike_1 = isObjectLike$9;
 
-var baseGetTag$3 = _baseGetTag,
-    isObjectLike$7 = isObjectLike_1;
+var baseGetTag$4 = _baseGetTag,
+    isObjectLike$8 = isObjectLike_1;
 
 /** `Object#toString` result references. */
 var argsTag$3 = '[object Arguments]';
@@ -1212,13 +1212,13 @@ var argsTag$3 = '[object Arguments]';
  * @returns {boolean} Returns `true` if `value` is an `arguments` object,
  */
 function baseIsArguments$1(value) {
-  return isObjectLike$7(value) && baseGetTag$3(value) == argsTag$3;
+  return isObjectLike$8(value) && baseGetTag$4(value) == argsTag$3;
 }
 
 var _baseIsArguments = baseIsArguments$1;
 
 var baseIsArguments = _baseIsArguments,
-    isObjectLike$6 = isObjectLike_1;
+    isObjectLike$7 = isObjectLike_1;
 
 /** Used for built-in method references. */
 var objectProto$9 = Object.prototype;
@@ -1248,7 +1248,7 @@ var propertyIsEnumerable$1 = objectProto$9.propertyIsEnumerable;
  * // => false
  */
 var isArguments$3 = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
-  return isObjectLike$6(value) && hasOwnProperty$6.call(value, 'callee') &&
+  return isObjectLike$7(value) && hasOwnProperty$6.call(value, 'callee') &&
     !propertyIsEnumerable$1.call(value, 'callee');
 };
 
@@ -1278,9 +1278,9 @@ var isArguments_1 = isArguments$3;
  * // => false
  */
 
-var isArray$a = Array.isArray;
+var isArray$b = Array.isArray;
 
-var isArray_1 = isArray$a;
+var isArray_1 = isArray$b;
 
 var isBufferExports = {};
 var isBuffer$3 = {
@@ -1413,9 +1413,9 @@ function isLength$3(value) {
 
 var isLength_1 = isLength$3;
 
-var baseGetTag$2 = _baseGetTag,
+var baseGetTag$3 = _baseGetTag,
     isLength$2 = isLength_1,
-    isObjectLike$5 = isObjectLike_1;
+    isObjectLike$6 = isObjectLike_1;
 
 /** `Object#toString` result references. */
 var argsTag$2 = '[object Arguments]',
@@ -1429,7 +1429,7 @@ var argsTag$2 = '[object Arguments]',
     objectTag$3 = '[object Object]',
     regexpTag$3 = '[object RegExp]',
     setTag$5 = '[object Set]',
-    stringTag$3 = '[object String]',
+    stringTag$4 = '[object String]',
     weakMapTag$2 = '[object WeakMap]';
 
 var arrayBufferTag$3 = '[object ArrayBuffer]',
@@ -1457,7 +1457,7 @@ typedArrayTags[dataViewTag$4] = typedArrayTags[dateTag$3] =
 typedArrayTags[errorTag$2] = typedArrayTags[funcTag$1] =
 typedArrayTags[mapTag$5] = typedArrayTags[numberTag$3] =
 typedArrayTags[objectTag$3] = typedArrayTags[regexpTag$3] =
-typedArrayTags[setTag$5] = typedArrayTags[stringTag$3] =
+typedArrayTags[setTag$5] = typedArrayTags[stringTag$4] =
 typedArrayTags[weakMapTag$2] = false;
 
 /**
@@ -1468,8 +1468,8 @@ typedArrayTags[weakMapTag$2] = false;
  * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
  */
 function baseIsTypedArray$1(value) {
-  return isObjectLike$5(value) &&
-    isLength$2(value.length) && !!typedArrayTags[baseGetTag$2(value)];
+  return isObjectLike$6(value) &&
+    isLength$2(value.length) && !!typedArrayTags[baseGetTag$3(value)];
 }
 
 var _baseIsTypedArray = baseIsTypedArray$1;
@@ -1559,7 +1559,7 @@ var isTypedArray_1 = isTypedArray$2;
 
 var baseTimes = _baseTimes,
     isArguments$2 = isArguments_1,
-    isArray$9 = isArray_1,
+    isArray$a = isArray_1,
     isBuffer$2 = isBufferExports,
     isIndex$1 = _isIndex,
     isTypedArray$1 = isTypedArray_1;
@@ -1579,7 +1579,7 @@ var hasOwnProperty$5 = objectProto$8.hasOwnProperty;
  * @returns {Array} Returns the array of property names.
  */
 function arrayLikeKeys$2(value, inherited) {
-  var isArr = isArray$9(value),
+  var isArr = isArray$a(value),
       isArg = !isArr && isArguments$2(value),
       isBuff = !isArr && !isArg && isBuffer$2(value),
       isType = !isArr && !isArg && !isBuff && isTypedArray$1(value),
@@ -2118,7 +2118,7 @@ function copySymbolsIn$1(source, object) {
 var _copySymbolsIn = copySymbolsIn$1;
 
 var arrayPush$1 = _arrayPush,
-    isArray$8 = isArray_1;
+    isArray$9 = isArray_1;
 
 /**
  * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -2133,7 +2133,7 @@ var arrayPush$1 = _arrayPush,
  */
 function baseGetAllKeys$2(object, keysFunc, symbolsFunc) {
   var result = keysFunc(object);
-  return isArray$8(object) ? result : arrayPush$1(result, symbolsFunc(object));
+  return isArray$9(object) ? result : arrayPush$1(result, symbolsFunc(object));
 }
 
 var _baseGetAllKeys = baseGetAllKeys$2;
@@ -2210,7 +2210,7 @@ var DataView = _DataView,
     Promise$1 = _Promise,
     Set$1 = _Set,
     WeakMap = _WeakMap,
-    baseGetTag$1 = _baseGetTag,
+    baseGetTag$2 = _baseGetTag,
     toSource = _toSource;
 
 /** `Object#toString` result references. */
@@ -2236,7 +2236,7 @@ var dataViewCtorString = toSource(DataView),
  * @param {*} value The value to query.
  * @returns {string} Returns the `toStringTag`.
  */
-var getTag$4 = baseGetTag$1;
+var getTag$4 = baseGetTag$2;
 
 // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
 if ((DataView && getTag$4(new DataView(new ArrayBuffer(1))) != dataViewTag$3) ||
@@ -2245,7 +2245,7 @@ if ((DataView && getTag$4(new DataView(new ArrayBuffer(1))) != dataViewTag$3) ||
     (Set$1 && getTag$4(new Set$1) != setTag$4) ||
     (WeakMap && getTag$4(new WeakMap) != weakMapTag$1)) {
   getTag$4 = function(value) {
-    var result = baseGetTag$1(value),
+    var result = baseGetTag$2(value),
         Ctor = result == objectTag$2 ? value.constructor : undefined,
         ctorString = Ctor ? toSource(Ctor) : '';
 
@@ -2401,7 +2401,7 @@ var boolTag$2 = '[object Boolean]',
     numberTag$2 = '[object Number]',
     regexpTag$2 = '[object RegExp]',
     setTag$3 = '[object Set]',
-    stringTag$2 = '[object String]',
+    stringTag$3 = '[object String]',
     symbolTag$3 = '[object Symbol]';
 
 var arrayBufferTag$2 = '[object ArrayBuffer]',
@@ -2450,7 +2450,7 @@ function initCloneByTag$1(object, tag, isDeep) {
       return new Ctor;
 
     case numberTag$2:
-    case stringTag$2:
+    case stringTag$3:
       return new Ctor(object);
 
     case regexpTag$2:
@@ -2517,7 +2517,7 @@ function initCloneObject$1(object) {
 var _initCloneObject = initCloneObject$1;
 
 var getTag$3 = _getTag,
-    isObjectLike$4 = isObjectLike_1;
+    isObjectLike$5 = isObjectLike_1;
 
 /** `Object#toString` result references. */
 var mapTag$2 = '[object Map]';
@@ -2530,7 +2530,7 @@ var mapTag$2 = '[object Map]';
  * @returns {boolean} Returns `true` if `value` is a map, else `false`.
  */
 function baseIsMap$1(value) {
-  return isObjectLike$4(value) && getTag$3(value) == mapTag$2;
+  return isObjectLike$5(value) && getTag$3(value) == mapTag$2;
 }
 
 var _baseIsMap = baseIsMap$1;
@@ -2564,7 +2564,7 @@ var isMap$1 = nodeIsMap ? baseUnary$2(nodeIsMap) : baseIsMap;
 var isMap_1 = isMap$1;
 
 var getTag$2 = _getTag,
-    isObjectLike$3 = isObjectLike_1;
+    isObjectLike$4 = isObjectLike_1;
 
 /** `Object#toString` result references. */
 var setTag$2 = '[object Set]';
@@ -2577,7 +2577,7 @@ var setTag$2 = '[object Set]';
  * @returns {boolean} Returns `true` if `value` is a set, else `false`.
  */
 function baseIsSet$1(value) {
-  return isObjectLike$3(value) && getTag$2(value) == setTag$2;
+  return isObjectLike$4(value) && getTag$2(value) == setTag$2;
 }
 
 var _baseIsSet = baseIsSet$1;
@@ -2625,7 +2625,7 @@ var Stack$2 = _Stack,
     initCloneArray = _initCloneArray,
     initCloneByTag = _initCloneByTag,
     initCloneObject = _initCloneObject,
-    isArray$7 = isArray_1,
+    isArray$8 = isArray_1,
     isBuffer$1 = isBufferExports,
     isMap = isMap_1,
     isObject$2 = isObject_1,
@@ -2651,7 +2651,7 @@ var argsTag$1 = '[object Arguments]',
     objectTag$1 = '[object Object]',
     regexpTag$1 = '[object RegExp]',
     setTag$1 = '[object Set]',
-    stringTag$1 = '[object String]',
+    stringTag$2 = '[object String]',
     symbolTag$2 = '[object Symbol]',
     weakMapTag = '[object WeakMap]';
 
@@ -2677,7 +2677,7 @@ cloneableTags[int8Tag] = cloneableTags[int16Tag] =
 cloneableTags[int32Tag] = cloneableTags[mapTag$1] =
 cloneableTags[numberTag$1] = cloneableTags[objectTag$1] =
 cloneableTags[regexpTag$1] = cloneableTags[setTag$1] =
-cloneableTags[stringTag$1] = cloneableTags[symbolTag$2] =
+cloneableTags[stringTag$2] = cloneableTags[symbolTag$2] =
 cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
 cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
 cloneableTags[errorTag$1] = cloneableTags[funcTag] =
@@ -2714,7 +2714,7 @@ function baseClone$2(value, bitmask, customizer, key, object, stack) {
   if (!isObject$2(value)) {
     return value;
   }
-  var isArr = isArray$7(value);
+  var isArr = isArray$8(value);
   if (isArr) {
     result = initCloneArray(value);
     if (!isDeep) {
@@ -2807,6 +2807,37 @@ function cloneDeep(value) {
 
 var cloneDeep_1 = cloneDeep;
 
+var baseGetTag$1 = _baseGetTag,
+    isArray$7 = isArray_1,
+    isObjectLike$3 = isObjectLike_1;
+
+/** `Object#toString` result references. */
+var stringTag$1 = '[object String]';
+
+/**
+ * Checks if `value` is classified as a `String` primitive or object.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a string, else `false`.
+ * @example
+ *
+ * _.isString('abc');
+ * // => true
+ *
+ * _.isString(1);
+ * // => false
+ */
+function isString(value) {
+  return typeof value == 'string' ||
+    (!isArray$7(value) && isObjectLike$3(value) && baseGetTag$1(value) == stringTag$1);
+}
+
+var isString_1 = isString;
+
 const checkCustomFilters = (customFilters) => {
 	if (!Array.isArray(customFilters)) {
 		throw new TypeError('customFilters should be given as an array');
@@ -2817,7 +2848,202 @@ const checkCustomFilters = (customFilters) => {
 	return true;
 };
 
-const notes$1 = {
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+
+function constant$2(value) {
+  return function() {
+    return value;
+  };
+}
+
+var constant_1 = constant$2;
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+
+function createBaseFor$1(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+var _createBaseFor = createBaseFor$1;
+
+var createBaseFor = _createBaseFor;
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor$1 = createBaseFor();
+
+var _baseFor = baseFor$1;
+
+var baseFor = _baseFor,
+    keys$2 = keys_1;
+
+/**
+ * The base implementation of `_.forOwn` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Object} Returns `object`.
+ */
+function baseForOwn$1(object, iteratee) {
+  return object && baseFor(object, iteratee, keys$2);
+}
+
+var _baseForOwn = baseForOwn$1;
+
+var baseForOwn = _baseForOwn;
+
+/**
+ * The base implementation of `_.invert` and `_.invertBy` which inverts
+ * `object` with values transformed by `iteratee` and set by `setter`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} setter The function to set `accumulator` values.
+ * @param {Function} iteratee The iteratee to transform values.
+ * @param {Object} accumulator The initial inverted object.
+ * @returns {Function} Returns `accumulator`.
+ */
+function baseInverter$1(object, setter, iteratee, accumulator) {
+  baseForOwn(object, function(value, key, object) {
+    setter(accumulator, iteratee(value), key, object);
+  });
+  return accumulator;
+}
+
+var _baseInverter = baseInverter$1;
+
+var baseInverter = _baseInverter;
+
+/**
+ * Creates a function like `_.invertBy`.
+ *
+ * @private
+ * @param {Function} setter The function to set accumulator values.
+ * @param {Function} toIteratee The function to resolve iteratees.
+ * @returns {Function} Returns the new inverter function.
+ */
+function createInverter$1(setter, toIteratee) {
+  return function(object, iteratee) {
+    return baseInverter(object, setter, toIteratee(iteratee), {});
+  };
+}
+
+var _createInverter = createInverter$1;
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+
+function identity$4(value) {
+  return value;
+}
+
+var identity_1 = identity$4;
+
+var constant$1 = constant_1,
+    createInverter = _createInverter,
+    identity$3 = identity_1;
+
+/** Used for built-in method references. */
+var objectProto$2 = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto$2.toString;
+
+/**
+ * Creates an object composed of the inverted keys and values of `object`.
+ * If `object` contains duplicate values, subsequent values overwrite
+ * property assignments of previous values.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.7.0
+ * @category Object
+ * @param {Object} object The object to invert.
+ * @returns {Object} Returns the new inverted object.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2, 'c': 1 };
+ *
+ * _.invert(object);
+ * // => { '1': 'c', '2': 'b' }
+ */
+var invert = createInverter(function(result, value, key) {
+  if (value != null &&
+      typeof value.toString != 'function') {
+    value = nativeObjectToString.call(value);
+  }
+
+  result[value] = key;
+}, constant$1(identity$3));
+
+var invert_1 = invert;
+
+const notes = {
 	AFlat: 'Ab',
 	A: 'A',
 	ASharp: 'A#',
@@ -2838,78 +3064,78 @@ const notes$1 = {
 };
 
 const english = {
-	Ab: notes$1.AFlat,
-	A: notes$1.A,
-	'A#': notes$1.ASharp,
-	Bb: notes$1.BFlat,
-	B: notes$1.B,
-	'B#': notes$1.C,
-	Cb: notes$1.B,
-	C: notes$1.C,
-	'C#': notes$1.CSharp,
-	Db: notes$1.DFlat,
-	D: notes$1.D,
-	'D#': notes$1.DSharp,
-	Eb: notes$1.EFlat,
-	E: notes$1.E,
-	'E#': notes$1.F,
-	Fb: notes$1.E,
-	F: notes$1.F,
-	'F#': notes$1.FSharp,
-	Gb: notes$1.GFlat,
-	G: notes$1.G,
-	'G#': notes$1.GSharp,
+	Ab: notes.AFlat,
+	A: notes.A,
+	'A#': notes.ASharp,
+	Bb: notes.BFlat,
+	B: notes.B,
+	'B#': notes.C,
+	Cb: notes.B,
+	C: notes.C,
+	'C#': notes.CSharp,
+	Db: notes.DFlat,
+	D: notes.D,
+	'D#': notes.DSharp,
+	Eb: notes.EFlat,
+	E: notes.E,
+	'E#': notes.F,
+	Fb: notes.E,
+	F: notes.F,
+	'F#': notes.FSharp,
+	Gb: notes.GFlat,
+	G: notes.G,
+	'G#': notes.GSharp,
 };
 
 const latin = {
-	Lab: notes$1.AFlat,
-	La: notes$1.A,
-	'La#': notes$1.ASharp,
-	Sib: notes$1.BFlat,
-	Si: notes$1.B,
-	'Si#': notes$1.C,
-	Dob: notes$1.B,
-	Do: notes$1.C,
-	'Do#': notes$1.CSharp,
-	Reb: notes$1.DFlat,
-	Réb: notes$1.DFlat,
-	Re: notes$1.D,
-	Ré: notes$1.D,
-	'Re#': notes$1.DSharp,
-	'Ré#': notes$1.DSharp,
-	Mib: notes$1.EFlat,
-	Mi: notes$1.E,
-	'Mi#': notes$1.F,
-	Fab: notes$1.E,
-	Fa: notes$1.F,
-	'Fa#': notes$1.FSharp,
-	Solb: notes$1.GFlat,
-	Sol: notes$1.G,
-	'Sol#': notes$1.GSharp,
+	Lab: notes.AFlat,
+	La: notes.A,
+	'La#': notes.ASharp,
+	Sib: notes.BFlat,
+	Si: notes.B,
+	'Si#': notes.C,
+	Dob: notes.B,
+	Do: notes.C,
+	'Do#': notes.CSharp,
+	Reb: notes.DFlat,
+	Réb: notes.DFlat,
+	Re: notes.D,
+	Ré: notes.D,
+	'Re#': notes.DSharp,
+	'Ré#': notes.DSharp,
+	Mib: notes.EFlat,
+	Mi: notes.E,
+	'Mi#': notes.F,
+	Fab: notes.E,
+	Fa: notes.F,
+	'Fa#': notes.FSharp,
+	Solb: notes.GFlat,
+	Sol: notes.G,
+	'Sol#': notes.GSharp,
 };
 
 const german = {
-	As: notes$1.AFlat,
-	A: notes$1.A,
-	Ais: notes$1.ASharp,
-	Hes: notes$1.BFlat,
-	H: notes$1.B,
-	His: notes$1.C,
-	Ces: notes$1.B,
-	C: notes$1.C,
-	Cis: notes$1.CSharp,
-	Des: notes$1.DFlat,
-	D: notes$1.D,
-	Dis: notes$1.DSharp,
-	Es: notes$1.EFlat,
-	E: notes$1.E,
-	Eis: notes$1.F,
-	Fes: notes$1.E,
-	F: notes$1.F,
-	Fis: notes$1.FSharp,
-	Ges: notes$1.GFlat,
-	G: notes$1.G,
-	Gis: notes$1.GSharp,
+	As: notes.AFlat,
+	A: notes.A,
+	Ais: notes.ASharp,
+	Hes: notes.BFlat,
+	H: notes.B,
+	His: notes.C,
+	Ces: notes.B,
+	C: notes.C,
+	Cis: notes.CSharp,
+	Des: notes.DFlat,
+	D: notes.D,
+	Dis: notes.DSharp,
+	Es: notes.EFlat,
+	E: notes.E,
+	Eis: notes.F,
+	Fes: notes.E,
+	F: notes.F,
+	Fis: notes.FSharp,
+	Ges: notes.GFlat,
+	G: notes.G,
+	Gis: notes.GSharp,
 };
 
 function getAccidentalsVariation(source) {
@@ -2963,6 +3189,51 @@ const allVariantsPerGroup = [
 	{ name: 'english', notes: englishVariants },
 	{ name: 'german', notes: germanVariants },
 	{ name: 'latin', notes: latinVariants },
+];
+
+const notesSharp = [
+	notes.A,
+	notes.ASharp,
+	notes.B,
+	notes.C,
+	notes.CSharp,
+	notes.D,
+	notes.DSharp,
+	notes.E,
+	notes.F,
+	notes.FSharp,
+	notes.G,
+	notes.GSharp,
+];
+
+const notesFlat = [
+	notes.A,
+	notes.BFlat,
+	notes.B,
+	notes.C,
+	notes.DFlat,
+	notes.D,
+	notes.EFlat,
+	notes.E,
+	notes.F,
+	notes.GFlat,
+	notes.G,
+	notes.AFlat,
+];
+
+const sharpsToFlats = {
+	[notes.CSharp]: notes.DFlat,
+	[notes.DSharp]: notes.EFlat,
+	[notes.FSharp]: notes.GFlat,
+	[notes.GSharp]: notes.AFlat,
+	[notes.ASharp]: notes.BFlat,
+};
+
+const flatsToSharps = invert_1(sharpsToFlats);
+
+const allKeys = [
+	...Object.values(notes),
+	...Object.values(notes).map((key) => key + 'm'),
 ];
 
 class InvalidInputError extends Error {
@@ -3387,10 +3658,10 @@ var getAllKeys = _getAllKeys;
 var COMPARE_PARTIAL_FLAG$3 = 1;
 
 /** Used for built-in method references. */
-var objectProto$2 = Object.prototype;
+var objectProto$1 = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$1 = objectProto$2.hasOwnProperty;
+var hasOwnProperty$1 = objectProto$1.hasOwnProperty;
 
 /**
  * A specialized version of `baseIsEqualDeep` for objects with support for
@@ -3490,10 +3761,10 @@ var argsTag = '[object Arguments]',
     objectTag = '[object Object]';
 
 /** Used for built-in method references. */
-var objectProto$1 = Object.prototype;
+var objectProto = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty = objectProto$1.hasOwnProperty;
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * A specialized version of `baseIsEqual` for arrays and objects which performs
@@ -3674,7 +3945,7 @@ const allForbiddenCombos = [
  * Check parsed interval list to detect potential inconsistencies
  *
  * @param {Chord} chord
- * @returns {Chord|Null}
+ * @returns {(Chord|Null)}
  */
 function checkIntervalsConsistency(chord) {
 	const intervals = chord.normalized.intervals;
@@ -3735,15 +4006,16 @@ const qualities = {
 	bass: 'bass',
 };
 
-const majorQualities = [
-	qualities.ma,
-	qualities.ma6,
-	qualities.ma7,
-	qualities.dom7,
-	qualities.aug,
+const minorQualities = [
+	qualities.mi,
+	qualities.mi6,
+	qualities.mi7,
+	qualities.miMa7,
+	qualities.dim,
+	qualities.dim7,
 ];
 
-const qualityToDescriptor = {
+const qualityToDescriptor$1 = {
 	[qualities.ma]: () => '',
 	[qualities.ma6]: (chord) =>
 		chord.normalized.intervals.includes('9') ? '69' : '6',
@@ -3789,7 +4061,7 @@ function formatSymbolParts(chord) {
 }
 
 function getDescriptor(chord) {
-	let descriptor = qualityToDescriptor[chord.normalized.quality](chord);
+	let descriptor = qualityToDescriptor$1[chord.normalized.quality](chord);
 	if (chord.normalized.isSuspended) {
 		descriptor += chordChangesDescriptors.sus;
 	}
@@ -3864,6 +4136,230 @@ function formatOmits(omits) {
 		formatted += omitted === 'b3' ? '3' : omitted;
 		return formatted;
 	});
+}
+
+const semitonesToDegree = {
+	major: {
+		0: 'I',
+		//1: '♭II',
+		2: 'II',
+		3: '♭III',
+		4: 'III',
+		5: 'IV',
+		//6: '♭V',
+		7: 'V',
+		8: '♭VI',
+		9: 'VI',
+		10: '♭VII',
+		11: 'VII',
+	},
+	minor: {
+		0: 'I',
+		//1: '♯I',
+		2: 'II',
+		3: 'III',
+		4: '♯III',
+		5: 'IV',
+		//6: '♯IV',
+		7: 'V',
+		8: 'VI',
+		9: '♯VI',
+		10: 'VII',
+		11: '♯VII',
+	},
+};
+
+const diatonicChords = {
+	major: ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'],
+	dom7: ['IΔ', 'ii⁷', 'iii⁷', 'IVΔ', 'V⁷', 'vi⁷', 'viiø'],
+	minor: ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII'],
+	minor7: ['i⁷', 'iiø', 'IIIΔ', 'iv⁷', 'v⁷', 'VIΔ', 'VIIΔ'],
+};
+
+const borrowedChords = {
+	borrowedFromMinor: ['i', 'ii°', '♭III', 'iv', 'v', '♭VI', '♭VII'],
+	borrowedFromMinor7: ['i⁷', 'iiø', '♭IIIΔ', 'iv⁷', 'v⁷', '♭VIΔ', '♭VIIΔ'],
+	borrowedFromMajor: ['I', 'ii', '♯iii', 'IV', 'V', '♯vi', '♯vii°'],
+	borrowedFromDom7: ['IΔ', 'ii⁷', '♯iii⁷', 'IVΔ', 'V⁷', '♯vi⁷', '♯viiø'],
+};
+
+/**
+ * Construct the roman numeral symbol for a chord
+ * @param {String} key
+ * @param {Chord} chord
+ * @returns {Chord}
+ */
+function formatNumeralSymbol(key = '', chord) {
+	let degree;
+	let symbol;
+	let type;
+
+	if (!key) key = chord.normalized.rootNote;
+
+	const keyQuality = key.indexOf('m') > -1 ? 'minor' : 'major';
+	const thirdQuality = minorQualities.includes(chord.normalized.quality)
+		? 'minor'
+		: 'major';
+
+	degree = getRomanDegree(key, keyQuality, chord, thirdQuality);
+
+	const inversion = getInversion(chord);
+	const descriptor = qualityToDescriptor[chord.normalized.quality](
+		chord,
+		inversion
+	);
+
+	symbol = `${degree}${descriptor}`;
+
+	if (isDiatonic(keyQuality, symbol)) {
+		type = 'diatonic';
+	} else if (isBorrowed(keyQuality, symbol)) {
+		type = 'borrowed';
+	} else {
+		type = 'unknown';
+		degree = '?';
+		symbol = `${degree}${descriptor}`;
+	}
+
+	symbol += inversion;
+
+	chord.numeral = {
+		symbol,
+		degree,
+		descriptor,
+		inversion,
+		type,
+		thirdQuality,
+	};
+	return chord;
+}
+
+function getRomanDegree(key, keyQuality, chord, thirdQuality) {
+	const keyNote = key.replace('m', '');
+
+	const interval = getIntervalBetweenNotes(
+		keyNote,
+		chord.normalized.rootNote
+	);
+	const romanDegree = semitonesToDegree[keyQuality][interval];
+
+	return thirdQuality === 'minor' ? romanDegree.toLowerCase() : romanDegree;
+}
+
+function getIntervalBetweenNotes(note1, note2) {
+	const note1Index = notesSharp.indexOf(flatsToSharps[note1] || note1);
+	const note2Index = notesSharp.indexOf(flatsToSharps[note2] || note2);
+	return (note2Index - note1Index + 12) % 12;
+}
+
+const qualityToDescriptor = {
+	[qualities.ma]: () => '',
+	[qualities.ma6]: () => '',
+	[qualities.ma7]: () => 'Δ',
+	[qualities.dom7]: (chord, inversion) => (inversion === '' ? '⁷' : ''),
+
+	[qualities.mi]: () => '',
+	[qualities.mi6]: () => '',
+	[qualities.mi7]: (chord, inversion) => {
+		if (chord.normalized.intervals.includes('b5')) {
+			return 'ø';
+		} else {
+			return inversion === '' ? '⁷' : '';
+		}
+	},
+	[qualities.miMa7]: () => 'mΔ',
+
+	[qualities.aug]: () => '+',
+	[qualities.dim]: () => '°',
+	[qualities.dim7]: (chord, inversion) => (inversion === '' ? '°⁷' : '°'),
+
+	[qualities.power]: () => '',
+	[qualities.bass]: () => '',
+};
+
+function isDiatonic(keyQuality, symbol) {
+	if (keyQuality === 'major') {
+		return (
+			diatonicChords.major.includes(symbol) ||
+			diatonicChords.dom7.includes(symbol)
+		);
+	} else {
+		return (
+			diatonicChords.minor.includes(symbol) ||
+			diatonicChords.minor7.includes(symbol)
+		);
+	}
+}
+
+function isBorrowed(keyQuality, symbol) {
+	if (keyQuality === 'major') {
+		return (
+			borrowedChords.borrowedFromMinor.includes(symbol) ||
+			borrowedChords.borrowedFromMinor7.includes(symbol)
+		);
+	} else {
+		return (
+			borrowedChords.borrowedFromMajor.includes(symbol) ||
+			borrowedChords.borrowedFromDom7.includes(symbol)
+		);
+	}
+}
+
+function getInversion(chord) {
+	let inversion = '';
+	if (chord.normalized.bassNote) {
+		if (bassIsThird(chord)) {
+			inversion = isSeventh(chord) ? '⁶₅' : '⁶';
+		} else if (bassIsFifth(chord)) {
+			inversion = isSeventh(chord) ? '⁴₃' : '⁶₄';
+		} else if (bassIsSeventh(chord)) {
+			inversion = '²';
+		}
+	}
+	return inversion;
+}
+
+function isSeventh(chord) {
+	return [
+		qualities.ma7,
+		qualities.mi7,
+		qualities.miMa7,
+		qualities.dom7,
+		qualities.dim7,
+	].includes(chord.normalized.quality);
+}
+
+function bassIsThird(chord) {
+	return bassIsIntervalNote(chord, 'b3') || bassIsIntervalNote(chord, '3');
+}
+
+function bassIsFifth(chord) {
+	return (
+		bassIsIntervalNote(chord, 'b5') ||
+		bassIsIntervalNote(chord, '5') ||
+		bassIsIntervalNote(chord, '#5')
+	);
+}
+
+function bassIsSeventh(chord) {
+	return (
+		bassIsIntervalNote(chord, 'bb7') ||
+		bassIsIntervalNote(chord, 'b7') ||
+		bassIsIntervalNote(chord, '7')
+	);
+}
+
+function bassIsIntervalNote(chord, interval) {
+	const intervalNoteIndex = chord.normalized.intervals.indexOf(interval);
+	if (intervalNoteIndex === -1) return false;
+
+	const normalizedBassNote =
+		flatsToSharps[chord.normalized.bassNote] || chord.normalized.bassNote;
+	const normalizedIntervalNote =
+		flatsToSharps[chord.normalized.notes[intervalNoteIndex]] ||
+		chord.normalized.notes[intervalNoteIndex];
+
+	return normalizedBassNote === normalizedIntervalNote;
 }
 
 /**
@@ -3956,55 +4452,31 @@ function initChord(parserConfiguration = {}, symbol) {
 	};
 }
 
-const notesSharp = [
-	notes$1.A,
-	notes$1.ASharp,
-	notes$1.B,
-	notes$1.C,
-	notes$1.CSharp,
-	notes$1.D,
-	notes$1.DSharp,
-	notes$1.E,
-	notes$1.F,
-	notes$1.FSharp,
-	notes$1.G,
-	notes$1.GSharp,
-];
+const scaleToAccidental = {
+	C: 'flat',
+	D: 'sharp',
+	E: 'sharp',
+	F: 'flat',
+	G: 'sharp',
+	A: 'sharp',
+	B: 'sharp',
 
-const notesFlat = [
-	notes$1.A,
-	notes$1.BFlat,
-	notes$1.B,
-	notes$1.C,
-	notes$1.DFlat,
-	notes$1.D,
-	notes$1.EFlat,
-	notes$1.E,
-	notes$1.F,
-	notes$1.GFlat,
-	notes$1.G,
-	notes$1.AFlat,
-];
-
-const rootNoteToScaleAccidentals = {
-	[notes$1.C]: { maj: 'flat', min: 'flat' },
-	[notes$1.CSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes$1.DFlat]: { maj: 'flat', min: 'flat' },
-	[notes$1.D]: { maj: 'sharp', min: 'flat' },
-	[notes$1.DSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes$1.EFlat]: { maj: 'flat', min: 'flat' },
-	[notes$1.E]: { maj: 'sharp', min: 'sharp' },
-	[notes$1.F]: { maj: 'flat', min: 'flat' },
-	[notes$1.FSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes$1.GFlat]: { maj: 'flat', min: 'flat' },
-	[notes$1.G]: { maj: 'sharp', min: 'flat' },
-	[notes$1.GSharp]: { maj: 'sharp', min: 'sharp' },
-	[notes$1.AFlat]: { maj: 'flat', min: 'flat' },
-	[notes$1.A]: { maj: 'sharp', min: 'flat' },
-	[notes$1.ASharp]: { maj: 'sharp', min: 'sharp' },
-	[notes$1.BFlat]: { maj: 'flat', min: 'flat' },
-	[notes$1.B]: { maj: 'sharp', min: 'sharp' },
+	Cm: 'flat',
+	Dm: 'flat',
+	Em: 'sharp',
+	Fm: 'flat',
+	Gm: 'flat',
+	Am: 'flat',
+	Bm: 'sharp',
 };
+
+function getScaleAccidental(scale) {
+	if (scale.indexOf('#') > -1) {
+		return 'sharp';
+	} else if (scale.indexOf('b') > -1) {
+		return 'flat';
+	} else return scaleToAccidental[scale];
+}
 
 /**
  * Convert intervals in actual notes.
@@ -4017,11 +4489,12 @@ function nameIndividualChordNotes(chord) {
 	const semitones = chord.normalized.semitones;
 	const quality = chord.normalized.quality;
 
-	const minMaj = majorQualities.includes(quality) ? 'maj' : 'min';
+	let scale = rootNote;
+	if (minorQualities.includes(quality)) {
+		scale += 'm';
+	}
 	const refNotes =
-		rootNoteToScaleAccidentals[rootNote][minMaj] === 'sharp'
-			? notesSharp
-			: notesFlat;
+		getScaleAccidental(scale) === 'sharp' ? notesSharp : notesFlat;
 
 	const rootNoteIndex = refNotes.indexOf(rootNote);
 	const indexedNotes = [
@@ -4032,9 +4505,7 @@ function nameIndividualChordNotes(chord) {
 		...refNotes.slice(0, rootNoteIndex),
 	];
 
-	const chordNotes = semitones.map((i) => indexedNotes[i]);
-
-	chord.normalized.notes = chordNotes;
+	chord.normalized.notes = semitones.map((i) => indexedNotes[i]);
 
 	return chord;
 }
@@ -4172,7 +4643,7 @@ function isStrictComparable$2(value) {
 var _isStrictComparable = isStrictComparable$2;
 
 var isStrictComparable$1 = _isStrictComparable,
-    keys$2 = keys_1;
+    keys$1 = keys_1;
 
 /**
  * Gets the property names, values, and compare flags of `object`.
@@ -4182,7 +4653,7 @@ var isStrictComparable$1 = _isStrictComparable,
  * @returns {Array} Returns the match data of `object`.
  */
 function getMatchData$1(object) {
-  var result = keys$2(object),
+  var result = keys$1(object),
       length = result.length;
 
   while (length--) {
@@ -4748,29 +5219,6 @@ function baseMatchesProperty$1(path, srcValue) {
 var _baseMatchesProperty = baseMatchesProperty$1;
 
 /**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
-
-function identity$4(value) {
-  return value;
-}
-
-var identity_1 = identity$4;
-
-/**
  * The base implementation of `_.property` without support for deep paths.
  *
  * @private
@@ -4838,7 +5286,7 @@ var property_1 = property$1;
 
 var baseMatches = _baseMatches,
     baseMatchesProperty = _baseMatchesProperty,
-    identity$3 = identity_1,
+    identity$2 = identity_1,
     isArray$1 = isArray_1,
     property = property_1;
 
@@ -4856,7 +5304,7 @@ function baseIteratee$2(value) {
     return value;
   }
   if (value == null) {
-    return identity$3;
+    return identity$2;
   }
   if (typeof value == 'object') {
     return isArray$1(value)
@@ -4870,7 +5318,7 @@ var _baseIteratee = baseIteratee$2;
 
 var baseIteratee$1 = _baseIteratee,
     isArrayLike$1 = isArrayLike_1,
-    keys$1 = keys_1;
+    keys = keys_1;
 
 /**
  * Creates a `_.find` or `_.findLast` function.
@@ -4884,7 +5332,7 @@ function createFind$1(findIndexFunc) {
     var iterable = Object(collection);
     if (!isArrayLike$1(collection)) {
       var iteratee = baseIteratee$1(predicate);
-      collection = keys$1(collection);
+      collection = keys(collection);
       predicate = function(key) { return iteratee(iterable[key], key, iterable); };
     }
     var index = findIndexFunc(collection, predicate, fromIndex);
@@ -5573,37 +6021,9 @@ function overRest$1(func, start, transform) {
 
 var _overRest = overRest$1;
 
-/**
- * Creates a function that returns `value`.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {*} value The value to return from the new function.
- * @returns {Function} Returns the new constant function.
- * @example
- *
- * var objects = _.times(2, _.constant({ 'a': 1 }));
- *
- * console.log(objects);
- * // => [{ 'a': 1 }, { 'a': 1 }]
- *
- * console.log(objects[0] === objects[1]);
- * // => true
- */
-
-function constant$2(value) {
-  return function() {
-    return value;
-  };
-}
-
-var constant_1 = constant$2;
-
-var constant$1 = constant_1,
+var constant = constant_1,
     defineProperty = _defineProperty,
-    identity$2 = identity_1;
+    identity$1 = identity_1;
 
 /**
  * The base implementation of `setToString` without support for hot loop shorting.
@@ -5613,11 +6033,11 @@ var constant$1 = constant_1,
  * @param {Function} string The `toString` result.
  * @returns {Function} Returns `func`.
  */
-var baseSetToString$1 = !defineProperty ? identity$2 : function(func, string) {
+var baseSetToString$1 = !defineProperty ? identity$1 : function(func, string) {
   return defineProperty(func, 'toString', {
     'configurable': true,
     'enumerable': false,
-    'value': constant$1(string),
+    'value': constant(string),
     'writable': true
   });
 };
@@ -5678,7 +6098,7 @@ var setToString$1 = shortOut(baseSetToString);
 
 var _setToString = setToString$1;
 
-var identity$1 = identity_1,
+var identity = identity_1,
     overRest = _overRest,
     setToString = _setToString;
 
@@ -5691,7 +6111,7 @@ var identity$1 = identity_1,
  * @returns {Function} Returns the new function.
  */
 function baseRest$2(func, start) {
-  return setToString(overRest(func, start, identity$1), func + '');
+  return setToString(overRest(func, start, identity), func + '');
 }
 
 var _baseRest = baseRest$2;
@@ -6062,7 +6482,7 @@ function sortIntervals(intervals) {
  *
  * @param {String[]} noteVariants - all notes within a given notation system (English, Latin, German...)
  * @param {Chord} chord
- * @returns {Chord|null}
+ * @returns {(Chord|Null)}
  */
 function parseBase(noteVariants, chord) {
 	const { symbol } = chord.input;
@@ -6307,7 +6727,7 @@ var intervalsToSemitones = {
  *
  * @param {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals
  * @param {Chord} chord
- * @returns {Chord|Null}
+ * @returns {(Chord|Null)}
  */
 function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
@@ -6581,7 +7001,7 @@ function getIntents(allModifiers$1) {
 /**
  * Create a chord parser function
  * @param {ParserConfiguration} [parserConfiguration]
- * @returns {function(String): Chord}
+ * @returns {function(String): MaybeChord}
  */
 function chordParserFactory(parserConfiguration = {}) {
 	const allAltIntervals = ['b5', '#5', 'b9', '#9', '#11', 'b13'];
@@ -6591,18 +7011,21 @@ function chordParserFactory(parserConfiguration = {}) {
 		notationSystems = cloneDeep_1(allNotationSystems),
 		altIntervals = cloneDeep_1(allAltIntervals),
 		customFilters = [],
+		key = '',
 	} = parserConfiguration;
 
 	checkAltIntervals(altIntervals, allAltIntervals);
 	checkNotationSystems(notationSystems, allNotationSystems);
 	checkCustomFilters(customFilters);
+	checkKey(key);
 
 	return parseChord;
 
 	/**
 	 * Convert an input string into an abstract chord structure
 	 * @param {String} symbol - the chord symbol candidate
-	 * @returns {Chord|Object} A chord object if the given string is successfully parsed. An object with an `error` property otherwise.
+	 * @returns {MaybeChord} A chord data object if the given string is successfully parsed.
+	 *   A chord parse failure object with an `error` property otherwise.
 	 */
 	function parseChord(symbol) {
 		const allErrors = [];
@@ -6635,6 +7058,7 @@ function chordParserFactory(parserConfiguration = {}) {
 					formatSymbolParts,
 					formatSymbol,
 					nameIndividualChordNotes,
+					formatNumeralSymbol.bind(null, key),
 					...customFilters,
 				];
 
@@ -6677,6 +7101,12 @@ function checkArray(arrayName, arrayToTest, allowedValues, allowEmpty) {
 			);
 		}
 	});
+}
+
+function checkKey(key) {
+	if (key !== '' && (!isString_1(key) || !allKeys.includes(key))) {
+		throw new TypeError(`'${key}' is not a valid value for key`);
+	}
 }
 
 function isInputValid(input) {
@@ -6928,162 +7358,6 @@ function simplify(level = 'none', chord) {
 	return chain(allFilters, chord);
 }
 
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-
-function createBaseFor$1(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
-
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-var _createBaseFor = createBaseFor$1;
-
-var createBaseFor = _createBaseFor;
-
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor$1 = createBaseFor();
-
-var _baseFor = baseFor$1;
-
-var baseFor = _baseFor,
-    keys = keys_1;
-
-/**
- * The base implementation of `_.forOwn` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Object} Returns `object`.
- */
-function baseForOwn$1(object, iteratee) {
-  return object && baseFor(object, iteratee, keys);
-}
-
-var _baseForOwn = baseForOwn$1;
-
-var baseForOwn = _baseForOwn;
-
-/**
- * The base implementation of `_.invert` and `_.invertBy` which inverts
- * `object` with values transformed by `iteratee` and set by `setter`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} setter The function to set `accumulator` values.
- * @param {Function} iteratee The iteratee to transform values.
- * @param {Object} accumulator The initial inverted object.
- * @returns {Function} Returns `accumulator`.
- */
-function baseInverter$1(object, setter, iteratee, accumulator) {
-  baseForOwn(object, function(value, key, object) {
-    setter(accumulator, iteratee(value), key, object);
-  });
-  return accumulator;
-}
-
-var _baseInverter = baseInverter$1;
-
-var baseInverter = _baseInverter;
-
-/**
- * Creates a function like `_.invertBy`.
- *
- * @private
- * @param {Function} setter The function to set accumulator values.
- * @param {Function} toIteratee The function to resolve iteratees.
- * @returns {Function} Returns the new inverter function.
- */
-function createInverter$1(setter, toIteratee) {
-  return function(object, iteratee) {
-    return baseInverter(object, setter, toIteratee(iteratee), {});
-  };
-}
-
-var _createInverter = createInverter$1;
-
-var constant = constant_1,
-    createInverter = _createInverter,
-    identity = identity_1;
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/**
- * Creates an object composed of the inverted keys and values of `object`.
- * If `object` contains duplicate values, subsequent values overwrite
- * property assignments of previous values.
- *
- * @static
- * @memberOf _
- * @since 0.7.0
- * @category Object
- * @param {Object} object The object to invert.
- * @returns {Object} Returns the new inverted object.
- * @example
- *
- * var object = { 'a': 1, 'b': 2, 'c': 1 };
- *
- * _.invert(object);
- * // => { '1': 'c', '2': 'b' }
- */
-var invert = createInverter(function(result, value, key) {
-  if (value != null &&
-      typeof value.toString != 'function') {
-    value = nativeObjectToString.call(value);
-  }
-
-  result[value] = key;
-}, constant(identity));
-
-var invert_1 = invert;
-
-const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-
-const sharpsToFlats = {
-	'C#': 'Db',
-	'D#': 'Eb',
-	'F#': 'Gb',
-	'G#': 'Ab',
-	'A#': 'Bb',
-};
-
-const flatsToSharps = invert_1(sharpsToFlats);
-
 function transpose(transposeValue, accidentals, chord) {
 	const { rootNote, bassNote } = chord.normalized;
 
@@ -7109,13 +7383,13 @@ function transpose(transposeValue, accidentals, chord) {
 }
 
 function transposeNote(note, value, accidentals) {
-	const noteIndex = notes.indexOf(note);
+	const noteIndex = notesSharp.indexOf(note);
 	const transposedIndex = noteIndex + value;
 
 	const octaves = Math.floor(transposedIndex / 12);
 	const correctedTransposedIndex = transposedIndex - octaves * 12;
 
-	const transposed = notes[correctedTransposedIndex];
+	const transposed = notesSharp[correctedTransposedIndex];
 
 	return accidentals === 'flat'
 		? sharpsToFlats[transposed] || transposed
@@ -7269,7 +7543,7 @@ function chordRendererFactory({
 	/**
 	 * Render a chord structure
 	 * @param {Chord} chord - the chord structure to render
-	 * @returns {String|Chord} output depends on the selected printer: string for text printer (default), Chord for raw printer
+	 * @returns {(String|Chord)} output depends on the selected printer: string for text printer (default), Chord for raw printer
 	 */
 	function renderChord(chord) {
 		if (!isValidChord(chord)) {
