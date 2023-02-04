@@ -167,5 +167,5 @@
  * @typedef {function(Chord): (Chord|Null)} CustomFilter
  * @type {Function}
  * @param {Chord} chord - The chord object will be passed to the filter as the only parameter
- * @returns {Chord|Null} - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
+ * @returns {(Chord|Null)} - Either the modified chord object, or `null` to cancel the processing and skip the remaining filters.
  */

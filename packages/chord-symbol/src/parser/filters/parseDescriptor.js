@@ -14,7 +14,7 @@ import { hasNoneOf, hasOneOf } from '../../helpers/hasElement';
  *
  * @param {Array<('b5'|'#5'|'b9'|'#9'|'#11'|'b13')>} altIntervals
  * @param {Chord} chord
- * @returns {Chord|Null}
+ * @returns {(Chord|Null)}
  */
 export default function parseDescriptor(altIntervals, chord) {
 	let allModifiers = [];
