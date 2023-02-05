@@ -74,7 +74,8 @@ function getRomanDegree(key, keyQuality, chord, thirdQuality) {
 		keyNote,
 		chord.normalized.rootNote
 	);
-	const romanDegree = semitonesToDegree[keyQuality][interval];
+	console.log(interval);
+	const romanDegree = semitonesToDegree[keyQuality][interval] || '?';
 
 	return thirdQuality === 'minor' ? romanDegree.toLowerCase() : romanDegree;
 }

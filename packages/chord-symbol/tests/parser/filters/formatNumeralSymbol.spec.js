@@ -165,6 +165,16 @@ describe('formatNumeralSymbol', () => {
 			{ symbol: 'I', type: 'diatonic' },
 		],
 
+		// degree does not have a numeral conversion (yet)
+		['C', '(bII)', 'C#', { symbol: '?', type: 'unknown' }],
+		['C', '(bii)', 'C#m', { symbol: '?', type: 'unknown' }],
+		['C', '(bV)', 'F#', { symbol: '?', type: 'unknown' }],
+		['C', '(bv)', 'F#m', { symbol: '?', type: 'unknown' }],
+		['Cm', '(bII)', 'C#', { symbol: '?', type: 'unknown' }],
+		['Cm', '(bii)', 'C#m', { symbol: '?', type: 'unknown' }],
+		['Cm', '(bV)', 'F#', { symbol: '?', type: 'unknown' }],
+		['Cm', '(bv)', 'F#m', { symbol: '?', type: 'unknown' }],
+
 		/* * /
 		/* */
 	])('Key of %s %s', (key, title, chord, expected) => {
