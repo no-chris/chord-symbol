@@ -1,6 +1,6 @@
 {
 	"name": "chord-symbol-ultimateguitar",
-	"version": "4.0.0-beta.2",
+	"version": "4.0.0-beta.3",
 	"description": "Format chord symbols in an Ultimate Guitar-friendly way",
 	"author": "Christophe Noël",
 	"homepage": "https://github.com/no-chris/chord-symbol/tree/main/packages/chord-symbol-ultimateguitar#readme",
@@ -36,6 +36,6 @@
 		"ukulele"
 	],
 	"dependencies": {
-		"chord-symbol": "^4.0.0-beta.2"
+		"chord-symbol": "^4.0.0-beta.3"
 	}
 }
