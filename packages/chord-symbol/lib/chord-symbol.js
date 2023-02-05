@@ -7120,7 +7120,7 @@ function formatNumeralSymbol() {
 function getRomanDegree(key, keyQuality, chord, thirdQuality) {
   var keyNote = key.replace('m', '');
   var interval = getIntervalBetweenNotes(keyNote, chord.normalized.rootNote);
-  var romanDegree = semitonesToDegree[keyQuality][interval];
+  var romanDegree = semitonesToDegree[keyQuality][interval] || '?';
   return thirdQuality === 'minor' ? romanDegree.toLowerCase() : romanDegree;
 }
 function getIntervalBetweenNotes(note1, note2) {
