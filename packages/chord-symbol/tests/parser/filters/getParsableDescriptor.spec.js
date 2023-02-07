@@ -59,6 +59,8 @@ describe('Parsable descriptor', () => {
 		['Aadd♯96', 'add♯9 6'],
 		['Aaddb96', 'addb9 6'],
 		['Aadd♭96', 'add♭9 6'],
+		['A+5', '#5'],
+		['A-5', 'b5'],
 	])('%s', (symbol, parsableDescriptor) => {
 		test(`correctly transform descriptor into: >${parsableDescriptor}<`, () => {
 			const chord = parseChord(symbol);
