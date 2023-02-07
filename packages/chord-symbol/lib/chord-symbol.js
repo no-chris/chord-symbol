@@ -7230,7 +7230,7 @@ function removeSpaces(descriptor) {
   return descriptor.replace(/ /g, '');
 }
 function addDisambiguators(descriptor) {
-  return descriptor.replace(/(7?dim)(alt|add)/g, '$1 $2').replace(/([m|M])(alt|add)/g, '$1 $2').replace(/i(no[35])/g, 'i $1').replace(/([b♭#♯]9)6/g, '$1 6').replace(/(9\/?6)/g, ' $1');
+  return descriptor.replace(/(7?dim)(alt|add)/g, '$1 $2').replace(/([m|M])(alt|add)/g, '$1 $2').replace(/i(no[35])/g, 'i $1').replace(/([b♭#♯]9)6/g, '$1 6').replace(/(9\/?6)/g, ' $1').replaceAll('+5', '#5').replaceAll('-5', 'b5');
 }
 function addMissingVerbs(descriptor) {
   var allTokensWithVerbs;
