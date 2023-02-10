@@ -7026,34 +7026,40 @@ function formatOmits(omits) {
   });
 }
 ;// CONCATENATED MODULE: ./src/dictionaries/degrees.js
+var u = {
+  flat: "\u266D",
+  // ♭
+  sharp: "\u266F" // ♯
+};
+
 var semitonesToDegree = {
   major: {
-    0: 'I',
-    //1: '♭II',
-    2: 'II',
-    3: '♭III',
-    4: 'III',
-    5: 'IV',
-    //6: '♭V',
-    7: 'V',
-    8: '♭VI',
-    9: 'VI',
-    10: '♭VII',
-    11: 'VII'
+    0: "I",
+    //1: `${u.flat}II`,
+    2: "II",
+    3: "".concat(u.flat, "III"),
+    4: "III",
+    5: "IV",
+    //6: `${u.flat}V`,
+    7: "V",
+    8: "".concat(u.flat, "VI"),
+    9: "VI",
+    10: "".concat(u.flat, "VII"),
+    11: "VII"
   },
   minor: {
-    0: 'I',
-    //1: '♯I',
-    2: 'II',
-    3: 'III',
-    4: '♯III',
-    5: 'IV',
-    //6: '♯IV',
-    7: 'V',
-    8: 'VI',
-    9: '♯VI',
-    10: 'VII',
-    11: '♯VII'
+    0: "I",
+    //1: `${u.sharp}I`,
+    2: "II",
+    3: "III",
+    4: "".concat(u.sharp, "III"),
+    5: "IV",
+    //6: `${u.sharp}IV`,
+    7: "V",
+    8: "VI",
+    9: "".concat(u.sharp, "VI"),
+    10: "VII",
+    11: "".concat(u.sharp, "VII")
   }
 };
 ;// CONCATENATED MODULE: ./src/parser/filters/formatNumeralSymbol.js
@@ -7065,17 +7071,39 @@ function formatNumeralSymbol_toPrimitive(input, hint) { if (formatNumeralSymbol_
 
 
 
+var formatNumeralSymbol_u = {
+  sup2: "\xB2",
+  // ²
+  sup4: "\u2074",
+  // ⁴
+  sup5: "\u2075",
+  // ⁵
+  sup6: "\u2076",
+  // ⁶
+  sup7: "\u2077",
+  // ⁷
+  sub3: "\u2083",
+  // ₃
+  sub4: "\u2084",
+  // ₄
+  sub5: "\u2085",
+  // ₅
+  flat: "\u266D",
+  // ♭
+  sharp: "\u266F" // ♯
+};
+
 var diatonicChords = {
-  major: ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'],
-  dom7: ['IΔ', 'ii⁷', 'iii⁷', 'IVΔ', 'V⁷', 'vi⁷', 'viiø'],
-  minor: ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII'],
-  minor7: ['i⁷', 'iiø', 'IIIΔ', 'iv⁷', 'v⁷', 'VIΔ', 'VIIΔ']
+  major: ["I", "ii", "iii", "IV", "V", "vi", "vii\xB0"],
+  dom7: ["I\u0394", "ii".concat(formatNumeralSymbol_u.sup7), "iii".concat(formatNumeralSymbol_u.sup7), "IV\u0394", "V".concat(formatNumeralSymbol_u.sup7), "vi".concat(formatNumeralSymbol_u.sup7), "vii\xF8"],
+  minor: ["i", "ii\xB0", "III", "iv", "v", "VI", "VII"],
+  minor7: ["i".concat(formatNumeralSymbol_u.sup7), "ii\xF8", "III\u0394", "iv".concat(formatNumeralSymbol_u.sup7), "v".concat(formatNumeralSymbol_u.sup7), "VI\u0394", "VII\u0394"]
 };
 var borrowedChords = {
-  borrowedFromMinor: ['i', 'ii°', '♭III', 'iv', 'v', '♭VI', '♭VII'],
-  borrowedFromMinor7: ['i⁷', 'iiø', '♭IIIΔ', 'iv⁷', 'v⁷', '♭VIΔ', '♭VIIΔ'],
-  borrowedFromMajor: ['I', 'ii', '♯iii', 'IV', 'V', '♯vi', '♯vii°'],
-  borrowedFromDom7: ['IΔ', 'ii⁷', '♯iii⁷', 'IVΔ', 'V⁷', '♯vi⁷', '♯viiø']
+  borrowedFromMinor: ["i", "ii\xB0", "".concat(formatNumeralSymbol_u.flat, "III"), "iv", "v", "".concat(formatNumeralSymbol_u.flat, "VI"), "".concat(formatNumeralSymbol_u.flat, "VII")],
+  borrowedFromMinor7: ["i".concat(formatNumeralSymbol_u.sup7), "ii\xF8", "".concat(formatNumeralSymbol_u.flat, "III\u0394"), "iv".concat(formatNumeralSymbol_u.sup7), "v".concat(formatNumeralSymbol_u.sup7), "".concat(formatNumeralSymbol_u.flat, "VI\u0394"), "".concat(formatNumeralSymbol_u.flat, "VII\u0394")],
+  borrowedFromMajor: ["I", "ii", "".concat(formatNumeralSymbol_u.sharp, "iii"), "IV", "V", "".concat(formatNumeralSymbol_u.sharp, "vi"), "".concat(formatNumeralSymbol_u.sharp, "vii\xB0")],
+  borrowedFromDom7: ["I\u0394", "ii".concat(formatNumeralSymbol_u.sup7), "".concat(formatNumeralSymbol_u.sharp, "iii").concat(formatNumeralSymbol_u.sup7), "IV\u0394", "V".concat(formatNumeralSymbol_u.sup7), "".concat(formatNumeralSymbol_u.sharp, "vi").concat(formatNumeralSymbol_u.sup7), "".concat(formatNumeralSymbol_u.sharp, "vii\xF8")]
 };
 
 /**
@@ -7135,7 +7163,7 @@ var filters_formatNumeralSymbol_qualityToDescriptor = (formatNumeralSymbol_quali
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.ma7, function () {
   return 'Δ';
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dom7, function (chord, inversion) {
-  return inversion === '' ? '⁷' : '';
+  return inversion === '' ? "".concat(formatNumeralSymbol_u.sup7) : '';
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.mi, function () {
   return '';
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.mi6, function () {
@@ -7144,7 +7172,7 @@ var filters_formatNumeralSymbol_qualityToDescriptor = (formatNumeralSymbol_quali
   if (chord.normalized.intervals.includes('b5')) {
     return 'ø';
   } else {
-    return inversion === '' ? '⁷' : '';
+    return inversion === '' ? "".concat(formatNumeralSymbol_u.sup7) : '';
   }
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.miMa7, function () {
   return 'mΔ';
@@ -7153,7 +7181,7 @@ var filters_formatNumeralSymbol_qualityToDescriptor = (formatNumeralSymbol_quali
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dim, function () {
   return '°';
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dim7, function (chord, inversion) {
-  return inversion === '' ? '°⁷' : '°';
+  return inversion === '' ? "\xB0".concat(formatNumeralSymbol_u.sup7) : '°';
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.power, function () {
   return '';
 }), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.bass, function () {
@@ -7177,11 +7205,11 @@ function getInversion(chord) {
   var inversion = '';
   if (chord.normalized.bassNote) {
     if (bassIsThird(chord)) {
-      inversion = isSeventh(chord) ? '⁶₅' : '⁶';
+      inversion = isSeventh(chord) ? "".concat(formatNumeralSymbol_u.sup6).concat(formatNumeralSymbol_u.sub5) : "".concat(formatNumeralSymbol_u.sup6);
     } else if (bassIsFifth(chord)) {
-      inversion = isSeventh(chord) ? '⁴₃' : '⁶₄';
+      inversion = isSeventh(chord) ? "".concat(formatNumeralSymbol_u.sup4).concat(formatNumeralSymbol_u.sub3) : "".concat(formatNumeralSymbol_u.sup6).concat(formatNumeralSymbol_u.sub4);
     } else if (bassIsSeventh(chord)) {
-      inversion = '²';
+      inversion = "\xB2";
     }
   }
   return inversion;
