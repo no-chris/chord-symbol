@@ -4138,49 +4138,115 @@ function formatOmits(omits) {
 	});
 }
 
+const u$1 = {
+	flat: `\u266D`, // ♭
+	sharp: `\u266F`, // ♯
+};
+
 const semitonesToDegree = {
 	major: {
-		0: 'I',
-		//1: '♭II',
-		2: 'II',
-		3: '♭III',
-		4: 'III',
-		5: 'IV',
-		//6: '♭V',
-		7: 'V',
-		8: '♭VI',
-		9: 'VI',
-		10: '♭VII',
-		11: 'VII',
+		0: `I`,
+		//1: `${u.flat}II`,
+		2: `II`,
+		3: `${u$1.flat}III`,
+		4: `III`,
+		5: `IV`,
+		//6: `${u.flat}V`,
+		7: `V`,
+		8: `${u$1.flat}VI`,
+		9: `VI`,
+		10: `${u$1.flat}VII`,
+		11: `VII`,
 	},
 	minor: {
-		0: 'I',
-		//1: '♯I',
-		2: 'II',
-		3: 'III',
-		4: '♯III',
-		5: 'IV',
-		//6: '♯IV',
-		7: 'V',
-		8: 'VI',
-		9: '♯VI',
-		10: 'VII',
-		11: '♯VII',
+		0: `I`,
+		//1: `${u.sharp}I`,
+		2: `II`,
+		3: `III`,
+		4: `${u$1.sharp}III`,
+		5: `IV`,
+		//6: `${u.sharp}IV`,
+		7: `V`,
+		8: `VI`,
+		9: `${u$1.sharp}VI`,
+		10: `VII`,
+		11: `${u$1.sharp}VII`,
 	},
+};
+
+const u = {
+	sup2: '\u00B2', // ²
+	sup4: '\u2074', // ⁴
+	sup5: '\u2075', // ⁵
+	sup6: '\u2076', // ⁶
+	sup7: '\u2077', // ⁷
+	sub3: '\u2083', // ₃
+	sub4: '\u2084', // ₄
+	sub5: '\u2085', // ₅
+	flat: '\u266D', // ♭
+	sharp: '\u266F', // ♯
 };
 
 const diatonicChords = {
-	major: ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'vii°'],
-	dom7: ['IΔ', 'ii⁷', 'iii⁷', 'IVΔ', 'V⁷', 'vi⁷', 'viiø'],
-	minor: ['i', 'ii°', 'III', 'iv', 'v', 'VI', 'VII'],
-	minor7: ['i⁷', 'iiø', 'IIIΔ', 'iv⁷', 'v⁷', 'VIΔ', 'VIIΔ'],
+	major: [`I`, `ii`, `iii`, `IV`, `V`, `vi`, `vii°`],
+	dom7: [
+		`IΔ`,
+		`ii${u.sup7}`,
+		`iii${u.sup7}`,
+		`IVΔ`,
+		`V${u.sup7}`,
+		`vi${u.sup7}`,
+		`viiø`,
+	],
+	minor: [`i`, `ii°`, `III`, `iv`, `v`, `VI`, `VII`],
+	minor7: [
+		`i${u.sup7}`,
+		`iiø`,
+		`IIIΔ`,
+		`iv${u.sup7}`,
+		`v${u.sup7}`,
+		`VIΔ`,
+		`VIIΔ`,
+	],
 };
 
 const borrowedChords = {
-	borrowedFromMinor: ['i', 'ii°', '♭III', 'iv', 'v', '♭VI', '♭VII'],
-	borrowedFromMinor7: ['i⁷', 'iiø', '♭IIIΔ', 'iv⁷', 'v⁷', '♭VIΔ', '♭VIIΔ'],
-	borrowedFromMajor: ['I', 'ii', '♯iii', 'IV', 'V', '♯vi', '♯vii°'],
-	borrowedFromDom7: ['IΔ', 'ii⁷', '♯iii⁷', 'IVΔ', 'V⁷', '♯vi⁷', '♯viiø'],
+	borrowedFromMinor: [
+		`i`,
+		`ii°`,
+		`${u.flat}III`,
+		`iv`,
+		`v`,
+		`${u.flat}VI`,
+		`${u.flat}VII`,
+	],
+	borrowedFromMinor7: [
+		`i${u.sup7}`,
+		`iiø`,
+		`${u.flat}IIIΔ`,
+		`iv${u.sup7}`,
+		`v${u.sup7}`,
+		`${u.flat}VIΔ`,
+		`${u.flat}VIIΔ`,
+	],
+	borrowedFromMajor: [
+		`I`,
+		`ii`,
+		`${u.sharp}iii`,
+		`IV`,
+		`V`,
+		`${u.sharp}vi`,
+		`${u.sharp}vii°`,
+	],
+	borrowedFromDom7: [
+		`IΔ`,
+		`ii${u.sup7}`,
+		`${u.sharp}iii${u.sup7}`,
+		`IVΔ`,
+		`V${u.sup7}`,
+		`${u.sharp}vi${u.sup7}`,
+		`${u.sharp}viiø`,
+	],
 };
 
 /**
@@ -4256,7 +4322,8 @@ const qualityToDescriptor = {
 	[qualities.ma]: () => '',
 	[qualities.ma6]: () => '',
 	[qualities.ma7]: () => 'Δ',
-	[qualities.dom7]: (chord, inversion) => (inversion === '' ? '⁷' : ''),
+	[qualities.dom7]: (chord, inversion) =>
+		inversion === '' ? `${u.sup7}` : '',
 
 	[qualities.mi]: () => '',
 	[qualities.mi6]: () => '',
@@ -4264,14 +4331,15 @@ const qualityToDescriptor = {
 		if (chord.normalized.intervals.includes('b5')) {
 			return 'ø';
 		} else {
-			return inversion === '' ? '⁷' : '';
+			return inversion === '' ? `${u.sup7}` : '';
 		}
 	},
 	[qualities.miMa7]: () => 'mΔ',
 
 	[qualities.aug]: () => '+',
 	[qualities.dim]: () => '°',
-	[qualities.dim7]: (chord, inversion) => (inversion === '' ? '°⁷' : '°'),
+	[qualities.dim7]: (chord, inversion) =>
+		inversion === '' ? `°${u.sup7}` : '°',
 
 	[qualities.power]: () => '',
 	[qualities.bass]: () => '',
@@ -4309,11 +4377,13 @@ function getInversion(chord) {
 	let inversion = '';
 	if (chord.normalized.bassNote) {
 		if (bassIsThird(chord)) {
-			inversion = isSeventh(chord) ? '⁶₅' : '⁶';
+			inversion = isSeventh(chord) ? `${u.sup6}${u.sub5}` : `${u.sup6}`;
 		} else if (bassIsFifth(chord)) {
-			inversion = isSeventh(chord) ? '⁴₃' : '⁶₄';
+			inversion = isSeventh(chord)
+				? `${u.sup4}${u.sub3}`
+				: `${u.sup6}${u.sub4}`;
 		} else if (bassIsSeventh(chord)) {
-			inversion = '²';
+			inversion = `²`;
 		}
 	}
 	return inversion;
