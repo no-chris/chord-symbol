@@ -14,26 +14,30 @@ See it in action on the [demo site](https://chord-symbol.netlify.app/) or in [Ch
 
 <!-- toc -->
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Migration guides](#migration-guides)
-- [Unit tests](#unit-tests)
-- [API Documentation](#api-documentation)
-- [Error handling](#error-handling)
-- [Background information](#background-information)
-  * [Why parse chords symbols?](#why-parse-chords-symbols)
-  * [Guiding principles](#guiding-principles)
-    + [Chords definition](#chords-definition)
-    + [Symbol parsing](#symbol-parsing)
-    + [Rendering and normalization](#rendering-and-normalization)
-- [Limitations](#limitations)
-  * [Intervals consistency](#intervals-consistency)
-  * [Support for different notation systems](#support-for-different-notation-systems)
-  * [Musical scope](#musical-scope)
-- [Lexicon](#lexicon)
+-   [Features](#features)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Migration guides](#migration-guides)
+-   [Unit tests](#unit-tests)
+-   [API Documentation](#api-documentation)
+-   [Error handling](#error-handling)
+-   [Background information](#background-information)
+    -   [Why parse chords symbols?](#why-parse-chords-symbols)
+    -   [Guiding principles](#guiding-principles)
+        -   [Chords definition](#chords-definition)
+        -   [Symbol parsing](#symbol-parsing)
+        -   [Rendering and normalization](#rendering-and-normalization)
+-   [Limitations](#limitations)
+    -   [Intervals consistency](#intervals-consistency)
+    -   [Support for different notation systems](#support-for-different-notation-systems)
+    -   [Musical scope](#musical-scope)
+-   [Lexicon](#lexicon)
 
 <!-- tocstop -->
+
+## Migration guides
+
+Updaters, check the [migration guides](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/MIGRATION.md)
 
 ## Features
 
@@ -60,7 +64,10 @@ npm install --save chord-symbol
 ## Usage
 
 ```javascript
-import { chordParserFactory, chordRendererFactory } from 'chord-symbol';
+import {
+	chordParserFactory,
+	chordRendererFactory,
+} from 'chord-symbol/lib/chord-symbol.js'; // bundled version
 
 const parseChord = chordParserFactory();
 const renderChord = chordRendererFactory({ useShortNamings: true });
@@ -92,10 +99,6 @@ If you want to use the library directly in the browser, you can proceed as follo
 	</body>
 </html>
 ```
-
-## Migration guides
-
-[See this file](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/MIGRATION.md)
 
 ## Unit tests
 
