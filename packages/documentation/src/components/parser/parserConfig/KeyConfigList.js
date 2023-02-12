@@ -1,24 +1,32 @@
 import React from 'react';
 
-const KeyConfigList = ({ setKey, key }) => {
+const KeyConfigList = ({ setContextKey, contextKey }) => {
 	const allNotesSharp = 'A,A#,B,C,C#,D,D#,E,F,F#,G,G#'.split(',');
 	const allFlats = 'Ab,Bb,Db,Eb,Gb'.split(',');
 	const allNotes = [...allNotesSharp, ...allFlats];
 	const allKeys = [...allNotes, ...allNotes.map((note) => note + 'm')];
 	allKeys.sort();
 
-	const keyDesc = 'used to build the roman numeral symbol for the chord.';
+	const handleKeyChange = (event) => {
+		setContextKey(event.target.value);
+	};
+
+	const keyDesc =
+		'key of the context in which the chord is found. Used to build the roman numeral symbol for the chord.';
 
 	return (
 		<tr>
 			<td>
 				<div className={'parserConfigItem_Container'}>
 					<div className={'pc-CheckboxList_Label'}>Key:</div>
-					<select>
+					<select
+						defaultValue={contextKey}
+						onChange={handleKeyChange}
+					>
 						{allKeys.map((keyFromList) => (
 							<option
 								key={'KeyConfig' + keyFromList}
-								selected={key === keyFromList}
+								value={keyFromList}
 							>
 								{keyFromList}
 							</option>

@@ -12,8 +12,8 @@ const ParserConfig = ({
 	setAltIntervals,
 	notationSystems,
 	setNotationSystems,
-	key,
-	setKey,
+	contextKey,
+	setContextKey,
 }) => {
 	return (
 		<div className={'parserConfig_Container'}>
@@ -24,7 +24,10 @@ const ParserConfig = ({
 						notationSystems={notationSystems}
 						setNotationSystems={setNotationSystems}
 					/>
-					<KeyConfigList key={key} setKey={setKey} />
+					<KeyConfigList
+						contextKey={contextKey}
+						setContextKey={setContextKey}
+					/>
 					<AltIntervalConfigList
 						parsedChord={parsedChord}
 						altIntervals={altIntervals}

@@ -10,8 +10,6 @@ import Intro from './Intro';
 import Renderer from './renderer/Renderer';
 import MusicXml from './musicxml/MusicXml';
 
-import getVersions from '../getVersions';
-
 const defaultUserSymbol = 'Ab7(b9,#9)';
 const defaultNotationSystems = ['english', 'german', 'latin'];
 const defaultAltIntervals = ['b5', '#5', 'b9', '#9', '#11', 'b13'];
@@ -29,12 +27,12 @@ export default function HomePage() {
 		defaultNotationSystems
 	);
 	const [altIntervals, setAltIntervals] = useState(defaultAltIntervals);
-	const [key, setKey] = useState('C');
+	const [contextKey, setContextKey] = useState('C');
 
 	const parseChord = chordParserFactory({
 		notationSystems: parserNotationSystems,
 		altIntervals,
-		key,
+		key: contextKey,
 	});
 	const parsedChord = parseChord(userChordSymbol);
 
@@ -63,8 +61,6 @@ export default function HomePage() {
 	const renderedChordRaw = renderChordRaw(parsedChord);
 	const renderedChordMusicXml = renderChordMusicXml(parsedChord);
 
-	const versions = getVersions();
-
 	return (
 		<div className={'main'}>
 			<Intro />
@@ -79,8 +75,8 @@ export default function HomePage() {
 				parsedChord={parsedChord}
 				renderedChordDefault={renderedChordDefault}
 				parsingErrors={parsingErrors}
-				key={key}
-				setKey={setKey}
+				contextKey={contextKey}
+				setContextKey={setContextKey}
 			/>
 			<Renderer
 				useFlats={useFlats}
@@ -99,6 +95,7 @@ export default function HomePage() {
 				renderedChordRaw={renderedChordRaw}
 			/>
 			<MusicXml renderedChordMusicXml={renderedChordMusicXml} />
+			<br />
 		</div>
 	);
 }

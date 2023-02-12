@@ -73,15 +73,17 @@ const config = {
 					src: 'img/logo.svg',
 				},
 				items: [
-					{
+					/*
+          {
 						type: 'doc',
 						docId: 'intro',
 						position: 'left',
 						label: 'Tutorial',
 					},
 					{ to: '/blog', label: 'Blog', position: 'left' },
+          */
 					{
-						href: 'https://github.com/facebook/docusaurus',
+						href: 'https://github.com/no-chris/chord-symbol',
 						label: 'GitHub',
 						position: 'right',
 					},
@@ -89,7 +91,9 @@ const config = {
 			},
 			footer: {
 				style: 'dark',
-				links: [
+				links: [],
+				/*
+        [
 					{
 						title: 'Docs',
 						items: [
@@ -130,6 +134,7 @@ const config = {
 						],
 					},
 				],
+        */
 				copyright: getCopyright(),
 			},
 			prism: {
@@ -145,7 +150,7 @@ function getCopyright() {
 	return `&copy; Christophe Noël (2019-${new Date().getFullYear()}) - MIT
 				License
 				<br />
-				chord-symbol ${versions['chord-symbol']} - chord-symbol-musicxml{' '}
+				chord-symbol ${versions['chord-symbol']} - chord-symbol-musicxml${' '}
 				${versions['chord-symbol-musicxml']}`;
 }
 

@@ -16,8 +16,8 @@ const Parser = ({
 	renderedChordDefault,
 	notationSystems,
 	setNotationSystems,
-	key,
-	setKey,
+	contextKey,
+	setContextKey,
 }) => {
 	return (
 		<div>
@@ -34,8 +34,8 @@ const Parser = ({
 					setNotationSystems={setNotationSystems}
 					altIntervals={altIntervals}
 					setAltIntervals={setAltIntervals}
-					key={key}
-					setKey={setKey}
+					contextKey={contextKey}
+					setContextKey={setContextKey}
 				/>
 				<Parsed
 					parsedChord={parsedChord}
