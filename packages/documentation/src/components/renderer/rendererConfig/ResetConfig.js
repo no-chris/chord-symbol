@@ -2,15 +2,13 @@ import React from 'react';
 
 const ResetConfig = ({
 	setTransposeValue,
-	setHarmonizeAccidentals,
-	setUseFlats,
+	setAccidental,
 	setSimplify,
 	setUseShortNamings,
 }) => {
 	const handleClick = () => {
 		setTransposeValue(0);
-		setHarmonizeAccidentals(false);
-		setUseFlats(false);
+		setAccidental('original');
 		setSimplify('none');
 		setUseShortNamings(false);
 	};

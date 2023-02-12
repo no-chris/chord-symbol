@@ -16,11 +16,10 @@ const defaultAltIntervals = ['b5', '#5', 'b9', '#9', '#11', 'b13'];
 
 export default function HomePage() {
 	const [userChordSymbol, setUserChordSymbol] = useState(defaultUserSymbol);
+	const [accidental, setAccidental] = useState('original');
 	const [simplify, setSimplify] = useState('none');
 	const [useShortNamings, setUseShortNamings] = useState(false);
 	const [transposeValue, setTransposeValue] = useState(0);
-	const [harmonizeAccidentals, setHarmonizeAccidentals] = useState(false);
-	const [useFlats, setUseFlats] = useState(false);
 	const [rendererNotationSystem, setRendererNotationSystem] =
 		useState('english');
 	const [parserNotationSystems, setParserNotationSystems] = useState(
@@ -41,11 +40,12 @@ export default function HomePage() {
 		parsingErrors = parsedChord.error;
 	}
 
+	console.log(accidental);
+
 	const rendererConfig = {
 		useShortNamings,
 		transposeValue,
-		harmonizeAccidentals,
-		useFlats,
+		accidental,
 		simplify,
 		notationSystem: rendererNotationSystem,
 	};
@@ -79,18 +79,16 @@ export default function HomePage() {
 				setContextKey={setContextKey}
 			/>
 			<Renderer
-				useFlats={useFlats}
+				accidental={accidental}
 				transposeValue={transposeValue}
-				harmonizeAccidentals={harmonizeAccidentals}
 				notationSystem={rendererNotationSystem}
 				simplify={simplify}
 				useShortNamings={useShortNamings}
 				setUseShortNamings={setUseShortNamings}
 				setSimplify={setSimplify}
 				setTransposeValue={setTransposeValue}
-				setHarmonizeAccidentals={setHarmonizeAccidentals}
 				setNotationSystem={setRendererNotationSystem}
-				setUseFlats={setUseFlats}
+				setAccidental={setAccidental}
 				renderedChordTxt={renderedChordTxt}
 				renderedChordRaw={renderedChordRaw}
 			/>

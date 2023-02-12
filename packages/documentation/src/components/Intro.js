@@ -36,14 +36,18 @@ const Intro = () => {
 			<ul>
 				<li>
 					Read the full{' '}
-					<a href={'https://github.com/no-chris/chord-symbol#readme'}>
+					<a
+						href={
+							'https://github.com/no-chris/chord-symbol/tree/master/packages/chord-symbol#readme'
+						}
+					>
 						README
 					</a>
 				</li>
 				<li>
 					<a
 						href={
-							'https://github.com/no-chris/chord-symbol/blob/master/API.md'
+							'https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/API.md'
 						}
 					>
 						API documentation

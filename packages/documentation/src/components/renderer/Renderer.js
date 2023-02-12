@@ -6,17 +6,15 @@ import RendererConfig from './rendererConfig/RendererConfig';
 import Rendered from './rendered/Rendered';
 
 const Renderer = ({
-	harmonizeAccidentals,
+	accidental,
 	simplify,
 	transposeValue,
 	notationSystem,
-	useFlats,
 	useShortNamings,
-	setHarmonizeAccidentals,
+	setAccidental,
 	setSimplify,
 	setTransposeValue,
 	setNotationSystem,
-	setUseFlats,
 	setUseShortNamings,
 	renderedChordTxt,
 	renderedChordRaw,
@@ -26,16 +24,14 @@ const Renderer = ({
 			<h3>Renderer</h3>
 			<div className={'Renderer_Container'}>
 				<RendererConfig
-					harmonizeAccidentals={harmonizeAccidentals}
+					accidental={accidental}
 					simplify={simplify}
 					transposeValue={transposeValue}
-					useFlats={useFlats}
 					useShortNamings={useShortNamings}
 					notationSystem={notationSystem}
-					setHarmonizeAccidentals={setHarmonizeAccidentals}
+					setAccidental={setAccidental}
 					setSimplify={setSimplify}
 					setTransposeValue={setTransposeValue}
-					setUseFlats={setUseFlats}
 					setUseShortNamings={setUseShortNamings}
 					setNotationSystem={setNotationSystem}
 				/>

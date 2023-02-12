@@ -4,24 +4,21 @@ import React from 'react';
 
 import ConvertNotationSystemConfigList from './ConvertNotationSystemConfigList';
 import TransposeValueConfig from './TransposeValueConfig';
-import HarmonizeAccidentalsConfig from './HarmonizeAccidentalsConfig';
-import UseFlatsConfig from './UseFlatsConfig';
+import AccidentalConfigList from './AccidentalConfigList';
 import ResetConfig from './ResetConfig';
 import SimplifyConfig from './SimplifyConfig';
 import UseShortNamingsConfig from './UseShortNamingsConfig';
 
 const RendererConfig = ({
-	harmonizeAccidentals,
+	accidental,
 	simplify,
 	transposeValue,
 	notationSystem,
-	useFlats,
 	useShortNamings,
-	setHarmonizeAccidentals,
+	setAccidental,
 	setSimplify,
 	setTransposeValue,
 	setNotationSystem,
-	setUseFlats,
 	setUseShortNamings,
 }) => {
 	const useShortNamingsDesc = useShortNamings
@@ -101,20 +98,9 @@ const RendererConfig = ({
 					</tr>
 					<tr>
 						<td colSpan={2}>
-							<HarmonizeAccidentalsConfig
-								harmonizeAccidentals={harmonizeAccidentals}
-								setHarmonizeAccidentals={
-									setHarmonizeAccidentals
-								}
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td colSpan={2}>
-							<UseFlatsConfig
-								useFlats={useFlats}
-								setUseFlats={setUseFlats}
-								harmonizeAccidentals={harmonizeAccidentals}
+							<AccidentalConfigList
+								accidental={accidental}
+								setAccidental={setAccidental}
 							/>
 						</td>
 					</tr>
@@ -122,8 +108,7 @@ const RendererConfig = ({
 			</table>
 			<ResetConfig
 				setTransposeValue={setTransposeValue}
-				setHarmonizeAccidentals={setHarmonizeAccidentals}
-				setUseFlats={setUseFlats}
+				setAccidental={setAccidental}
 				setSimplify={setSimplify}
 				setUseShortNamings={setUseShortNamings}
 			/>
