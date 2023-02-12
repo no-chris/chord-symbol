@@ -1,0 +1,80 @@
+@import './abstract';
+@import './knacss/knacss';
+
+.main {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: $spacer-small;
+}
+
+button {
+	background-color: $gray-500;
+
+	&:hover {
+		background-color: $gray-600;
+		color: white;
+	}
+
+	&:active {
+		background-color: $gray-800;
+		color: white;
+	}
+}
+
+.json {
+	@include font-size(small);
+}
+
+.chordSymbol {
+	white-space: nowrap;
+}
+
+.chordSymbol-h2 {
+	white-space: nowrap;
+	@include font-size(h2);
+	color: black;
+}
+
+h1,
+h2,
+h3 {
+	margin: $spacer-medium 0 $spacer-small;
+}
+
+.Json_Details {
+	@include font-size(small);
+	margin-top: $spacer-small;
+
+	summary {
+		cursor: pointer;
+	}
+}
+
+.configuration_Table {
+	border-top: 1px solid $gray-400;
+	margin-top: $spacer-small;
+
+	tr {
+		border-bottom: 1px solid $gray-400;
+	}
+
+	td {
+		padding: $spacer-tiny 0;
+	}
+}
+
+.configuration_Desc {
+	font-style: italic;
+	@include font-size(small);
+}
+
+.License {
+	text-align: center;
+	margin: $spacer-large 0;
+	@include font-size(small);
+	color: $gray-600;
+}
+
+code {
+	color: $blue-500;
+}
