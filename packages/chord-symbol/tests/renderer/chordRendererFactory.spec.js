@@ -52,7 +52,7 @@ describe('all filters', () => {
 			const renderChord = chordRendererFactory({
 				useShortNamings: true,
 				transposeValue: 7,
-				accidentals: 'flat',
+				accidental: 'flat',
 				simplify: 'max',
 				notationSystem: 'latin',
 			});
@@ -100,12 +100,12 @@ describe('Transpose', () => {
 		['0, flat input, original', 'Ab', 0, 'original', 'Ab'],
 		['0, flat input, sharp', 'Ab', 0, 'sharp', 'G#'],
 		['0, flat input, flat', 'Ab', 0, 'flat', 'Ab'],
-	])('%s', (title, input, transposeValue, accidentals, transposed) => {
+	])('%s', (title, input, transposeValue, accidental, transposed) => {
 		test(input + 'is transposed: ' + transposed, () => {
 			const parseChord = chordParserFactory();
 			const renderChord = chordRendererFactory({
 				transposeValue,
-				accidentals,
+				accidental,
 			});
 			const chord = parseChord(input);
 			expect(renderChord(chord)).toBe(transposed);
@@ -147,14 +147,14 @@ describe('Notation system', () => {
 		['Harmonized acc. / flats', 'german', 'La#/Reb', 'Hes/Des', 'flat'],
 		['Harmonized acc. / flats', 'latin', 'La#/Reb', 'Sib/Reb', 'flat'],
 		['Harmonized acc. / flats', 'auto', 'La#/Reb', 'Sib/Reb', 'flat'],
-	])('%s (%s): %s', (title, notationSystem, input, output, accidentals) => {
+	])('%s (%s): %s', (title, notationSystem, input, output, accidental) => {
 		test(`should be converted to ${output}`, () => {
 			const parseChord = chordParserFactory();
 			const parsed = parseChord(input);
 
 			const renderChord = chordRendererFactory({
 				notationSystem,
-				accidentals,
+				accidental,
 			});
 			const rendered = renderChord(parsed);
 			expect(rendered).toEqual(output);
