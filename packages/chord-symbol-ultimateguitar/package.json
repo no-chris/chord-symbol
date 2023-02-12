@@ -5,7 +5,7 @@
 	"author": "Christophe Noël",
 	"homepage": "https://github.com/no-chris/chord-symbol/tree/main/packages/chord-symbol-ultimateguitar#readme",
 	"license": "MIT",
-	"main": "lib/chord-symbol-ultimateguitar.js",
+	"main": "src/chordSymbolUltimateGuitar.js",
 	"directories": {
 		"lib": "lib",
 		"test": "src"

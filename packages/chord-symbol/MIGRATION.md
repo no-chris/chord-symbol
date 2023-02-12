@@ -15,6 +15,24 @@
 
 ## From v3.x.x to v4.0.0
 
+### Unbundled by default
+
+Using `ChordSymbol`'s default import now requires a bundler. If that does not work for you, you need to explicitely import the bundled version.
+
+To use the bundled version, instead of:
+
+```javascript
+import { chordPaserFactory } from 'chord-symbol';
+```
+
+Do:
+
+```javascript
+import { chordPaserFactory } from 'chord-symbol/lib/chord-symbol.js';
+```
+
+### Accidental API
+
 The API to set which accidental to use has been simplified to a single parameter instead of two.
 
 Instead of:
