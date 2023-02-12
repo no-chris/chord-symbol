@@ -94,13 +94,13 @@ describe.each([
 	['Db+0, #', 'Db', 0, 'sharp', 'C#'],
 ])(
 	'Transpose: %s',
-	(title, symbol, value, accidentals, transposedRoot, transposedBass) => {
+	(title, symbol, value, accidental, transposedRoot, transposedBass) => {
 		test('Should convert ' + symbol + ' into ' + transposedRoot, () => {
 			const parseChord = chordParserFactory();
 
 			const chord = parseChord(symbol);
 
-			const transposed = transpose(value, accidentals, chord);
+			const transposed = transpose(value, accidental, chord);
 
 			chord.normalized.rootNote = transposedRoot;
 			chord.formatted.rootNote = transposedRoot;
@@ -139,7 +139,7 @@ describe.each([
 	['Cm13', 'Bm13', 11, 'sharp', ['B', 'D', 'F#', 'A', 'C#', 'E', 'G#']],
 ])(
 	'Should also transpose chord notes',
-	(chord, rendered, transposeValue, accidentals, notes) => {
+	(chord, rendered, transposeValue, accidental, notes) => {
 		test(
 			chord +
 				' +' +
@@ -155,7 +155,7 @@ describe.each([
 
 				const transposed = transpose(
 					transposeValue,
-					accidentals,
+					accidental,
 					parsed
 				);
 

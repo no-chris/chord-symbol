@@ -6,14 +6,14 @@ import {
 
 import nameIndividualChordNotes from '../../parser/filters/nameIndividualChordNotes';
 
-export default function transpose(transposeValue, accidentals, chord) {
+export default function transpose(transposeValue, accidental, chord) {
 	const { rootNote, bassNote } = chord.normalized;
 
 	const rootSharp = convertToSharp(rootNote);
 	chord.normalized.rootNote = transposeNote(
 		rootSharp,
 		transposeValue,
-		accidentals
+		accidental
 	);
 	chord.formatted.rootNote = chord.normalized.rootNote;
 
@@ -22,7 +22,7 @@ export default function transpose(transposeValue, accidentals, chord) {
 		chord.normalized.bassNote = transposeNote(
 			bassSharp,
 			transposeValue,
-			accidentals
+			accidental
 		);
 		chord.formatted.bassNote = chord.normalized.bassNote;
 	}
@@ -30,7 +30,7 @@ export default function transpose(transposeValue, accidentals, chord) {
 	return nameIndividualChordNotes(chord);
 }
 
-function transposeNote(note, value, accidentals) {
+function transposeNote(note, value, accidental) {
 	const noteIndex = notesSharp.indexOf(note);
 	const transposedIndex = noteIndex + value;
 
@@ -39,7 +39,7 @@ function transposeNote(note, value, accidentals) {
 
 	const transposed = notesSharp[correctedTransposedIndex];
 
-	return accidentals === 'flat'
+	return accidental === 'flat'
 		? sharpsToFlats[transposed] || transposed
 		: transposed;
 }
