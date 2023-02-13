@@ -1,4 +1,5 @@
 import _invert from 'lodash/invert';
+import _omit from 'lodash/omit';
 
 const notes = {
 	AFlat: 'Ab',
@@ -72,26 +73,23 @@ const latin = {
 };
 
 const german = {
+	..._omit(english, ['Bb', 'B', 'B#']),
 	As: notes.AFlat,
-	A: notes.A,
 	Ais: notes.ASharp,
+	Hb: notes.BFlat,
 	Hes: notes.BFlat,
 	H: notes.B,
 	His: notes.C,
+	'H#': notes.C,
 	Ces: notes.B,
-	C: notes.C,
 	Cis: notes.CSharp,
 	Des: notes.DFlat,
-	D: notes.D,
 	Dis: notes.DSharp,
 	Es: notes.EFlat,
-	E: notes.E,
 	Eis: notes.F,
 	Fes: notes.E,
-	F: notes.F,
 	Fis: notes.FSharp,
 	Ges: notes.GFlat,
-	G: notes.G,
 	Gis: notes.GSharp,
 };
 
@@ -118,6 +116,7 @@ const latinVariantsToNotes = {
 
 const germanVariantsToNotes = {
 	...german,
+	...getAccidentalsVariation(german),
 };
 
 const allVariantsToNotes = {

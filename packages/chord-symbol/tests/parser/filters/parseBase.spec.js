@@ -1,7 +1,10 @@
 import initChord from '../../../src/parser/filters/initChord';
 import parseBase from '../../../src/parser/filters/parseBase';
 
-import { englishVariants } from '../../../src/dictionaries/notes';
+import {
+	englishVariants,
+	germanVariants,
+} from '../../../src/dictionaries/notes';
 import { NoSymbolFoundError } from '../../../src/helpers/ChordParsingError';
 
 describe('Basic parsing: rootNote, descriptor & bassNote', () => {
@@ -25,6 +28,29 @@ describe('Basic parsing: rootNote, descriptor & bassNote', () => {
 			expect(parsed.symbol).toBe(symbol);
 			expect(parsed.rootNote).toBe(rootNote);
 			expect(parsed.descriptor).toBe(descriptor);
+			expect(parsed.bassNote).toBe(bassNote);
+		});
+	});
+});
+
+describe('German notes', () => {
+	describe.each([
+		['A♯', 'A♯'],
+		['A#', 'A#'],
+		['Ais', 'Ais'],
+		['Hb', 'Hb'],
+		['H♭', 'H♭'],
+		['Hes', 'Hes'],
+		['Hes/F#', 'Hes', 'F#'],
+		['H/H#', 'H', 'H#'],
+		['H/Hb', 'H', 'Hb'],
+	])(`%s`, (symbol, rootNote, bassNote) => {
+		test('is correctly parsed in German notation', () => {
+			const chord = initChord({}, symbol);
+			const parsed = parseBase(germanVariants, chord).input;
+
+			expect(parsed.symbol).toBe(symbol);
+			expect(parsed.rootNote).toBe(rootNote);
 			expect(parsed.bassNote).toBe(bassNote);
 		});
 	});
