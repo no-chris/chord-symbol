@@ -24,9 +24,12 @@
 		"cartesian": "^1.0.1",
 		"clean-webpack-plugin": "^4.0.0",
 		"eslint": "^8.1.0",
+		"eslint-plugin-react": "^7.32.2",
 		"jest": "^29.0.1",
+		"jest-environment-jsdom": "^29.0.1",
 		"jsdoc-to-markdown": "^8.0.0",
 		"lerna": "^6.0.1",
+		"lerna-changelog": "^2.2.0",
 		"markdown-toc": "^1.2.0",
 		"prettier": "^2.3.0",
 		"rollup": "^3.2.3",
@@ -63,7 +66,5 @@
 	],
 	"types": "types/index.d.ts",
 	"dependencies": {
-		"jest-environment-jsdom": "^29.0.1",
-		"lerna-changelog": "^2.2.0"
 	}
 }
