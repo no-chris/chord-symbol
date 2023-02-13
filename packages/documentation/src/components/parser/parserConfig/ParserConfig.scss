@@ -1,0 +1,32 @@
+@import '../../../../scss/abstract';
+
+.parserConfig_Container {
+	margin-top: $spacer-small;
+}
+
+.parserConfigItem_Container {
+	padding: $spacer-tiny 0;
+}
+
+.pc-AltIntervalList_Container {
+}
+
+.pc-CheckboxList_Label {
+	margin-right: $spacer-medium;
+	display: inline-block;
+}
+
+.pc-CheckboxList_Item {
+	margin-right: $spacer-medium;
+	display: inline-block;
+}
+
+.pc-CheckboxList_ItemDescription {
+	//	@include font-size(small);
+	font-style: italic;
+	color: $gray-600;
+}
+
+.pc-CheckboxList_Checkbox {
+	margin-right: $spacer-tiny;
+}

@@ -6,7 +6,7 @@ module.exports = {
 	collectCoverage: true,
 	collectCoverageFrom: ['packages/**/src/**/*.js', '!**/node_modules/**'],
 	coverageDirectory: '<rootDir>/coverage',
-	coveragePathIgnorePatterns: ['node_modules'],
+	coveragePathIgnorePatterns: ['node_modules', 'packages/documentation'],
 	coverageReporters: ['json', 'lcov', 'text', 'clover'],
 	coverageThreshold: {
 		global: {

@@ -8303,27 +8303,27 @@ function simplify_simplify() {
 ;// CONCATENATED MODULE: ./src/renderer/filters/transpose.js
 
 
-function transpose(transposeValue, accidentals, chord) {
+function transpose(transposeValue, accidental, chord) {
   var _chord$normalized = chord.normalized,
     rootNote = _chord$normalized.rootNote,
     bassNote = _chord$normalized.bassNote;
   var rootSharp = convertToSharp(rootNote);
-  chord.normalized.rootNote = transposeNote(rootSharp, transposeValue, accidentals);
+  chord.normalized.rootNote = transposeNote(rootSharp, transposeValue, accidental);
   chord.formatted.rootNote = chord.normalized.rootNote;
   if (bassNote) {
     var bassSharp = convertToSharp(bassNote);
-    chord.normalized.bassNote = transposeNote(bassSharp, transposeValue, accidentals);
+    chord.normalized.bassNote = transposeNote(bassSharp, transposeValue, accidental);
     chord.formatted.bassNote = chord.normalized.bassNote;
   }
   return nameIndividualChordNotes(chord);
 }
-function transposeNote(note, value, accidentals) {
+function transposeNote(note, value, accidental) {
   var noteIndex = notesSharp.indexOf(note);
   var transposedIndex = noteIndex + value;
   var octaves = Math.floor(transposedIndex / 12);
   var correctedTransposedIndex = transposedIndex - octaves * 12;
   var transposed = notesSharp[correctedTransposedIndex];
-  return accidentals === 'flat' ? sharpsToFlats[transposed] || transposed : transposed;
+  return accidental === 'flat' ? sharpsToFlats[transposed] || transposed : transposed;
 }
 function convertToSharp(note) {
   return flatsToSharps[note] || note;
@@ -8449,8 +8449,8 @@ function chordRendererFactory_arrayLikeToArray(arr, len) { if (len == null || le
  */
 function chordRendererFactory() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    _ref$accidentals = _ref.accidentals,
-    accidentals = _ref$accidentals === void 0 ? 'original' : _ref$accidentals,
+    _ref$accidental = _ref.accidental,
+    accidental = _ref$accidental === void 0 ? 'original' : _ref$accidental,
     _ref$customFilters = _ref.customFilters,
     customFilters = _ref$customFilters === void 0 ? [] : _ref$customFilters,
     _ref$notationSystem = _ref.notationSystem,
@@ -8468,8 +8468,8 @@ function chordRendererFactory() {
   if (['max', 'core'].includes(simplify)) {
     allFilters.push(simplify_simplify.bind(null, simplify));
   }
-  if (accidentals !== 'original' || transposeValue !== 0) {
-    allFilters.push(transpose.bind(null, transposeValue, accidentals));
+  if (accidental !== 'original' || transposeValue !== 0) {
+    allFilters.push(transpose.bind(null, transposeValue, accidental));
   }
   if (useShortNamings) {
     allFilters.push(shortenNormalized);

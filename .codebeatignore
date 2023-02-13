@@ -1,1 +1,3 @@
 packages/chord-symbol/lib/**
+packages/chord-symbol-ultimateguitar/lib/**
+packages/documentation/**

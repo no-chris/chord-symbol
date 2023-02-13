@@ -7430,14 +7430,14 @@ function simplify(level = 'none', chord) {
 	return chain(allFilters, chord);
 }
 
-function transpose(transposeValue, accidentals, chord) {
+function transpose(transposeValue, accidental, chord) {
 	const { rootNote, bassNote } = chord.normalized;
 
 	const rootSharp = convertToSharp(rootNote);
 	chord.normalized.rootNote = transposeNote(
 		rootSharp,
 		transposeValue,
-		accidentals
+		accidental
 	);
 	chord.formatted.rootNote = chord.normalized.rootNote;
 
@@ -7446,7 +7446,7 @@ function transpose(transposeValue, accidentals, chord) {
 		chord.normalized.bassNote = transposeNote(
 			bassSharp,
 			transposeValue,
-			accidentals
+			accidental
 		);
 		chord.formatted.bassNote = chord.normalized.bassNote;
 	}
@@ -7454,7 +7454,7 @@ function transpose(transposeValue, accidentals, chord) {
 	return nameIndividualChordNotes(chord);
 }
 
-function transposeNote(note, value, accidentals) {
+function transposeNote(note, value, accidental) {
 	const noteIndex = notesSharp.indexOf(note);
 	const transposedIndex = noteIndex + value;
 
@@ -7463,7 +7463,7 @@ function transposeNote(note, value, accidentals) {
 
 	const transposed = notesSharp[correctedTransposedIndex];
 
-	return accidentals === 'flat'
+	return accidental === 'flat'
 		? sharpsToFlats[transposed] || transposed
 		: transposed;
 }
@@ -7580,7 +7580,7 @@ function rawPrinter(chord) {
  * @returns {function(Chord): String}
  */
 function chordRendererFactory({
-	accidentals = 'original',
+	accidental = 'original',
 	customFilters = [],
 	notationSystem = 'english',
 	printer = 'text',
@@ -7596,8 +7596,8 @@ function chordRendererFactory({
 		allFilters.push(simplify.bind(null, simplify$1));
 	}
 
-	if (accidentals !== 'original' || transposeValue !== 0) {
-		allFilters.push(transpose.bind(null, transposeValue, accidentals));
+	if (accidental !== 'original' || transposeValue !== 0) {
+		allFilters.push(transpose.bind(null, transposeValue, accidental));
 	}
 
 	if (useShortNamings) {

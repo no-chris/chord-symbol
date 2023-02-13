@@ -1,0 +1,19 @@
+@import '../../../../scss/abstract';
+
+.rendererConfig_Container {
+	margin-top: $spacer-medium;
+}
+
+.ui-RendererConfigItem_Container {
+	padding: $spacer-tiny 0;
+}
+
+.ui-RendererConfig_Radio,
+.ui-RendererConfig_Checkbox {
+	margin-right: $spacer-small;
+	cursor: pointer;
+}
+
+.ui-RendererConfig_RadioLabel {
+	margin-right: $spacer-small;
+}

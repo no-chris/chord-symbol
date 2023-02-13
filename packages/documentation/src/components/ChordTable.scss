@@ -1,0 +1,19 @@
+@import '../../scss/abstract';
+
+.ChordTable_Table {
+	border: 0px;
+	width: auto;
+	table-layout: auto;
+	margin-top: $spacer-medium;
+	tr {
+		border: 0px;
+		border-top: 1px solid $gray-400;
+		border-bottom: 1px solid $gray-400;
+	}
+	td,
+	th {
+		border: 0px;
+		width: $spacer-large-plus;
+		text-align: center;
+	}
+}
