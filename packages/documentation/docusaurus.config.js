@@ -71,6 +71,7 @@ const config = {
 				logo: {
 					alt: 'Chord Symbol',
 					src: 'img/logo.png',
+					srcDark: 'img/logo-dark.png',
 				},
 				items: [
 					/*
