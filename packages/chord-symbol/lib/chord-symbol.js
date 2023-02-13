@@ -1982,6 +1982,44 @@ module.exports = baseSetToString;
 
 /***/ }),
 
+/***/ 4259:
+/***/ ((module) => {
+
+/**
+ * The base implementation of `_.slice` without an iteratee call guard.
+ *
+ * @private
+ * @param {Array} array The array to slice.
+ * @param {number} [start=0] The start position.
+ * @param {number} [end=array.length] The end position.
+ * @returns {Array} Returns the slice of `array`.
+ */
+function baseSlice(array, start, end) {
+  var index = -1,
+      length = array.length;
+
+  if (start < 0) {
+    start = -start > length ? 0 : (length + start);
+  }
+  end = end > length ? length : end;
+  if (end < 0) {
+    end += length;
+  }
+  length = start > end ? 0 : ((end - start) >>> 0);
+  start >>>= 0;
+
+  var result = Array(length);
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+  return result;
+}
+
+module.exports = baseSlice;
+
+
+/***/ }),
+
 /***/ 2545:
 /***/ ((module) => {
 
@@ -2175,6 +2213,33 @@ function baseUniq(array, iteratee, comparator) {
 }
 
 module.exports = baseUniq;
+
+
+/***/ }),
+
+/***/ 7406:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var castPath = __webpack_require__(1811),
+    last = __webpack_require__(928),
+    parent = __webpack_require__(292),
+    toKey = __webpack_require__(327);
+
+/**
+ * The base implementation of `_.unset`.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {Array|string} path The property path to unset.
+ * @returns {boolean} Returns `true` if the property is deleted, else `false`.
+ */
+function baseUnset(object, path) {
+  path = castPath(path, object);
+  object = parent(object, path);
+  return object == null || delete object[toKey(last(path))];
+}
+
+module.exports = baseUnset;
 
 
 /***/ }),
@@ -2635,6 +2700,29 @@ module.exports = createSet;
 
 /***/ }),
 
+/***/ 696:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isPlainObject = __webpack_require__(8630);
+
+/**
+ * Used by `_.omit` to customize its `_.cloneDeep` use to only clone plain
+ * objects.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {string} key The key of the property to inspect.
+ * @returns {*} Returns the uncloned value or `undefined` to defer cloning to `_.cloneDeep`.
+ */
+function customOmitClone(value) {
+  return isPlainObject(value) ? undefined : value;
+}
+
+module.exports = customOmitClone;
+
+
+/***/ }),
+
 /***/ 8777:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -2956,6 +3044,29 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
 }
 
 module.exports = equalObjects;
+
+
+/***/ }),
+
+/***/ 9021:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var flatten = __webpack_require__(5564),
+    overRest = __webpack_require__(5357),
+    setToString = __webpack_require__(61);
+
+/**
+ * A specialized version of `baseRest` which flattens the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @returns {Function} Returns the new function.
+ */
+function flatRest(func) {
+  return setToString(overRest(func, undefined, flatten), func + '');
+}
+
+module.exports = flatRest;
 
 
 /***/ }),
@@ -4382,6 +4493,29 @@ module.exports = overRest;
 
 /***/ }),
 
+/***/ 292:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseGet = __webpack_require__(7786),
+    baseSlice = __webpack_require__(4259);
+
+/**
+ * Gets the parent value at `path` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array} path The path to get the parent value of.
+ * @returns {*} Returns the parent value.
+ */
+function parent(object, path) {
+  return path.length < 2 ? object : baseGet(object, baseSlice(path, 0, -1));
+}
+
+module.exports = parent;
+
+
+/***/ }),
+
 /***/ 5639:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -5123,6 +5257,35 @@ module.exports = findIndex;
 
 /***/ }),
 
+/***/ 5564:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseFlatten = __webpack_require__(1078);
+
+/**
+ * Flattens `array` a single level deep.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to flatten.
+ * @returns {Array} Returns the new flattened array.
+ * @example
+ *
+ * _.flatten([1, [2, [3, [4]], 5]]);
+ * // => [1, 2, [3, [4]], 5]
+ */
+function flatten(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? baseFlatten(array, 1) : [];
+}
+
+module.exports = flatten;
+
+
+/***/ }),
+
 /***/ 7361:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -5719,6 +5882,75 @@ module.exports = isObjectLike;
 
 /***/ }),
 
+/***/ 8630:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseGetTag = __webpack_require__(4239),
+    getPrototype = __webpack_require__(5924),
+    isObjectLike = __webpack_require__(7005);
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+module.exports = isPlainObject;
+
+
+/***/ }),
+
 /***/ 2928:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -5943,6 +6175,33 @@ module.exports = keysIn;
 
 /***/ }),
 
+/***/ 928:
+/***/ ((module) => {
+
+/**
+ * Gets the last element of `array`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to query.
+ * @returns {*} Returns the last element of `array`.
+ * @example
+ *
+ * _.last([1, 2, 3]);
+ * // => 3
+ */
+function last(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? array[length - 1] : undefined;
+}
+
+module.exports = last;
+
+
+/***/ }),
+
 /***/ 8306:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -6043,6 +6302,70 @@ function noop() {
 }
 
 module.exports = noop;
+
+
+/***/ }),
+
+/***/ 7557:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arrayMap = __webpack_require__(9932),
+    baseClone = __webpack_require__(5990),
+    baseUnset = __webpack_require__(7406),
+    castPath = __webpack_require__(1811),
+    copyObject = __webpack_require__(8363),
+    customOmitClone = __webpack_require__(696),
+    flatRest = __webpack_require__(9021),
+    getAllKeysIn = __webpack_require__(6904);
+
+/** Used to compose bitmasks for cloning. */
+var CLONE_DEEP_FLAG = 1,
+    CLONE_FLAT_FLAG = 2,
+    CLONE_SYMBOLS_FLAG = 4;
+
+/**
+ * The opposite of `_.pick`; this method creates an object composed of the
+ * own and inherited enumerable property paths of `object` that are not omitted.
+ *
+ * **Note:** This method is considerably slower than `_.pick`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The source object.
+ * @param {...(string|string[])} [paths] The property paths to omit.
+ * @returns {Object} Returns the new object.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': '2', 'c': 3 };
+ *
+ * _.omit(object, ['a', 'c']);
+ * // => { 'b': '2' }
+ */
+var omit = flatRest(function(object, paths) {
+  var result = {};
+  if (object == null) {
+    return result;
+  }
+  var isDeep = false;
+  paths = arrayMap(paths, function(path) {
+    path = castPath(path, object);
+    isDeep || (isDeep = path.length > 1);
+    return path;
+  });
+  copyObject(object, getAllKeysIn(object), result);
+  if (isDeep) {
+    result = baseClone(result, CLONE_DEEP_FLAG | CLONE_FLAT_FLAG | CLONE_SYMBOLS_FLAG, customOmitClone);
+  }
+  var length = paths.length;
+  while (length--) {
+    baseUnset(result, paths[length]);
+  }
+  return result;
+});
+
+module.exports = omit;
 
 
 /***/ }),
@@ -6549,6 +6872,9 @@ var checkCustomFilters = function checkCustomFilters(customFilters) {
 // EXTERNAL MODULE: ./node_modules/lodash/invert.js
 var invert = __webpack_require__(3137);
 var invert_default = /*#__PURE__*/__webpack_require__.n(invert);
+// EXTERNAL MODULE: ./node_modules/lodash/omit.js
+var omit = __webpack_require__(7557);
+var omit_default = /*#__PURE__*/__webpack_require__.n(omit);
 ;// CONCATENATED MODULE: ./src/dictionaries/notes.js
 var _sharpsToFlats;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -6557,6 +6883,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 var notes = {
   AFlat: 'Ab',
@@ -6626,29 +6953,25 @@ var latin = {
   Sol: notes.G,
   'Sol#': notes.GSharp
 };
-var german = {
+var german = _objectSpread(_objectSpread({}, omit_default()(english, ['Bb', 'B', 'B#'])), {}, {
   As: notes.AFlat,
-  A: notes.A,
   Ais: notes.ASharp,
+  Hb: notes.BFlat,
   Hes: notes.BFlat,
   H: notes.B,
   His: notes.C,
+  'H#': notes.C,
   Ces: notes.B,
-  C: notes.C,
   Cis: notes.CSharp,
   Des: notes.DFlat,
-  D: notes.D,
   Dis: notes.DSharp,
   Es: notes.EFlat,
-  E: notes.E,
   Eis: notes.F,
   Fes: notes.E,
-  F: notes.F,
   Fis: notes.FSharp,
   Ges: notes.GFlat,
-  G: notes.G,
   Gis: notes.GSharp
-};
+});
 function getAccidentalsVariation(source) {
   var variant;
   return Object.keys(source).reduce(function (acc, curr) {
@@ -6661,7 +6984,7 @@ function getAccidentalsVariation(source) {
 }
 var englishVariantsToNotes = _objectSpread(_objectSpread({}, english), getAccidentalsVariation(english));
 var latinVariantsToNotes = _objectSpread(_objectSpread({}, latin), getAccidentalsVariation(latin));
-var germanVariantsToNotes = _objectSpread({}, german);
+var germanVariantsToNotes = _objectSpread(_objectSpread({}, german), getAccidentalsVariation(german));
 var allVariantsToNotes = _objectSpread(_objectSpread(_objectSpread({}, englishVariantsToNotes), latinVariantsToNotes), germanVariantsToNotes);
 var allVariants = Object.keys(allVariantsToNotes).sort(function (a, b) {
   return b.length - a.length;
