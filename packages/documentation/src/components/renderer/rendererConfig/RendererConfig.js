@@ -24,7 +24,7 @@ const RendererConfig = ({
 	const useShortNamingsDesc = useShortNamings
 		? 'Usually shorter version of the default rendering (sometimes identical), ' +
 		  'to reflect real-life usage of chord symbol in available chords charts. ' +
-		  '<a href="https://github.com/no-chris/chord-symbol#rendering-and-normalization">View more details</a>.'
+		  '<a href="https://github.com/no-chris/chord-symbol/tree/master/packages/chord-symbol#rendering-and-normalization">View more details</a>.'
 		: '"Academic" rendering based on the rules defined in the books ' +
 		  '<code>Contemporary Music Theory Series</code> (by Mark Harrison) ' +
 		  'and <code>Standardized Chord Symbol Notation</code> (by Carl Brandt and Clinton Roemer)';
@@ -111,6 +111,7 @@ const RendererConfig = ({
 				setAccidental={setAccidental}
 				setSimplify={setSimplify}
 				setUseShortNamings={setUseShortNamings}
+				setNotationSystem={setNotationSystem}
 			/>
 		</div>
 	);

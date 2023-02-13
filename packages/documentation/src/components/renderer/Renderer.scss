@@ -5,3 +5,7 @@
 	background-color: $gray-200;
 	border: 3px solid $blue-500;
 }
+
+[data-theme='dark'] .Renderer_Container {
+	background-color: $gray-800;
+}

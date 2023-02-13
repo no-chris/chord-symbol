@@ -1,18 +1,15 @@
 @import './abstract';
-@import './knacss/knacss';
-
-.main {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: $spacer-small;
-}
 
 button {
 	background-color: $gray-500;
+	padding: $spacer-tiny-plus;
+	border: 0px;
+	@include font-size(tiny);
 
 	&:hover {
 		background-color: $gray-600;
 		color: white;
+		cursor: pointer;
 	}
 
 	&:active {
@@ -21,33 +18,26 @@ button {
 	}
 }
 
-.json {
-	@include font-size(small);
+[data-theme='dark'] button {
+	background-color: $gray-600;
+	color: black;
+
+	&:hover {
+		background-color: $gray-500;
+	}
+
+	&:active {
+		background-color: $gray-400;
+	}
+}
+
+select {
+	padding: $spacer-tiny-minus;
+	@include font-size(tiny);
 }
 
 .chordSymbol {
 	white-space: nowrap;
-}
-
-.chordSymbol-h2 {
-	white-space: nowrap;
-	@include font-size(h2);
-	color: black;
-}
-
-h1,
-h2,
-h3 {
-	margin: $spacer-medium 0 $spacer-small;
-}
-
-.Json_Details {
-	@include font-size(small);
-	margin-top: $spacer-small;
-
-	summary {
-		cursor: pointer;
-	}
 }
 
 .configuration_Table {
@@ -55,26 +45,41 @@ h3 {
 	margin-top: $spacer-small;
 
 	tr {
+		border: 0px;
 		border-bottom: 1px solid $gray-400;
 	}
 
 	td {
+		border: 0px;
 		padding: $spacer-tiny 0;
 	}
 }
 
+.chordSymbol-h2 {
+	white-space: nowrap;
+	@include font-size(h2);
+	color: black;
+}
+[data-theme='dark'] .chordSymbol-h2 {
+	color: white;
+}
+
+.Json_Details {
+	margin-top: $spacer-small;
+
+	summary {
+		cursor: pointer;
+	}
+}
+
+label {
+	cursor: pointer;
+}
+
+h3 {
+	margin-top: $spacer-medium;
+}
 .configuration_Desc {
 	font-style: italic;
-	@include font-size(small);
-}
-
-.License {
-	text-align: center;
-	margin: $spacer-large 0;
-	@include font-size(small);
-	color: $gray-600;
-}
-
-code {
-	color: $blue-500;
+	@include font-size(tiny);
 }

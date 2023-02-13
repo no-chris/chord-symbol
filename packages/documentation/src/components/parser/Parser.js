@@ -22,7 +22,7 @@ const Parser = ({
 	return (
 		<div>
 			<h3>Parser</h3>
-			<div className={'Parser_Container'}>
+			<div className={'Parser_Container container'}>
 				<UserInput
 					userChordSymbol={userChordSymbol}
 					setUserChordSymbol={setUserChordSymbol}

@@ -40,8 +40,6 @@ export default function HomePage() {
 		parsingErrors = parsedChord.error;
 	}
 
-	console.log(accidental);
-
 	const rendererConfig = {
 		useShortNamings,
 		transposeValue,
@@ -62,7 +60,7 @@ export default function HomePage() {
 	const renderedChordMusicXml = renderChordMusicXml(parsedChord);
 
 	return (
-		<div className={'main'}>
+		<div className={'container'}>
 			<Intro />
 			<h2>Demo</h2>
 			<Parser

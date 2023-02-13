@@ -7,10 +7,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-	title: 'Chord-symbol',
+	title: 'ChordSymbol',
 	tagline:
 		'The definitive chord symbol parser and renderer for Javascript/NodeJS.',
-	favicon: 'img/favicon.ico',
+	//favicon: 'img/favicon.ico',
 
 	// Set the production url of your site here
 	url: 'https://chord-symbol.netlify.app/',
@@ -67,10 +67,10 @@ const config = {
 			// Replace with your project's social card
 			image: 'img/docusaurus-social-card.jpg',
 			navbar: {
-				title: 'Chord Symbol',
+				title: '',
 				logo: {
 					alt: 'Chord Symbol',
-					src: 'img/logo.svg',
+					src: 'img/logo.png',
 				},
 				items: [
 					/*

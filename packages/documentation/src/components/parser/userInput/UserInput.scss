@@ -7,7 +7,6 @@
 	text-align: center;
 	font-style: italic;
 	padding: $spacer-small 0;
-	@include font-size(small);
 }
 
 .ui-SymbolPreset_Button {
@@ -38,4 +37,5 @@
 	width: 100%;
 	padding: $spacer-small;
 	text-align: center;
+	@include font-size(small);
 }

@@ -5,12 +5,14 @@ const ResetConfig = ({
 	setAccidental,
 	setSimplify,
 	setUseShortNamings,
+	setNotationSystem,
 }) => {
 	const handleClick = () => {
 		setTransposeValue(0);
 		setAccidental('original');
 		setSimplify('none');
 		setUseShortNamings(false);
+		setNotationSystem('english');
 	};
 
 	return (

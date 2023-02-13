@@ -1,8 +1,10 @@
+import './Intro.scss';
+
 import React from 'react';
 
 const Intro = () => {
 	return (
-		<div>
+		<div class={'Intro_Container'}>
 			<p>
 				<code>ChordSymbol</code> is the definitive chord symbol parser
 				and renderer for Javascript/NodeJS.
