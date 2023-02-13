@@ -16,6 +16,6 @@ const versions = {
 };
 const serialized = JSON.stringify(versions).replace(/"/g, "'");
 
-const fileContent = `module.exports = () => (${serialized});`;
+const fileContent = `/* eslint-env node */\nmodule.exports = () => (${serialized});`;
 
 fs.writeFileSync('./src/getVersions.js', fileContent);

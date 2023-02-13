@@ -7,8 +7,8 @@ const KeyConfigList = ({ setContextKey, contextKey }) => {
 	const allKeys = [...allNotes, ...allNotes.map((note) => note + 'm')];
 	allKeys.sort();
 
-	const handleKeyChange = (event) => {
-		setContextKey(event.target.value);
+	const handleKeyChange = (e) => {
+		setContextKey(e.target.value);
 	};
 
 	const keyDesc =

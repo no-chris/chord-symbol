@@ -1,3 +1,4 @@
+/* eslint-env node */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 const getVersions = require('./src/getVersions');

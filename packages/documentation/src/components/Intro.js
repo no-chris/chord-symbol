@@ -4,7 +4,7 @@ import React from 'react';
 
 const Intro = () => {
 	return (
-		<div class={'Intro_Container'}>
+		<div className={'Intro_Container'}>
 			<p>
 				<code>ChordSymbol</code> is the definitive chord symbol parser
 				and renderer for Javascript/NodeJS.

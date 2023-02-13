@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AccidentalConfig = ({ accidental, setAccidental, id, label }) => {
-	const handleChange = (e) => {
+	const handleChange = () => {
 		setAccidental(id);
 	};
 	return (
