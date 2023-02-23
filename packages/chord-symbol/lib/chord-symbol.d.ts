@@ -1,4 +1,4 @@
-declare module "chord-symbol/lib/chord-symbol" {
+declare module "chord-symbol/lib/chord-symbol.js" {
 export {
 	Chord,
 	ChordInput,

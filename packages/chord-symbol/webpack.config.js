@@ -47,7 +47,7 @@ const config = {
 					to: 'chord-symbol.d.ts',
 					transform(content) {
 						return (
-							'declare module "chord-symbol/lib/chord-symbol" {\n' +
+							'declare module "chord-symbol/lib/chord-symbol.js" {\n' +
 							content.toString() +
 							'\n}'
 						);
