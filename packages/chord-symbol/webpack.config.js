@@ -4,6 +4,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyPlugin = require('copy-webpack-plugin');
 
 const buildDir = 'lib';
 
@@ -38,6 +39,21 @@ const config = {
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',
 			openAnalyzer: false,
+		}),
+		new CopyPlugin({
+			patterns: [
+				{
+					from: 'types/index.d.ts',
+					to: 'chord-symbol.d.ts',
+					transform(content) {
+						return (
+							'declare module "chord-symbol/lib/chord-symbol.js" {\n' +
+							content.toString() +
+							'\n}'
+						);
+					},
+				},
+			],
 		}),
 	],
 
