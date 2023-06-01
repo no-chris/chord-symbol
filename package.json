@@ -23,7 +23,7 @@
 		"babel-loader": "^9.1.2",
 		"cartesian": "^1.0.1",
 		"clean-webpack-plugin": "^4.0.0",
-		"eslint": "^8.1.0",
+		"eslint": "^8.41.0",
 		"eslint-plugin-react": "^7.32.2",
 		"jest": "^29.0.1",
 		"jest-environment-jsdom": "^29.0.1",
