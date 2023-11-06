@@ -17,10 +17,11 @@
 		"get-permutations": "^1.0.0"
 	},
 	"dependencies": {
-		"lodash": "^4.17.21"
+		"lodash": "^4.17.21",
+		"sloc": "0.2.1"
 	},
 	"scripts": {
-		"bundle": "webpack && npx rollup -c rollup.config.mjs",
+		"bundle": "npx webpack && npx rollup -c rollup.config.mjs",
 		"build": "npm run bundle && npm run sloc && npm run size && npm run doc && npm run toc",
 		"doc": "npx jsdoc2md --no-gfm src/typedefs.js src/parser/chordParserFactory.js src/renderer/chordRendererFactory.js> API.md",
 		"size": "size-limit",
@@ -52,5 +53,8 @@
 		"src",
 		"types"
 	],
-	"types": "types/index.d.ts"
+	"types": "types/index.d.ts",
+	"workspaces": [
+		"packages/*"
+	]
 }

@@ -13,6 +13,10 @@ function chain(allFunctions, input) {
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
 /**
  * Removes all key-value entries from the list cache.
  *
@@ -1282,11 +1286,9 @@ var isArray$b = Array.isArray;
 
 var isArray_1 = isArray$b;
 
-var isBufferExports = {};
-var isBuffer$3 = {
-  get exports(){ return isBufferExports; },
-  set exports(v){ isBufferExports = v; },
-};
+var _isArray = /*@__PURE__*/getDefaultExportFromCjs(isArray_1);
+
+var isBuffer$3 = {exports: {}};
 
 /**
  * This method returns `false`.
@@ -1307,6 +1309,8 @@ function stubFalse() {
 }
 
 var stubFalse_1 = stubFalse;
+
+isBuffer$3.exports;
 
 (function (module, exports) {
 	var root = _root,
@@ -1346,8 +1350,10 @@ var stubFalse_1 = stubFalse;
 	 */
 	var isBuffer = nativeIsBuffer || stubFalse;
 
-	module.exports = isBuffer;
-} (isBuffer$3, isBufferExports));
+	module.exports = isBuffer; 
+} (isBuffer$3, isBuffer$3.exports));
+
+var isBufferExports = isBuffer$3.exports;
 
 /** Used as references for various `Number` constants. */
 
@@ -1490,11 +1496,9 @@ function baseUnary$4(func) {
 
 var _baseUnary = baseUnary$4;
 
-var _nodeUtilExports = {};
-var _nodeUtil = {
-  get exports(){ return _nodeUtilExports; },
-  set exports(v){ _nodeUtilExports = v; },
-};
+var _nodeUtil = {exports: {}};
+
+_nodeUtil.exports;
 
 (function (module, exports) {
 	var freeGlobal = _freeGlobal;
@@ -1526,8 +1530,10 @@ var _nodeUtil = {
 	  } catch (e) {}
 	}());
 
-	module.exports = nodeUtil;
-} (_nodeUtil, _nodeUtilExports));
+	module.exports = nodeUtil; 
+} (_nodeUtil, _nodeUtil.exports));
+
+var _nodeUtilExports = _nodeUtil.exports;
 
 var baseIsTypedArray = _baseIsTypedArray,
     baseUnary$3 = _baseUnary,
@@ -1879,11 +1885,9 @@ function baseAssignIn$1(object, source) {
 
 var _baseAssignIn = baseAssignIn$1;
 
-var _cloneBufferExports = {};
-var _cloneBuffer = {
-  get exports(){ return _cloneBufferExports; },
-  set exports(v){ _cloneBufferExports = v; },
-};
+var _cloneBuffer = {exports: {}};
+
+_cloneBuffer.exports;
 
 (function (module, exports) {
 	var root = _root;
@@ -1920,8 +1924,10 @@ var _cloneBuffer = {
 	  return result;
 	}
 
-	module.exports = cloneBuffer;
-} (_cloneBuffer, _cloneBufferExports));
+	module.exports = cloneBuffer; 
+} (_cloneBuffer, _cloneBuffer.exports));
+
+var _cloneBufferExports = _cloneBuffer.exports;
 
 /**
  * Copies the values of `source` to `array`.
@@ -2807,6 +2813,8 @@ function cloneDeep(value) {
 
 var cloneDeep_1 = cloneDeep;
 
+var _cloneDeep = /*@__PURE__*/getDefaultExportFromCjs(cloneDeep_1);
+
 var baseGetTag$2 = _baseGetTag,
     isArray$7 = isArray_1,
     isObjectLike$4 = isObjectLike_1;
@@ -2837,6 +2845,8 @@ function isString(value) {
 }
 
 var isString_1 = isString;
+
+var _isString = /*@__PURE__*/getDefaultExportFromCjs(isString_1);
 
 const checkCustomFilters = (customFilters) => {
 	if (!Array.isArray(customFilters)) {
@@ -3042,6 +3052,8 @@ var invert = createInverter(function(result, value, key) {
 }, constant$1(identity$3));
 
 var invert_1 = invert;
+
+var _invert = /*@__PURE__*/getDefaultExportFromCjs(invert_1);
 
 /**
  * A specialized version of `_.map` for arrays without support for iteratee
@@ -3859,6 +3871,8 @@ var omit = flatRest(function(object, paths) {
 
 var omit_1 = omit;
 
+var _omit = /*@__PURE__*/getDefaultExportFromCjs(omit_1);
+
 const notes = {
 	AFlat: 'Ab',
 	A: 'A',
@@ -3931,7 +3945,7 @@ const latin = {
 };
 
 const german = {
-	...omit_1(english, ['Bb', 'B', 'B#']),
+	..._omit(english, ['Bb', 'B', 'B#']),
 	As: notes.AFlat,
 	Ais: notes.ASharp,
 	Hb: notes.BFlat,
@@ -4043,7 +4057,7 @@ const sharpsToFlats = {
 	[notes.ASharp]: notes.BFlat,
 };
 
-const flatsToSharps = invert_1(sharpsToFlats);
+const flatsToSharps = _invert(sharpsToFlats);
 
 const allKeys = [
 	...Object.values(notes),
@@ -4706,9 +4720,11 @@ function isEqual(value, other) {
 
 var isEqual_1 = isEqual;
 
+var _isEqual = /*@__PURE__*/getDefaultExportFromCjs(isEqual_1);
+
 function hasExactly(allIntervals, search) {
-	const arraySearch = isArray_1(search) ? search : [search];
-	return isEqual_1(allIntervals, arraySearch);
+	const arraySearch = _isArray(search) ? search : [search];
+	return _isEqual(allIntervals, arraySearch);
 }
 
 function hasOneOf(allIntervals, search) {
@@ -4724,7 +4740,7 @@ function hasNoneOf(allIntervals, search) {
 }
 
 function has(allIntervals, search, require) {
-	const arraySearch = isArray_1(search) ? search : [search];
+	const arraySearch = _isArray(search) ? search : [search];
 
 	const lookupMethod = require === 'oneOf' ? 'some' : 'every';
 
@@ -5334,7 +5350,7 @@ function initChord(parserConfiguration = {}, symbol) {
 		},
 		normalized: {},
 		formatted: {},
-		parserConfiguration: cloneDeep_1(parserConfiguration),
+		parserConfiguration: _cloneDeep(parserConfiguration),
 	};
 }
 
@@ -5448,6 +5464,8 @@ function clone(value) {
 }
 
 var clone_1 = clone;
+
+var _clone = /*@__PURE__*/getDefaultExportFromCjs(clone_1);
 
 var Stack = _Stack,
     baseIsEqual$1 = _baseIsEqual;
@@ -6191,6 +6209,8 @@ var find = createFind(findIndex);
 
 var find_1 = find;
 
+var _find = /*@__PURE__*/getDefaultExportFromCjs(find_1);
+
 /**
  * The base implementation of `_.isNaN` without support for number objects.
  *
@@ -6431,6 +6451,8 @@ function uniq(array) {
 
 var uniq_1 = uniq;
 
+var _uniq = /*@__PURE__*/getDefaultExportFromCjs(uniq_1);
+
 var SetCache = _SetCache,
     arrayIncludes = _arrayIncludes,
     arrayIncludesWith = _arrayIncludesWith,
@@ -6583,6 +6605,8 @@ var without = baseRest$1(function(array, values) {
 
 var without_1 = without;
 
+var _without = /*@__PURE__*/getDefaultExportFromCjs(without_1);
+
 /**
  * Detect chord quality and changes (extensions, alterations, adds and omits)
  *
@@ -6590,7 +6614,7 @@ var without_1 = without;
  * @returns {Chord}
  */
 function normalizeDescriptor(chord) {
-	let chordIntervals = clone_1(chord.normalized.intervals);
+	let chordIntervals = _clone(chord.normalized.intervals);
 
 	let normalized = {
 		quality: '',
@@ -6709,7 +6733,7 @@ function getChordQuality(allIntervals, chord, isSuspended, omits) {
 		{ qualityIntervals: ['b3', 'b5', 'bb7'], quality: qualities.dim7 },
 	].sort((a, b) => b.qualityIntervals.length - a.qualityIntervals.length);
 
-	return find_1(intervalsToQualities, (o) =>
+	return _find(intervalsToQualities, (o) =>
 		hasAll(intervalsForQualityDetection, o.qualityIntervals)
 	);
 }
@@ -6726,14 +6750,14 @@ function getIntervalsForQualityDetection(
 		undoOmit3.bind(null, omits),
 		undoSuspension.bind(null, isSuspended, chord.normalized.intents.major),
 		undoAlt5.bind(null, chord.normalized.intents.alt),
-		uniq_1,
+		_uniq,
 	];
 
-	return chain(allFilters, clone_1(allIntervals));
+	return chain(allFilters, _clone(allIntervals));
 }
 
 function undoOmit3(omits, allIntervals) {
-	const with3rd = clone_1(allIntervals);
+	const with3rd = _clone(allIntervals);
 
 	if (omits.includes('3')) {
 		with3rd.push('3');
@@ -6745,7 +6769,7 @@ function undoOmit3(omits, allIntervals) {
 
 function undoSuspension(isSuspended, hasMajorIntent, allIntervals) {
 	if (isSuspended) {
-		const unSuspended = without_1(allIntervals, '4');
+		const unSuspended = _without(allIntervals, '4');
 		unSuspended.push(hasMajorIntent ? '3' : 'b3');
 		return unSuspended;
 	}
@@ -6754,7 +6778,7 @@ function undoSuspension(isSuspended, hasMajorIntent, allIntervals) {
 
 function undoAlt5(isAlt, allIntervals) {
 	if (isAlt) {
-		const unaltered = without_1(allIntervals, 'b5', '#5');
+		const unaltered = _without(allIntervals, 'b5', '#5');
 		unaltered.push('5');
 		return unaltered;
 	}
@@ -7194,7 +7218,7 @@ function getIntervals(allModifiers$1, altIntervals) {
 		return ['1'];
 	}
 
-	return uniq_1([
+	return _uniq([
 		'1',
 		...getThird(allModifiers$1),
 		...getFourth(allModifiers$1),
@@ -7409,8 +7433,8 @@ function chordParserFactory(parserConfiguration = {}) {
 	const allNotationSystems = ['english', 'german', 'latin'];
 
 	const {
-		notationSystems = cloneDeep_1(allNotationSystems),
-		altIntervals = cloneDeep_1(allAltIntervals),
+		notationSystems = _cloneDeep(allNotationSystems),
+		altIntervals = _cloneDeep(allAltIntervals),
 		customFilters = [],
 		key = '',
 	} = parserConfiguration;
@@ -7436,7 +7460,7 @@ function chordParserFactory(parserConfiguration = {}) {
 			allErrors.push(formatError(e));
 		}
 
-		const allVariantsPerGroupCopy = cloneDeep_1(allVariantsPerGroup).filter(
+		const allVariantsPerGroupCopy = _cloneDeep(allVariantsPerGroup).filter(
 			(variantsGroup) => notationSystems.includes(variantsGroup.name)
 		);
 
@@ -7505,7 +7529,7 @@ function checkArray(arrayName, arrayToTest, allowedValues, allowEmpty) {
 }
 
 function checkKey(key) {
-	if (key !== '' && (!isString_1(key) || !allKeys.includes(key))) {
+	if (key !== '' && (!_isString(key) || !allKeys.includes(key))) {
 		throw new TypeError(`'${key}' is not a valid value for key`);
 	}
 }
@@ -7636,6 +7660,8 @@ var difference = baseRest(function(array, values) {
 
 var difference_1 = difference;
 
+var _difference = /*@__PURE__*/getDefaultExportFromCjs(difference_1);
+
 /**
  * @param {Chord} chord
  * @param {('none'|'max'|'core')} level
@@ -7666,7 +7692,7 @@ function simplify(level = 'none', chord) {
 		core: ['4', 'b9', '9', '#9', '11', '#11', 'b13', '13'],
 	};
 
-	const intervals = difference_1(
+	const intervals = _difference(
 		chord.normalized.intervals,
 		intervalsToRemove[level]
 	);
@@ -7832,7 +7858,7 @@ function rawPrinter(chord) {
 	// make sure the chord can be re-parsed, whichever notation system was used for the rendering
 	delete chord.parserConfiguration.notationSystems;
 
-	const cloned = cloneDeep_1(chord);
+	const cloned = _cloneDeep(chord);
 
 	// Re-parse the rendered chord to get the 'input' property right
 	const textPrinted = textPrinter(chord);
@@ -7890,7 +7916,7 @@ function chordRendererFactory({
 		if (!isValidChord(chord)) {
 			return null;
 		}
-		const filteredChord = chain(allFilters, cloneDeep_1(chord));
+		const filteredChord = chain(allFilters, _cloneDeep(chord));
 
 		return printer === 'raw'
 			? rawPrinter(filteredChord)

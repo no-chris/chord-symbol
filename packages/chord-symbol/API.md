@@ -72,7 +72,7 @@ after all built-in filters have been applied.</p>
 For maximum compatibility, your best bet is to always rely on the existing chord object structure.</li>
 <li>To fail the parsing, throw an exception and it will use the Error API.
 If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
-<a href="https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js">custom error types</a></li>
+<a href="https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/src/helpers/ChordParsingError.js">custom error types</a></li>
 </ul>
 <p><strong>Rendering filter</strong></p>
 <ul>
@@ -547,7 +547,7 @@ after all built-in filters have been applied.
 For maximum compatibility, your best bet is to always rely on the existing chord object structure.
 - To fail the parsing, throw an exception and it will use the Error API.
 If you want to be able to filter your exception in error handling, or to pass the chord object in its current state, use
-[custom error types](https://github.com/no-chris/chord-symbol/blob/master/src/helpers/ChordParsingError.js)
+[custom error types](https://github.com/no-chris/chord-symbol/blob/master/packages/chord-symbol/src/helpers/ChordParsingError.js)
 
 **Rendering filter**
 - If the purpose of your rendering filter is to change the text output of `ChordSymbol`,
