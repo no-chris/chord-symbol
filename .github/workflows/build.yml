@@ -21,7 +21,6 @@ jobs:
       # Install & build & test:
       - run: npm install
       - run: npm audit --production
-      - run: lerna bootstrap
       - run: yarn run build
       
       # Coverage report
