@@ -65,5 +65,8 @@
 		"types"
 	],
 	"types": "types/index.d.ts",
-	"dependencies": {}
+	"dependencies": {},
+	"workspaces": [
+		"packages/*"
+	]
 }
