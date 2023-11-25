@@ -9,5 +9,6 @@
 			"bug": "Bug Fixes",
 			"breaking": "Breaking changes"
 		}
-	}
+	},
+	"useWorkspaces": true
 }

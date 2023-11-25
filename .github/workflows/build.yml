@@ -1,31 +1,30 @@
 name: build
-on: 
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
 jobs:
-  build:
-    name: Build & test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+    build:
+        name: Build & test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
 
-      # Install Node 18
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 18
+            # Install Node 18
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 20
 
-      # Install & build & test:
-      - run: yarn install
-      - run: yarn audit --groups dependencies
-      - run: yarn run build
-      
-      # Coverage report
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+            # Install & build & test:
+            - run: yarn install
+            - run: yarn audit --groups dependencies
+            - run: yarn run build
 
+            # Coverage report
+            - name: Coveralls GitHub Action
+              uses: coverallsapp/github-action@v1.1.2
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
