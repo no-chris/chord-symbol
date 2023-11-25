@@ -3,6 +3,7 @@
 	"version": "2.1.0",
 	"description": "Chord symbol parser and renderer",
 	"author": "Christophe Noël",
+	"private": "true",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -34,7 +35,6 @@
 		"prettier": "^3.0.3",
 		"rollup": "^4.3.0",
 		"size-limit": "^10.0.2",
-		"sloc": "^0.3.0",
 		"typescript": "^5.2.2",
 		"webpack": "^5.37.0",
 		"webpack-bundle-analyzer": "^4.8.0",
@@ -65,7 +65,9 @@
 		"types"
 	],
 	"types": "types/index.d.ts",
-	"dependencies": {},
+	"dependencies": {
+		"sloc": "0.2.1"
+	},
 	"workspaces": [
 		"packages/*"
 	]
