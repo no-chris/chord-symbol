@@ -3502,86 +3502,86 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.5.2"
+"@rollup/rollup-android-arm-eabi@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-android-arm-eabi@npm:4.6.0"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm64@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-android-arm64@npm:4.5.2"
+"@rollup/rollup-android-arm64@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-android-arm64@npm:4.6.0"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.5.2"
+"@rollup/rollup-darwin-arm64@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-darwin-arm64@npm:4.6.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-x64@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-darwin-x64@npm:4.5.2"
+"@rollup/rollup-darwin-x64@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-darwin-x64@npm:4.6.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.5.2"
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.6.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.5.2"
+"@rollup/rollup-linux-arm64-gnu@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.6.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.5.2"
+"@rollup/rollup-linux-arm64-musl@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.6.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.5.2"
+"@rollup/rollup-linux-x64-gnu@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.6.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-musl@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.5.2"
+"@rollup/rollup-linux-x64-musl@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-linux-x64-musl@npm:4.6.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-arm64-msvc@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.5.2"
+"@rollup/rollup-win32-arm64-msvc@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.6.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.5.2"
+"@rollup/rollup-win32-ia32-msvc@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.6.0"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-x64-msvc@npm:4.5.2":
-  version: 4.5.2
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.5.2"
+"@rollup/rollup-win32-x64-msvc@npm:4.6.0":
+  version: 4.6.0
+  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.6.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -6315,19 +6315,19 @@ __metadata:
 
 "chord-symbol@file:../chord-symbol::locator=chord-symbol-ultimateguitar%40workspace%3Apackages%2Fchord-symbol-ultimateguitar":
   version: 4.0.0
-  resolution: "chord-symbol@file:../chord-symbol#../chord-symbol::hash=eeb8b4&locator=chord-symbol-ultimateguitar%40workspace%3Apackages%2Fchord-symbol-ultimateguitar"
+  resolution: "chord-symbol@file:../chord-symbol#../chord-symbol::hash=20c2d9&locator=chord-symbol-ultimateguitar%40workspace%3Apackages%2Fchord-symbol-ultimateguitar"
   dependencies:
     lodash: "npm:^4.17.21"
-  checksum: 3e9d22252cee82da756e25b704dd162aea89cb4d5dfc72b307563f6a3e827acd27a640da687c1c39c4d584294679d99b0072b66cd934402a7ffc2e5d182a0bde
+  checksum: d4354f002735d8d86ccb21b09249765d7ce3be5bc05d9582799535bb6fd2aa48d99f907f9f1467e4fa09a344801808f02ee49d135a75da5e96034dbebc327d04
   languageName: node
   linkType: hard
 
 "chord-symbol@file:../chord-symbol::locator=documentation%40workspace%3Apackages%2Fdocumentation":
   version: 4.0.0
-  resolution: "chord-symbol@file:../chord-symbol#../chord-symbol::hash=eeb8b4&locator=documentation%40workspace%3Apackages%2Fdocumentation"
+  resolution: "chord-symbol@file:../chord-symbol#../chord-symbol::hash=20c2d9&locator=documentation%40workspace%3Apackages%2Fdocumentation"
   dependencies:
     lodash: "npm:^4.17.21"
-  checksum: 3e9d22252cee82da756e25b704dd162aea89cb4d5dfc72b307563f6a3e827acd27a640da687c1c39c4d584294679d99b0072b66cd934402a7ffc2e5d182a0bde
+  checksum: d4354f002735d8d86ccb21b09249765d7ce3be5bc05d9582799535bb6fd2aa48d99f907f9f1467e4fa09a344801808f02ee49d135a75da5e96034dbebc327d04
   languageName: node
   linkType: hard
 
@@ -17526,21 +17526,21 @@ __metadata:
   linkType: hard
 
 "rollup@npm:^4.3.0":
-  version: 4.5.2
-  resolution: "rollup@npm:4.5.2"
+  version: 4.6.0
+  resolution: "rollup@npm:4.6.0"
   dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.5.2"
-    "@rollup/rollup-android-arm64": "npm:4.5.2"
-    "@rollup/rollup-darwin-arm64": "npm:4.5.2"
-    "@rollup/rollup-darwin-x64": "npm:4.5.2"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.5.2"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.5.2"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.5.2"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.5.2"
-    "@rollup/rollup-linux-x64-musl": "npm:4.5.2"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.5.2"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.5.2"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.5.2"
+    "@rollup/rollup-android-arm-eabi": "npm:4.6.0"
+    "@rollup/rollup-android-arm64": "npm:4.6.0"
+    "@rollup/rollup-darwin-arm64": "npm:4.6.0"
+    "@rollup/rollup-darwin-x64": "npm:4.6.0"
+    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.6.0"
+    "@rollup/rollup-linux-arm64-gnu": "npm:4.6.0"
+    "@rollup/rollup-linux-arm64-musl": "npm:4.6.0"
+    "@rollup/rollup-linux-x64-gnu": "npm:4.6.0"
+    "@rollup/rollup-linux-x64-musl": "npm:4.6.0"
+    "@rollup/rollup-win32-arm64-msvc": "npm:4.6.0"
+    "@rollup/rollup-win32-ia32-msvc": "npm:4.6.0"
+    "@rollup/rollup-win32-x64-msvc": "npm:4.6.0"
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
     "@rollup/rollup-android-arm-eabi":
@@ -17571,7 +17571,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 3f6379be42e8a57501798269baa097554d80fd018a5acb003f64eefd525e4932285073f8cf6148c4b7ae51b5b0807005e0a884241e113f03866b6d0ac783a54e
+  checksum: 27e5cb87633a480d951121a631cfcff1e5ca0539069f88abd3dd75df6b4cc4cadfb532ee84e1bf7d7a7f318ad57dc5e516c77331703761dd71ed57c0a57e0c3e
   languageName: node
   linkType: hard
 
