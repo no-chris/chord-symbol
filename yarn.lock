@@ -6309,18 +6309,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "chord-symbol-ultimateguitar@workspace:packages/chord-symbol-ultimateguitar"
   dependencies:
-    chord-symbol: "file:../chord-symbol"
+    chord-symbol: "workspace:^"
   languageName: unknown
   linkType: soft
-
-"chord-symbol@file:../chord-symbol::locator=chord-symbol-ultimateguitar%40workspace%3Apackages%2Fchord-symbol-ultimateguitar":
-  version: 4.0.0
-  resolution: "chord-symbol@file:../chord-symbol#../chord-symbol::hash=20c2d9&locator=chord-symbol-ultimateguitar%40workspace%3Apackages%2Fchord-symbol-ultimateguitar"
-  dependencies:
-    lodash: "npm:^4.17.21"
-  checksum: d4354f002735d8d86ccb21b09249765d7ce3be5bc05d9582799535bb6fd2aa48d99f907f9f1467e4fa09a344801808f02ee49d135a75da5e96034dbebc327d04
-  languageName: node
-  linkType: hard
 
 "chord-symbol@file:../chord-symbol::locator=documentation%40workspace%3Apackages%2Fdocumentation":
   version: 4.0.0
@@ -6341,7 +6332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chord-symbol@workspace:packages/chord-symbol":
+"chord-symbol@workspace:^, chord-symbol@workspace:packages/chord-symbol":
   version: 0.0.0-use.local
   resolution: "chord-symbol@workspace:packages/chord-symbol"
   dependencies:
