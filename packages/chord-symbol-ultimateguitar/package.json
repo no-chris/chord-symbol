@@ -36,6 +36,6 @@
 		"ukulele"
 	],
 	"dependencies": {
-		"chord-symbol": "file:../chord-symbol"
+		"chord-symbol": "workspace:^"
 	}
 }
