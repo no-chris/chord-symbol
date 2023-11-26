@@ -3,7 +3,6 @@
 	"version": "2.1.0",
 	"description": "Chord symbol parser and renderer",
 	"author": "Christophe Noël",
-	"private": "true",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -42,11 +41,10 @@
 		"webpack-cli": "^5.0.1"
 	},
 	"scripts": {
-		"build": "yarn run lint && yarn run format && yarn run test && lerna run build",
+		"build": "yarn run lint && yarn run format && yarn run test && yarn exec lerna run build",
 		"lint": "eslint packages",
 		"format": "prettier --write \"**/*.{js,jsx,json,ts,md,scss,css}\"",
-		"test": "jest",
-		"up": "yarn install && lerna exec yarn install && yarn upgrade && lerna exec yarn upgrade"
+		"test": "jest"
 	},
 	"keywords": [
 		"chord",
@@ -66,8 +64,8 @@
 		"types"
 	],
 	"types": "types/index.d.ts",
-	"dependencies": {},
 	"workspaces": [
 		"packages/*"
-	]
+	],
+	"packageManager": "yarn@4.0.2"
 }

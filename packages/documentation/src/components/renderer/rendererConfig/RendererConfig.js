@@ -33,9 +33,9 @@ const RendererConfig = ({
 		simplify === 'none'
 			? 'No simplification'
 			: simplify === 'core'
-			? 'Tries to keep ony the core characteristics of the chord by removing suspensions, ' +
-			  'extensions, most alterations, adds and omits. Seventh, altered fifth and bass note are kept.'
-			: 'Maximum simplification: remove all chord changes but the minor third.';
+			  ? 'Tries to keep ony the core characteristics of the chord by removing suspensions, ' +
+			    'extensions, most alterations, adds and omits. Seventh, altered fifth and bass note are kept.'
+			  : 'Maximum simplification: remove all chord changes but the minor third.';
 
 	const convertNotationSystemDesc =
 		'<code>Auto</code> will render the chord using the notation system detected during the parsing';

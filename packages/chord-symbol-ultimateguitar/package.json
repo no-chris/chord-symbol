@@ -36,6 +36,6 @@
 		"ukulele"
 	],
 	"dependencies": {
-		"chord-symbol": "^4.0.0"
+		"chord-symbol": "file:../chord-symbol"
 	}
 }

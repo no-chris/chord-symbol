@@ -6876,7 +6876,6 @@ var invert_default = /*#__PURE__*/__webpack_require__.n(invert);
 var omit = __webpack_require__(7620);
 var omit_default = /*#__PURE__*/__webpack_require__.n(omit);
 ;// CONCATENATED MODULE: ./src/dictionaries/notes.js
-var _sharpsToFlats;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -7010,7 +7009,7 @@ var allVariantsPerGroup = [{
 }];
 var notesSharp = [notes.A, notes.ASharp, notes.B, notes.C, notes.CSharp, notes.D, notes.DSharp, notes.E, notes.F, notes.FSharp, notes.G, notes.GSharp];
 var notesFlat = [notes.A, notes.BFlat, notes.B, notes.C, notes.DFlat, notes.D, notes.EFlat, notes.E, notes.F, notes.GFlat, notes.G, notes.AFlat];
-var sharpsToFlats = (_sharpsToFlats = {}, _defineProperty(_sharpsToFlats, notes.CSharp, notes.DFlat), _defineProperty(_sharpsToFlats, notes.DSharp, notes.EFlat), _defineProperty(_sharpsToFlats, notes.FSharp, notes.GFlat), _defineProperty(_sharpsToFlats, notes.GSharp, notes.AFlat), _defineProperty(_sharpsToFlats, notes.ASharp, notes.BFlat), _sharpsToFlats);
+var sharpsToFlats = _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({}, notes.CSharp, notes.DFlat), notes.DSharp, notes.EFlat), notes.FSharp, notes.GFlat), notes.GSharp, notes.AFlat), notes.ASharp, notes.BFlat);
 var flatsToSharps = invert_default()(sharpsToFlats);
 
 ;// CONCATENATED MODULE: ./src/dictionaries/allKeys.js
@@ -7248,33 +7247,33 @@ function formatSymbolParts_toPropertyKey(arg) { var key = formatSymbolParts_toPr
 function formatSymbolParts_toPrimitive(input, hint) { if (formatSymbolParts_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (formatSymbolParts_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 
-var qualityToDescriptor = (_qualityToDescriptor = {}, formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.ma, function () {
+var qualityToDescriptor = (_qualityToDescriptor = {}, formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.ma, function () {
   return '';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.ma6, function (chord) {
+}), qualities.ma6, function (chord) {
   return chord.normalized.intervals.includes('9') ? '69' : '6';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.ma7, function (chord) {
+}), qualities.ma7, function (chord) {
   return 'ma' + getHighestExtension(chord);
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.dom7, function (chord) {
+}), qualities.dom7, function (chord) {
   return chord.normalized.intents.alt ? '7alt' : getHighestExtension(chord);
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.mi, function () {
+}), qualities.mi, function () {
   return 'mi';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.mi6, function (chord) {
+}), qualities.mi6, function (chord) {
   return chord.normalized.intervals.includes('9') ? 'mi69' : 'mi6';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.mi7, function (chord) {
+}), qualities.mi7, function (chord) {
   return 'mi' + getHighestExtension(chord);
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.miMa7, function (chord) {
+}), qualities.miMa7, function (chord) {
   return 'miMa' + getHighestExtension(chord);
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.aug, function () {
+}), qualities.aug, function () {
   return '+';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.dim, function () {
+}), qualities.dim, function () {
   return 'dim';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.dim7, function () {
+}), formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.dim7, function () {
   return 'dim7';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.power, function () {
+}), qualities.power, function () {
   return '5';
-}), formatSymbolParts_defineProperty(_qualityToDescriptor, qualities.bass, function () {
+}), qualities.bass, function () {
   return ' bass';
-}), _qualityToDescriptor);
+}));
 var chordChangesDescriptors = {
   add: 'add',
   add7: 'Ma7',
@@ -7479,37 +7478,37 @@ function getIntervalBetweenNotes(note1, note2) {
   var note2Index = notesSharp.indexOf(flatsToSharps[note2] || note2);
   return (note2Index - note1Index + 12) % 12;
 }
-var filters_formatNumeralSymbol_qualityToDescriptor = (formatNumeralSymbol_qualityToDescriptor = {}, formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.ma, function () {
+var filters_formatNumeralSymbol_qualityToDescriptor = (formatNumeralSymbol_qualityToDescriptor = {}, formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.ma, function () {
   return '';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.ma6, function () {
+}), qualities.ma6, function () {
   return '';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.ma7, function () {
+}), qualities.ma7, function () {
   return 'Δ';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dom7, function (chord, inversion) {
+}), qualities.dom7, function (chord, inversion) {
   return inversion === '' ? "".concat(formatNumeralSymbol_u.sup7) : '';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.mi, function () {
+}), qualities.mi, function () {
   return '';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.mi6, function () {
+}), qualities.mi6, function () {
   return '';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.mi7, function (chord, inversion) {
+}), qualities.mi7, function (chord, inversion) {
   if (chord.normalized.intervals.includes('b5')) {
     return 'ø';
   } else {
     return inversion === '' ? "".concat(formatNumeralSymbol_u.sup7) : '';
   }
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.miMa7, function () {
+}), qualities.miMa7, function () {
   return 'mΔ';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.aug, function () {
+}), qualities.aug, function () {
   return '+';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dim, function () {
+}), qualities.dim, function () {
   return '°';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dim7, function (chord, inversion) {
+}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.dim7, function (chord, inversion) {
   return inversion === '' ? "\xB0".concat(formatNumeralSymbol_u.sup7) : '°';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.power, function () {
+}), qualities.power, function () {
   return '';
-}), formatNumeralSymbol_defineProperty(formatNumeralSymbol_qualityToDescriptor, qualities.bass, function () {
+}), qualities.bass, function () {
   return '';
-}), formatNumeralSymbol_qualityToDescriptor);
+}));
 function isDiatonic(keyQuality, symbol) {
   if (keyQuality === 'major') {
     return diatonicChords.major.includes(symbol) || diatonicChords.dom7.includes(symbol);
@@ -7937,7 +7936,7 @@ function getAddsAndAlterations(chordIntervals, baseIntervals, quality) {
 }
 function isAlteration(quality, interval) {
   var _qualityAlterations;
-  var qualityAlterations = (_qualityAlterations = {}, normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma6, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma7, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dom7, ['b5', '#5', 'b9', '#9', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.mi, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.mi6, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.mi7, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.miMa7, ['b5', '#5', '#11', 'b13']), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.aug, []), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dim, []), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dim7, []), _qualityAlterations);
+  var qualityAlterations = (_qualityAlterations = {}, normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(normalizeDescriptor_defineProperty(_qualityAlterations, qualities.ma, ['b5', '#5', '#11', 'b13']), qualities.ma6, ['b5', '#5', '#11', 'b13']), qualities.ma7, ['b5', '#5', '#11', 'b13']), qualities.dom7, ['b5', '#5', 'b9', '#9', '#11', 'b13']), qualities.mi, ['b5', '#5', '#11', 'b13']), qualities.mi6, ['b5', '#5', '#11', 'b13']), qualities.mi7, ['b5', '#5', '#11', 'b13']), qualities.miMa7, ['b5', '#5', '#11', 'b13']), qualities.aug, []), qualities.dim, []), normalizeDescriptor_defineProperty(_qualityAlterations, qualities.dim7, []));
   return qualityAlterations[quality].includes(interval);
 }
 function hasAdd3(allIntervals) {
