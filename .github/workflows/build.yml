@@ -20,7 +20,7 @@ jobs:
 
             # Install & build & test:
             - run: yarn install
-            - run: yarn audit --groups dependencies
+            - run: yarn npm audit --environment production
             - run: yarn run build
 
             # Coverage report
