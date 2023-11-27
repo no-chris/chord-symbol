@@ -22,13 +22,13 @@
 		"chord-symbol": "workspace:^",
 		"chord-symbol-musicxml": "^0.1.1",
 		"clsx": "^2.0.0",
-		"docusaurus-plugin-sass": "^0.2.3",
-		"jstoxml": "^3.2.6",
+		"docusaurus-plugin-sass": "^0.2.5",
+		"jstoxml": "^3.2.10",
 		"prism-react-renderer": "^2.3.0",
 		"prismjs": "^1.29.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"sass": "^1.58.0"
+		"sass": "^1.69.5"
 	},
 	"devDependencies": {
 		"@docusaurus/module-type-aliases": "3.0.0"
